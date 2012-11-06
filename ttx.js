@@ -76,12 +76,12 @@ window.TTX = null;
                 }
                 else{
                     // try again
-                    setTimeout(function(){ updateRoomInfo(callback); }, 250);
+                    setTimeout(function(){ updateRoom(callback); }, 250);
                 }
             }
             else{
                 // try again
-                setTimeout(function(){ updateRoomInfo(callback); },250);
+                setTimeout(function(){ updateRoom(callback); },250);
             }
         }
 	// initialize event handlers
