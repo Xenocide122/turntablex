@@ -8,6 +8,7 @@ window.TTX = null;
         var _room = null; // handle to the room object
         var _location = null; // current URL location
         var _manager = null; // handle to the room manager
+        var _mods = null; // list of moderators in the current room
         var self = this;
 
         updateRoomInfo(); // get room and room manager
