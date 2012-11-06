@@ -34,6 +34,9 @@ window.TTX = null;
                     }
                 }
             }
+            else{
+                log('Failed to locate room handle.');
+            }
         }
         function initializeListeners(){
             // TODO
@@ -52,7 +55,5 @@ window.TTX = null;
     }
 
 })();
-if (window.turntableX){
-    turntableX.reset();
-}
-window.turntableX = TTX();
+
+window.turntableX = new TTX();
