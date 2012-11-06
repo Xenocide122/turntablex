@@ -1,16 +1,19 @@
 window.TTX = null;
 (function(){
     window.TTX = function(){
-        var _premiumIDs = null; // IDs to check against for premium access
+        // global state
+	var self = this;
+	var _premiumIDs = null; // IDs to check against for premium access
         var _premium = false; // enable premium access
         var _turntable = turntable; // handle to the turntable object
         var _id = null; // user ID
         
+	// room state
         var _room = null; // handle to the room object
         var _location = null; // current URL location
         var _manager = null; // handle to the room manager
         var _mods = null; // list of moderators in the current room
-        var self = this;
+        
 
         updateRoomInfo(function(){
             checkPremium();
@@ -64,38 +67,37 @@ window.TTX = null;
         }
         function initializeListeners(){
             _turntable.addEventListener('message',onMessage);
-            log('Event handlers set');
+            log('Event listener added');
+	    $(document).bind('DOMNodeInserted',function(event){onDOM(event);});
+	    log('DOM monitor added');
         }
         function initializeUI(){
             // TODO
         }
+	function onDOM(e){
+		var $element = $(e.target);
+		log(e.target);
+		if ($element.hasClass('modal')){
+			$(element + ' .title').html('Hax');
+		}
+	}
         function onMessage(e){
             if (e.hasOwnProperty('msgid')) {
-                log(e);
-    			return;
-			}
-			log('Command: ' + e.command);
-			if (e.command == 'rem_dj') {
-				
-			} else if (e.command == 'add_dj') {
-				
-			} else if (e.command == 'speak' && e.userid) {
-			
-			} else if (e.command == 'newsong') {
-			
-			} else if (e.command == 'update_votes') {
-			
-			} else if (e.command == 'update_user') {
-			
-			} else if (e.command == 'add_dj') {
-			
-			} else if (e.command == 'registered') {
-	
-			} else if (e.command == 'snagged') {
-
-			} else if (e.command == 'pmmed') {
-
-			}
+                log('ACK: ' + e.msgid);
+    		return;
+	    }
+	    log('Command: ' + e.command);
+	    if (e.command == 'rem_dj') {
+	    } else if (e.command == 'add_dj') {
+	    } else if (e.command == 'speak' && e.userid) {
+	    } else if (e.command == 'newsong') {
+	    } else if (e.command == 'update_votes') {
+	    } else if (e.command == 'update_user') {
+	    } else if (e.command == 'add_dj') {
+	    } else if (e.command == 'registered') {
+	    } else if (e.command == 'snagged') {
+            } else if (e.command == 'pmmed') {
+            }
         }
         
         function log(message){
