@@ -76,8 +76,9 @@ window.TTX = null;
         }
 	function onDOM(e){
 		var $element = $(e.target);
-		log(e.target);
-		if ($element.hasClass('modal')){
+		
+		if ($element.hasClass('modal') || $(element.hasClass('modalContainer')) ){
+			log(e.target);
 			$(element + ' .title').html('Hax');
 		}
 	}
