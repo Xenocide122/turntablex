@@ -23,9 +23,10 @@ window.TTX = null;
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
-                    log('Entering room: ' + _location);
+                    log('Entering room ' + _location + ':');
                     log(_room);
                     _mods = _room.moderators || [];
+                    log(_mods);
                     break;
                 }
             }
@@ -33,7 +34,7 @@ window.TTX = null;
                 for (var o in _room){
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
-                        log('Found room manager: ' + _manager);
+                        log('Found room manager:');
                         log(_manager):
                     }
                 }
