@@ -63,12 +63,16 @@ window.TTX = null;
             }
         }
         function initializeListeners(){
-            log('Initializing event handlers');
-            
+            _turntable.addEventListener('message',onMessage);
+            log('Event handlers set');
         }
         function initializeUI(){
             // TODO
         }
+        function onMessage(e){
+            log(e.data);
+        }
+        
         function log(message){
             if (window.console){
                 window.console.log(message);
