@@ -70,7 +70,32 @@ window.TTX = null;
             // TODO
         }
         function onMessage(e){
-            log(e.data);
+            if (e.hasOwnProperty('msgid')) {
+                log(e);
+    			return;
+			}
+			log('Command: ' + e.command);
+			if (e.command == 'rem_dj') {
+				
+			} else if (e.command == 'add_dj') {
+				
+			} else if (e.command == 'speak' && e.userid) {
+			
+			} else if (e.command == 'newsong') {
+			
+			} else if (e.command == 'update_votes') {
+			
+			} else if (e.command == 'update_user') {
+			
+			} else if (e.command == 'add_dj') {
+			
+			} else if (e.command == 'registered') {
+	
+			} else if (e.command == 'snagged') {
+
+			} else if (e.command == 'pmmed') {
+
+			}
         }
         
         function log(message){
