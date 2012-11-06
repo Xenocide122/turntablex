@@ -35,7 +35,7 @@ window.TTX = null;
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
                         log('Found room manager:');
-                        log(_manager):
+                        log(_manager);
                         break;
                     }
                 }
