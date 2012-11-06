@@ -77,7 +77,7 @@ window.TTX = null;
 	function onDOM(e){
 		var $element = $(e.target);
 		
-		if ($element.hasClass('modal') || $(element.hasClass('modalContainer')) ){
+		if ($element.hasClass('modal') || $element.hasClass('modalContainer') ){
 			log(e.target);
 			$element.find('.title').html('Hax');
 		}
