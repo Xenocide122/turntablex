@@ -11,11 +11,13 @@ window.TTX = null;
         var _mods = null; // list of moderators in the current room
         var self = this;
 
-        updateRoomInfo(); // get room and room manager
-        initializeListeners(); // initialize TT/DOM event handlers, only called once
-        initializeUI(); // initialize UI, only called once
+        updateRoomInfo(function(){ 
+            initializeListeners();
+            initializeUI();
+        } ); // get room and room manager
+
         
-        function updateRoomInfo(){
+        function updateRoomInfo(callback){
             _room = null;
             _location = window.location.pathname;    
             for (var o in _turntable){
@@ -33,9 +35,11 @@ window.TTX = null;
                         log('Found room manager: ' + _manager);
                     }
                 }
+                callback(); // success
             }
             else{
-                log('Failed to locate room handle.');
+                // try again
+                setTimeout(function(){ updateRoomInfo(callback); },250);
             }
         }
         function initializeListeners(){
