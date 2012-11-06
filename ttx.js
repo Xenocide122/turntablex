@@ -55,7 +55,6 @@ window.TTX = null;
                 if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
                     log('Entering room ' + _location);
-		    log(_room);
                     _mods = _room.moderators || [];
                     if (_id){
                         break;
@@ -73,8 +72,9 @@ window.TTX = null;
                 if (_id){
                     log('Room loaded');
 		    // get room information
-		    send({api : 'room.info', roomid: _room.roomId, extended: true},function(data){ 
-			log('Room information:');
+		    send({api : 'room.info', roomid: _room.roomId, extended: true},function(data){
+			log(data);
+			log('Room information: ');
 			callback();
 		    });
                 }
