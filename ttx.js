@@ -36,6 +36,7 @@ window.TTX = null;
                         _manager = _room[o];
                         log('Found room manager:');
                         log(_manager):
+                        break;
                     }
                 }
                 callback(); // success
