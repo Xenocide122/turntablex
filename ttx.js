@@ -1,7 +1,8 @@
 window.TTX = null;
 (function(){
     window.TTX = function(){
-        var _premium = null; // ID to check against for premium access
+        var _premiumIDs = null; // IDs to check against for premium access
+        var _premium = false; // enable premium access
         var _turntable = turntable; // handle to the turntable object
         var _id = null; // user ID
         
@@ -11,11 +12,18 @@ window.TTX = null;
         var _mods = null; // list of moderators in the current room
         var self = this;
 
-        updateRoomInfo(function(){ 
+        updateRoomInfo(function(){
+            checkPremium();
             initializeListeners();
             initializeUI();
-        } ); // get room and room manager
+        }); // get room and room manager
 
+        function checkPremium(){
+            if (_premiumIDs === null || $.inArray(_id,_premiumIDs)){
+                _premium = true;
+                log('Premium features enabled');
+            }
+        }
         
         function updateRoomInfo(callback){
             _room = null;
@@ -37,11 +45,11 @@ window.TTX = null;
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
                         _id = _manager.myuserid;
-                        log('Found room manager.');
                         break;
                     }
                 }
                 if (_id){
+                    log('Room loaded');
                     callback(); // success
                 }
                 else{
@@ -55,7 +63,8 @@ window.TTX = null;
             }
         }
         function initializeListeners(){
-            // TODO
+            log('Initializing event handlers');
+            
         }
         function initializeUI(){
             // TODO
