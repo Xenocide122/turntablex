@@ -21,7 +21,7 @@ window.TTX = null;
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
-                    log('Entering room: ' + _location ' @ ' + _room);
+                    log('Entering room: ' + _location + ' @ ' + _room);
                     _mods = _room.moderators || [];
                     break;
                 }
