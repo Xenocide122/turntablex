@@ -46,6 +46,13 @@ window.TTX = null;
                 window.console.log(message);
             }
         }
+        function reset(){
+            // TODO
+        }
     }
 
 })();
+if (window.turntableX){
+    turntableX.reset();
+}
+window.turntableX = TTX();
