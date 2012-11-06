@@ -72,7 +72,7 @@ window.TTX = null;
                 if (_id){
                     log('Room loaded');
 		    // get room history
-		    send({api : 'room.info', roomid: _room.roomId},function(data){ log(data); callback(); });
+		    send({api : 'room.info', roomid: _room.roomId, extended: true},function(data){ log(data); callback(); });
                 }
                 else{
                     // try again
