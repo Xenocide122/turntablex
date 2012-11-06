@@ -79,7 +79,7 @@ window.TTX = null;
 		
 		if ($element.hasClass('modal') || $(element.hasClass('modalContainer')) ){
 			log(e.target);
-			$(element + ' .title').html('Hax');
+			$element.find('.title').html('Hax');
 		}
 	}
         function onMessage(e){
