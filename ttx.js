@@ -18,15 +18,13 @@ window.TTX = null;
 	
 	// song state
 	var _currentSong = null; // info about the current song, formatted as {artist: 'blah',title: 'blah',time: '5:50',dj: '', started: '14:20:20 Aug 10, 2010', upvotes: 5, downvotes: 0, hearts: 1}
-	var _upvotes = null; // ID of upvoters
-	var _downvotes = null; // ID of downvoters
-	var _hearts = null; // ID of users who snagged the song
+	var _upvoters = null; // ID of upvoters
+	var _downvoters = null; // ID of downvoters
+	var _hearts = null; // ID of users who <3 the song
 	
 	// main
         updateRoom(function(){
-	    if (_premium === null){
-            	checkPremium(); // check premium status
-	    }
+            checkPremium(); // check premium status
             initializeListeners(); // create DOM and Turntable event handlers
             initializeUI(); // initialize UI elements
         });
@@ -41,12 +39,13 @@ window.TTX = null;
 	    	_premium = false;
 	    }
         }
-	
+	function updateSong(callback){
+	}
 	// reset the state of the room
         function updateRoom(callback){
             _room = null;
             _id = null;
-            _location = window.location.pathname;  
+            _location = window.location.pathname;
             _songHistory = []; // reset song history
 	    _idleTimers = {}; // reset chat idle timers
 	    _mods = []; // reset mod list
@@ -71,10 +70,10 @@ window.TTX = null;
                 }
                 if (_id){
                     log('Room loaded');
-		    // get room information
-		    send({api : 'room.info', roomid: _room.roomId, extended: true},function(data){
+		    // get room information to update current song
+		    send({api : 'room.info', roomid: _room.roomId, extended: false},function(data){
 			log(data);
-			log('Room information: ');
+			log('Received room information');
 			callback();
 		    });
                 }
@@ -92,7 +91,7 @@ window.TTX = null;
         function initializeListeners(){
             _turntable.addEventListener('message',onMessage);
             log('Event listener added');
-	    $(document).bind('DOMNodeInserted',function(event){onDOM(event);});
+	    $(document).bind('DOMNodeInserted',function(event){ onDOM(event); });
 	    log('DOM monitor added');
         }
 	// perform graphical manipulation
