@@ -116,7 +116,7 @@ window.TTX = null;
 	    guest_list.css({marginLeft:0,left:stage_width+250,width:250,top:100,height:stage_height}).appendTo(main_container);
 	    guest_list.find('.guests').css({height:stage_height-38});
 	    guest_list.find('.guestListButton').hide();
-	    guest_list.find('.guestListSize').css({left:0,right:0});
+	    guest_list.find('.guestListSize').css({left:0,width:100%});
 	}
 	function onDOM(e){
 		var $element = $(e.target);
