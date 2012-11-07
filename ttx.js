@@ -112,8 +112,8 @@ window.TTX = null;
 	    var play_list = $('#playlist');
 	    var chat = right_panel.find('.chat-container');
 	    
-	    stage.css({left:300});
-	    guest_list.css({marginLeft:0,left:stage_width+300,width:220,top:100,height:stage_height}).appendTo(main_container);
+	    stage.css({left:250});
+	    guest_list.css({marginLeft:0,left:stage_width+250,width:250,top:100,height:stage_height}).appendTo(main_container);
 	    guest_list.find('.guests').css({height:stage_height-38});
 	    guest_list.find('.guestListButton').hide();
 	    guest_list.find('.guestListSize').css({left:0});
