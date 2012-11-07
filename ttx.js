@@ -102,6 +102,7 @@ window.TTX = null;
         function initializeUI(){
             // TODO
 	    $('#outer').width('100%');
+	    $('#outer .roomView').append('<div id="ttx_right_panel" style="background-color: #fff; position: absolute; left: 527px; right: 0px; height: 603px"></div>');
         }
 	function onDOM(e){
 		var $element = $(e.target);
