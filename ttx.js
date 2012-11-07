@@ -111,8 +111,9 @@ window.TTX = null;
 			
 		}
 	}
-	function onResize(e){
+	function onResize(){
 		// TODO
+		log('Window resized: ' + $(window).width());
 		if ($(window).width() < 600){
 			$('#outer').width('600px');
 		}
