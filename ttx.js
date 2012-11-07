@@ -113,7 +113,7 @@ window.TTX = null;
 	    var chat = right_panel.find('.chat-container');
 	    
 	    stage.css({left:300});
-	    guest_list.css({marginLeft:0,left:0,top:100,height:stage_height}).appendTo(main_container);
+	    guest_list.css({marginLeft:0,left:stage_width+300,width:200,top:100,height:stage_height}).appendTo(main_container);
 	    guest_list.find('.guests').css({height:stage_height-38});
 	}
 	function onDOM(e){
