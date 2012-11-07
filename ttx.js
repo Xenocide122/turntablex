@@ -108,7 +108,7 @@ window.TTX = null;
 	    var ttx_panel = $('#ttx_right_panel');
 	    var right_panel = $('#right-panel');
 	    var guest_list = right_panel.find('.guest-list-container');
-	    guest_list.css({left:'0px',top:'0px',width:'200px',height:'100%'}).appendTo(ttx_panel);
+	    guest_list.css({left:'0px',top:'0px',width:'200px',height:'100%',margin-left:'0px'}).appendTo(ttx_panel);
 
 	    $('#playlist').height(right_panel.height());
 	}
