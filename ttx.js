@@ -76,8 +76,8 @@ window.TTX = null;
 		    send({api : 'room.info', roomid: _room.roomId, extended: false},function(data){
 			log(data);
 			log('Received room information');
-			callback();
 		    });
+		    callback();
                 }
                 else{
                     // try again
@@ -92,13 +92,16 @@ window.TTX = null;
 	// initialize event handlers
         function initializeListeners(){
             _turntable.addEventListener('message',onMessage);
-            log('Event listener added');
-	    $(document).bind('DOMNodeInserted',function(event){ onDOM(event); });
+            log('Event monitor added');
+	    $(document).bind('DOMNodeInserted',onDOM);
 	    log('DOM monitor added');
+	    $(window).bind('resize',onResize);
+	    log('Window resize monitor added');
         }
 	// perform graphical manipulation
         function initializeUI(){
             // TODO
+	    $('#outer').width('100%');
         }
 	function onDOM(e){
 		var $element = $(e.target);
@@ -106,6 +109,15 @@ window.TTX = null;
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
 			
+		}
+	}
+	function onResize(e){
+		// TODO
+		if ($(window).width() < 600){
+			$('#outer').width('600px');
+		}
+		else{
+			$('#outer').width('100%');
 		}
 	}
         function onMessage(e){
