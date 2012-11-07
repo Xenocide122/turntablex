@@ -107,7 +107,7 @@ window.TTX = null;
             
 	    var ttx_panel = $('#ttx_right_panel');
 	    var right_panel = $('#right-panel');
-	    right_panel.find('.guest-list-container').appendTo(ttx_panel);
+	    right_panel.find('.guest-list-container').appendTo(ttx_panel).css('width:100px;height:527px;');
 
 	    $('#playlist').height(right_panel.height());
 	}
