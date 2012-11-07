@@ -1,6 +1,6 @@
 window.TTX = null;
 (function(){
-    window.TTX = function(){
+    TTX = function(){
 
 
         // global state
@@ -137,10 +137,10 @@ window.TTX = null;
         }
 	// api send
 	function send(data,callback){
-		self.prototype.send(data,callback);
+		TTX.prototype.send(data,callback);
 	}
     }
-    window.TTX.prototype.send = function(data,callback){
+    TTX.prototype.send = function(data,callback){
     		var msg,
 		    defer = $.Deferred();
 
@@ -172,4 +172,4 @@ window.TTX = null;
 
 })();
 
-window.turntableX = new TTX();
+turntableX = new TTX();
