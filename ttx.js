@@ -117,14 +117,14 @@ window.TTX = null;
 	    guest_list.find('.chatResizeIcon').hide();
 	    right_panel.find('.chatHeader').unbind('mousedown').css('cursor', 'default');
 
-	    stage.css({left:220});
-	    guest_list.css({marginLeft:0,left:stage_width+220,width:220,top:100,height:stage_height}).appendTo(main_container);
+	    stage.css({left:230});
+	    guest_list.css({marginLeft:0,left:stage_width+230,width:220,top:100,height:stage_height}).appendTo(main_container);
 	    guest_list.find('.guests').css({height:stage_height-38});
 	    guest_list.find('.guestListButton').hide();
 	    guest_list.find('.guestListSize').css({left:0,width:'100%'});
 	    guest_list.find('.chatBar').css({width:'100%'});
 	    
-	    play_list.css({marginLeft:0,left:0,width:220,top:100,height:stage_height}).appendTo(main_container);
+	    play_list.css({marginLeft:0,left:0,width:230,top:100,height:stage_height}).appendTo(main_container);
 	}
 	function onDOM(e){
 		var $element = $(e.target);
