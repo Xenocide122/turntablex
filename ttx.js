@@ -125,6 +125,7 @@ window.TTX = null;
 	    guest_list.find('.chatBar').css({width:'100%'});
 	    
 	    play_list.css({marginLeft:0,left:0,width:230,top:100,height:stage_height}).appendTo(main_container);
+	    chat.css({marginLeft:0,position:'absolute',left:stage_width+550,top:100,height:stage_height,right:0}).appendTo(main_container);
 	}
 	function onDOM(e){
 		var $element = $(e.target);
