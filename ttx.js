@@ -118,6 +118,7 @@ window.TTX = null;
 	    guest_list.find('.guestListButton').hide();
 	    guest_list.find('.guestListSize').css({left:0,width:'100%'});
 	    guest_list.find('.chatBar').css({width:'100%'});
+	    right_panel.find('.chatHeader').unbind('mousedown').css('cursor', 'default');
 	}
 	function onDOM(e){
 		var $element = $(e.target);
