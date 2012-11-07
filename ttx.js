@@ -1,6 +1,8 @@
 window.TTX = null;
 (function(){
     window.TTX = function(){
+
+
         // global state
 	var self = this;
 	var _premiumIDs = null; // IDs to check against for premium access
@@ -135,7 +137,11 @@ window.TTX = null;
         }
 	// api send
 	function send(data,callback){
-		var msg,
+		self.prototype.send(data,callback);
+	}
+    }
+    window.TTX.prototype.send = function(data,callback){
+    		var msg,
 		    defer = $.Deferred();
 
 		if (data.api == "room.now") {
@@ -162,8 +168,7 @@ window.TTX = null;
 			});
 		});
 		return defer.promise();
-	}
-    }
+    };
 
 })();
 
