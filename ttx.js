@@ -100,20 +100,19 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
-            // TODO
-	    
+	    // make it fullscreen
 	    $('#outer').width('100%');
+	    // reposition the stage, playlist, chat, and guestlist
+	    var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
-	    var panel_height = right_panel.height();
-	    $('#outer .roomView').append('<div id="ttx_right_panel" style="position: absolute; left: 527px; top: 100px; right: 0px; height: ' + panel_height + 'px"></div>');
-          
-	    var ttx_panel = $('#ttx_right_panel');
+	    var stage = $('#floor-div').parent();
+	    var stage_height = stage.height();
+	    var stage_width = stage.width();
+            var guest_list = right_panel.find('.guest-list-container');
+	    var play_list = $('#playlist');
+	    var chat = right_panel.find('.chat-container');
 	    
-	    var guest_list = right_panel.find('.guest-list-container');
-	    guest_list.find('.guests').css({height: panel_height - 38}); 
-	    guest_list.css({left:'0px',top:'0px',width:'200px',height:'100%',marginLeft:'0px'}).appendTo(ttx_panel);
-
-	    $('#playlist').height(right_panel.height());
+	    stage.css({left:200,top:100});
 	}
 	function onDOM(e){
 		var $element = $(e.target);
