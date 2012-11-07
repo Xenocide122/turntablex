@@ -101,13 +101,16 @@ window.TTX = null;
 	// perform graphical manipulation
         function initializeUI(){
             // TODO
-	    $('#outer').width('100%');
 	    
-	    $('#outer .roomView').append('<div id="ttx_right_panel" style="position: absolute; left: 527px; top: 100px; right: 0px; height: 603px"></div>');
-            
-	    var ttx_panel = $('#ttx_right_panel');
+	    $('#outer').width('100%');
 	    var right_panel = $('#right-panel');
+	    var panel_height = right_panel.height();
+	    $('#outer .roomView').append('<div id="ttx_right_panel" style="position: absolute; left: 527px; top: 100px; right: 0px; height: ' + height + 'px"></div>');
+          
+	    var ttx_panel = $('#ttx_right_panel');
+	    
 	    var guest_list = right_panel.find('.guest-list-container');
+	    guest_list.find('.guests').css({height: height - 38}); 
 	    guest_list.css({left:'0px',top:'0px',width:'200px',height:'100%',marginLeft:'0px'}).appendTo(ttx_panel);
 
 	    $('#playlist').height(right_panel.height());
