@@ -102,8 +102,15 @@ window.TTX = null;
         function initializeUI(){
             // TODO
 	    $('#outer').width('100%');
+	    
 	    $('#outer .roomView').append('<div id="ttx_right_panel" style="position: absolute; left: 527px; top: 100px; right: 0px; height: 603px"></div>');
-        }
+            
+	    var ttx_panel = $('#ttx_right_panel');
+	    var right_panel = $('#right-panel');
+	    right_panel.find('.guest-list-container').appendTo(ttx_panel);
+
+	    $('#playlist').height(right_panel.height());
+	}
 	function onDOM(e){
 		var $element = $(e.target);
 		
