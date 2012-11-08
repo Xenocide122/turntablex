@@ -70,6 +70,7 @@ window.TTX = null;
                 if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
                     log('Entering room ' + _location);
+		    log(_room);
                     _mods = _room.moderators || [];
                     if (_id){
                         break;
@@ -81,7 +82,7 @@ window.TTX = null;
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
                         _id = _manager.myuserid;
-			log(_manager);
+			
 			for (var i in _manager.djs){
 				if (typeof _manager.djs[i] !== 'undefined'){
 					_djs.push(_manager.djs[i][0]);
