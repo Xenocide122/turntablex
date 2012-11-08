@@ -46,10 +46,11 @@ window.TTX = null;
 		var header = $('.room .name');
 		var song_bar = header.find('.ttx_song');
 		if (song_bar.length){
-			song_bar.text(' Now playing: '+_currentSong.title);
+			song_bar.text('Now playing: '+_currentSong.title);
 		}
 		else{
-			$('<span class="ttx_song" style="font-size:12px"> Now playing: ' + _currentSong.title + '</span>').appendTo(header);
+			header.text(header.text()+': ');
+			$('<span class="ttx_song" style="font-size:12px; font-weight:normal"> Now playing: ' + _currentSong.title + '</span>').appendTo(header);
 		}
 	}
 	// reset the state of the room
