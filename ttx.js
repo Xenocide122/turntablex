@@ -42,7 +42,15 @@ window.TTX = null;
 	    	_premium = false;
 	    }
         }
-	function updateSong(callback){
+	function updateHeader(){
+		var header = $('.room .name');
+		var song_bar = header.find('.ttx_song');
+		if (song_bar.length){
+			song_bar.text(_currentSong.title);
+		}
+		else{
+			$('<span class="ttx_song" style="font-size:12px">' + _currentSong.title + '</span>').appendTo(header);
+		}
 	}
 	// reset the state of the room
         function updateRoom(callback){
@@ -53,6 +61,8 @@ window.TTX = null;
 	    _idleTimers = {}; // reset chat idle timers
 	    _mods = []; // reset mod list
 	    _usernames = {}; // reset users
+	    _currentSong = {};
+	    _currentSong.title = 'Sample title';
 	    _djs = [];
 
             for (var o in _turntable){
@@ -146,7 +156,9 @@ window.TTX = null;
 	    chat.find('div.chatBar').css({width:'100%'});
 	    chat.find('.guestListIcon').hide();
 	    chat.find('.chatResizeIcon').hide();
-	    
+
+	    $('.room .name').css(width,730);
+
 	    room_info.find('.content').css({left:0,top:-1*(10+stage_height),height:(10+stage_height)});
 	    room_info.find('.songlog').css({height:500});
 	    room_info.find('.button').css({left:125}).unbind('click').bind('click',function(){ 
@@ -246,7 +258,7 @@ window.TTX = null;
     		return;
 	    }
 	    log('Command: ' + e.command);
-	    
+	    updateHeader();
 	    if (e.command == 'rem_dj') {
 		updateGuests();
 	    } else if (e.command == 'add_dj') {
