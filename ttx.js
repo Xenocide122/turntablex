@@ -70,8 +70,12 @@ window.TTX = null;
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
                         _id = _manager.myuserid;
+			for (var i in _manager.djs){
+				if (typeof _manager.djs[i] !== 'undefined'){
+					_djs.append(_manager.djs[i][0]);
+				}
+			}
 			_djs = _manager.djs;
-			console.log(_djs);
                         break;
                     }
                 }
