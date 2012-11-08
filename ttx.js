@@ -213,7 +213,8 @@ window.TTX = null;
 		guestsTimer = setTimeout(function() {
 			// get the current time
 			var now = new Date().getTime();
-
+			var mods = [];
+			var djs = [];
 			// update the chat box
 			var guest_container = $('.guest-list-container .guests');
 			var guests = $('.guest-list-container .guest');
@@ -228,21 +229,22 @@ window.TTX = null;
 					}
 					
 					// update special highlighters
-						var modClass = isMod(user_id) ? ' isMod' : '';
+						var modClass = '';
+						if (isMod(user_id){
+							modClass = ' isMod';
+							mods.push($this);
+						}
+						
 						if (isDJ(user_id)){
-							modClass = 'isDJ' + modClass;
+							djs.push($this);
 						}
 						$this.removeClass('isMod isDj isIdle').addClass(modClass);
 				}
 			});
 			// prepend mods
-			guests.filter(function() {
-				return $(this).hasClass('isMod');
-			}).prependTo(guest_container);
-			// prepend DJs (priority over mods)
-			guests.filter(function(){
-				return $(this).hasClass('isDJ');
-			}).prependTo(guest_container);
+		        $.each(mods,function(e){ e.prependTo(guest_container) });
+			$.each(djs,function(e){ e.prependTo(guest_container) });
+		
 			}, 50);
 	}
         function onMessage(e){
