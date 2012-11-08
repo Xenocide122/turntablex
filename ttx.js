@@ -127,6 +127,8 @@ window.TTX = null;
 	    play_list.css({marginLeft:0,left:0,width:230,top:105,height:stage_height}).appendTo(main_container);
 	    chat.css({marginLeft:0,position:'absolute',width:'auto',left:stage_width+465,top:105,height:stage_height,right:5}).appendTo(main_container);
 	    chat.find('.messages').css({height: stage_height-63});
+	    chat.find('.chat-box').css({width:'100%',left:0});
+	    chat.find('.guestListButton').hide();
 	}
 	function onDOM(e){
 		var $element = $(e.target);
