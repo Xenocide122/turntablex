@@ -111,7 +111,8 @@ window.TTX = null;
             var guest_list = right_panel.find('.guest-list-container');
 	    var play_list = $('#playlist');
 	    var chat = right_panel.find('.chat-container');
-	    
+	    var room_info = $('#room-info-tab');
+
 	    right_panel.find('.chatHeader').unbind('mousedown').css('cursor', 'default');
 
 	    stage.css({left:235,top:105});
@@ -134,8 +135,8 @@ window.TTX = null;
 	    chat.find('.guestListIcon').hide();
 	    chat.find('.chatResizeIcon').hide();
 	    
-	    $('.room-info-tab .content').css({left:0});
-	    $('.room-info-tab .button').css({left:200});
+	    room_info.find('.content').css({left:0});
+	    room_info.find('.content').css({left:200});
 
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-top':'2px','padding-bottom':'2px'});
