@@ -273,6 +273,12 @@ window.TTX = null;
 	    } else if (e.command == 'speak' && e.userid) {
 	    } else if (e.command == 'newsong') {
 		updateGuests();
+		_currentSong.artist = _room.currentSong.metadata.artist;
+		_currentSong.title = _room.currentSong.metadata.song;
+		_currentSong.upvotes = 0;
+		_currentSong.hearts = 0;
+		_currentSong.downvotes = 0;
+		updateHeader();
 	    } else if (e.command == 'update_votes') {
 		updateGuests();
 	    } else if (e.command == 'update_user') {
