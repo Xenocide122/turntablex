@@ -75,7 +75,8 @@ window.TTX = null;
 					_djs.push(_manager.djs[i][0]);
 				}
 			}
-			_djs = _manager.djs;
+				
+			
                         break;
                     }
                 }
