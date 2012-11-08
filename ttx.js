@@ -225,7 +225,7 @@ window.TTX = null;
 					var user_id = _usernames[username];
 					// update special highlighters
 					var modClass = '';
-					if (isMod(user_id){
+					if (isMod(user_id)){
 						modClass = ' isMod';
 					}
 					if (isDJ(user_id)){
