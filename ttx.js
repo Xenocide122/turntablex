@@ -184,17 +184,68 @@ window.TTX = null;
 			$('#outer').width('100%');
 		}
 	}
+	function isMod(id){
+		return $.inArray(id,_mods);
+	}
+	var guestsTimer = null;
+	function updateGuests(){
+		if (typeof guestsTimer == "number") {
+			clearTimeout(guestsTimer);
+			guestsTimer = null;
+		}
+
+		// attempt to repaint the DOM in 50 ms unless cancelled
+		guestsTimer = setTimeout(function() {
+			// get the current time
+			var now = new Date().getTime();
+
+			// update the chat box
+			$('#tt2_chat_box').find('.guest-list-container .guest').
+			each(function() {
+				var $this = $(this);
+				var $name = $this.find('.guestName');
+				var username = $name.text();
+				if (typeof _usernameMappings[username] != 'undefined') {
+					var user_id = _usernameMappings[username];
+					if (typeof _lastUserActions[user_id] != 'undefined') {
+						// update special highlighters
+						var modClass = isMod(user_id) ? ' isMod' : '';
+						modClass += isDjing ? ' isDj' : '';
+			
+						$this.removeClass('isMod isDj isIdle').addClass(modClass);
+						// update idle time
+						var lastIdle = formatDate(_lastUserActions[user_id]);
+						var $guestIdle = $this.find('.guestIdle');
+						if (!$guestIdle.length) {
+							$name.after('<div class="guestIdle">' + lastIdle + '</div>');
+						} else {
+							$guestIdle.html(lastIdle);
+						}
+					}
+				}
+			})
+			// find all DJs and Supers in the list
+			.filter(function() {
+				return $(this).hasClass('isMod') || $(this).hasClass('isDj');
+			})
+			// move to the top
+		        .prependTo($('.guest-list-container .guests'));
+			}, 50);
+	}
         function onMessage(e){
             if (e.hasOwnProperty('msgid')) {
                 log('ACK: ' + e.msgid);
     		return;
 	    }
 	    log('Command: ' + e.command);
+	    updateGuests();
 	    if (e.command == 'rem_dj') {
 	    } else if (e.command == 'add_dj') {
 	    } else if (e.command == 'speak' && e.userid) {
 	    } else if (e.command == 'newsong') {
 	    } else if (e.command == 'update_votes') {
+		
+
 	    } else if (e.command == 'update_user') {
 	    } else if (e.command == 'add_dj') {
 	    } else if (e.command == 'registered') {
