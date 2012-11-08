@@ -210,22 +210,14 @@ window.TTX = null;
 				var $this = $(this);
 				var $name = $this.find('.guestName');
 				var username = $name.text();
-				if (typeof _usernameMappings[username] != 'undefined') {
-					var user_id = _usernameMappings[username];
-					if (typeof _lastUserActions[user_id] != 'undefined') {
+				if (typeof _usernames[username] != 'undefined') {
+					var user_id = _usernames[username];
+			
 						// update special highlighters
 						var modClass = isMod(user_id) ? ' isMod' : '';
 			
 						$this.removeClass('isMod isDj isIdle').addClass(modClass);
-						// update idle time
-						var lastIdle = formatDate(_lastUserActions[user_id]);
-						var $guestIdle = $this.find('.guestIdle');
-						if (!$guestIdle.length) {
-							$name.after('<div class="guestIdle">' + lastIdle + '</div>');
-						} else {
-							$guestIdle.html(lastIdle);
-						}
-					}
+
 				}
 			})
 			// find all DJs and Supers in the list
