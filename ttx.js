@@ -135,7 +135,7 @@ window.TTX = null;
 	    chat.find('.guestListIcon').hide();
 	    chat.find('.chatResizeIcon').hide();
 	    
-	    room_info.find('.content').css({left:0});
+	    room_info.find('.content').css({left:0,top:-1*stage_height,height:stage_height});
 	    room_info.find('.button').css({left:125}).unbind('click').bind('click',function(){ 
  	    	var direction = 1;
 		if ($(this).hasClass('upbutton')){
