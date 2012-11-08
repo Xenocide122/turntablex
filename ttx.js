@@ -134,8 +134,8 @@ window.TTX = null;
 	    chat.find('.guestListIcon').hide();
 	    chat.find('.chatResizeIcon').hide();
 	    
-	    $('.room-info-tab content').css({left:0});
-	    $('.room-info-tab button').css({left:200});
+	    $('.room-info-tab .content').css({left:0});
+	    $('.room-info-tab .button').css({left:200});
 
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-top':'2px','padding-bottom':'2px'});
