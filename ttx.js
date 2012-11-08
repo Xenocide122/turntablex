@@ -193,6 +193,9 @@ window.TTX = null;
 	function isMod(id){
 		return $.inArray(id,_mods) >= 0;
 	}
+	function isDJ(id){
+		return $.inArray(id,_djs) >= 0;
+	}
 	var guestsTimer = null;
 	function updateGuests(){
 		if (typeof guestsTimer == "number") {
@@ -220,17 +223,20 @@ window.TTX = null;
 					
 					// update special highlighters
 						var modClass = isMod(user_id) ? ' isMod' : '';
-			
+						if (isDJ(user_id)){
+							modClass += ' isDJ';
+						}
 						$this.removeClass('isMod isDj isIdle').addClass(modClass);
-
 				}
-			})
-			// find all DJs and Supers in the list
-			.filter(function() {
-				return $(this).hasClass('isMod') || $(this).hasClass('isDj');
-			})
-			// move to the top
-		        .prependTo(guest_container);
+			});
+			// prepend mods
+			guests.filter(function() {
+				return $(this).hasClass('isMod');
+			}).prependTo(guest_container);
+			// prepend DJs (priority over mods)
+			guests.filter(function(){
+				return $(this).hasClass('isDJ');
+			}).prependTo(guest_container);
 			}, 50);
 	}
         function onMessage(e){
