@@ -136,8 +136,18 @@ window.TTX = null;
 	    chat.find('.chatResizeIcon').hide();
 	    
 	    room_info.find('.content').css({left:0});
-	    room_info.find('.button').css({left:100});
-
+	    room_info.find('.button').css({left:100}).unbind('click').bind('click',function(){ 
+ 	    	var direction = 1;
+		if ($(this).hasClass('upbutton')){
+			direction = -1;
+			$(this).removeClass('upbutton');
+		}
+		else{
+			$(this).addClass('upbutton');
+		}
+		return;
+		$(this).parent().find('.content, .button').animate({top:'+=' + stage_height*direction},250);
+	    });
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-top':'2px','padding-bottom':'2px'});
 	}
