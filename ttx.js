@@ -75,7 +75,7 @@ window.TTX = null;
 		    // get current song info
 		    _currentSong.title = _room.currentSong.metadata.song;
 		    _currentSong.artist = _room.currentSong.metadata.artist;
-		    _currentSong.upvotes = _room.upvotes.length;
+		    _currentSong.upvotes = _room.upvoters.length;
 		    _currentSong.downvotes = 0; // unknown
 		    _currentSong.hearts = 0; // unknown
 		    break;
