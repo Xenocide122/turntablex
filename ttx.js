@@ -24,7 +24,7 @@ window.TTX = null;
 	var _upvoters = null; // ID of upvoters
 	var _downvoters = null; // ID of downvoters
 	var _hearts = null; // ID of users who <3 the song
-	
+	var _djs = null; // user ids of djs
 	// main
         updateRoom(function(){
             checkPremium(); // check premium status
@@ -53,6 +53,7 @@ window.TTX = null;
 	    _idleTimers = {}; // reset chat idle timers
 	    _mods = []; // reset mod list
 	    _usernames = {}; // reset users
+	    _djs = [];
 
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
@@ -69,6 +70,7 @@ window.TTX = null;
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
                         _id = _manager.myuserid;
+			_djs = _manager.djs;
                         break;
                     }
                 }
