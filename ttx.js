@@ -130,6 +130,21 @@ window.TTX = null;
 	    chat.find('form.input-box').css({width:'100%',left:0});
 	    chat.find('div.guestListButton').hide();
 	    chat.find('div.chatBar').css({width:'100%'});
+	    changeClass('.message',{width:'100%'});
+	    
+	}
+	function changeClass(classname,properties){
+		var ss = document.styleSheets;
+        	for (var i=0; i<ss.length; i++) {
+            		var rules = ss[i].cssRules || ss[i].rules;
+            		for (var j=0; j<rules.length; j++) {
+                		if (rules[j].selectorText.indexOf(classname) > -1) {
+                    			for (prop in properties){
+						rules[j].style[prop] = properties[prop];
+					}
+                		}
+            		}
+        	}
 	}
 	function onDOM(e){
 		var $element = $(e.target);
