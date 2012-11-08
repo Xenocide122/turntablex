@@ -211,8 +211,11 @@ window.TTX = null;
 				var $name = $this.find('.guestName');
 				var username = $name.text();
 				if (typeof _usernames[username] != 'undefined') {
-					console.log('updating ' + username);
 					var user_id = _usernames[username];
+					if(username === 'Woobot'){
+						console.log('updating ' + username + ' mod: ' + isMod(user_id));
+					}
+					
 					// update special highlighters
 						var modClass = isMod(user_id) ? ' isMod' : '';
 			
