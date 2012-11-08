@@ -51,7 +51,7 @@ window.TTX = null;
 		}
 		else{
 			header.text(header.text()+': ');
-			$('<span class="#ttx_songbar" style="font-size:9px; font-weight:normal">' + text + '</span>').appendTo(header);
+			$('<span id="#ttx_songbar" style="font-size:9px; font-weight:normal">' + text + '</span>').appendTo(header);
 		}
 	}
 	// reset the state of the room
