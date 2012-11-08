@@ -157,7 +157,7 @@ window.TTX = null;
 	    chat.find('.guestListIcon').hide();
 	    chat.find('.chatResizeIcon').hide();
 
-	    $('.room .name').css(width,730);
+	    $('.room .name').css({width:730});
 
 	    room_info.find('.content').css({left:0,top:-1*(10+stage_height),height:(10+stage_height)});
 	    room_info.find('.songlog').css({height:500});
