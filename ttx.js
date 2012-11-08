@@ -267,7 +267,9 @@ window.TTX = null;
 		updateGuests();
 	    } else if (e.command == 'snagged') {
             } else if (e.command == 'pmmed') {
-            }
+            } else if (e.command == 'deregistered'){
+			updateGuests();
+		}
         }
         
         function log(message){
