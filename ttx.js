@@ -90,9 +90,7 @@ window.TTX = null;
 			for (var i in _manager.djs){
 				if (typeof _manager.djs[i] !== 'undefined'){
 					_djs.push(_manager.djs[i][0]);
-				}
-				break;
-                        	
+				}	
 			}
 			break;
                     }
