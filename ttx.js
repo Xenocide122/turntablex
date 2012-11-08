@@ -71,6 +71,7 @@ window.TTX = null;
                         _manager = _room[o];
                         _id = _manager.myuserid;
 			_djs = _manager.djs;
+			console.log(_djs);
                         break;
                     }
                 }
@@ -224,7 +225,7 @@ window.TTX = null;
 					// update special highlighters
 						var modClass = isMod(user_id) ? ' isMod' : '';
 						if (isDJ(user_id)){
-							modClass += ' isDJ';
+							modClass = 'isDJ' + modClass;
 						}
 						$this.removeClass('isMod isDj isIdle').addClass(modClass);
 				}
