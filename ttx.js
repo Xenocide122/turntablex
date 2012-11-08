@@ -243,26 +243,27 @@ window.TTX = null;
 	}
         function onMessage(e){
             if (e.hasOwnProperty('msgid')) {
-                log('ACK: ' + e.msgid);
     		return;
 	    }
 	    log('Command: ' + e.command);
-	    updateGuests();
+	    
 	    if (e.command == 'rem_dj') {
+		updateGuests();
 	    } else if (e.command == 'add_dj') {
+		updateGuests();
 	    } else if (e.command == 'speak' && e.userid) {
 	    } else if (e.command == 'newsong') {
+		updateGuests();
 	    } else if (e.command == 'update_votes') {
-		
-
+		updateGuests();
 	    } else if (e.command == 'update_user') {
-	    } else if (e.command == 'add_dj') {
-	    } else if (e.command == 'registered') {
+	    else if (e.command == 'registered') {
 		if( _location !== window.location.pathname ){
 			updateRoom(function(){
 				initializeUI();
 			});
 		}
+		updateGuests();
 	    } else if (e.command == 'snagged') {
             } else if (e.command == 'pmmed') {
             }
