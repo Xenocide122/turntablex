@@ -34,7 +34,7 @@ window.TTX = null;
 
         // reset the state of premium access
         function checkPremium(){
-            if (_premiumIDs === null || $.inArray(_id,_premiumIDs)){
+            if (_premiumIDs === null || $.inArray(_id,_premiumIDs) >= 0){
                 _premium = true;
                 log('Premium features enabled');
             }
@@ -189,7 +189,7 @@ window.TTX = null;
 		}
 	}
 	function isMod(id){
-		return $.inArray(id,_mods);
+		return $.inArray(id,_mods) >= 0;
 	}
 	var guestsTimer = null;
 	function updateGuests(){
