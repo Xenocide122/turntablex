@@ -52,6 +52,7 @@ window.TTX = null;
             _songHistory = []; // reset song history
 	    _idleTimers = {}; // reset chat idle timers
 	    _mods = []; // reset mod list
+	    _usernames = {}; // reset users
 
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
