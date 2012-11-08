@@ -45,13 +45,13 @@ window.TTX = null;
 	function updateHeader(){
 		var header = $('.room .name');
 		var song_bar = header.find('#ttx_songbar');
-		var text = 'Now playing: '+_currentSong.title+' by <b>'+_currentSong.artist+'</b> (' + _currentSong.upvotes + '<span style="color:#00ff00">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f00">&#10084;</span>';
+		var text = 'Now playing: '+_currentSong.title+' by <b>'+_currentSong.artist+'</b> (' + _currentSong.upvotes + '<span style="color:#00ff33">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f22">&#10084;</span>';
 		if (song_bar.length){
 			song_bar.html(text);
 		}
 		else{
 			header.text(header.text()+': ');
-			$('<span id="ttx_songbar" style="font-size:10px; font-weight:normal">' + text + '</span>').appendTo(header);
+			$('<span id="ttx_songbar" style="font-size:12px; font-weight:normal">' + text + '</span>').appendTo(header);
 		}
 	}
 	// reset the state of the room
