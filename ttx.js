@@ -149,7 +149,7 @@ window.TTX = null;
 		$(this).parent().find('.content, .button').animate({top:'+=' + (stage_height+10)*direction},350);
 	    });
             changeClass('.chat-container .messages .message',{width:'100%'});
-	    changeClass('.guest-list-container .guests .guest',{'padding-top':'1px'});
+	    changeClass('.guest-list-container .guests .guest',{width:'100%','padding-top':'1px'});
 	}
 	function changeClass(classname,properties){
 		var ss = document.styleSheets;
