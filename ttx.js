@@ -162,6 +162,7 @@ window.TTX = null;
                     			for (prop in properties){
 						rules[j].style[prop] = properties[prop];
 					}
+					return;
                 		}
             		}
         	}
