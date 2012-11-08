@@ -197,6 +197,11 @@ window.TTX = null;
 	    } else if (e.command == 'update_user') {
 	    } else if (e.command == 'add_dj') {
 	    } else if (e.command == 'registered') {
+		if( _location !== window.location.pathname ){
+			updateRoom(function(){
+				initializeUI();
+			});
+		}
 	    } else if (e.command == 'snagged') {
             } else if (e.command == 'pmmed') {
             }
