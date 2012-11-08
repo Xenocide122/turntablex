@@ -44,13 +44,14 @@ window.TTX = null;
         }
 	function updateHeader(){
 		var header = $('.room .name');
-		var song_bar = header.find('.ttx_song');
+		var song_bar = header.find('#ttx_songbar');
+		var text = 'Now playing: '+_currentSong.title+' by <b>'+_currentSong.artist+'</b> (' + _currentSong.upvotes + '<span style="color:#00ff11">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f00">&#10084;</span>';
 		if (song_bar.length){
-			song_bar.text('Now playing: '+_currentSong.title);
+			song_bar.text(text);
 		}
 		else{
 			header.text(header.text()+': ');
-			$('<span class="ttx_song" style="font-size:12px; font-weight:normal"> Now playing: ' + _currentSong.title + '</span>').appendTo(header);
+			$('<span class="#ttx_songbar" style="font-size:12px; font-weight:normal">' + text + '</span>').appendTo(header);
 		}
 	}
 	// reset the state of the room
@@ -63,7 +64,6 @@ window.TTX = null;
 	    _mods = []; // reset mod list
 	    _usernames = {}; // reset users
 	    _currentSong = {};
-	    _currentSong.title = 'Sample title';
 	    _djs = [];
 
             for (var o in _turntable){
@@ -72,9 +72,13 @@ window.TTX = null;
                     log('Entering room ' + _location);
 		    log(_room);
                     _mods = _room.moderators || [];
-                    if (_id){
-                        break;
-                    }
+		    // get current song info
+		    _currentSong.title = _room.currentSong.metadata.song;
+		    _currentSong.artist = _room.currentSong.metadata.artist;
+		    _currentSong.upvotes = _room.upvotes.length;
+		    _currentSong.downvotes = 0; // unknown
+		    _currentSong.hearts = 0; // unknown
+		    break;
                 }
             }
             if (_room){ // found turntable room
@@ -82,14 +86,11 @@ window.TTX = null;
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
                         _id = _manager.myuserid;
-			
+			// get DJs
 			for (var i in _manager.djs){
 				if (typeof _manager.djs[i] !== 'undefined'){
 					_djs.push(_manager.djs[i][0]);
 				}
-			}
-				
-			
                         break;
                     }
                 }
