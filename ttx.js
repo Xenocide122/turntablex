@@ -72,7 +72,7 @@ window.TTX = null;
                         _id = _manager.myuserid;
 			for (var i in _manager.djs){
 				if (typeof _manager.djs[i] !== 'undefined'){
-					_djs.append(_manager.djs[i][0]);
+					_djs.push(_manager.djs[i][0]);
 				}
 			}
 			_djs = _manager.djs;
