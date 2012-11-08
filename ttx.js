@@ -128,6 +128,7 @@ window.TTX = null;
 	    chat.css({marginLeft:0,position:'absolute',width:'auto',left:stage_width+465,top:105,height:stage_height,right:5}).appendTo(main_container);
 	    chat.find('div.messages').css({height: stage_height-63});
 	    chat.find('form.input-box').css({width:'100%',left:0});
+	    chat.find('form.input-box input').css({width:'100%'});
 	    chat.find('div.guestListButton').hide();
 	    chat.find('div.chatBar').css({width:'100%'});
 	    changeClass('.chat-container .messages .message',{width:'100%'});
