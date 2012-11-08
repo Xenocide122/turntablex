@@ -112,26 +112,29 @@ window.TTX = null;
 	    var play_list = $('#playlist');
 	    var chat = right_panel.find('.chat-container');
 	    
-	    chat.find('.guestListIcon').hide();
-	    chat.find('.chatResizeIcon').hide();
-	    guest_list.find('.chatResizeIcon').hide();
 	    right_panel.find('.chatHeader').unbind('mousedown').css('cursor', 'default');
 
 	    stage.css({left:235,top:105});
+
 	    guest_list.css({marginLeft:0,left:stage_width+240,width:220,top:105,height:stage_height}).appendTo(main_container);
 	    guest_list.find('.guests').css({height:stage_height-38});
 	    guest_list.find('.guestListButton').hide();
 	    guest_list.find('.guestListSize').css({left:0,width:'100%'});
 	    guest_list.find('.chatBar').css({width:'100%'});
-	    
+	    guest_list.find('.chatResizeIcon').hide();
+
 	    play_list.css({marginLeft:0,left:0,width:230,top:105,height:stage_height}).appendTo(main_container);
+
 	    chat.css({marginLeft:0,position:'absolute',width:'auto',left:stage_width+465,top:105,height:stage_height,right:5}).appendTo(main_container);
 	    chat.find('div.messages').css({height: stage_height-63});
 	    chat.find('form.input-box').css({width:'100%',left:0,backgroundImage:'none'});
-	    chat.find('form.input-box input').css({left:'5px',right:'5px',backgroundColor:"#fff",border:"1px solid #999"});
+	    chat.find('form.input-box input').css({left:'5px',right:'5px',paddingRight:'0px',width:'auto',backgroundColor:"#fff",border:"1px solid #999"});
 	    chat.find('div.guestListButton').hide();
 	    chat.find('div.chatBar').css({width:'100%'});
-	    changeClass('.chat-container .messages .message',{width:'100%'});
+	    chat.find('.guestListIcon').hide();
+	    chat.find('.chatResizeIcon').hide();
+	    
+            changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-top':'2px','padding-bottom':'2px'});
 	}
 	function changeClass(classname,properties){
