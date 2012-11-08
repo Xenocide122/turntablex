@@ -129,7 +129,7 @@ window.TTX = null;
 	    chat.find('div.messages').css({height: stage_height-63});
 	    chat.find('form.input-box').css({width:'100%',left:0});
 	    chat.find('div.guestListButton').hide();
-	    chat.find('div.chatBox').css({width:'100%'});
+	    chat.find('div.chatBar').css({width:'100%'});
 	}
 	function onDOM(e){
 		var $element = $(e.target);
