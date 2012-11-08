@@ -131,7 +131,7 @@ window.TTX = null;
 	    chat.find('div.guestListButton').hide();
 	    chat.find('div.chatBar').css({width:'100%'});
 	    changeClass('.chat-container .messages .message',{width:'100%'});
-	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-left':'3px'});
+	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-top':'2px','padding-bottom':'2px'});
 	}
 	function changeClass(classname,properties){
 		var ss = document.styleSheets;
