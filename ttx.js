@@ -118,7 +118,7 @@ window.TTX = null;
 	    right_panel.find('.chatHeader').unbind('mousedown').css('cursor', 'default');
 
 	    stage.css({left:235,top:105});
-	    guest_list.css({marginLeft:0,left:stage_width+240,width:240,top:105,height:stage_height}).appendTo(main_container);
+	    guest_list.css({marginLeft:0,left:stage_width+240,width:300,top:105,height:stage_height}).appendTo(main_container);
 	    guest_list.find('.guests').css({height:stage_height-38});
 	    guest_list.find('.guestListButton').hide();
 	    guest_list.find('.guestListSize').css({left:0,width:'100%'});
