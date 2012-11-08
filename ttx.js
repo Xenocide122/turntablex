@@ -17,7 +17,8 @@ window.TTX = null;
         var _mods = null; // list of moderator IDs for the current room
 	var _songHistory = null; // history of objects that look like _currentSong
 	var _idleTimers = null; // idle timers of all users
-	
+	var _usernames = null; // mapping of username to id
+
 	// song state
 	var _currentSong = null; // info about the current song, formatted as {artist: 'blah',title: 'blah',time: '5:50',dj: '', started: '14:20:20 Aug 10, 2010', upvotes: 5, downvotes: 0, hearts: 1}
 	var _upvoters = null; // ID of upvoters
@@ -72,11 +73,13 @@ window.TTX = null;
                 }
                 if (_id){
                     log('Room loaded');
-		    // get room information to update current song
-		    send({api : 'room.info', roomid: _room.roomId, extended: false},function(data){
-			log(data);
-			log('Received room information');
-		    });
+		    // get current users
+		    var users = _room.users;
+		    for (var i in users) {
+			// map names to ids
+			if (typeof _usernames[ _users[i].name ] == 'undefined')
+				_usernames[ _users[i].name ] = i;
+			}
 		    callback();
                 }
                 else{
@@ -200,8 +203,9 @@ window.TTX = null;
 			var now = new Date().getTime();
 
 			// update the chat box
-			$('#tt2_chat_box').find('.guest-list-container .guest').
-			each(function() {
+			var guest_container = $('.guest-list-container .guests');
+			var guests = $('.guest-list-container .guest');
+			guests.each(function() {
 				var $this = $(this);
 				var $name = $this.find('.guestName');
 				var username = $name.text();
@@ -210,7 +214,6 @@ window.TTX = null;
 					if (typeof _lastUserActions[user_id] != 'undefined') {
 						// update special highlighters
 						var modClass = isMod(user_id) ? ' isMod' : '';
-						modClass += isDjing ? ' isDj' : '';
 			
 						$this.removeClass('isMod isDj isIdle').addClass(modClass);
 						// update idle time
@@ -229,7 +232,7 @@ window.TTX = null;
 				return $(this).hasClass('isMod') || $(this).hasClass('isDj');
 			})
 			// move to the top
-		        .prependTo($('.guest-list-container .guests'));
+		        .prependTo(guest_container);
 			}, 50);
 	}
         function onMessage(e){
