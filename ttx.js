@@ -213,8 +213,7 @@ window.TTX = null;
 		guestsTimer = setTimeout(function() {
 			// get the current time
 			var now = new Date().getTime();
-			var mods = [];
-			var djs = [];
+
 			// update the chat box
 			var guest_container = $('.guest-list-container .guests');
 			var guests = $('.guest-list-container .guest');
@@ -228,18 +227,17 @@ window.TTX = null;
 					var modClass = '';
 					if (isMod(user_id){
 						modClass = ' isMod';
-						mods.push($this);
 					}
 					if (isDJ(user_id)){
 						modClass = 'isDJ' + modClass;
-						djs.push($this);
+	
 					}
-					$this.removeClass('isMod isDj isIdle').addClass(modClass);
+					$this.removeClass('isMod isDJ isIdle').addClass(modClass);
 				}
 			});
-			// prepend mods
-		        $.each(mods,function(e){ e.prependTo(guest_container) });
-			$.each(djs,function(e){ e.prependTo(guest_container) });
+			guests.filter('.isMod').prependTo(guest_container);
+		        guests.filter('.isDJ').prependTo(guest_container);
+			
 		
 			}, 50);
 	}
