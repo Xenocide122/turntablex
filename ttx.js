@@ -224,21 +224,17 @@ window.TTX = null;
 				var username = $name.text();
 				if (typeof _usernames[username] != 'undefined') {
 					var user_id = _usernames[username];
-					if(username === 'Woobot'){
-						console.log('updating ' + username + ' mod: ' + isMod(user_id));
-					}
-					
 					// update special highlighters
-						var modClass = '';
-						if (isMod(user_id){
-							modClass = ' isMod';
-							mods.push($this);
-						}
-						
-						if (isDJ(user_id)){
-							djs.push($this);
-						}
-						$this.removeClass('isMod isDj isIdle').addClass(modClass);
+					var modClass = '';
+					if (isMod(user_id){
+						modClass = ' isMod';
+						mods.push($this);
+					}
+					if (isDJ(user_id)){
+						modClass = 'isDJ' + modClass;
+						djs.push($this);
+					}
+					$this.removeClass('isMod isDj isIdle').addClass(modClass);
 				}
 			});
 			// prepend mods
