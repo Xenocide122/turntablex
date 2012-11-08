@@ -136,7 +136,7 @@ window.TTX = null;
 	    chat.find('.chatResizeIcon').hide();
 	    
 	    room_info.find('.content').css({left:0});
-	    room_info.find('.button').css({left:100}).unbind('click').bind('click',function(){ 
+	    room_info.find('.button').css({left:125}).unbind('click').bind('click',function(){ 
  	    	var direction = 1;
 		if ($(this).hasClass('upbutton')){
 			direction = -1;
@@ -145,7 +145,7 @@ window.TTX = null;
 		else{
 			$(this).addClass('upbutton');
 		}
-		$(this).parent().find('.content, .button').animate({top:'+=' + 2*stage_height*direction},250);
+		$(this).parent().find('.content, .button').animate({top:'+=' + stage_height*direction},500);
 	    });
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-top':'2px','padding-bottom':'2px'});
