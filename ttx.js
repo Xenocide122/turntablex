@@ -136,7 +136,7 @@ window.TTX = null;
 	    chat.find('.chatResizeIcon').hide();
 	    
 	    room_info.find('.content').css({left:0});
-	    room_info.find('.content').css({left:200});
+	    room_info.find('.button').css({left:100});
 
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{position:'static','padding-top':'2px','padding-bottom':'2px'});
