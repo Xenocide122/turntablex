@@ -130,7 +130,7 @@ window.TTX = null;
 	    chat.find('form.input-box').css({width:'100%',left:0});
 	    chat.find('div.guestListButton').hide();
 	    chat.find('div.chatBar').css({width:'100%'});
-	    changeClass('.message',{width:'100%'});
+	    changeClass('.chat-container .messages .message',{width:'100%'});
 	    
 	}
 	function changeClass(classname,properties){
@@ -138,10 +138,8 @@ window.TTX = null;
         	for (var i=0; i<ss.length; i++) {
             		var rules = ss[i].cssRules || ss[i].rules;
             		for (var j=0; j<rules.length; j++) {
-				if (!(rules[j].selectorText)){
+				if (!(rules[j].selectorText))
 					continue;
-				}
-				console.log(rules[j].selectorText);
                 		if (rules[j].selectorText.indexOf(classname) > -1) {
                     			for (prop in properties){
 						rules[j].style[prop] = properties[prop];
