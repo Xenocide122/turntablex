@@ -77,8 +77,8 @@ window.TTX = null;
 		    var users = _room.users;
 		    for (var i in users) {
 			// map names to ids
-			if (typeof _usernames[ _users[i].name ] == 'undefined')
-				_usernames[ _users[i].name ] = i;
+			if (typeof _usernames[ users[i].name ] == 'undefined')
+				_usernames[ users[i].name ] = i;
 			}
 		    callback();
                 }
