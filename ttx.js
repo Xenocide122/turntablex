@@ -39,12 +39,12 @@ window.TTX = null;
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
-            resetSong(); // new song
 	    resetDJs(); // new DJs
 	    resetUsers(); // new users
 	    updateGuests(); // update guest list 
 	    updateHeader(); // update header
 	    initializeListeners(); // create DOM and Turntable event handlers
+	    resetSong();
         });
 
         // reset the state of premium access
@@ -86,7 +86,6 @@ window.TTX = null;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
 		_currentSong.dj = _room.currentSong.djid;
-		log(_currentSong);
 	}
 	// called every time there is a DJ change
 	function resetDJs(){
@@ -105,10 +104,6 @@ window.TTX = null;
 			if (typeof _usernames[name] === 'undefined'){
 				_usernames[name] = id;
 				_idleTimers[id] = now;
-			}
-			if (id === _id){
-				resetSong();
-				updateHeader();
 			}
 		}
 	}
