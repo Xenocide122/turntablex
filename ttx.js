@@ -76,7 +76,7 @@ window.TTX = null;
 		_currentSong.title = _room.currentSong.metadata.song;
 		_currentSong.artist = _room.currentSong.metadata.artist;
 		_currentSong.upvotes = _room.upvoters.length;
-		console.log(_room.upvoters);
+		
 		_upvoters = {};
 		_downvoters = {};
 		_hearts = {};
@@ -138,6 +138,7 @@ window.TTX = null;
                     _room = _turntable[o];
                     log('Entering room ' + _location);
 		    log(_room);
+		    log(_room.upvoters);
  		    _id = _room.selfId;
 		    break;
                 }
