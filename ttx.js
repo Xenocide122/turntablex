@@ -153,8 +153,10 @@ window.TTX = null;
                 }
                 if (_manager){
 		    _location = window.location.pathname; 
-		    TTX.prototype.send({api:'room.info',roomid:_room.id,extended:false},function(data){ // get room info and use it for current song information
+		    TTX.prototype.send({api:'room.info',roomid:_room.id, extended:false},function(data){ // get room info and use it for current song information
+			log(data);
 			var votelog = data.room.metadata.votelog;
+
 			var currentSong = data.room.metadata.current_song;
 			var downvotes = data.room.metadata.downvotes;
 			var upvotes = data.room.metadata.upvotes;
@@ -165,7 +167,7 @@ window.TTX = null;
 			_currentSong.artist = currentSong.metadata.artist;
 			_currentSong.title = currentSong.metadata.song;
 			_currentSong.dj = currentSong.djid;
-			log(votelog);
+			
 			_upvoters = {};
 			_downvoters = {};
 			_hearts = {};
