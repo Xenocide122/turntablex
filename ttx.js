@@ -37,7 +37,6 @@ window.TTX = null;
 	
         resetRoom(function(){
 	    checkPremium(); // check premium status
-	   
 	    initializeUI(); // initialize UI elements
 	    resetMods();
             resetSong();
@@ -84,8 +83,6 @@ window.TTX = null;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
 		_currentSong.dj = _room.currentSong.djid;
-		updateHeader(); // update song in header
-		updateGuests(); // update guest labels
 	}
 	// called every time there is a DJ change
 	function resetDJs(){
@@ -93,7 +90,6 @@ window.TTX = null;
 		for (var i=0;i<_room.djIds.length;i++){
 			_djs[_room.djIds[i]] = 1;
 		}
-		updateGuests(); // update guest labels
 	}
 	// add new user
 	function addUser(e){
@@ -106,7 +102,6 @@ window.TTX = null;
 				_idleTimers[id] = now;
 			}
 		}
-		updateGuests(); // update guest labels
 	}
 	// called when there is a room change
 	function resetUsers(){
