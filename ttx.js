@@ -165,6 +165,7 @@ window.TTX = null;
 			_currentSong.artist = currentSong.metadata.artist;
 			_currentSong.title = currentSong.metadata.song;
 			_currentSong.dj = currentSong.djid;
+			log(votelog);
 			_upvoters = {};
 			_downvoters = {};
 			_hearts = {};
