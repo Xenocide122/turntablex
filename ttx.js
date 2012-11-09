@@ -3,7 +3,7 @@ window.TTX = null;
     TTX = function(){
 	// unicode symbols
 	var SYMBOLS = {
-		heart: '<span style="color: #e22">&#9829;</span>',
+		heart: '<span style="color: #e22">&#10084;</span>',
 		up: '<span style="color: #2e2">&#9650;</span>',
 		down: '<span style="color: #900">&#9660;</span>',
 		dj: '&#9835;'
