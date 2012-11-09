@@ -131,7 +131,6 @@ window.TTX = null;
 	    _manager = null;
             _id = null;
             
-	    console.log('Trying to get room info...');
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
@@ -149,7 +148,6 @@ window.TTX = null;
                     }
                 }
                 if (_manager){
-                    log('Room fully loaded');
 		    _location = window.location.pathname; 
 		    callback();
                 }
@@ -160,7 +158,6 @@ window.TTX = null;
             }
             else{
                 // try again
-		console.log("Couldn't find room");
                 setTimeout(function(){ resetRoom(callback); },250);
             }
         }
