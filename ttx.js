@@ -130,7 +130,7 @@ window.TTX = null;
 	    _manager = null;
             _id = null;
             _location = window.location.pathname; 
-
+	    console.log('Trying to get room info...');
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
