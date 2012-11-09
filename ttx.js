@@ -446,10 +446,10 @@ window.TTX = null;
 	    } else if (e.command == 'speak' && e.userid) {
 	    } else if (e.command == 'newsong') {
 		resetSong(); // reset song info
+		log(e);
 		updateHeader(); // reflect change in header
 	    } else if (e.command == 'update_votes') {
 		addVotes(e);
-		log(e);
 		updateHeader(); // reflect vote change in header
 	    } else if (e.command == 'update_user') {
 	    }
