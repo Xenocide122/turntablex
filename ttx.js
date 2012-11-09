@@ -250,21 +250,44 @@ window.TTX = null;
 				var username = $name.text();
 				if (typeof _usernames[username] != 'undefined') {
 					var user_id = _usernames[username];
-					// update special highlighters
-					var modClass = '';
-					if (isMod(user_id)){
-						modClass = ' isMod';
-					}
+					// update extra classes and idle time
+					var extrasClass = '';
+					var extrasContent = ' ';
 					if (isDJ(user_id)){
-						modClass = 'isDJ' + modClass;
-					        var extra = $('<span class="guestExtras" style="font-weight:bold; font-size:14px;"> '+ SYMBOLS.heart + SYMBOLS.dj +'</span>');
-						$name.after(extra);
+						extrasClass = extrasClass + ' isDJ';
+					        extrasContent = extrasContent + symbol.dj + ' '; 
 					}
-					$this.removeClass('isMod isDJ isIdle').addClass(modClass);
+					if (isCurrentDJ(user_id)){
+						extrasClass = extrasClass + ' isCurrentDJ';
+					}
+					if (isHearter(user_id)){
+						extrasClass = extrasClass + ' isHearter';
+						extrasContent = extrasContent + symbol.heart + ' ';
+					}
+					if (isUpvoter(user_id)){
+						extrasClass = extrasClass + ' isUpvoter';
+						extrasContent = extrasContent + symbol.up + ' ';
+					}
+					if (isDownvoter(user_id)){
+						extrasClass = extrasClass + ' isDownvoter';
+						extrasContent = extrasContent + symbol.down + ' ';
+					}
+					var extras = $this.find('.guestExtras');
+					if (extras.length){
+						extras.html(extrasContent);
+					}
+					else{
+						$name.after($('<span class="guestExtras" style="font-weight:bold; font-size:14px;">'+extrasContent+'</span>'));
+					}
+					$this.removeClass('isDJ isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
 			});
-			guests.filter('.isMod').prependTo(guest_container);
-		        guests.filter('.isDJ').prependTo(guest_container);
+			guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
+			guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
+			guests.filter('.isHearter').prependTo(guest_container); // then hearters
+			guests.filter('.mod').prependTo(guest_container); // then mods
+			guests.filter('.superuser').prependTo(guest_container); // then super users
+		        guests.filter('.isDJ').prependTo(guest_container); // DJs first
 			
 		
 			}, 50);
