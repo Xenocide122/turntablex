@@ -162,7 +162,8 @@ window.TTX = null;
 	    chat.find('.guestListIcon').hide();
 	    chat.find('.chatResizeIcon').hide();
 
-	    $('.room .name').css({width:730});
+	    $('.room .name').css({position:'absolute',left:35,right:0});
+	    $('.room').css({position:'absolute',right:425});
 
 	    room_info.find('.content').css({left:0,top:-1*(10+stage_height),height:(10+stage_height)});
 	    room_info.find('.songlog').css({height:500});
@@ -177,6 +178,8 @@ window.TTX = null;
 		}
 		$(this).parent().find('.content, .button').animate({top:'+=' + (stage_height+10)*direction},350);
 	    });
+
+	    
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
 	}
