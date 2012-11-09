@@ -158,6 +158,7 @@ window.TTX = null;
             }
             else{
                 // try again
+		console.log("Couldn't find room");
                 setTimeout(function(){ resetRoom(callback); },250);
             }
         }
