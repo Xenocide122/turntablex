@@ -43,6 +43,7 @@ window.TTX = null;
 	    resetDJs(); // new DJs
 	    resetUsers(); // new users
 	    updateGuests(); // update guest list 
+	    updateHeader(); // update header
 	    initializeListeners(); // create DOM and Turntable event handlers
         });
 
