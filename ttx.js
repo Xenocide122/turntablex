@@ -34,9 +34,10 @@ window.TTX = null;
 	var _djs = null; // user ids of djs
 
 	// main
-	initializeUI(); // initialize UI elements
+	
         resetRoom(function(){
-            checkPremium(); // check premium status
+	    checkPremium(); // check premium status
+	    initializeUI(); // initialize UI elements
             initializeListeners(); // create DOM and Turntable event handlers
 	    updateGuests(); // update guests
         });
@@ -310,22 +311,22 @@ window.TTX = null;
 					var extrasContent = ' ';
 					if (isDJ(user_id)){
 						extrasClass = extrasClass + ' isDJ';
-					        extrasContent = extrasContent + symbol.dj + ' '; 
+					        extrasContent = extrasContent + SYMBOLS.dj + ' '; 
 					}
 					if (isCurrentDJ(user_id)){
 						extrasClass = extrasClass + ' isCurrentDJ';
 					}
 					if (isHearter(user_id)){
 						extrasClass = extrasClass + ' isHearter';
-						extrasContent = extrasContent + symbol.heart + ' ';
+						extrasContent = extrasContent + SYMBOLS.heart + ' ';
 					}
 					if (isUpvoter(user_id)){
 						extrasClass = extrasClass + ' isUpvoter';
-						extrasContent = extrasContent + symbol.up + ' ';
+						extrasContent = extrasContent + SYMBOLS.up + ' ';
 					}
 					if (isDownvoter(user_id)){
 						extrasClass = extrasClass + ' isDownvoter';
-						extrasContent = extrasContent + symbol.down + ' ';
+						extrasContent = extrasContent + SYMBOLS.down + ' ';
 					}
 					var extras = $this.find('.guestExtras');
 					if (extras.length){
