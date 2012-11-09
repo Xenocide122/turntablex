@@ -76,6 +76,9 @@ window.TTX = null;
 		_currentSong.title = _room.currentSong.metadata.song;
 		_currentSong.artist = _room.currentSong.metadata.artist;
 		_upvoters = {};
+		for (var i = 0; i < _room.upvoters.length; i++){
+			_upvoters[_room.upvoters[i]] = 1;
+		}
 		_downvoters = {};
 		_hearts = {};
 		_currentSong.upvotes = _room.upvoters.length;
