@@ -38,10 +38,11 @@ window.TTX = null;
         resetRoom(function(){
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
-	    resetMods();
-            resetSong();
-	    resetDJs();
-	    resetUsers();
+	    resetMods(); // new mods
+            resetSong(); // new song
+	    resetDJs(); // new DJs
+	    resetUsers(); // new users
+	    updateGuests(); // update guest list 
 	    initializeListeners(); // create DOM and Turntable event handlers
         });
 
@@ -346,15 +347,13 @@ window.TTX = null;
 		
 			}, 50);
 	}
-	function updateVotes(e){
-		
-		updateHeader();
-		updateGuests();
+	function addVotes(e){
+		console.log(e);
+	
 	}
-	function updateHearts(e){
-		
-		updateHeader();
-		updateGuests();
+	function addHearts(e){
+		console.log(e);
+
 	}
 
         function onMessage(e){
@@ -367,27 +366,33 @@ window.TTX = null;
 	    } else if (e.command == 'add_dj') {
 		resetDJs(); // reset djs
 	    } else if (e.command == 'speak' && e.userid) {
-		updateGuests(); // update idle times
 	    } else if (e.command == 'newsong') {
 		resetSong(); // reset song info
 	    } else if (e.command == 'update_votes') {
-		updateVotes(e);
+		addVotes(e);
 	    } else if (e.command == 'update_user') {
 	    }
 	    else if (e.command == 'registered') {
 		if( _location !== window.location.pathname ){
 			resetRoom(function(){
-				initializeUI();
+				checkPremium(); // check premium status
+	    			initializeUI(); // initialize UI elements
+	    			resetMods(); // new mods
+            			resetSong(); // new song
+	    			resetDJs(); // new DJs
+	    			resetUsers(); // new users
+	    			updateGuests(); // update guest list 
 			});
 		}
 		else{
 			addUser(e);
 		}
 	    } else if (e.command == 'snagged') {
-            	updateHearts(e);
+            	addHearts(e);
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
 	    }
+	    updateGuests(); // update guest list every time something happens
         }
         
         function log(message){
