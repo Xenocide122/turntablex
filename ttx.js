@@ -45,7 +45,7 @@ window.TTX = null;
 	function updateHeader(){
 		var header = $('.room .name');
 		var song_bar = header.find('#ttx_songbar');
-		var text = _currentSong.title+' by <b>'+_currentSong.artist+'</b> (' + _currentSong.upvotes + '<span style="color:#0f5">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f33">&#10084;</span>)';
+		var text = '(' + _currentSong.upvotes + '<span style="color:#0f5">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f33">&#10084;</span>)' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
 		if (song_bar.length){
 			song_bar.html(text);
 		}
@@ -162,8 +162,8 @@ window.TTX = null;
 	    chat.find('.guestListIcon').hide();
 	    chat.find('.chatResizeIcon').hide();
 
-	    $('.room .name').css({position:'absolute',left:35,right:0});
-	    $('.room').css({position:'absolute',right:425,width:'auto'});
+	    $('.room .name').css({position:'absolute',left:35,right:0,width:'auto'});
+	    $('.room').css({position:'absolute',right:425});
 
 	    room_info.find('.content').css({left:0,top:-1*(10+stage_height),height:(10+stage_height)});
 	    room_info.find('.songlog').css({height:500});
