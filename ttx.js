@@ -345,12 +345,36 @@ window.TTX = null;
 			}, 50);
 	}
 	function addVotes(e){
-		console.log(e);
+		var data = e.room.metadata.votelog[0];
+		var id = data[0];
+		var vote = data[1];
+		if (vote === 'up'){
+			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
+				_upvoters[id] = 1;
+				_currentSong.upvotes = _currentSong.upvotes + 1;
+			}
+			if ( typeof(_downvoters[id]) !== 'undefined' ){ // .. used to be a downvote
+				delete(_downvoters[id]);
+				_currentSong.downvotes = _currentSong.downvotes - 1;
+			}
+		}
+		else{
+			if ( typeof(_downvoters[id]) === 'undefined' ){ // new downvote
+				_downvoters[id] = 1;
+				_currentSong.downvotes = _currentSong.downvotes + 1;
+			}
+			if ( typeof(_upvoters[id]) !== 'undefined' ){ // .. used to be an upvote
+				delete(_upvoters[id]);
+				_currentSong.upvotes = _currentSong.upvotes - 1;
+			}
+		}
 	
 	}
 	function addHearts(e){
-		console.log(e);
-
+		if (typeof _hearters[e.userid] === 'undefined'){ // new heart
+			_hearters[e.userid] = 1;
+			_currentSong.hearts = _currentSong.hearts + 1;
+		}
 	}
 
         function onMessage(e){
@@ -365,8 +389,10 @@ window.TTX = null;
 	    } else if (e.command == 'speak' && e.userid) {
 	    } else if (e.command == 'newsong') {
 		resetSong(); // reset song info
+		updateHeader(); // reflect change in header
 	    } else if (e.command == 'update_votes') {
 		addVotes(e);
+		updateHeader(); // reflect vote change in header
 	    } else if (e.command == 'update_user') {
 	    }
 	    else if (e.command == 'registered') {
@@ -383,9 +409,11 @@ window.TTX = null;
 		}
 		else{
 			addUser(e);
+			console.log(e);
 		}
 	    } else if (e.command == 'snagged') {
             	addHearts(e);
+		updateHeader();
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
 	    }
