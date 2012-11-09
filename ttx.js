@@ -153,8 +153,7 @@ window.TTX = null;
                 }
                 if (_manager){
 		    _location = window.location.pathname; 
-		    TTX.prototype.send({api:'room.info',roomid:_room.id, extended:false},function(data){ // get room info and use it for current song information
-			log(data);
+		    TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
 			var votelog = data.room.metadata.votelog;
 
 			var currentSong = data.room.metadata.current_song;
