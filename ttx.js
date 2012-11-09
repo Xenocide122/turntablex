@@ -251,7 +251,7 @@ window.TTX = null;
 					}
 					if (isDJ(user_id)){
 						modClass = 'isDJ' + modClass;
-					        $('<span class="guestExtras" style="font-weight:bold; font-size:14px;">  &#9835;</span>').appendTo($name);
+					        $('<span class="guestExtras" style="font-weight:bold; font-size:14px;">  &#9835; &#10084; &#9650;</span>').appendTo($name);
 					}
 					$this.removeClass('isMod isDJ isIdle').addClass(modClass);
 				}
