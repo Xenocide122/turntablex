@@ -86,6 +86,7 @@ window.TTX = null;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
 		_currentSong.dj = _room.currentSong.djid;
+		log(_currentSong);
 	}
 	// called every time there is a DJ change
 	function resetDJs(){
@@ -145,7 +146,7 @@ window.TTX = null;
 		    log(_room);
 		    log(_room.upvoters);
  		    _id = _room.selfId;
-		    log('Room id: ' + _room.roomid);
+		    log('Room id: ' + _room.roomId);
 		    log('User id: ' + _id);
 		    break;
                 }
