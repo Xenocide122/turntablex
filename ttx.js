@@ -343,12 +343,25 @@ window.TTX = null;
 					// update extra classes and idle time
 					var extrasClass = '';
 					var extrasContent = ' ';
+					if ($name.hasClass('mod')){
+						extrasClass = extrasClass + ' isMod';
+					}
+					if ($name.hasClass('superuser')){
+						extrasClass = extrasClass + ' isSuper';
+					}
 					if (isDJ(user_id)){
 						extrasClass = extrasClass + ' isDJ';
 					        extrasContent = extrasContent + SYMBOLS.dj + ' '; 
 					}
 					if (isCurrentDJ(user_id)){
 						extrasClass = extrasClass + ' isCurrentDJ';
+						$this.data('ttx_oldbg',$this.css('backgroundColor'));
+						$this.css({backgroundColor: '#EDE60C',fontWeight:'bold'});
+					}
+					else{
+						if ($this.data("ttx_oldbg")){
+							$this.css({backgroundColor:$this.data("ttx_oldbg"),fontWeight:'normal'});
+						}
 					}
 					if (isHearter(user_id)){
 						extrasClass = extrasClass + ' isHearter';
@@ -369,14 +382,14 @@ window.TTX = null;
 					else{
 						$name.after($('<span class="guestExtras" style="font-weight:bold; font-size:14px;">'+extrasContent+'</span>'));
 					}
-					$this.removeClass('isDJ isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
+					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
 			});
 			guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
 			guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
 			guests.filter('.isHearter').prependTo(guest_container); // then hearters
-			guests.filter('guestName.mod').prependTo(guest_container); // then mods
-			guests.filter('guestName.superuser').prependTo(guest_container); // then super users
+			guests.filter('.isMod').prependTo(guest_container); // then mods
+			guests.filter('.isSuper').prependTo(guest_container); // then super users
 		        guests.filter('.isDJ').prependTo(guest_container); // DJs first
 			
 		
