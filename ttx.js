@@ -38,7 +38,6 @@ window.TTX = null;
         resetRoom(function(){
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
-	    resetSong(true);
 	    resetMods(); // new mods
 	    resetDJs(); // new DJs
 	    resetUsers(); // new users
@@ -72,24 +71,17 @@ window.TTX = null;
 		}
 	}
 	// called every time there is a song change
-	function resetSong(initial){
-		initial = initial || false;
+	function resetSong(){
 		_currentSong = {};
 		_currentSong.title = _room.currentSong.metadata.song;
 		_currentSong.artist = _room.currentSong.metadata.artist;
-		_currentSong.upvotes = 0;
-		
 		_upvoters = {};
 		_downvoters = {};
 		_hearts = {};
-
+		_currentSong.upvotes = 0;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
 		_currentSong.dj = _room.currentSong.djid;
-		log(_currentSong);
-		if (initial){ // use an API call to get the real vote information
-			
-		}
 	}
 	// called every time there is a DJ change
 	function resetDJs(){
@@ -143,7 +135,6 @@ window.TTX = null;
                     _room = _turntable[o];
                     log('Entering room ' + _location);
 		    log(_room);
-		    log(_room.upvoters);
  		    _id = _room.selfId;
 		    log('Room id: ' + _room.roomId);
 		    log('User id: ' + _id);
@@ -159,7 +150,10 @@ window.TTX = null;
                 }
                 if (_manager){
 		    _location = window.location.pathname; 
-		    callback();
+		    TTX.prototype.send({api:'room.info',roomid:_room.id},function(data){ // get room info and use it for current song information
+			resetSong();	
+			callback();
+		    });
                 }
                 else{
                     // try again
@@ -411,7 +405,6 @@ window.TTX = null;
 				checkPremium(); // check premium status
 	    			initializeUI(); // initialize UI elements
 	    			resetMods(); // new mods
-            			resetSong(); // new song
 	    			resetDJs(); // new DJs
 	    			resetUsers(); // new users
 	    			updateGuests(); // update guest list 
