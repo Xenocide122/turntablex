@@ -474,6 +474,7 @@ window.TTX = null;
 		}
 	    } else if (e.command == 'snagged') {
             	addHearts(e);
+		log(e);
 		updateHeader();
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
