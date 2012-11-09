@@ -45,7 +45,7 @@ window.TTX = null;
 	function updateHeader(){
 		var header = $('.room .name');
 		var song_bar = header.find('#ttx_songbar');
-		var text = '(' + _currentSong.upvotes + '<span style="color:#0f5">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f33">&#10084;</span>)' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
+		var text = '(' + _currentSong.upvotes + '<span style="color:#0f5">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f33">&#10084;</span>) ' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
 		if (song_bar.length){
 			song_bar.html(text);
 		}
@@ -250,7 +250,7 @@ window.TTX = null;
 					}
 					if (isDJ(user_id)){
 						modClass = 'isDJ' + modClass;
-	
+					        $('<span class="DJ">&#9834;</span>').appendTo($name);
 					}
 					$this.removeClass('isMod isDJ isIdle').addClass(modClass);
 				}
