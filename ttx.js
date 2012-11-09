@@ -30,6 +30,7 @@ window.TTX = null;
             checkPremium(); // check premium status
             initializeListeners(); // create DOM and Turntable event handlers
             initializeUI(); // initialize UI elements
+	    updateGuests(); // update guests
         });
 
         // reset the state of premium access
@@ -250,7 +251,7 @@ window.TTX = null;
 					}
 					if (isDJ(user_id)){
 						modClass = 'isDJ' + modClass;
-					        $('<span class="DJ">&#9834;</span>').appendTo($name);
+					        $('<span class="guestExtras" style="font-weight:bold;font-size:14"> &#9834;</span>').appendTo($name);
 					}
 					$this.removeClass('isMod isDJ isIdle').addClass(modClass);
 				}
@@ -288,9 +289,12 @@ window.TTX = null;
 		if( _location !== window.location.pathname ){
 			updateRoom(function(){
 				initializeUI();
+				updateGuests();
 			});
 		}
-		updateGuests();
+		else{
+			updateGuests();
+		}
 	    } else if (e.command == 'snagged') {
             } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
