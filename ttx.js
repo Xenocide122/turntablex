@@ -132,16 +132,16 @@ window.TTX = null;
 	// reset the state of the room
         function resetRoom(callback){
             _room = null;
+	    _manager = null;
             _id = null;
             _location = window.location.pathname; 
 
             for (var o in _turntable){
-                if (_turntable[o] !== null && _turntable[o].selfId){
+                if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
                     log('Entering room ' + _location);
 		    log(_room);
  		    _id = _room.selfId;
-		    
 		    break;
                 }
             }
