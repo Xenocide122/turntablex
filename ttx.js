@@ -130,6 +130,32 @@ window.TTX = null;
 			_mods[_room.moderators[i]] = 1;
 		}
 	}
+	function newSong(data){
+		var votelog = data.room.metadata.votelog;
+		var currentSong = data.room.metadata.current_song;
+		var downvotes = data.room.metadata.downvotes;
+		var upvotes = data.room.metadata.upvotes;
+		_currentSong = {};
+		_currentSong.hearts = 0;
+		_currentSong.downvotes = downvotes;
+		_currentSong.upvotes = upvotes;
+		_currentSong.artist = currentSong.metadata.artist;
+		_currentSong.title = currentSong.metadata.song;
+		_currentSong.dj = currentSong.djid;
+		
+		_upvoters = {};
+		_downvoters = {};
+		_hearts = {};
+		for (var i=0; i<votelog.length; i++){
+			var vote = votelog[i];
+			if (vote[1] === 'up'){
+				_upvoters[vote[0]] = 1;
+			}
+			else{
+				_downvoters[vote[0]] = 1;
+			}
+		}
+	}
 	// reset the state of the room
         function resetRoom(callback){
             _room = null;
@@ -163,31 +189,7 @@ window.TTX = null;
 				callback();
 			}
 			else{
-				var votelog = data.room.metadata.votelog;
-	
-				var currentSong = data.room.metadata.current_song;
-				var downvotes = data.room.metadata.downvotes;
-				var upvotes = data.room.metadata.upvotes;
-				_currentSong = {};
-				_currentSong.hearts = 0;
-				_currentSong.downvotes = downvotes;
-				_currentSong.upvotes = upvotes;
-				_currentSong.artist = currentSong.metadata.artist;
-				_currentSong.title = currentSong.metadata.song;
-				_currentSong.dj = currentSong.djid;
-				
-				_upvoters = {};
-				_downvoters = {};
-				_hearts = {};
-				for (var i=0; i<votelog.length; i++){
-					var vote = votelog[i];
-					if (vote[1] === 'up'){
-						_upvoters[vote[0]] = 1;
-					}
-					else{
-						_downvoters[vote[0]] = 1;
-					}
-				}
+				newSong(data);
 				callback();
 			}
 		    });
@@ -446,8 +448,7 @@ window.TTX = null;
 		resetDJs(); // reset djs
 	    } else if (e.command == 'speak' && e.userid) {
 	    } else if (e.command == 'newsong') {
-		resetSong(); // reset song info
-		log(e);
+		newSong(e);
 		updateHeader(); // reflect change in header
 	    } else if (e.command == 'update_votes') {
 		addVotes(e);
