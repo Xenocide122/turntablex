@@ -344,8 +344,8 @@ window.TTX = null;
 			guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
 			guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
 			guests.filter('.isHearter').prependTo(guest_container); // then hearters
-			guests.filter('.mod').prependTo(guest_container); // then mods
-			guests.filter('.superuser').prependTo(guest_container); // then super users
+			guests.filter('guestName.mod').prependTo(guest_container); // then mods
+			guests.filter('guestName.superuser').prependTo(guest_container); // then super users
 		        guests.filter('.isDJ').prependTo(guest_container); // DJs first
 			
 		
