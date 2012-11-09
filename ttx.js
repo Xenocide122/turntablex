@@ -24,18 +24,20 @@ window.TTX = null;
 	var _songHistory = null; // history of objects that look like _currentSong
 	var _idleTimers = null; // idle timers of all users
 	var _usernames = null; // mapping of username to id
+	var _userIdle = null; // mapping of user id to time since last action
 
 	// song state
-	var _currentSong = null; // info about the current song, formatted as {artist: 'blah',title: 'blah',time: '5:50',dj: '', started: '14:20:20 Aug 10, 2010', upvotes: 5, downvotes: 0, hearts: 1}
+	var _currentSong = null; // info about the current song, formatted as {artist: 'blah',title: 'blah',dj: '', upvotes: 5, downvotes: 0, hearts: 1}
 	var _upvoters = null; // ID of upvoters
 	var _downvoters = null; // ID of downvoters
 	var _hearts = null; // ID of users who <3 the song
 	var _djs = null; // user ids of djs
+
 	// main
-        updateRoom(function(){
+	initializeUI(); // initialize UI elements
+        resetRoom(function(){
             checkPremium(); // check premium status
             initializeListeners(); // create DOM and Turntable event handlers
-            initializeUI(); // initialize UI elements
 	    updateGuests(); // update guests
         });
 
@@ -49,6 +51,7 @@ window.TTX = null;
 	    	_premium = false;
 	    }
         }
+	// update header (UI)
 	function updateHeader(){
 		var header = $('.room .name');
 		var song_bar = header.find('#ttx_songbar');
@@ -61,30 +64,82 @@ window.TTX = null;
 			$('<span id="ttx_songbar" style="font-size:14px; font-weight:normal">' + text + '</span>').appendTo(header);
 		}
 	}
+	// called every time there is a song change
+	function resetSong(){
+		_currentSong = {};
+		_currentSong.title = _room.currentSong.metadata.song;
+		_currentSong.artist = _room.currentSong.metadata.artist;
+		_currentSong.upvotes = _room.upvoters.length;
+		_upvoters = {};
+		_downvoters = {};
+		_hearts = {};
+		for (var i=0;i<_room.upvoters.length;i++){
+		    _upvoters[_room.upvoters[i]] = 1;
+   		}
+		_currentSong.downvotes = 0; // unknown
+		_currentSong.hearts = 0; // unknown
+		_currentSong.dj = _room.currentSong.djid;
+		updateHeader(); // update song in header
+		updateGuests(); // update guest labels
+	}
+	// called every time there is a DJ change
+	function resetDJs(){
+		_djs = {};
+		for (var i=0;i<_room.djIds.length;i++){
+			_djs[_room.djIds[i]] = 1;
+		}
+		updateGuests(); // update guest labels
+	}
+	// add new user
+	function addUser(e){
+		var now = new Date().getTime();
+		for (var i in e.user) {
+			var id = e.user[i].userid;
+			var name = e.user[i].name;
+			if (typeof _usernames[name] === 'undefined'){
+				_usernames[name] = id;
+				_idleTimers[id] = now;
+			}
+		}
+		updateGuests(); // update guest labels
+	}
+	// called when there is a room change
+	function resetUsers(){
+		var users = _room.users;
+		var now = new Date().getTime();
+		_usernames = {};
+		_idleTimers = {};
+		for (var i in users) {
+			// map names to ids
+			if (typeof _usernames[ users[i].name ] == 'undefined'){
+				_usernames[ users[i].name ] = i;
+				_idleTimers[ i ] = now; // last action
+			}
+		}
+	}
+	// called when there is a room change
+	function resetMods(){
+		_mods = {};
+		for (var i=0;i<_room.moderators.length;i++){
+			_mods[_room.moderators[i]] = 1;
+		}
+	}
 	// reset the state of the room
-        function updateRoom(callback){
+        function resetRoom(callback){
             _room = null;
             _id = null;
-            _location = window.location.pathname;
-            _songHistory = []; // reset song history
-	    _idleTimers = {}; // reset chat idle timers
-	    _mods = []; // reset mod list
-	    _usernames = {}; // reset users
-	    _currentSong = {};
-	    _djs = [];
+            _location = window.location.pathname; 
 
             for (var o in _turntable){
-                if (_turntable[o] !== null && _turntable[o].creatorId){
+                if (_turntable[o] !== null && _turntable[o].selfId && _turntable[o].currentSong && _turntable[o].moderators){
                     _room = _turntable[o];
                     log('Entering room ' + _location);
 		    log(_room);
-                    _mods = _room.moderators || [];
-		    // get current song info
-		    _currentSong.title = _room.currentSong.metadata.song;
-		    _currentSong.artist = _room.currentSong.metadata.artist;
-		    _currentSong.upvotes = _room.upvoters.length;
-		    _currentSong.downvotes = 0; // unknown
-		    _currentSong.hearts = 0; // unknown
+ 		    _id = _room.selfId;
+		    resetMods();
+		    resetSong();
+		    resetDJs();
+		    resetUsers();
 		    break;
                 }
             }
@@ -92,35 +147,21 @@ window.TTX = null;
                 for (var o in _room){
                     if(_room[o] !== null && _room[o].myuserid){
                         _manager = _room[o];
-                        _id = _manager.myuserid;
-			// get DJs
-			for (var i in _manager.djs){
-				if (typeof _manager.djs[i] !== 'undefined'){
-					_djs.push(_manager.djs[i][0]);
-				}	
-			}
 			break;
                     }
                 }
-                if (_id){
-                    log('Room loaded');
-		    // get current users
-		    var users = _room.users;
-		    for (var i in users) {
-			// map names to ids
-			if (typeof _usernames[ users[i].name ] == 'undefined')
-				_usernames[ users[i].name ] = i;
-			}
+                if (_manager){
+                    log('Room fully loaded');
 		    callback();
                 }
                 else{
                     // try again
-                    setTimeout(function(){ updateRoom(callback); }, 250);
+                    setTimeout(function(){ resetRoom(callback); }, 250);
                 }
             }
             else{
                 // try again
-                setTimeout(function(){ updateRoom(callback); },250);
+                setTimeout(function(){ resetRoom(callback); },250);
             }
         }
 	// initialize event handlers
@@ -224,11 +265,25 @@ window.TTX = null;
 		}
 	}
 	function isMod(id){
-		return $.inArray(id,_mods) >= 0;
+		return typeof _mods[id] !== 'undefined';
 	}
 	function isDJ(id){
-		return $.inArray(id,_djs) >= 0;
+		return typeof _djs[id] !== 'undefined';
 	}
+	function isCurrentDJ(id){
+		return id === _currentSong.dj;
+	}
+	function isUpvoter(id){
+		return typeof _upvoters[id] !== 'undefined';
+	}
+	function isDownvoter(id){
+		return typeof _downvoters[id] !== 'undefined';
+	}
+	function isHearter(id){
+		return typeof _hearts[id] !== 'undefined';
+	}
+
+	// update guest list (UI)
 	var guestsTimer = null;
 	function updateGuests(){
 		if (typeof guestsTimer == "number") {
@@ -292,44 +347,48 @@ window.TTX = null;
 		
 			}, 50);
 	}
+	function updateVotes(e){
+		
+		updateHeader();
+		updateGuests();
+	}
+	function updateHearts(e){
+		
+		updateHeader();
+		updateGuests();
+	}
+
         function onMessage(e){
             if (e.hasOwnProperty('msgid')) {
     		return;
 	    }
 	    log('Command: ' + e.command);
-	    updateHeader();
 	    if (e.command == 'rem_dj') {
-		updateGuests();
+		resetDJs(); // reset djs
 	    } else if (e.command == 'add_dj') {
-		updateGuests();
+		resetDJs(); // reset djs
 	    } else if (e.command == 'speak' && e.userid) {
+		updateGuests(); // update idle times
 	    } else if (e.command == 'newsong') {
-		updateGuests();
-		_currentSong.artist = _room.currentSong.metadata.artist;
-		_currentSong.title = _room.currentSong.metadata.song;
-		_currentSong.upvotes = 0;
-		_currentSong.hearts = 0;
-		_currentSong.downvotes = 0;
-		updateHeader();
+		resetSong(); // reset song info
 	    } else if (e.command == 'update_votes') {
-		updateGuests();
+		updateVotes(e);
 	    } else if (e.command == 'update_user') {
-		}
+	    }
 	    else if (e.command == 'registered') {
 		if( _location !== window.location.pathname ){
-			updateRoom(function(){
+			resetRoom(function(){
 				initializeUI();
-				updateGuests();
 			});
 		}
 		else{
-			updateGuests();
+			addUser(e);
 		}
 	    } else if (e.command == 'snagged') {
-            } else if (e.command == 'pmmed') {
+            	updateHearts(e);
+	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
-			updateGuests();
-		}
+	    }
         }
         
         function log(message){
