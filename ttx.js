@@ -99,10 +99,15 @@ window.TTX = null;
 		var now = new Date().getTime();
 		for (var i in e.user) {
 			var id = e.user[i].userid;
+			
 			var name = e.user[i].name;
 			if (typeof _usernames[name] === 'undefined'){
 				_usernames[name] = id;
 				_idleTimers[id] = now;
+			}
+			if (id === _id){
+				resetSong();
+				updateHeader();
 			}
 		}
 	}
