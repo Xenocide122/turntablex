@@ -163,7 +163,7 @@ window.TTX = null;
 	    chat.find('.chatResizeIcon').hide();
 
 	    $('.room .name').css({position:'absolute',left:35,right:0});
-	    $('.room').css({position:'absolute',right:425});
+	    $('.room').css({position:'absolute',right:425,width:'auto'});
 
 	    room_info.find('.content').css({left:0,top:-1*(10+stage_height),height:(10+stage_height)});
 	    room_info.find('.songlog').css({height:500});
