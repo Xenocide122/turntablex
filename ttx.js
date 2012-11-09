@@ -38,13 +38,14 @@ window.TTX = null;
         resetRoom(function(){
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
+	    resetSong(true);
 	    resetMods(); // new mods
 	    resetDJs(); // new DJs
 	    resetUsers(); // new users
 	    updateGuests(); // update guest list 
 	    updateHeader(); // update header
 	    initializeListeners(); // create DOM and Turntable event handlers
-	    resetSong();
+	    
         });
 
         // reset the state of premium access
@@ -71,21 +72,24 @@ window.TTX = null;
 		}
 	}
 	// called every time there is a song change
-	function resetSong(){
+	function resetSong(initial){
+		initial = initial || false;
 		_currentSong = {};
 		_currentSong.title = _room.currentSong.metadata.song;
 		_currentSong.artist = _room.currentSong.metadata.artist;
-		_currentSong.upvotes = _room.upvoters.length;
+		_currentSong.upvotes = 0;
 		
 		_upvoters = {};
 		_downvoters = {};
 		_hearts = {};
-		for (var i=0;i<_room.upvoters.length;i++){
-		    _upvoters[_room.upvoters[i]] = 1;
-   		}
+
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
 		_currentSong.dj = _room.currentSong.djid;
+		log(_currentSong);
+		if (initial){ // use an API call to get the real vote information
+			
+		}
 	}
 	// called every time there is a DJ change
 	function resetDJs(){
