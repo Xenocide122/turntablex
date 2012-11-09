@@ -37,9 +37,13 @@ window.TTX = null;
 	
         resetRoom(function(){
 	    checkPremium(); // check premium status
+	   
 	    initializeUI(); // initialize UI elements
-            initializeListeners(); // create DOM and Turntable event handlers
-	    updateGuests(); // update guests
+	    resetMods();
+            resetSong();
+	    resetDJs();
+	    resetUsers();
+	    initializeListeners(); // create DOM and Turntable event handlers
         });
 
         // reset the state of premium access
@@ -132,15 +136,12 @@ window.TTX = null;
             _location = window.location.pathname; 
 
             for (var o in _turntable){
-                if (_turntable[o] !== null && _turntable[o].selfId && _turntable[o].currentSong && _turntable[o].moderators){
+                if (_turntable[o] !== null && _turntable[o].selfId){
                     _room = _turntable[o];
                     log('Entering room ' + _location);
 		    log(_room);
  		    _id = _room.selfId;
-		    resetMods();
-		    resetSong();
-		    resetDJs();
-		    resetUsers();
+		    
 		    break;
                 }
             }
