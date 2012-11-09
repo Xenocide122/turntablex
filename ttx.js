@@ -1,7 +1,13 @@
 window.TTX = null;
 (function(){
     TTX = function(){
-
+	// unicode symbols
+	var SYMBOLS = {
+		heart: '<span style="color: #e22">&#9829;</span>',
+		up: '<span style="color: #2e2">&#9650;</span>',
+		down: '<span style="color: #900">&#9660;</span>',
+		dj: '&#9835;'
+	};
 
         // global state
 	var self = this;
@@ -46,7 +52,7 @@ window.TTX = null;
 	function updateHeader(){
 		var header = $('.room .name');
 		var song_bar = header.find('#ttx_songbar');
-		var text = '(' + _currentSong.upvotes + '<span style="color:#0f5">&#9650;</span>,' + _currentSong.downvotes + '&#9660,'+_currentSong.hearts+'<span style="color:#f33">&#10084;</span>) ' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
+		var text = '(' + _currentSong.upvotes + SYMBOLS.up + ','+ _currentSong.downvotes + SYMBOLS.down + ',' + _currentSong.hearts + SYMBOLS.heart + ') ' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
 		if (song_bar.length){
 			song_bar.html(text);
 		}
@@ -251,7 +257,7 @@ window.TTX = null;
 					}
 					if (isDJ(user_id)){
 						modClass = 'isDJ' + modClass;
-					        $('<span class="guestExtras" style="font-weight:bold; font-size:14px;">  &#9835; &#10084; &#9650;</span>').appendTo($name);
+					        $('<span class="guestExtras" style="font-weight:bold; font-size:14px;"> '+ SYMBOLS.heart + SYMBOLS.dj +'</span>').appendTo($name);
 					}
 					$this.removeClass('isMod isDJ isIdle').addClass(modClass);
 				}
