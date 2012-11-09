@@ -154,32 +154,38 @@ window.TTX = null;
                 if (_manager){
 		    _location = window.location.pathname; 
 		    TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
-			var votelog = data.room.metadata.votelog;
-
-			var currentSong = data.room.metadata.current_song;
-			var downvotes = data.room.metadata.downvotes;
-			var upvotes = data.room.metadata.upvotes;
-			_currentSong = {};
-			_currentSong.hearts = 0;
-			_currentSong.downvotes = downvotes;
-			_currentSong.upvotes = upvotes;
-			_currentSong.artist = currentSong.metadata.artist;
-			_currentSong.title = currentSong.metadata.song;
-			_currentSong.dj = currentSong.djid;
-			
-			_upvoters = {};
-			_downvoters = {};
-			_hearts = {};
-			for (var i=0; i<votelog.length; i++){
-				var vote = votelog[i];
-				if (vote[1] === 'up'){
-					_upvoters[vote[0]] = 1;
-				}
-				else{
-					_downvoters[vote[0]] = 1;
-				}
+			if (data.success === false){ // couldn't get info, just do a reset
+				resetSong();
+				callback();
 			}
-			callback();
+			else{
+				var votelog = data.room.metadata.votelog;
+	
+				var currentSong = data.room.metadata.current_song;
+				var downvotes = data.room.metadata.downvotes;
+				var upvotes = data.room.metadata.upvotes;
+				_currentSong = {};
+				_currentSong.hearts = 0;
+				_currentSong.downvotes = downvotes;
+				_currentSong.upvotes = upvotes;
+				_currentSong.artist = currentSong.metadata.artist;
+				_currentSong.title = currentSong.metadata.song;
+				_currentSong.dj = currentSong.djid;
+				
+				_upvoters = {};
+				_downvoters = {};
+				_hearts = {};
+				for (var i=0; i<votelog.length; i++){
+					var vote = votelog[i];
+					if (vote[1] === 'up'){
+						_upvoters[vote[0]] = 1;
+					}
+					else{
+						_downvoters[vote[0]] = 1;
+					}
+				}
+				callback();
+			}
 		    });
                 }
                 else{
@@ -436,6 +442,7 @@ window.TTX = null;
 	    			resetDJs(); // new DJs
 	    			resetUsers(); // new users
 	    			updateGuests(); // update guest list 
+				updateHeader(); // update header
 			});
 		}
 		else{
