@@ -129,7 +129,7 @@ window.TTX = null;
             _room = null;
 	    _manager = null;
             _id = null;
-            _location = window.location.pathname; 
+            
 	    console.log('Trying to get room info...');
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
@@ -149,6 +149,7 @@ window.TTX = null;
                 }
                 if (_manager){
                     log('Room fully loaded');
+		    _location = window.location.pathname; 
 		    callback();
                 }
                 else{
