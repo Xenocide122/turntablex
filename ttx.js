@@ -432,8 +432,8 @@ window.TTX = null;
 	
 	}
 	function addHearts(e){
-		if (typeof _hearters[e.userid] === 'undefined'){ // new heart
-			_hearters[e.userid] = 1;
+		if (typeof _hearts[e.userid] === 'undefined'){ // new heart
+			_hearts[e.userid] = 1;
 			_currentSong.hearts = _currentSong.hearts + 1;
 		}
 	}
