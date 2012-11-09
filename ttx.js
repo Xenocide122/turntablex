@@ -385,6 +385,10 @@ window.TTX = null;
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
 		var vote = data[1];
+		if (id === ''){
+			log('Vote ID unknown!');
+			id = _id;
+		}
 		if (vote === 'up'){
 			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
 				_upvoters[id] = 1;
