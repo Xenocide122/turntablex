@@ -386,8 +386,14 @@ window.TTX = null;
 		var id = data[0];
 		var vote = data[1];
 		if (id === ''){
-			log('Vote ID unknown!');
-			id = _id;
+			log('Vote ID unknown: ' + vote);
+			if (vote === 'up'){
+				_currentSong.upvotes = _currentSong.upvotes + 1;
+			}
+			else{
+				_currentSong.downvotes = _currentSong.downvotes + 1;
+			}
+			return;
 		}
 		if (vote === 'up'){
 			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
