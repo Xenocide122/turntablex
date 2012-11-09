@@ -155,6 +155,7 @@ window.TTX = null;
 		    _location = window.location.pathname; 
 		    TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
 			if (data.success === false){ // couldn't get info, just do a reset
+				log('Failed to query room info');
 				resetSong();
 				callback();
 			}
