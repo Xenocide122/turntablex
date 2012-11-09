@@ -145,6 +145,8 @@ window.TTX = null;
 		    log(_room);
 		    log(_room.upvoters);
  		    _id = _room.selfId;
+		    log('Room id: ' + _room.roomid);
+		    log('User id: ' + _id);
 		    break;
                 }
             }
