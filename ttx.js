@@ -1,6 +1,8 @@
 window.TTX = null;
 (function(){
     TTX = function(){
+	
+	
 	// unicode symbols
 	var SYMBOLS = {
 		heart: '<span style="color: #E32222">&#10084;</span>',
@@ -8,7 +10,7 @@ window.TTX = null;
 		down: '<span style="color: #C21B1B">&#9660;</span>',
 		dj: '&#9835;'
 	};
-
+	
         // global state
 	var self = this;
 	var _premiumIDs = null; // IDs to check against for premium access
@@ -355,13 +357,7 @@ window.TTX = null;
 					}
 					if (isCurrentDJ(user_id)){
 						extrasClass = extrasClass + ' isCurrentDJ';
-						$this.data('ttx_oldbg',$this.css('backgroundColor'));
-						$this.css({backgroundColor: '#EDE60C',fontWeight:'bold'});
-					}
-					else{
-						if ($this.data("ttx_oldbg")){
-							$this.css({backgroundColor:$this.data("ttx_oldbg"),fontWeight:'normal'});
-						}
+						extrasContent = extrasContent + SYMBOLS.dj + ' ';
 					}
 					if (isHearter(user_id)){
 						extrasClass = extrasClass + ' isHearter';
