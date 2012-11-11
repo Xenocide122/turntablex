@@ -86,7 +86,7 @@ window.TTX = null;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
 		_currentSong.dj = _room.currentSong.djid;
-		log(_currentSong);
+
 	}
 	// called every time there is a DJ change
 	function resetDJs(){
@@ -396,9 +396,9 @@ window.TTX = null;
 					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
 			});
-			guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
-			guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
-			guests.filter('.isHearter').prependTo(guest_container); // then hearters
+			//guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
+			//guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
+			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
 			guests.filter('.isMod').prependTo(guest_container); // then mods
 			guests.filter('.isSuper').prependTo(guest_container); // then super users
 		        guests.filter('.isDJ').prependTo(guest_container); // DJs first
