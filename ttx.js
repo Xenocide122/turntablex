@@ -4,7 +4,7 @@ window.TTX = null;
 	
 	
 	// unicode symbols
-	var IDLE_TIME = 10*1000;
+	var IDLE_MAX = 10*1000;
 	var SYMBOLS = {
 		heart: '<img width="12" src="http://turntablex.com/images/heart.png">',
 		up: '<img width="12" src="http://turntablex.com/images/up.png">',
