@@ -383,7 +383,7 @@ window.TTX = null;
 				if (!(rules[j].selectorText))
 					continue;
                 		if (rules[j].selectorText.indexOf(fromSelector) > -1) {
-                    			newRules.push(rules[j]);
+                    			newRules.push($.extend(true,{},rules[j]));
                     			newRules[newRules.length-1].selectorText = newRules[newRules.length-1].selectorText.replace(fromSelector,toSelector);
                 		}
             		}
