@@ -26,6 +26,7 @@ window.TTX = null;
 	var _songHistory = null; // history of objects that look like _currentSong
 	var _idleTimers = null; // idle timers of all users
 	var _usernames = null; // mapping of username to id
+	var _users = null; // mapping of id to username
 
 	// song state
 	var _currentSong = null; // info about the current song, formatted as {artist: 'blah',title: 'blah',dj: '', upvotes: 5, downvotes: 0, hearts: 1}
@@ -104,6 +105,7 @@ window.TTX = null;
 			var name = e.user[i].name;
 			if (typeof _usernames[name] === 'undefined'){
 				_usernames[name] = id;
+				_users[id] = name;
 				_idleTimers[id] = now;
 			}
 		}
@@ -113,11 +115,13 @@ window.TTX = null;
 		var users = _room.users;
 		var now = new Date().getTime();
 		_usernames = {};
+		_users = {};
 		_idleTimers = {};
 		for (var i in users) {
 			// map names to ids
 			if (typeof _usernames[ users[i].name ] == 'undefined'){
 				_usernames[ users[i].name ] = i;
+				_users[ i ] = users[i].name;
 				_idleTimers[ i ] = now; // last action
 			}
 		}
@@ -448,7 +452,7 @@ window.TTX = null;
 			}
 			return;
 		}
-
+		var name = _users[id];
 		_idleTimers[id] = now;
 		if (vote === 'up'){
 			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
@@ -470,6 +474,8 @@ window.TTX = null;
 				_currentSong.upvotes = _currentSong.upvotes - 1;
 			}
 		}
+		var chat = $('.messages');
+		$('<div class="message mention"><span class="speaker">'+name+'</span><span class="text"> voted ' + vote + '</span></div>').appendTo(chat);
 	
 	}
 	function addHearts(e){
