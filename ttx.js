@@ -371,7 +371,7 @@ window.TTX = null;
 	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
 	    
 	    $('#menuh').after('<div id="ttx_laptopMenu"><div class="menuItem first">Laptop</div><div class="menuItem">1</div><div class="menuItem">2</div></div>');
-	    cloneClass('#menuh','#ttx_laptopMenu')
+	    cloneClass('#menuh','#ttx_laptopMenu');
 	
         }
         function cloneClass(fromSelector,toSelector){
@@ -388,6 +388,7 @@ window.TTX = null;
                 		}
             		}
             		for (var j=0; j<newRules.length; j++){
+            			log(newRules[j]);
             			rules.push(newRules[j]);
             		}
         	}
