@@ -475,7 +475,7 @@ window.TTX = null;
 			}
 		}
 		var chat = $('.messages');
-		$('<div class="message mention"><span class="speaker">'+name+'</span><span class="text"> voted ' + vote + '</span></div>').appendTo(chat);
+		$('<div class="message mention"><span class="speaker">'+name+'</span><span class="text"> voted ' + SYMBOLS[vote] + '</span></div>').appendTo(chat);
 	
 	}
 	function addHearts(e){
