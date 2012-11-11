@@ -432,6 +432,7 @@ window.TTX = null;
 			return min + ':' + sec;
 	}
 	function addVotes(e){
+		log(e);
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
 		var vote = data[1];
@@ -446,9 +447,7 @@ window.TTX = null;
 			}
 			return;
 		}
-		else{
-			_idleTimers[id] = now;
-		}
+		_idleTimers[id] = now;
 		if (vote === 'up'){
 			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
 				_upvoters[id] = 1;
