@@ -389,7 +389,7 @@ window.TTX = null;
 						idle.html(idleText);
 					}
 					else{
-						$name.after('<div class="guestIdle" style="position: absolute; top: 10px; right: 5px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
+						$name.after('<div class="guestIdle" style="position: absolute; bottom: 0px; right: 0px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
 					}
 					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
