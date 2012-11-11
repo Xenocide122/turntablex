@@ -6,7 +6,8 @@ window.TTX = null;
 	var SYMBOLS = {
 		heart: '<img width="13" src="http://turntablex.com/images/heart.png">',
 		up: '<img width="13" src="http://turntablex.com/images/up.png">',
-		down: '<img width="13" src="http://turntablex.com/images/down.png">'
+		down: '<img width="13" src="http://turntablex.com/images/down.png">',
+		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
 	
         // global state
@@ -370,7 +371,7 @@ window.TTX = null;
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
 	    
-	    $('#menuh').after('<div id="ttx_laptopMenu"><div class="ttxMenuItem first">Laptop</div><div class="ttxMenuItem">1</div><div class="ttxMenuItem">2</div></div>');
+	    $('#menuh').after('<div id="ttx_laptopMenu"><div class="ttxMenuItem first"><div class="ttxMenuImage></div><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div><div class="ttxMenuItem">1</div><div class="ttxMenuItem">2</div></div>');
 	    $('#ttx_laptopMenu').mouseover(function(){
 	    	$(this).children().addClass('hover');
 	    });
