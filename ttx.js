@@ -88,10 +88,10 @@ window.TTX = null;
 		laptop: {
 			type: 'default',
 			stickers: {
-				selected: 'sample',
+				selected: 'Text sample',
 				animations: {[ // array of sticker animations
 					{
-						name: 'Text sample',
+						name: 'Text sample'
 						speed: 0,
 						type: 'text',
 						text: {
