@@ -44,11 +44,11 @@ window.TTX = null;
 			DJdown: {
 				chat: false,
 				desktop: false
-			}
+			},
 			songEnd: {
 				chat: false,
 				desktop: false
-			}
+			},
 			songBegins: {
 				chat: false,
 				desktop: false
