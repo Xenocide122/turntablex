@@ -371,7 +371,27 @@ window.TTX = null;
 	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
 	    
 	    $('#menuh').after('<div id="ttx_laptopMenu"><div class="menuItem first">Laptop</div><div class="menuItem">1</div><div class="menuItem">2</div></div>');
-	}
+	    cloneClass('#menuh','#ttx_laptopMenu')
+	
+        }
+        function cloneClass(fromSelector,toSelector){
+        	var ss = document.styleSheets;
+        	for (var i=0; i<ss.length; i++) {
+            		var rules = ss[i].cssRules || ss[i].rules;
+            		var newRules = [];
+            		for (var j=0; j<rules.length; j++) {
+				if (!(rules[j].selectorText))
+					continue;
+                		if (rules[j].selectorText.indexOf(fromSelector) > -1) {
+                    			newRules.push(rules[j]);
+                    			newRules[newRules.length-1].selectorText = newRules[newRules.length-1].selectorText.replace(fromSelector,toSelector);
+                		}
+            		}
+            		for (var j=0; j<newRules.length; j++){
+            			rules.push(newRules[j]);
+            		}
+        	}
+        }
 	function changeClass(classname,properties){
 		var ss = document.styleSheets;
         	for (var i=0; i<ss.length; i++) {
