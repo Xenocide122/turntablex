@@ -432,7 +432,6 @@ window.TTX = null;
 			return min + ':' + sec;
 	}
 	function addVotes(e){
-		log(e);
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
 		var vote = data[1];
@@ -447,6 +446,7 @@ window.TTX = null;
 			}
 			return;
 		}
+		log(id + ' voted ' + vote);
 		_idleTimers[id] = now;
 		if (vote === 'up'){
 			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
@@ -471,10 +471,12 @@ window.TTX = null;
 	
 	}
 	function addHearts(e){
+		var now = new Date().getTime();
 		if (typeof _hearts[e.userid] === 'undefined'){ // new heart
 			_hearts[e.userid] = 1;
 			_currentSong.hearts = _currentSong.hearts + 1;
 		}
+		_idleTimers[e.userid] = now;
 	}
 
         function onMessage(e){
@@ -514,7 +516,6 @@ window.TTX = null;
 		}
 	    } else if (e.command == 'snagged') {
             	addHearts(e);
-		log(e);
 		updateHeader();
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
