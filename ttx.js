@@ -488,8 +488,8 @@ window.TTX = null;
 				_currentSong.upvotes = _currentSong.upvotes - 1;
 			}
 		}
-		
-		addChat(name,' voted ' + SYMBOLS[vote]);
+		var action = vote === 'up' ? 'awesomed' : 'lamed';
+		addChat(name,' ' + action + ' this song ' + SYMBOLS[vote]);
 		
 	
 	}
@@ -505,6 +505,8 @@ window.TTX = null;
 			_currentSong.hearts = _currentSong.hearts + 1;
 		}
 		_idleTimers[e.userid] = now;
+		var name = _users[e.userid];
+		addChat(name,' saved this song ' + SYMBOLS.heart);
 	}
 
         function onMessage(e){
