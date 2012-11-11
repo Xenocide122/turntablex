@@ -160,11 +160,11 @@ window.TTX = null;
             _room = null;
 	    _manager = null;
             _id = null;
-            
+            _location = window.location.pathname; 
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].creatorId){
                     _room = _turntable[o];
-                    log('Entering room ' + _location);
+                    log('Entering room: ' + _location);
 		    log(_room);
  		    _id = _room.selfId;
 		    log('Room id: ' + _room.roomId);
@@ -180,7 +180,7 @@ window.TTX = null;
                     }
                 }
                 if (_manager){
-		    _location = window.location.pathname; 
+		    
 		    TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
 			if (data.success === false){ // couldn't get info, just do a reset
 				log('Failed to query room info');
@@ -448,7 +448,7 @@ window.TTX = null;
 			}
 			return;
 		}
-		log(id + ' voted ' + vote);
+
 		_idleTimers[id] = now;
 		if (vote === 'up'){
 			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
