@@ -489,14 +489,14 @@ window.TTX = null;
 			}
 		}
 		
-		addChat(name + ' voted ' + SYMBOLS[vote]);
+		addChat('<b>'+ name + '</b> voted ' + SYMBOLS[vote]);
 		
 	
 	}
 	function addChat(content,className){
 		className = className || '';
 		var chatContainer = $('.messages');
-		$('<div style="color: #bbb" class="message ' + className + '"><span class="text">' + content + '</span></div>').appendTo(chatContainer);
+		$('<div class="message ' + className + '"><span class="text">' + content + '</span></div>').appendTo(chatContainer);
 	}
 	function addHearts(e){
 		var now = new Date().getTime();
