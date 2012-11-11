@@ -371,7 +371,7 @@ window.TTX = null;
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
 	    changeClass('#menuh',{left:'50px'});
-	    $('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div></div><div class="ttxMenuItem">1</div><div class="ttxMenuItem">2</div></div>');
+	    $('#menuh').after('<div id="ttx_laptopMenu" style="left:180px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div></div><div class="ttxMenuItem">1</div><div class="ttxMenuItem">2</div></div>');
 	    $('#ttx_laptopMenu').mouseover(function(){
 	    	$(this).children().addClass('hover');
 	    });
