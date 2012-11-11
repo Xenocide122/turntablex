@@ -451,7 +451,7 @@ window.TTX = null;
 			}
 			return min + ':' + sec;
 	}
-	function addVotes(e){
+	function onVote(e){
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
 		var vote = data[1];
@@ -488,11 +488,13 @@ window.TTX = null;
 				_currentSong.upvotes = _currentSong.upvotes - 1;
 			}
 		}
+
 		var action = vote === 'up' ? 'awesomed' : 'lamed';
 		addChat(name,' ' + action + ' this song ' + SYMBOLS[vote]);
 		
 	
 	}
+	
 	function addChat(name,content,className){
 		className = className || '';
 		var chatContainer = $('.messages');
@@ -508,29 +510,40 @@ window.TTX = null;
 		var name = _users[e.userid];
 		addChat(name,' saved this song ' + SYMBOLS.heart);
 	}
-
+	function onChat(e){
+		var now = new Date().getTime();
+		_idleTimers[e.userid] = now;
+	}
+	function onRemoveDJ(e){
+		resetDJs();
+	}
+	function onAddDJ(e){
+		resetDJs();
+	}
+	function onNewSong(e){
+		resetSong();
+	}
         function onMessage(e){
-	    var now = new Date().getTime();
             if (e.hasOwnProperty('msgid')) {
     		return;
 	    }
 	    log('Command: ' + e.command);
 	    if (e.command == 'rem_dj') {
-		resetDJs(); // reset djs
+		onRemoveDJ(e); // reset djs
 	    } else if (e.command == 'add_dj') {
-		resetDJs(); // reset djs
+		onAddDJ(e); // reset djs
 	    } else if (e.command == 'speak' && e.userid) {
-		_idleTimers[e.userid] = now;
+		onChat(e);
 	    } else if (e.command == 'newsong') {
-		newSong(e);
+		onNewSong(e);
 		updateHeader(); // reflect change in header
 	    } else if (e.command == 'update_votes') {
-		addVotes(e);
+		onVote(e);
 		updateHeader(); // reflect vote change in header
 	    } else if (e.command == 'update_user') {
 	    }
 	    else if (e.command == 'registered') {
-		if( _location !== window.location.pathname ){
+		if( _location !== window.location.pathname ){ // room change
 			resetRoom(function(){
 				checkPremium(); // check premium status
 	    			initializeUI(); // initialize UI elements
@@ -550,7 +563,6 @@ window.TTX = null;
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
 		removeUser(e);
-		console.log(e);
 	    }
 	    updateGuests(); // update guest list every time something happens
         }
