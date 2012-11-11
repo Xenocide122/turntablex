@@ -89,7 +89,7 @@ window.TTX = null;
 			type: 'default',
 			stickers: {
 				selected: 'Text sample',
-				animations: {[ // array of sticker animations
+				animations: [ // array of sticker animations
 					{
 						name: 'Text sample'
 						speed: 0,
@@ -108,7 +108,7 @@ window.TTX = null;
 							
 						]}
 					}
-				]}
+				]
 			}
 		}
 	};
