@@ -435,7 +435,7 @@ window.TTX = null;
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
 		var vote = data[1];
-		var now = new Date.getTime();
+		var now = new Date().getTime();
 		if (id === ''){
 			log('Vote ID unknown: ' + vote);
 			if (vote === 'up'){
