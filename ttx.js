@@ -4,12 +4,7 @@ window.TTX = null;
 	
 	
 	// unicode symbols
-	/*var SYMBOLS = {
-		heart: '<span style="color: #E32222">&#10084;</span>',
-		up: '<span style="color: #0DD11D">&#9650;</span>',
-		down: '<span style="color: #C21B1B">&#9660;</span>',
-		dj: '&#9835;'
-	};*/
+	var IDLE_TIME = 10*1000;
 	var SYMBOLS = {
 		heart: '<img width="12" src="http://turntablex.com/images/heart.png">',
 		up: '<img width="12" src="http://turntablex.com/images/up.png">',
@@ -375,6 +370,12 @@ window.TTX = null;
 					if (isDownvoter(user_id)){
 						extrasClass = extrasClass + ' isDownvoter';
 						extrasContent = extrasContent + SYMBOLS.down + ' ';
+					}
+					if (now - _idleTimers[user_id] > IDLE_MAX){
+						$this.find('.guestAvatar').css('-webkit-filter','grayscale(100%)');
+					}
+					else{
+						$this.find('.guestAvatar').css('-webkit-filter','grayscale(0%)');
 					}
 					var extras = $this.find('.guestExtras');
 					if (extras.length){
