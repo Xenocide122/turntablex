@@ -13,8 +13,7 @@ window.TTX = null;
 	var SYMBOLS = {
 		heart: '<img width="12" src="http://turntablex.com/images/heart.png">',
 		up: '<img width="12" src="http://turntablex.com/images/up.png">',
-		down: '<img width="12" src="http://turntablex.com/images/down.png">',
-		dj: '&#9835;'
+		down: '<img width="12" src="http://turntablex.com/images/down.png">'
 	};
 	
         // global state
@@ -362,11 +361,9 @@ window.TTX = null;
 					}
 					if (isDJ(user_id)){
 						extrasClass = extrasClass + ' isDJ';
-					        extrasContent = extrasContent + SYMBOLS.dj + ' '; 
 					}
 					if (isCurrentDJ(user_id)){
 						extrasClass = extrasClass + ' isCurrentDJ';
-						extrasContent = extrasContent + SYMBOLS.dj + ' ';
 					}
 					if (isHearter(user_id)){
 						extrasClass = extrasClass + ' isHearter';
