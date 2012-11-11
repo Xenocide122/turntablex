@@ -96,6 +96,19 @@ window.TTX = null;
 			_djs[_room.djIds[i]] = 1;
 		}
 	}
+	function removeUser(e){
+		for (var i in e.user){
+			var id = e.user[i].userid;
+			var name = e.user[i].name;
+			if (typeof _users[id] !== 'undefined'){
+				delete _users[id];
+				delete _usernames[name];
+				delete _idleTimers[id];
+			}
+			
+		}
+		console.log(_users.length);
+	}
 	// add new user
 	function addUser(e){
 		var now = new Date().getTime();
@@ -109,6 +122,7 @@ window.TTX = null;
 				_idleTimers[id] = now;
 			}
 		}
+		console.log(_users.length);
 	}
 	// called when there is a room change
 	function resetUsers(){
@@ -527,6 +541,7 @@ window.TTX = null;
 		updateHeader();
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
+		
 	    }
 	    updateGuests(); // update guest list every time something happens
         }
