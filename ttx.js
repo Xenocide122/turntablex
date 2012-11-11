@@ -541,7 +541,8 @@ window.TTX = null;
 		updateHeader();
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
-		
+		removeUser(e);
+		console.log(e);
 	    }
 	    updateGuests(); // update guest list every time something happens
         }
