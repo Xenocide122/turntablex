@@ -107,7 +107,7 @@ window.TTX = null;
 			}
 			
 		}
-		console.log(_users.length);
+		console.log(Object.keys(_users).length);
 	}
 	// add new user
 	function addUser(e){
@@ -122,7 +122,7 @@ window.TTX = null;
 				_idleTimers[id] = now;
 			}
 		}
-		console.log(_users.length);
+		console.log(Object.keys(_users).length);;
 	}
 	// called when there is a room change
 	function resetUsers(){
