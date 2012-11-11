@@ -11,9 +11,9 @@ window.TTX = null;
 		dj: '&#9835;'
 	};*/
 	var SYMBOLS = {
-		heart: '<img src="http://turntablex.com/images/heart.png">',
-		up: '<img src="http://turntablex.com/images/up.png">',
-		down: '<img src="http://turntablex.com/images/down.png">',
+		heart: '<img width="14" src="http://turntablex.com/images/heart.png">',
+		up: '<img width="14" src="http://turntablex.com/images/up.png">',
+		down: '<img width="14" src="http://turntablex.com/images/down.png">',
 		dj: '&#9835;'
 	};
 	
