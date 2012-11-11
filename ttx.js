@@ -373,6 +373,7 @@ window.TTX = null;
 					}
 					if (now - _idleTimers[user_id] > IDLE_MAX){
 						$this.find('.guestAvatar').css('-webkit-filter','grayscale(100%)');
+						extrasClass = extrasClass + ' isIdle';
 					}
 					else{
 						$this.find('.guestAvatar').css('-webkit-filter','grayscale(0%)');
