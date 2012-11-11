@@ -104,9 +104,9 @@ window.TTX = null;
 						name: 'Custom sample',
 						speed: 500,
 						type: 'custom',
-						custom: {[
+						custom: [
 							
-						]}
+						]
 					}
 				]
 			}
