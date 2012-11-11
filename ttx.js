@@ -1,9 +1,7 @@
 window.TTX = null;
 (function(){
     TTX = function(){
-	
-	
-	// unicode symbols
+	// global resources
 	var IDLE_MAX = 15*60*1000;
 	var SYMBOLS = {
 		heart: '<img width="12" src="http://turntablex.com/images/heart.png">',
@@ -35,8 +33,88 @@ window.TTX = null;
 	var _hearts = null; // ID of users who <3 the song
 	var _djs = null; // user ids of djs
 
-	// main
+	// user settings
+	var settings = {};
+	var defaultSettings = {
+		notifications: {
+			DJup: {
+				chat: false,
+				desktop: false
+			},
+			DJdown: {
+				chat: false,
+				desktop: false
+			}
+			songEnd: {
+				chat: false,
+				desktop: false
+			}
+			songBegins: {
+				chat: false,
+				desktop: false
+			},
+			userChat: {
+				chat: false,
+				desktop: false
+			},
+			userMention: {
+				chat: false,
+				desktop: false
+			},
+			userVote: {
+				chat: false,
+				desktop: false
+			},
+			userHeart: {
+				chat: false,
+				desktop: false
+			},
+			userJoin: {
+				chat: false,
+				desktop: false
+			},
+			userLeave: {
+				chat: false,
+				desktop: false
+			},
+			userPM: {
+				chat: false,
+				desktop: false
+			}
+			
+		},
+		autoDJ: false,
+		autoAwesome: false,
+		laptop: {
+			type: 'default',
+			stickers: {
+				selected: 'sample',
+				animations: {[ // array of sticker animations
+					{
+						name: 'Text sample',
+						speed: 0,
+						type: 'text',
+						text: {
+							display: 'aliev',
+							colors: 'rb',
+							tick: '3'
+						}
+					},
+					{
+						name: 'Custom sample',
+						speed: 500,
+						type: 'custom',
+						custom: {[
+							
+						]}
+					}
+				]}
+			}
+		}
+	};
 	
+	// main
+	loadSettings();
         resetRoom(function(){
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
@@ -46,9 +124,11 @@ window.TTX = null;
 	    updateGuests(); // update guest list 
 	    updateHeader(); // update header
 	    initializeListeners(); // create DOM and Turntable event handlers
-	    
         });
-
+        // get settings from local storage and merge with defaults
+	function loadSettings(){
+		
+	}
         // reset the state of premium access
         function checkPremium(){
             if (_premiumIDs === null || $.inArray(_id,_premiumIDs) >= 0){
@@ -96,7 +176,7 @@ window.TTX = null;
 			_djs[_room.djIds[i]] = 1;
 		}
 	}
-	function removeUser(e){
+	function onDeregistered(e){
 		for (var i in e.user){
 			var id = e.user[i].userid;
 			var name = e.user[i].name;
@@ -107,10 +187,12 @@ window.TTX = null;
 			}
 			
 		}
-		console.log(Object.keys(_users).length);
+	}
+	function userCount(){
+		return Object.keys(_users).length;
 	}
 	// add new user
-	function addUser(e){
+	function onRegistered(e){
 		var now = new Date().getTime();
 		for (var i in e.user) {
 			var id = e.user[i].userid;
@@ -404,7 +486,7 @@ window.TTX = null;
 						$name.after($('<span class="guestExtras" style="font-weight:bold; font-size:14px;">'+extrasContent+'</span>'));
 					}
 					var idle = $this.find('.guestIdle');
-					var idleText = formatDate(_idleTimers[user_id]);
+					var idleText = formatTimeDelta(_idleTimers[user_id]);
 					if (idle.length){
 						idle.html(idleText);
 					}
@@ -424,7 +506,7 @@ window.TTX = null;
 		
 			}, 50);
 	}
-	function formatDate(date) {
+	function formatTimeDelta(date) {
 			var curdate = new Date().getTime();
 			curdate = Math.round(curdate / 1000);
 			if (!date.length) date = date.toString();
@@ -500,7 +582,7 @@ window.TTX = null;
 		var chatContainer = $('.messages');
 		$('<div class="message ' + className + '"><span class="speaker">' + name + '</span><span class="text">' + content + '</span></div>').appendTo(chatContainer);
 	}
-	function addHearts(e){
+	function onHeart(e){
 		var now = new Date().getTime();
 		if (typeof _hearts[e.userid] === 'undefined'){ // new heart
 			_hearts[e.userid] = 1;
@@ -555,14 +637,14 @@ window.TTX = null;
 			});
 		}
 		else{
-			addUser(e);
+			onRegistered(e);
 		}
 	    } else if (e.command == 'snagged') {
-            	addHearts(e);
+            	onHeart(e);
 		updateHeader();
 	    } else if (e.command == 'pmmed') {
             } else if (e.command == 'deregistered'){
-		removeUser(e);
+		onDeregistered(e);
 	    }
 	    updateGuests(); // update guest list every time something happens
         }
