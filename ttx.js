@@ -493,10 +493,10 @@ window.TTX = null;
 		
 	
 	}
-	function addChat(content,class){
-		class = class || '';
+	function addChat(content,className){
+		className = className || '';
 		var chatContainer = $('.messages');
-		$('<div style="color: #bbb" class="message ' + class + '"><span class="text">' + content + '</span></div>').appendTo(chatContainer);
+		$('<div style="color: #bbb" class="message ' + className + '"><span class="text">' + content + '</span></div>').appendTo(chatContainer);
 	}
 	function addHearts(e){
 		var now = new Date().getTime();
