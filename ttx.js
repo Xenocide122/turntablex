@@ -237,7 +237,7 @@ window.TTX = null;
 	    stage.css({left:235,top:105});
 
 	    guest_list.css({marginLeft:0,left:stage_width+240,width:220,top:105,height:stage_height}).appendTo(main_container);
-	    guest_list.find('.guests').css({height:stage_height-55});
+	    guest_list.find('.guests').css({height:stage_height-60});
 	    guest_list.find('.guestListButton').hide();
 	    guest_list.find('.guestListSize').css({left:0,width:'100%'});
 	    guest_list.find('.chatBar').css({width:'100%'});
@@ -389,7 +389,7 @@ window.TTX = null;
 						idle.html(idleText);
 					}
 					else{
-						$name.after('<div class="guestIdle" style="position: absolute; top: 10px; right: 10px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
+						$name.after('<div class="guestIdle" style="position: absolute; top: 10px; right: 5px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
 					}
 					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
