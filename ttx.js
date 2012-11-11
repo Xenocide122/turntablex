@@ -488,9 +488,15 @@ window.TTX = null;
 				_currentSong.upvotes = _currentSong.upvotes - 1;
 			}
 		}
-		var chat = $('.messages');
-		$('<div class="message mention"><span class="speaker">'+name+'</span><span class="text"> voted ' + SYMBOLS[vote] + '</span></div>').appendTo(chat);
+		
+		chat(name + ' voted ' + SYMBOLS[vote]);
+		
 	
+	}
+	function chat(content,class){
+		class = class || '';
+		var chat = $('.messages');
+		$('<div style="color: #bbb" class="message ' + class + '"><span class="text">' + content + '</span>').appendTo(chat);
 	}
 	function addHearts(e){
 		var now = new Date().getTime();
