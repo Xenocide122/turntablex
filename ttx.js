@@ -31,7 +31,6 @@ window.TTX = null;
 	var _songHistory = null; // history of objects that look like _currentSong
 	var _idleTimers = null; // idle timers of all users
 	var _usernames = null; // mapping of username to id
-	var _userIdle = null; // mapping of user id to time since last action
 
 	// song state
 	var _currentSong = null; // info about the current song, formatted as {artist: 'blah',title: 'blah',dj: '', upvotes: 5, downvotes: 0, hearts: 1}
@@ -384,6 +383,14 @@ window.TTX = null;
 					else{
 						$name.after($('<span class="guestExtras" style="font-weight:bold; font-size:14px;">'+extrasContent+'</span>'));
 					}
+					var idle = $this.find('.guestIdle');
+					var idleText = formatDate(_idleTimers[user_id]);
+					if (idle.length){
+						idle.html(idleText);
+					}
+					else{
+						$name.after('<div class="guestIdle" style="position: absolute; top: 0; right: 20px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
+					}
 					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
 			});
@@ -397,10 +404,38 @@ window.TTX = null;
 		
 			}, 50);
 	}
+	function formatDate(date) {
+			var curdate = new Date().getTime();
+			curdate = Math.round(curdate / 1000);
+			if (!date.length) date = date.toString();
+			if (date.length == 10) date = parseInt(date);
+			else if (date.length == 13) date = parseInt(parseInt(date) / 1000);
+			else date = Math.round(Date.parse(date) / 1000);
+			var diff = Math.abs(date - curdate);
+			// get minutes
+			if ((diff / 60) >= 1) {
+				var min = Math.floor(diff / 60);
+				var sec = diff - (min * 60);
+			} else {
+				var min = '00';
+				var sec = diff;
+			}
+
+			min = min.toString();
+			sec = sec.toString();
+			if (min.length < 2) {
+				min = '0' + min;
+			}
+			if (sec.length < 2) {
+				sec = '0' + sec;
+			}
+			return min + ':' + sec;
+	}
 	function addVotes(e){
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
 		var vote = data[1];
+		var now = new Date.getTime();
 		if (id === ''){
 			log('Vote ID unknown: ' + vote);
 			if (vote === 'up'){
@@ -410,6 +445,9 @@ window.TTX = null;
 				_currentSong.downvotes = _currentSong.downvotes + 1;
 			}
 			return;
+		}
+		else{
+			_idleTimers[id] = now;
 		}
 		if (vote === 'up'){
 			if ( typeof(_upvoters[id]) === 'undefined' ){ // new upvote
@@ -441,6 +479,7 @@ window.TTX = null;
 	}
 
         function onMessage(e){
+	    var now = new Date().getTime();
             if (e.hasOwnProperty('msgid')) {
     		return;
 	    }
@@ -450,6 +489,7 @@ window.TTX = null;
 	    } else if (e.command == 'add_dj') {
 		resetDJs(); // reset djs
 	    } else if (e.command == 'speak' && e.userid) {
+		_idleTimers[e.userid] = now;
 	    } else if (e.command == 'newsong') {
 		newSong(e);
 		updateHeader(); // reflect change in header
