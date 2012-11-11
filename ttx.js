@@ -4,10 +4,16 @@ window.TTX = null;
 	
 	
 	// unicode symbols
-	var SYMBOLS = {
+	/*var SYMBOLS = {
 		heart: '<span style="color: #E32222">&#10084;</span>',
 		up: '<span style="color: #0DD11D">&#9650;</span>',
 		down: '<span style="color: #C21B1B">&#9660;</span>',
+		dj: '&#9835;'
+	};*/
+	var SYMBOLS = {
+		heart: '<img src="http://turntablex.com/images/heart.png">',
+		up: '<img src="http://turntablex.com/images/up.png">',
+		down: '<img src="http://turntablex.com/images/down.png">',
 		dj: '&#9835;'
 	};
 	
