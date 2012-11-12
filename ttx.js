@@ -438,9 +438,9 @@ window.TTX = null;
 				$element.find('.title').text('New Laptop');
 				var laptop = $element.find('#laptop');
 				laptop.before('<div>\
-						<div><div style="display:inline-block;">Name</div><input type="text" value=""></div>\
-					        <div><div style="display:inline-block;">Cover</div><input type="radio"></div></div>\
-					        <div><div style="display:inline-block;">Animation</div><input type="radio"></div></div>\
+						<div><div style="display:inline-block; padding: 10px;">Name</div><input type="text" value=""></div>\
+					        <div><div style="display:inline-block; padding: 10px;">Cover</div><input type="radio"></div></div>\
+					        <div><div style="display:inline-block; padding: 10px;">Animation</div><input type="radio"></div></div>\
 						</div>');
 			}
 		}
