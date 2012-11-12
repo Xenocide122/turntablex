@@ -384,7 +384,7 @@ window.TTX = null;
             		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '">' + laptops[i].name + '<div class="ttxMenuEdit">edit</div></div>';
             	}
             	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic;text-align:center">New Laptop</div>';
-            	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Custom Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
+            	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
             	$('#ttx_laptopMenu').mouseover(function(){
 	    		$(this).children().addClass('hover');
 	    	});
@@ -435,12 +435,12 @@ window.TTX = null;
 		if ($element.hasClass('modalContainer') ){
 			if (_laptopHijack == true){
 				_laptopHijack = false;
-				$element.find('.title').text('New Laptop');
+				$element.find('.title').text('Create a New Laptop');
 				var laptop = $element.find('#laptop');
 				laptop.before('<div style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; padding: 10px; width:80px">Name:</div><input type="text" value=""/></div>\
-					        <div><div style="display:inline-block; padding: 10px; width:80px">Cover:</div><input type="radio"/></div>\
-					        <div><div style="display:inline-block; padding: 10px; width:80px">Animation:</div><input type="radio"/></div>\
+					        <div><div style="display:inline-block; padding: 10px; width:80px">Type:</div><input name="ttxLaptopType" type="radio" value="Mac"/><input name="ttxLaptopType" type="radio" value="PC"/><input name="ttxLaptopType" type="radio" value="Linux"/></div>\
+					        <div><div style="display:inline-block; padding: 10px; width:80px">Animation:</div><input name="ttxLaptopAnimation" type="radio" value="text"/><input name="ttxLaptopAnimation" type="radio" value="custom"/></div>\
 						</div>');
 			}
 		}
