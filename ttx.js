@@ -439,8 +439,8 @@ window.TTX = null;
 				var laptop = $element.find('#laptop');
 				laptop.before('<div style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; padding: 10px; width:80px">Name:</div><input type="text" value=""/></div>\
-					        <div><div style="display:inline-block; padding: 10px; width:80px">Type:</div><input name="ttxLaptopType" type="radio" value="Mac"/> Mac   <input name="ttxLaptopType" type="radio" value="PC"/> PC   <input name="ttxLaptopType" type="radio" value="Linux"/> Linux   </div>\
-					        <div><div style="display:inline-block; padding: 10px; width:80px">Animation:</div><input name="ttxLaptopAnimation" type="radio" value="text"/> text   <input name="ttxLaptopAnimation" type="radio" value="custom"/> custom   </div>\
+					        <div><div style="display:inline-block; padding: 10px; width:80px">Type:</div><input name="ttxLaptopType" type="radio" value="Mac"/> Mac     <input name="ttxLaptopType" type="radio" value="PC"/> PC     <input name="ttxLaptopType" type="radio" value="Linux"/> Linux</div>\
+					        <div><div style="display:inline-block; padding: 10px; width:80px">Animation:</div><input name="ttxLaptopAnimation" type="radio" value="text"/> text    <input name="ttxLaptopAnimation" type="radio" value="custom"/> custom</div>\
 						</div>');
 			}
 		}
