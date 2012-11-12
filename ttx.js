@@ -379,7 +379,7 @@ window.TTX = null;
             	var laptops = settings.laptop.stickers.animations;
             	var selected = settings.laptop.stickers.selected;
             	var laptopDivs = '';
-            	for (var i=0; i<laptops; i++){
+            	for (var i=0; i<laptops.length; i++){
             		laptopDivs += '<div class="ttxMenuItem ' + (laptops[i].name === selection ? 'selected' : '') + '">' + laptops[i].name + '</div>';
             	}
             	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic;text-align:center">Add Laptop</div>';
