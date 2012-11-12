@@ -384,7 +384,7 @@ window.TTX = null;
             		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '">' + laptops[i].name + '<div class="ttxMenuEdit">edit</div></div>';
             	}
             	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic;text-align:center">New Laptop</div>';
-            	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
+            	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Custom Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
             	$('#ttx_laptopMenu').mouseover(function(){
 	    		$(this).children().addClass('hover');
 	    	});
