@@ -436,7 +436,7 @@ window.TTX = null;
 			if (_laptopHijack == true){
 				_laptopHijack = false;
 				$element.find('.title').text('New Laptop');
-				var laptop = $element.find('.laptop');
+				var laptop = $element.find('#laptop');
 				laptop.before('<div>\
 						<div><div>Name</div><input type="text" value=""></div>\
 					        <div><div>Cover</div><input type="radio"></div></div>\
