@@ -434,8 +434,14 @@ window.TTX = null;
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
 			if (_laptopHijack == true){
-				$element.find('.title').text('Hacked');
 				_laptopHijack = false;
+				$element.find('.title').text('New Laptop');
+				var laptop = $element.find('.laptop');
+				laptop.before('<div>\
+						<div><div>Name</div><input type="text" value=""></div>\
+					        <div><div>Cover</div><input type="radio"></div></div>\
+					        <div><div>Animation</div><input type="radio"></div></div>\
+						</div>');
 			}
 		}
 	}
