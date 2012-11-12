@@ -396,6 +396,10 @@ window.TTX = null;
             	$('#ttx_laptopMenu .ttxMenuItem').mouseout(function(){
             		$(this).children().removeClass('hover');
             	});
+            	$('#ttx_laptopMenu .ttxMenuItem').click(function(){
+            		$(this).parent().children().removeClass('selected');
+            		$(this).addClass('selected');
+            	});
             }
 	   
 	    
