@@ -437,10 +437,10 @@ window.TTX = null;
 				_laptopHijack = false;
 				$element.find('.title').text('New Laptop');
 				var laptop = $element.find('#laptop');
-				laptop.before('<div>\
-						<div><div style="display:inline-block; padding: 10px;">Name</div><input type="text" value=""></div>\
-					        <div><div style="display:inline-block; padding: 10px;">Cover</div><input type="radio"></div></div>\
-					        <div><div style="display:inline-block; padding: 10px;">Animation</div><input type="radio"></div></div>\
+				laptop.before('<div style="width:100%;padding-bottom:10px">\
+						<div><div style="display:inline-block; padding: 10px; width:80px">Name:</div><input type="text" value=""></div>\
+					        <div><div style="display:inline-block; padding: 10px; width:80px">Cover:</div><input type="radio"></div></div>\
+					        <div><div style="display:inline-block; padding: 10px; width:80px">Animation:</div><input type="radio"></div></div>\
 						</div>');
 			}
 		}
