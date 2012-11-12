@@ -9,6 +9,7 @@ window.TTX = null;
 		down: '<img width="13" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
+	var _laptopHijack = false;
 	
         // global state
 	var self = this;
@@ -382,7 +383,7 @@ window.TTX = null;
             	for (var i=0; i<laptops.length; i++){
             		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '">' + laptops[i].name + '<div class="ttxMenuEdit">edit</div></div>';
             	}
-            	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic;text-align:center">Add Laptop</div>';
+            	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic;text-align:center">New Laptop</div>';
             	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
             	$('#ttx_laptopMenu').mouseover(function(){
 	    		$(this).children().addClass('hover');
@@ -397,6 +398,11 @@ window.TTX = null;
             		$(this).children().removeClass('hover');
             	});
             	$('#ttx_laptopMenu .ttxMenuItem').click(function(){
+            		if ($(this).hasClass('add')){ // popup laptop dialog
+            			_laptopHijack = true;
+            			$('.menuItem:contains("Laptop")').click();
+            			return;
+            		}
             		$(this).parent().children().removeClass('selected');
             		$(this).addClass('selected');
             	});
@@ -427,7 +433,10 @@ window.TTX = null;
 		
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
-			
+			if (_laptopHijack == true){
+				$element.find('.title').text('Hacked');
+				_laptopHijack = false;
+			}
 		}
 	}
 	function onResize(){
