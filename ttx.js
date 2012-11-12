@@ -390,10 +390,10 @@ window.TTX = null;
 	    	$('#ttx_laptopMenu').mouseout(function(){
 	    		$(this).children().removeClass('hover');	
 	    	});
-            	$('#ttx_laptopmenu .ttxMenuItem').mouseover(function(){
+            	$('#ttx_laptopMenu .ttxMenuItem').mouseover(function(){
             		$(this).children().addClass('hover');
             	});
-            	$('#ttx_laptopmenu .ttxMenuItem').mouseout(function(){
+            	$('#ttx_laptopMenu .ttxMenuItem').mouseout(function(){
             		$(this).children().removeClass('hover');
             	});
             }
