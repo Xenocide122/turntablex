@@ -129,7 +129,7 @@ window.TTX = null;
         });
         // get settings from local storage and merge with defaults
 	function loadSettings(){
-		
+		settings = defaultSettings;
 	}
         // reset the state of premium access
         function checkPremium(){
@@ -372,14 +372,28 @@ window.TTX = null;
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
 	    changeClass('#menuh',{left:'40px'});
-	    $('.header .logo').after('<div id="ttx_logo" style="left:178px; top: 12.5px; width: 38px; height: 36px; position:absolute; background-size: 38px 36px; background-image:url(http://turntablex.com/images/turntableX.png);"/>');
-	    $('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div></div><div class="ttxMenuItem">1</div><div class="ttxMenuItem">2</div></div>');
-	    $('#ttx_laptopMenu').mouseover(function(){
-	    	$(this).children().addClass('hover');
-	    });
-	    $('#ttx_laptopMenu').mouseout(function(){
-	    	$(this).children().removeClass('hover');	
-	    });
+	    if ($('#ttx_logo').length === 0){
+	    	$('.header .logo').after('<div id="ttx_logo" style="left:178px; top: 12.5px; width: 38px; height: 36px; position:absolute; background-size: 38px 36px; background-image:url(http://turntablex.com/images/turntableX.png);"/>');
+            }
+            if ($('#ttx_laptopMenu').length === 0){
+            	var laptops = settings.laptop.stickers.animations;
+            	var selected = settings.laptop.stickers.selected;
+            	var laptopDivs = '';
+            	for (var i=0; i<laptops; i++){
+            		laptopDivs += '<div class="ttxMenuItem ' + (laptops[i].name === selection ? 'selected' : '') + '">' + laptops[i].name + '</div>';
+            	}
+            	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic">Add Laptop</div>';
+            	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
+            	$('#ttx_laptopMenu').mouseover(function(){
+	    		$(this).children().addClass('hover');
+	    	});
+	    	$('#ttx_laptopMenu').mouseout(function(){
+	    		$(this).children().removeClass('hover');	
+	    	});
+            
+            }
+	   
+	    
 	
         }
         
