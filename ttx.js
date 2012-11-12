@@ -544,10 +544,12 @@ window.TTX = null;
 			//guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
 			//guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
 			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
-			guests.filter('.isMod').prependTo(guest_container); // then mods
-			guests.filter('.isSuper').prependTo(guest_container); // then super users
-		        guests.filter('.isDJ').prependTo(guest_container); // DJs first
-			guests.filter('.isIdle').appendTo(guest_container); // move all of the AFKs to the end of the list
+			
+			guests.filter('.isIdle').appendTo(guest_container); 
+			guests.filter('.isMod').prependTo(guest_container); 
+			guests.filter('.isSuper').prependTo(guest_container);
+		        guests.filter('.isDJ').prependTo(guest_container); 
+			
 		
 			}, 50);
 	}
