@@ -380,7 +380,7 @@ window.TTX = null;
             	var selected = settings.laptop.stickers.selected;
             	var laptopDivs = '';
             	for (var i=0; i<laptops.length; i++){
-            		laptopDivs += '<div class="ttxMenuItem ' + (laptops[i].name === selection ? 'selected' : '') + '">' + laptops[i].name + '</div>';
+            		laptopDivs += '<div class="ttxMenuItem' + (laptops[i].name === selected ? ' selected' : '') + '">' + laptops[i].name + '</div>';
             	}
             	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic;text-align:center">Add Laptop</div>';
             	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
