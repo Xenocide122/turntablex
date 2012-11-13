@@ -442,6 +442,8 @@ window.TTX = null;
 						<div><div style="display:inline-block; margin: 8px; width:80px">Speed:</div><div style="display: inline-block; width:320px; height: 10px;" id="ttxLaptopSpeed"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text"/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom"/>custom</div>\
 						</div>');
+				$('<div id="ttxLaptopScrollLeft"></div>').appendTo(laptop);
+				$('<div id="ttxLaptopScrollRight"></div>').appendTo(laptop);
 				$('#ttxLaptopSpeed').slider();
 			}
 		}
