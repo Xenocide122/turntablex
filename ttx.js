@@ -428,6 +428,7 @@ window.TTX = null;
             		}
         	}
 	}
+	
 	function onDOM(e){
 		var $element = $(e.target);
 		
@@ -442,9 +443,30 @@ window.TTX = null;
 						<div><div style="display:inline-block; margin: 8px; width:80px">Speed:</div><div style="display: inline-block; width:320px; height: 10px;" id="ttxLaptopSpeed"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text"/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom"/>custom</div>\
 						</div>');
-				$('<div id="ttxLaptopScrollLeft inactive"></div>').appendTo(laptop);
+				$('<div id="ttxLaptopScrollLeft" class="inactive"></div>').appendTo(laptop);
 				$('<div id="ttxLaptopScrollRight"></div>').appendTo(laptop);
-				$('h3:contains("Your Stickers")').text('Frame 1 of 1');
+				var frameCounter = $('h3:contains("Your stickers")');
+				var frameCount = 1;
+				var selectedFrame = 1;
+				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
+					selectedFrame += 1;
+					if (selectedFrame > frameCount){
+						frameCount = selectedFrame;
+					}
+					frameCounter.text('Frame '+selectedFrame+' of '+frameCount);
+					$('#ttxLaptopScrollLeft').removeClass('inactive');
+				});
+				$('#ttxLaptopScrollLeft').click(function(e){
+					if ($(this).hasClass('inactive')){
+						return;
+					}
+					selectedFrame -= 1;
+					if (selectedFrame === 1){
+						$(this).addClass('inactive');
+					}
+					frameCounter.text('Frame '+selectedFrame+' of '+frameCount);
+				});
+			        frameCounter.text('Frame '+selectedFrame+' of '+frameCount);
 				$('#ttxLaptopSpeed').slider();
 			}
 		}
