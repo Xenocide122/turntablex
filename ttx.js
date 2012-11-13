@@ -370,7 +370,7 @@ window.TTX = null;
 		$(this).parent().find('.content, .button').animate({top:'+=' + (stage_height+10)*direction},350);
 	    });
 
-	    
+	    changeClass('.ui-slider .ui-slider-handle',{width:'.8em',height:'.8em'});
             changeClass('.chat-container .messages .message',{width:'100%'});
 	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
 	    changeClass('#menuh',{left:'40px'});
