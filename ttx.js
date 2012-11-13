@@ -428,10 +428,10 @@ window.TTX = null;
             		}
         	}
 	}
-	
+	var customLaptopData = {};
 	function onDOM(e){
 		var $element = $(e.target);
-		
+		customLaptopData = {};
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
 			if (_laptopHijack == true){
@@ -445,28 +445,28 @@ window.TTX = null;
 						</div>');
 				$('<div id="ttxLaptopScrollLeft" class="inactive"></div>').appendTo(laptop);
 				$('<div id="ttxLaptopScrollRight"></div>').appendTo(laptop);
-				var frameCounter = $('h3:contains("Your stickers")');
-				var frameCount = 1;
-				var selectedFrame = 1;
+				customLaptopData.frameCounter = $('h3:contains("Your Stickers")');
+				customLaptopData.frameCount = 1;
+				customLaptopData.selectedFrame = 1;
 				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
-					selectedFrame += 1;
-					if (selectedFrame > frameCount){
-						frameCount = selectedFrame;
+					customLaptopData.selectedFrame += 1;
+					if (customLaptopData.selectedFrame > customLaptopData.frameCount){
+						customLaptopData.frameCount = customLaptopData.selectedFrame;
 					}
-					frameCounter.text('Frame '+selectedFrame+' of '+frameCount);
+					customLaptopData.frameCounter.text('Frame '+customLaptopData.selectedFrame+' of '+customLaptopData.frameCount);
 					$('#ttxLaptopScrollLeft').removeClass('inactive');
 				});
 				$('#ttxLaptopScrollLeft').click(function(e){
 					if ($(this).hasClass('inactive')){
 						return;
 					}
-					selectedFrame -= 1;
-					if (selectedFrame === 1){
+					customLaptopData.selectedFrame -= 1;
+					if (customLaptopData.selectedFrame === 1){
 						$(this).addClass('inactive');
 					}
-					frameCounter.text('Frame '+selectedFrame+' of '+frameCount);
+					customLaptopData.frameCounter.text('Frame '+customLaptopData.selectedFrame+' of '+customLaptopData.frameCount);
 				});
-			        frameCounter.text('Frame '+selectedFrame+' of '+frameCount);
+			        customLaptopData.frameCounter.text('Frame '+customLaptopData.selectedFrame+' of '+customLaptopData.frameCount);
 				$('#ttxLaptopSpeed').slider();
 			}
 		}
