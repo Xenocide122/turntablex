@@ -431,10 +431,11 @@ window.TTX = null;
 	var customLaptopData = {};
 	function onDOM(e){
 		var $element = $(e.target);
-		customLaptopData = {};
+		
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
 			if (_laptopHijack == true){
+				customLaptopData = {};
 				_laptopHijack = false;
 				$element.find('.title').text('Create a New Laptop');
 				var laptop = $element.find('#laptop');
