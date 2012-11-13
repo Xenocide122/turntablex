@@ -117,7 +117,6 @@ window.TTX = null;
 	};
 	
 	// main
-	$('<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css"/>').appendTo(document.head);
 	loadSettings();
         resetRoom(function(){
 	    checkPremium(); // check premium status
