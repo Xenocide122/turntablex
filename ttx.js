@@ -428,14 +428,14 @@ window.TTX = null;
             		}
         	}
 	}
-	var customLaptopData = {};
+	var newLaptopAnimation = {};
 	function onDOM(e){
 		var $element = $(e.target);
 		
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
 			if (_laptopHijack == true){
-				customLaptopData = {};
+				newLaptopAnimation = {};
 				_laptopHijack = false;
 				$element.find('.title').text('Create a New Laptop');
 				var laptop = $element.find('#laptop');
@@ -446,28 +446,28 @@ window.TTX = null;
 						</div>');
 				$('<div id="ttxLaptopScrollLeft" class="inactive"></div>').appendTo(laptop);
 				$('<div id="ttxLaptopScrollRight"></div>').appendTo(laptop);
-				customLaptopData.frameCounter = $('h3:contains("Your Stickers")');
-				customLaptopData.frameCount = 1;
-				customLaptopData.selectedFrame = 1;
+				var frameCounter = $element.find('h3:contains("Your Stickers")');
+				newLaptopAnimation.frameCount = 1;
+				newLaptopAnimation.selectedFrame = 1;
 				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
-					customLaptopData.selectedFrame += 1;
-					if (customLaptopData.selectedFrame > customLaptopData.frameCount){
-						customLaptopData.frameCount = customLaptopData.selectedFrame;
+					newLaptopAnimation.selectedFrame += 1;
+					if (newLaptopAnimation.selectedFrame > newLaptopAnimation.frameCount){
+						newLaptopAnimation.frameCount = newLaptopAnimation.selectedFrame;
 					}
-					customLaptopData.frameCounter.text('Frame '+customLaptopData.selectedFrame+' of '+customLaptopData.frameCount);
+					frameCounter.text('Frame '+newLaptopAnimation.selectedFrame+' of '+newLaptopAnimation.frameCount);
 					$('#ttxLaptopScrollLeft').removeClass('inactive');
 				});
 				$('#ttxLaptopScrollLeft').click(function(e){
 					if ($(this).hasClass('inactive')){
 						return;
 					}
-					customLaptopData.selectedFrame -= 1;
-					if (customLaptopData.selectedFrame === 1){
+					newLaptopAnimation.selectedFrame -= 1;
+					if (newLaptopAnimation.selectedFrame === 1){
 						$(this).addClass('inactive');
 					}
-					customLaptopData.frameCounter.text('Frame '+customLaptopData.selectedFrame+' of '+customLaptopData.frameCount);
+					frameCounter.text('Frame '+newLaptopAnimation.selectedFrame+' of '+newLaptopAnimation.frameCount);
 				});
-			        customLaptopData.frameCounter.text('Frame '+customLaptopData.selectedFrame+' of '+customLaptopData.frameCount);
+			        frameCounter.text('Frame '+newLaptopAnimation.selectedFrame+' of '+newLaptopAnimation.frameCount);
 				$('#ttxLaptopSpeed').slider();
 			}
 		}
