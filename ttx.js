@@ -439,9 +439,9 @@ window.TTX = null;
 				$element.find('.title').text('Create a New Laptop');
 				var laptop = $element.find('#laptop');
 				laptop.before('<div style="width:100%; padding-bottom:10px">\
-						<div><div style="display:inline-block; padding: 10px; width:80px">Name:</div><input type="text" value=""/></div>\
-					        <div><div style="display:inline-block; padding: 10px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text"/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom"/>custom</div>\
-						<div><div style="display:inline-block; padding: 10px; width:80px">Speed:</div><div style="display: block; width:200px" id="ttxLaptopSpeed"/></div>\
+						<div><div style="display:inline-block; padding: 8px; width:80px">Name:</div><input style="width: 300px" type="text" value=""/></div>\
+					        <div><div style="display:inline-block; padding: 8px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text"/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom"/>custom</div>\
+						<div><div style="display:inline-block; padding: 8px; width:80px">Speed:</div><div style="display: inline-block; width:300px" id="ttxLaptopSpeed"/></div>\
 						</div>');
 				$('#ttxLaptopSpeed').slider();
 			}
