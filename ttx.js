@@ -439,9 +439,10 @@ window.TTX = null;
 				var laptop = $element.find('#laptop');
 				laptop.before('<div style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; padding: 10px; width:80px">Name:</div><input type="text" value=""/></div>\
-					        <div><div style="display:inline-block; padding: 10px; width:80px">Type:</div><input name="ttxLaptopType" style="margin-right: 5px" type="radio" value="Mac"/>Mac<input name="ttxLaptopType" style="margin-left:10px; margin-right:5px" type="radio" value="PC"/>PC<input name="ttxLaptopType" style="margin-left:10px; margin-right:5px" type="radio" value="Linux"/> Linux</div>\
 					        <div><div style="display:inline-block; padding: 10px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text"/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom"/>custom</div>\
+						<div><div style="display:inline-block; padding: 10px; width:80px">Speed:</div><div style="width:200" id="ttxLaptopSpeed"/></div>\
 						</div>');
+				$('#ttxLaptopSpeed').slider({animate:fast});
 			}
 		}
 	}
