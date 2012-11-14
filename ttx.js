@@ -640,6 +640,7 @@ window.TTX = null;
 			var right = parseInt($(this).css('right').replace(/px/,''));
 			stickers.push({sticker_id:sticker_id,angle:angle,left:left,right:right});
 		});
+		console.log(stickers);
 		
 	}
 	function renderStickers(laptop,stickers){
@@ -654,6 +655,7 @@ window.TTX = null;
 			$('#ttxSticker'+i).data('angle',sticker.angle);
 			$('#ttxSticker'+i).data('sticker_id',sticker.sticker_id);
 			// add the sticker to the laptop view
+			console.log(stickerDiv);
 			laptop.append(stickerDiv);
 		}
 	}
