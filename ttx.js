@@ -311,8 +311,8 @@ window.TTX = null;
 	// called when there is a room change
 	function resetMods(){
 		_mods = {};
-		for (var i=0;i<_room.roomData.moderator_id.length;i++){
-			_mods[_room.roomData.moderator_id[i]] = 1;
+		for (var i=0;i<_room.roomData.metadata.moderator_id.length;i++){
+			_mods[_room.roomData.metadata.moderator_id[i]] = 1;
 		}
 	}
 	function newSong(){
