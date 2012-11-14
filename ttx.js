@@ -465,6 +465,7 @@ window.TTX = null;
 				
 				var laptop = $element.find('#laptop');
 				var frameCounter = $element.find('h3:contains("Your Stickers")');
+				var picker = $element.find('#picker');
 				
 				laptop.before('<div id="ttxLaptopSettings" style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttxLaptopName" type="text" value="'+newLaptopAnimation.name+'"/></div>\
@@ -474,6 +475,11 @@ window.TTX = null;
 				
 				$('<div id="ttxLaptopScrollLeft" class="inactive"></div>').appendTo(laptop);
 				$('<div id="ttxLaptopScrollRight"></div>').appendTo(laptop);
+				
+				picker.before('<div id="ttxLaptopTextSettings" style="display:none; width:100%; padding-top:10px;">\
+						<div><div style="display:inline-block; margin: 8px; width:80px">Text:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttxLaptopText" type="text" value="'+newLaptopAnimation.text.display+'"/> tick: <input type="text" id="ttxLaptopTicks" style="width:80px;height:10px;position:relative;top:9px;" value="'+ newLaptopAnimation.text.ticks +'"/></div>\
+						<div><div style="display:inline-block; margin: 8px; width:80px">Colors:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttxLaptopColors" type="text" value="'+newLaptopAnimation.text.colors+'"/> each letter: <input type="checkbox" id="ttxLaptopColorEach" '+ (newLaptopAnimation.text.colorEachLetter ? 'checked':'') + '</div>\
+						</div>');
 				
 				if (newLaptopAnimation.type === 'text'){ // hide the custom-only items
 					$('#picker').hide();
@@ -495,6 +501,8 @@ window.TTX = null;
 						$('#ttxLaptopScrollLeft').hide();
 						$('#ttxLaptopScrollRight').hide();
 						frameCounter.hide();
+						
+						$('#ttxLaptopTextSettings').show();
 					}
 					else{
 						$('#picker').show();
@@ -502,6 +510,8 @@ window.TTX = null;
 						$('#ttxLaptopScrollLeft').show();
 						$('#ttxLaptopScrollRight').show();
 						frameCounter.show();
+						
+						$('#ttxLaptopTextSettings').hide();
 					}
 				});
 				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
