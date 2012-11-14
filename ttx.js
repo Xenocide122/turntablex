@@ -399,7 +399,7 @@ window.TTX = null;
 	    // make it fullscreen
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
-	    $('#header').css({width:'auto',left:'5px',right:'15px !important'});
+	    $('#header').css({width:'100%',left:'5px',right:'auto !important'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
@@ -725,7 +725,7 @@ window.TTX = null;
 		else{
 			$('#outer').width('100%');
 		}
-		$('#header').css({width:'auto',left:'5px',right:'15px'});
+		
 	}
 	function isMod(id){
 		return typeof _mods[id] !== 'undefined';
