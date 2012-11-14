@@ -9,6 +9,81 @@ window.TTX = null;
 		down: '<img width="13" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
+	var STICKER_MAP = {
+		'4f873b32af173a2903816e52': {
+			url: "",
+			height: ,
+			width: ,
+			name: 'reddit'
+		},
+		'4f86febfe77989117e00000a': {
+			url: "",
+			height: ,
+			width: ,
+			name: 'twitter'
+		},
+		"4f86fd27e77989117e000000": {
+			url: "",
+			height: ,
+			width: ,
+			name: 'codecademy'
+		},
+		"4f86fd3ee77989117e000002": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'facebook'
+		},
+		"4f86fe5de77989117e000007": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'stackoverflow'
+		},
+		"4f86fd32e77989117e000001": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'etsy'
+		},
+		"4f86fe06e77989117e000004": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'github'
+		},
+		"4f86fe33e77989117e000006": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'pinterest'
+		}
+		"4f86fea8e77989117e000009": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'turntable'
+		},
+		"4f86fe84e77989117e000008": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'stickybits'
+		},
+		"4f86fe15e77989117e000005": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'meetup'
+		},
+		"4f86fdede77989117e000003": {
+			url: "",
+			width: ,
+			height: ,
+			name: 'foursquare'
+		}
+	
+	};
 	var _modalHijack = {
 		type: '', // laptop | notifications | advanced
 		action: '', // new | edit
@@ -462,26 +537,33 @@ window.TTX = null;
 				newLaptopAnimation.selected = 1;
 				_modalHijack.type = '';
 				
-				
+				// save important elements
 				var laptop = $element.find('#laptop');
 				var frameCounter = $element.find('h3:contains("Your Stickers")');
 				var picker = $element.find('#picker');
+				var laptopView = $element.find('#laptopView');
 				
+				// add general laptop settings
 				laptop.before('<div id="ttxLaptopSettings" style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttxLaptopName" type="text" value="'+newLaptopAnimation.name+'"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Speed:</div><div style="display: inline-block; width:320px; height: 10px;" id="ttxLaptopSpeed"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom" '+(newLaptopAnimation.type === 'custom' ? 'checked':'')+'/>custom</div>\
 						</div>');
+				$('#ttxLaptopSpeed').slider(); // create slider for animation speed
 				
+				// add laptop scroll buttons (for custom laptop)
 				$('<div id="ttxLaptopScrollLeft" class="inactive"></div>').appendTo(laptop);
 				$('<div id="ttxLaptopScrollRight"></div>').appendTo(laptop);
 				
 				$element.find('.buttons').hide(); // hide the default save button
 				
+				// add laptop text settings
 				picker.before('<div id="ttxLaptopTextSettings" style="display:none; margin-bottom:10px; width:100%; padding-top:10px;">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Text:</div><input style="width: 300px; height:10px; position:relative; top: 9px; margin-right:10px" id="ttxLaptopText" type="text" value="'+newLaptopAnimation.text.display+'"/>tick number: <input type="text" id="ttxLaptopTicks" style="width:30px;height:10px;position:relative;top:9px;" value="'+ newLaptopAnimation.text.tick +'"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Colors:</div><input style="width: 300px; height:10px; position:relative; top: 9px; margin-right:10px" id="ttxLaptopColors" type="text" value="'+newLaptopAnimation.text.colors+'"/>each letter: <input type="checkbox" id="ttxLaptopColorEach" '+ (newLaptopAnimation.text.colorEachLetter ? 'checked="checked"':'') + '</div>\
 						</div>');
+						
+				// add save and preview buttons
 				picker.after('<div id="ttxLaptopButtons" style="text-align:center; width:100%; margin-top: 5px;">\
 									<button id="ttxLaptopPreview" style="position:relative; top:0px;right:0px;" class="ttxSubmit">Preview</button>\
 									<button id="ttxLaptopSave" style="position:relative; top:0px;right:0px;" class="submit">Save</button>\
@@ -521,27 +603,58 @@ window.TTX = null;
 						$('#ttxLaptopTextSettings').hide();
 					}
 				});
-				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
-					newLaptopAnimation.selected += 1;
-					if (newLaptopAnimation.selected > newLaptopAnimation.frames.length){
+				$('#ttxLaptopScrollRight').click(function(e){ // add a new frame / move to the right
+					saveStickers(laptopView,newLaptopAnimation.frames[selected-1]); // save the stickers to the current frame
+					newLaptopAnimation.selected += 1; // update the current frame counter
+					if (newLaptopAnimation.selected > newLaptopAnimation.frames.length){ // add new frame if necessary
 						newLaptopAnimation.frames.push([]);
 					}
-					frameCounter.text('Frame '+ newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
-					$('#ttxLaptopScrollLeft').removeClass('inactive');
+					renderStickers(laptopView,newLaptopAnimation.frames[selected-1]); // remove old stickers and render new stickers
+					frameCounter.text('Frame '+ newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length); // update frame counter
+					$('#ttxLaptopScrollLeft').removeClass('inactive'); // enable left scroller since we just moved up a frame
 				});
 				$('#ttxLaptopScrollLeft').click(function(e){
 					if ($(this).hasClass('inactive')){
 						return;
 					}
+					saveStickers(laptopView,newLaptopAnimation.frames[selected-1]);
 					newLaptopAnimation.selected -= 1;
+					renderStickers(laptopView,newLaptopAnimation.frames[selected-1]);
 					if (newLaptopAnimation.selected === 1){
-						$(this).addClass('inactive');
+						$(this).addClass('inactive'); // disable left scroller, this is the first frame
 					}
-					frameCounter.text('Frame ' + newLaptopAnimation.selected+' of '+newLaptopAnimation.frames.length);
+					frameCounter.text('Frame ' + newLaptopAnimation.selected+' of '+newLaptopAnimation.frames.length); // update frame counter
 				});
+				// update the text for the frame counter
 			        frameCounter.text('Frame ' + newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
-				$('#ttxLaptopSpeed').slider();
 			}
+		}
+	}
+	function saveStickers(laptop,stickers){
+		stickers = []; // empty the stickers
+		laptop.children().each(function(){ // loop over each sticker and save to the array
+			var stickerDiv = $(this);
+			var sticker_id = $(this).data('sticker_id');
+			var angle = $(this).data('angle');
+			var left = parseInt($(this).css('left').replace(/px/,''));
+			var right = parseInt($(this).css('right').replace(/px/,''));
+			stickers.push({sticker_id:sticker_id,angle:angle,left:left,right:right});
+		});
+		
+	}
+	function renderStickers(laptop,stickers){
+		laptop.children().each(function(){ $(this).remove(); }); // remove all current stickers
+		for (var i=0; i<stickers.length; i++){
+			// create a div of the sticker
+			var sticker = stickers[i];
+			var stickerID = sticker.sticker_id;
+			var stickerData = STICKER_MAP[stickerID];
+			var stickerDiv = '<div id="ttxSticker'+i+'" class="sticker" style="background-image:url('+stickerData.url+'); height: '+stickerData.height+'px; width: '+stickerData.width+'; top: '+sticker.top+'; left: '+sticker.left+'; -webkit-transform: rotate('+sticker.angle+'deg); background-position: initial initial; background-repeat: initial initial;"></div>';
+			// add jquery data
+			$('#ttxSticker'+i).data('angle',sticker.angle);
+			$('#ttxSticker'+i).data('sticker_id',sticker.sticker_id);
+			// add the sticker to the laptop view
+			laptop.append(stickerDiv);
 		}
 	}
 	function onResize(){
