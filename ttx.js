@@ -351,11 +351,9 @@ window.TTX = null;
             for (var o in _turntable){
                 if (_turntable[o] !== null && _turntable[o].roomId){
                     _room = _turntable[o];
-                    log('Entering room: ' + _location);
-		    log(_room);
+                    
  		    _id = _turntable.user.id;
-		    log('Room id: ' + _room.roomId);
-		    log('User id: ' + _id);
+		    
 		    break;
                 }
             }
@@ -367,7 +365,12 @@ window.TTX = null;
 			}
 		}
                 if (_manager){
-		    
+		    log('Entering room: ' + _location);
+		    log(_room);
+		    log('Found manager');
+		    log(_manager);
+		    log('Room id: ' + _room.roomId);
+		    log('User id: ' + _id);
 		    TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
 			if (data.success === false){ // couldn't get info, just do a reset
 				log('Failed to query room info');
