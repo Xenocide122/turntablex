@@ -476,17 +476,17 @@ window.TTX = null;
             	});
             	$(document).on('click','#ttx_laptopMenu .ttxMenuItem .ttxMenuEdit',function(e){
             		e.preventDefault();
-            		e.stopPropogation();
+            		e.stopPropagation();
             		_modalHijack.type = 'laptop';
             		_modalHijack.action = 'edit';
             		_modalHijack.index = $(this).parent().find('.ttxMenuName').text();
-            		_turnable.sticker.showEditor();
+            		_turntable.sticker.showEditor();
             	});
             	$(document).on('click','#ttx_laptopMenu .ttxMenuItem',function(){
             		if ($(this).hasClass('add')){ // popup laptop dialog
             			_modalHijack.type = 'laptop';
             			_modalHijack.action = 'new';
-            			_turnable.sticker.showEditor();
+            			_turntable.sticker.showEditor();
             			return;
             		}
             		if ($(this).hasClass('first')){
