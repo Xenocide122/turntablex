@@ -898,8 +898,8 @@ window.TTX = null;
 			}
 		}
 
-		var action = vote === 'up' ? 'awesomed' : 'lamed';
-		addChat(name,' ' + action + ' this song ' + SYMBOLS[vote]);
+		//var action = vote === 'up' ? 'awesomed' : 'lamed';
+		//addChat(name,' ' + action + ' this song ' + SYMBOLS[vote]);
 		
 	
 	}
