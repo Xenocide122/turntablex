@@ -569,7 +569,13 @@ window.TTX = null;
 									<button id="ttxLaptopSave" style="position:relative; top:0px;right:0px;" class="submit">Save</button>\
 								   </div>');
 			
-				
+				$('#ttxLaptopPreview').click(function(){
+					if (newLaptopAnimation.type === 'custom'){
+						newLaptopAnimation.selected = 1;
+						saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
+						previewStickers();
+					}
+				});
 				if (newLaptopAnimation.type === 'text'){ // hide the custom-only items
 					$('#picker').hide();
 					$('#remainingCount').hide();
@@ -632,6 +638,14 @@ window.TTX = null;
 			}
 		}
 	}
+	function previewStickers(){
+		if (newLaptopAnimation.selected === newLaptopAnimation.frames.length){ // stop
+			return;
+		}
+		$('#ttxLaptopScrollRight').click();
+		setTimeout(function(){ previewStickers(); },newLaptopAnimation.speed);
+		
+	}
 	function saveStickers(laptop,animation,selected){
 		animation.frames[selected] = [];
 		laptop.children().each(function(){ // loop over each sticker and save to the array
@@ -642,8 +656,6 @@ window.TTX = null;
 			var top = parseInt($(this).css('top').replace(/px/,''));
 			animation.frames[selected].push({sticker_id:sticker_id,angle:angle,left:left,top:top});
 		});
-		console.log(animation.frames[selected]);
-		
 	}
 	function renderStickers(laptop,animation,selected){
 		laptop.children().each(function(){ $(this).remove(); }); // remove all current stickers
@@ -653,12 +665,9 @@ window.TTX = null;
 			var stickerID = sticker.sticker_id;
 			var stickerData = STICKER_MAP[stickerID];
 			var stickerDiv = '<div id="ttxSticker'+i+'" class="sticker" style="background-image:url('+stickerData.url+'); height: '+stickerData.height+'px; width: '+stickerData.width+'px; top: '+sticker.top+'px; left: '+sticker.left+'px; -webkit-transform: rotate('+sticker.angle+'deg); background-position: initial initial; background-repeat: initial initial;"></div>';
-			
-			
 			// add the sticker to the laptop view
-			console.log(stickerDiv);
 			laptop.append(stickerDiv);
-			// add jquery data
+			// add jquery data for bounding box
 			$('#ttxSticker'+i).data('angle',sticker.angle);
 			$('#ttxSticker'+i).data('sticker_id',stickerID);
 		}
