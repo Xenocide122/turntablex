@@ -486,7 +486,7 @@ window.TTX = null;
 					$('#ttxLaptopTextSettings').hide();
 				}
 				
-				$('#ttxLaptopSettings input[@name="ttxLaptopAnimation"]').change(function(e){
+				$('input[@name="ttxLaptopAnimation"]',$element).change(function(e){
 					console.log(e);
 					console.log($(this));
 				});
