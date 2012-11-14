@@ -11,75 +11,75 @@ window.TTX = null;
 	};
 	var STICKER_MAP = {
 		'4f873b32af173a2903816e52': {
-			url: "",
-			height: ,
-			width: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/reddit.png",
+			height: 125,
+			width: 90,
 			name: 'reddit'
 		},
 		'4f86febfe77989117e00000a': {
-			url: "",
-			height: ,
-			width: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/twitter.png",
+			height: 77,
+			width: 103,
 			name: 'twitter'
 		},
 		"4f86fd27e77989117e000000": {
-			url: "",
-			height: ,
-			width: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/codecademy.png",
+			height: 46,
+			width: 186,
 			name: 'codecademy'
 		},
 		"4f86fd3ee77989117e000002": {
-			url: "",
-			width: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/facebook.png",
 			height: ,
+			width: ,
 			name: 'facebook'
 		},
 		"4f86fe5de77989117e000007": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/stackoverflow.png",
+			height: 66,
+			width: 226,
 			name: 'stackoverflow'
 		},
 		"4f86fd32e77989117e000001": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/etsy.png",
+			height: 65,
+			width: 110,
 			name: 'etsy'
 		},
 		"4f86fe06e77989117e000004": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/github.png",
+			height: 122,
+			width: 135,
 			name: 'github'
 		},
 		"4f86fe33e77989117e000006": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/pinterest.png",
+			height: 49,
+			width: 165,
 			name: 'pinterest'
 		}
 		"4f86fea8e77989117e000009": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/turntable.png",
+			height: 89,
+			width: 139,
 			name: 'turntable'
 		},
 		"4f86fe84e77989117e000008": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/stickybits.png",
+			height: 53,
+			width: 167,
 			name: 'stickybits'
 		},
 		"4f86fe15e77989117e000005": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/meetup.png",
+			height: 75,
+			width: 104,
 			name: 'meetup'
 		},
 		"4f86fdede77989117e000003": {
-			url: "",
-			width: ,
-			height: ,
+			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/foursquare.png",
+			height: 56,
+			width: 176,
 			name: 'foursquare'
 		}
 	
