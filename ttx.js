@@ -542,7 +542,7 @@ window.TTX = null;
 				var frameCounter = $element.find('h3:contains("Your Stickers")');
 				var picker = $element.find('#picker');
 				var laptopView = $element.find('#laptopView');
-				
+				var boundingBox = laptop.find('.boundingBox');
 				// add general laptop settings
 				laptop.before('<div id="ttxLaptopSettings" style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttxLaptopName" type="text" value="'+newLaptopAnimation.name+'"/></div>\
@@ -621,9 +621,9 @@ window.TTX = null;
 					
 					frameCounter.text('Frame '+ newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length); // update frame counter
 					$('#ttxLaptopScrollLeft').removeClass('inactive'); // enable left scroller since we just moved up a frame
-					laptop.find('.boundingBox').hide();
+					
 				
-				});
+				}).mouseover(function(){ boundingBox.hide(); });
 				$('#ttxLaptopScrollLeft').click(function(e){
 					if ($(this).hasClass('inactive')){
 						return;
@@ -636,9 +636,9 @@ window.TTX = null;
 						$(this).addClass('inactive'); // disable left scroller, this is the first frame
 					}
 					frameCounter.text('Frame ' + newLaptopAnimation.selected+' of '+newLaptopAnimation.frames.length); // update frame counter
-					laptop.find('.boundingBox').hide();
+					
 				
-				});
+				}).mouseover(function(){ boundingBox.hide(); });
 				// update the text for the frame counter
 			        frameCounter.text('Frame ' + newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
 			}
