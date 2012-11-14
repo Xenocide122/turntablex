@@ -312,7 +312,7 @@ window.TTX = null;
 	function resetMods(){
 		_mods = {};
 		for (var i=0;i<_room.roomData.moderator_id.length;i++){
-			_mods[_room.roomData.moderator_id.[i]] = 1;
+			_mods[_room.roomData.moderator_id[i]] = 1;
 		}
 	}
 	function newSong(){
