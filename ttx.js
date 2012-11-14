@@ -399,7 +399,7 @@ window.TTX = null;
 	    // make it fullscreen
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
-	    $('#header').css({width:'98%',left:'5px',right:'auto !important'});
+	    $('#header').css({width:'99%',left:'5px'});
 	    $('#scene').css({top:'100px'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
