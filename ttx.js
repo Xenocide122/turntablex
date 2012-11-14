@@ -361,7 +361,7 @@ window.TTX = null;
             }
             if (_room){ // found turntable room
                 for (var o in _room){
-			if (_room[o] !== null && _room[o].roomData){
+			if (_room[o] !== null && typeof(_room[o]) !== 'undefined' && _room[o].roomData){
 				_manager = _room[o];
 				break;
 			}
