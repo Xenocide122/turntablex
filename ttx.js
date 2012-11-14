@@ -640,7 +640,7 @@ window.TTX = null;
 			var top = parseInt($(this).css('top').replace(/px/,''));
 			animation.frames[selected].push({sticker_id:sticker_id,angle:angle,left:left,top:top});
 		});
-		console.log(stickers);
+		console.log(animation.frames[selected]);
 		
 	}
 	function renderStickers(laptop,animation,selected){
