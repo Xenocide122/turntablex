@@ -199,7 +199,7 @@ window.TTX = null;
 			}
 		}
 	};
-	
+	log('Turntable X loaded');
 	// main
 	loadSettings();
         resetRoom(function(){
