@@ -474,11 +474,19 @@ window.TTX = null;
             	$(document).on('mouseout','#ttx_laptopMenu .ttxMenuItem',function(){
             		$(this).children().removeClass('hover');
             	});
+            	$(document).on('click','#ttx_laptopMenu .ttxMenuItem .ttxMenuEdit',function(e){
+            		e.preventDefault();
+            		e.stopPropogation();
+            		_modalHijack.type = 'laptop';
+            		_modalHijack.action = 'edit';
+            		_modalHijack.index = $(this).parent().find('.ttxMenuName').text();
+            		_turnable.sticker.showEditor();
+            	});
             	$(document).on('click','#ttx_laptopMenu .ttxMenuItem',function(){
             		if ($(this).hasClass('add')){ // popup laptop dialog
             			_modalHijack.type = 'laptop';
             			_modalHijack.action = 'new';
-            			$('.menuItem:contains("Laptop")').click();
+            			_turnable.sticker.showEditor();
             			return;
             		}
             		if ($(this).hasClass('first')){
@@ -497,7 +505,7 @@ window.TTX = null;
             	var selected = settings.laptop.stickers.selected;
             	var laptopDivs = '';
             	for (var i in laptops){
-            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '">' + i + '<div class="ttxMenuEdit">edit</div></div>';
+            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '"><span class="ttxMenuName">' + i + '</div><div class="ttxMenuEdit">edit</div></div>';
             	}
             	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'<div class="ttxMenuItem add" style="text-align:center;">New Laptop</div>';
             	if ( $('#ttx_laptopMenu').length === 0){
