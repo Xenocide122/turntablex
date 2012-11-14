@@ -659,7 +659,8 @@ window.TTX = null;
 		});
 	}
 	function renderStickers(laptop,animation,selected){
-		laptop.children().each(function(){ $(this).remove(); }); // remove all current stickers
+		laptop.children().each(function(){ $(this).mouseover(); $('#boundingBoxX').mouseup(); }); // remove all current stickers
+		$('.boundingBox').hide();
 		for (var i=0; i<animation.frames[selected].length; i++){
 			// create a div of the sticker
 			var sticker = animation.frames[selected][i];
