@@ -205,9 +205,9 @@ window.TTX = null;
         resetRoom(function(){
 	    checkPremium(); // check premium status
 	    //initializeUI(); // initialize UI elements
-	    //resetMods(); // new mods
-	    //resetDJs(); // new DJs
-	    //resetUsers(); // new users
+	    resetMods(); // new mods
+	    resetDJs(); // new DJs
+	    resetUsers(); // new users
 	    //updateGuests(); // update guest list 
 	    //updateHeader(); // update header
 	    initializeListeners(); // create DOM and Turntable event handlers
@@ -259,8 +259,8 @@ window.TTX = null;
 	// called every time there is a DJ change
 	function resetDJs(){
 		_djs = {};
-		for (var i=0;i<_room.djIds.length;i++){
-			_djs[_room.djIds[i]] = 1;
+		for (var i=0;i<_room.roomData.metadata.djs.length;i++){
+			_djs[_room.roomData.metadata.djs[i]] = 1;
 		}
 	}
 	function onDeregistered(e){
@@ -291,7 +291,6 @@ window.TTX = null;
 				_idleTimers[id] = now;
 			}
 		}
-		console.log(Object.keys(_users).length);;
 	}
 	// called when there is a room change
 	function resetUsers(){
@@ -312,15 +311,15 @@ window.TTX = null;
 	// called when there is a room change
 	function resetMods(){
 		_mods = {};
-		for (var i=0;i<_room.moderators.length;i++){
-			_mods[_room.moderators[i]] = 1;
+		for (var i=0;i<_room.roomData.moderator_id.length;i++){
+			_mods[_room.roomData.moderator_id.[i]] = 1;
 		}
 	}
 	function newSong(){
-		var votelog = _manager.roomData.metadata.votelog;
-		var currentSong = _manager.roomData.metadata.current_song;
-		var downvotes = _manager.roomData.metadata.downvotes;
-		var upvotes = _manager.roomData.metadata.upvotes;
+		var votelog = _room.roomData.metadata.votelog;
+		var currentSong = _room.roomData.metadata.current_song;
+		var downvotes = _room.roomData.metadata.downvotes;
+		var upvotes = _room.roomData.metadata.upvotes;
 		_currentSong = {};
 		_currentSong.hearts = 0;
 		_currentSong.downvotes = downvotes;
@@ -359,7 +358,7 @@ window.TTX = null;
             }
             if (_room){ // found turntable room
                 for (var o in _room){
-			if (_room[o] !== null && typeof(_room[o]) !== 'undefined' && _room[o].roomData){
+			if (_room[o] !== null && typeof(_room[o]) !== 'undefined' && _room[o].current_dj){
 				_manager = _room[o];
 				break;
 			}
@@ -374,17 +373,7 @@ window.TTX = null;
 		 
 		    newSong();
 		    callback();
-		    /*TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
-			if (data.success === false){ // couldn't get info, just do a reset
-				log('Failed to query room info');
-				resetSong();
-				callback();
-			}
-			else{
-				newSong(data);
-				callback();
-			}
-		    });*/
+
                 }
                 else{
                     // try again
