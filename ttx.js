@@ -486,7 +486,7 @@ window.TTX = null;
 									<button id="ttxLaptopPreview" style="position:relative; top:0px;right:0px;" class="submit">Preview</button>\
 									<button id="ttxLaptopSave" style="position:relative; top:0px;right:0px;" class="submit">Save</button>\
 								   </div>');
-				
+				$('#ttxLaptopPreview').html('preview');
 				
 				if (newLaptopAnimation.type === 'text'){ // hide the custom-only items
 					$('#picker').hide();
