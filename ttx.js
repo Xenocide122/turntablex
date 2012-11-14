@@ -499,8 +499,8 @@ window.TTX = null;
             	for (var i in laptops){
             		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '">' + i + '<div class="ttxMenuEdit">edit</div></div>';
             	}
-            	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs';
-            	if ($('#ttx_laptopMenu').length===0){
+            	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs;
+            	if ( $('#ttx_laptopMenu').length === 0){
             		$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px">'+content+'</div>');
             	}
             	else{
@@ -594,8 +594,10 @@ window.TTX = null;
 					}
 				});
 				$('#ttxLaptopSave').click(function(){
-					settings.laptop.stickers.
+					settings.laptop.stickers.animations[newLaptopAnimation.name] = newLaptopAnimation;
+					updateLaptops();
 					$element.find('.close-x').click(); // close the modal
+					
 				});
 				if (newLaptopAnimation.type === 'text'){ // hide the custom-only items
 					$('#picker').hide();
