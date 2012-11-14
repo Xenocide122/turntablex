@@ -204,12 +204,12 @@ window.TTX = null;
 	loadSettings();
         resetRoom(function(){
 	    checkPremium(); // check premium status
-	    //initializeUI(); // initialize UI elements
+	    initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
 	    resetDJs(); // new DJs
 	    resetUsers(); // new users
-	    //updateGuests(); // update guest list 
-	    //updateHeader(); // update header
+	    updateGuests(); // update guest list 
+	    updateHeader(); // update header
 	    initializeListeners(); // create DOM and Turntable event handlers
         });
         // get settings from local storage and merge with defaults
@@ -397,9 +397,9 @@ window.TTX = null;
 	// perform graphical manipulation
         function initializeUI(){
 	    // make it fullscreen
-	    $('#outer').width('100%');
+	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    // reposition the stage, playlist, chat, and guestlist
-	    var main_container = $('#outer .roomView');
+	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
 	    var stage = $('#floor-div').parent();
 	    var stage_height = stage.height();
@@ -493,7 +493,7 @@ window.TTX = null;
             }
             else{
             	updateLaptops();
-            }
+            }*/
         }
         function updateLaptops(){
         	var laptops = settings.laptop.stickers.animations;
