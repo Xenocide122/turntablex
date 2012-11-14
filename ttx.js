@@ -637,8 +637,8 @@ window.TTX = null;
 			var sticker_id = $(this).data('sticker_id');
 			var angle = $(this).data('angle');
 			var left = parseInt($(this).css('left').replace(/px/,''));
-			var right = parseInt($(this).css('right').replace(/px/,''));
-			stickers.push({sticker_id:sticker_id,angle:angle,left:left,right:right});
+			var top = parseInt($(this).css('top').replace(/px/,''));
+			stickers.push({sticker_id:sticker_id,angle:angle,left:left,top:top});
 		});
 		console.log(stickers);
 		
