@@ -9,7 +9,11 @@ window.TTX = null;
 		down: '<img width="13" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
-	var _laptopHijack = false;
+	var _modalHijack = {
+		type: '', // laptop | notifications | advanced
+		action: '', // new | edit
+		index: 0 // laptop index
+	};
 	
         // global state
 	var self = this;
@@ -399,7 +403,8 @@ window.TTX = null;
             	});
             	$('#ttx_laptopMenu .ttxMenuItem').click(function(){
             		if ($(this).hasClass('add')){ // popup laptop dialog
-            			_laptopHijack = true;
+            			_modalHijack.type = 'laptop';
+            			_modalHijack.action = 'new';
             			$('.menuItem:contains("Laptop")').click();
             			return;
             		}
@@ -434,40 +439,73 @@ window.TTX = null;
 		
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
-			if (_laptopHijack == true){
-				newLaptopAnimation = {};
-				_laptopHijack = false;
-				$element.find('.title').text('Create a New Laptop');
+			if (_modalHijack.type === 'laptop'){
+				if (_modalHijack.action === 'new'){
+					newLaptopAnimation = {
+						name: '',
+						type: 'custom',
+						speed: 500,
+						text: {
+							display: '',
+							colors: '',
+							colorEachLetter: true,
+							tick: 1
+						},
+						frames: [[]] // one frame with no stickers
+					};
+					$element.find('.title').text('Create a New Laptop');
+				}
+				else{ // edit
+					newLaptopAnimation = $.extend(true,{},settings.laptop.stickers.animations[_modalHijack.index]);
+					$element.find('.title').text('Edit Your Laptop');
+				}
+				newLaptopAnimation.selected = 1;
+				_modalHijack.type = '';
+				
+				
 				var laptop = $element.find('#laptop');
-				laptop.before('<div style="width:100%; padding-bottom:10px">\
-						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" type="text" value=""/></div>\
+				var frameCounter = $element.find('h3:contains("Your Stickers")');
+				
+				laptop.before('<div id="ttxLaptopSettings" style="width:100%; padding-bottom:10px">\
+						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttxLaptopName" type="text" value="'+newLaptopAnimation.name+'"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Speed:</div><div style="display: inline-block; width:320px; height: 10px;" id="ttxLaptopSpeed"/></div>\
-						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text"/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom"/>custom</div>\
+						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input id="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>custom</div>\
 						</div>');
+				
 				$('<div id="ttxLaptopScrollLeft" class="inactive"></div>').appendTo(laptop);
 				$('<div id="ttxLaptopScrollRight"></div>').appendTo(laptop);
-				var frameCounter = $element.find('h3:contains("Your Stickers")');
-				newLaptopAnimation.frameCount = 1;
-				newLaptopAnimation.selectedFrame = 1;
+				
+				if (newLaptopAnimation.type === 'text'){ // hide the custom-only items
+					$('#picker').hide();
+					$('#remainingCount').hide();
+					$('#ttxLaptopScrollLeft').hide();
+					$('#ttxLaptopScrollRight').hide();
+					frameCounter.hide();
+				}
+				else{ // hide the text-only items
+					$('#ttxLaptopTextSettings').hide();
+				}
+				
+	
 				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
-					newLaptopAnimation.selectedFrame += 1;
-					if (newLaptopAnimation.selectedFrame > newLaptopAnimation.frameCount){
-						newLaptopAnimation.frameCount = newLaptopAnimation.selectedFrame;
+					newLaptopAnimation.selected += 1;
+					if (newLaptopAnimation.selected > newLaptopAnimation.frames.length){
+						newLaptopAnimation.frames.push([]);
 					}
-					frameCounter.text('Frame '+newLaptopAnimation.selectedFrame+' of '+newLaptopAnimation.frameCount);
+					frameCounter.text('Frame '+ newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
 					$('#ttxLaptopScrollLeft').removeClass('inactive');
 				});
 				$('#ttxLaptopScrollLeft').click(function(e){
 					if ($(this).hasClass('inactive')){
 						return;
 					}
-					newLaptopAnimation.selectedFrame -= 1;
-					if (newLaptopAnimation.selectedFrame === 1){
+					newLaptopAnimation.selected -= 1;
+					if (newLaptopAnimation.selected === 1){
 						$(this).addClass('inactive');
 					}
-					frameCounter.text('Frame '+newLaptopAnimation.selectedFrame+' of '+newLaptopAnimation.frameCount);
+					frameCounter.text('Frame ' + newLaptopAnimation.selected+' of '+newLaptopAnimation.frames.length);
 				});
-			        frameCounter.text('Frame '+newLaptopAnimation.selectedFrame+' of '+newLaptopAnimation.frameCount);
+			        frameCounter.text('Frame ' + newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
 				$('#ttxLaptopSpeed').slider();
 			}
 		}
