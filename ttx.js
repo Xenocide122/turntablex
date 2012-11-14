@@ -604,12 +604,12 @@ window.TTX = null;
 					}
 				});
 				$('#ttxLaptopScrollRight').click(function(e){ // add a new frame / move to the right
-					saveStickers(laptopView,newLaptopAnimation.frames[selected-1]); // save the stickers to the current frame
+					saveStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]); // save the stickers to the current frame
 					newLaptopAnimation.selected += 1; // update the current frame counter
 					if (newLaptopAnimation.selected > newLaptopAnimation.frames.length){ // add new frame if necessary
 						newLaptopAnimation.frames.push([]);
 					}
-					renderStickers(laptopView,newLaptopAnimation.frames[selected-1]); // remove old stickers and render new stickers
+					renderStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]); // remove old stickers and render new stickers
 					frameCounter.text('Frame '+ newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length); // update frame counter
 					$('#ttxLaptopScrollLeft').removeClass('inactive'); // enable left scroller since we just moved up a frame
 				});
@@ -617,9 +617,9 @@ window.TTX = null;
 					if ($(this).hasClass('inactive')){
 						return;
 					}
-					saveStickers(laptopView,newLaptopAnimation.frames[selected-1]);
+					saveStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]);
 					newLaptopAnimation.selected -= 1;
-					renderStickers(laptopView,newLaptopAnimation.frames[selected-1]);
+					renderStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]);
 					if (newLaptopAnimation.selected === 1){
 						$(this).addClass('inactive'); // disable left scroller, this is the first frame
 					}
