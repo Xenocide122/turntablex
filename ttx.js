@@ -462,19 +462,19 @@ window.TTX = null;
             }
             if ($('#ttx_laptopMenu').length === 0){
 		updateLaptops();
-            	$('#ttx_laptopMenu').on('mouseover',function(){
+            	$('#ttx_laptopMenu').bind('mouseover',function(){
 	    		$(this).children().addClass('hover');
 	    	});
-	    	$('#ttx_laptopMenu').on('mouseout',function(){
+	    	$('#ttx_laptopMenu').bind('mouseout',function(){
 	    		$(this).children().removeClass('hover');	
 	    	});
-            	$('#ttx_laptopMenu .ttxMenuItem').on('mouseover',function(){
+            	$(document).on('mouseover','#ttx_laptopMenu .ttxMenuItem',function(){
             		$(this).children().addClass('hover');
             	});
-            	$('#ttx_laptopMenu .ttxMenuItem').on('mouseout',function(){
+            	$(document).on('mouseout','#ttx_laptopMenu .ttxMenuItem',function(){
             		$(this).children().removeClass('hover');
             	});
-            	$('#ttx_laptopMenu .ttxMenuItem').on('click',function(){
+            	$(document).on('click','#ttx_laptopMenu .ttxMenuItem',function(){
             		if ($(this).hasClass('add')){ // popup laptop dialog
             			_modalHijack.type = 'laptop';
             			_modalHijack.action = 'new';
