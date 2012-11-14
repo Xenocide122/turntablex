@@ -571,8 +571,10 @@ window.TTX = null;
 			
 				$('#ttxLaptopPreview').click(function(){
 					if (newLaptopAnimation.type === 'custom'){
-						newLaptopAnimation.selected = 1;
 						saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
+						newLaptopAnimation.selected = 1;
+						renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
+						frameCounter.text('Frame ' + newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
 						previewStickers();
 					}
 				});
