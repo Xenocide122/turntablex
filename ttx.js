@@ -505,7 +505,7 @@ window.TTX = null;
             	var selected = settings.laptop.stickers.selected;
             	var laptopDivs = '';
             	for (var i in laptops){
-            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '"><span class="ttxMenuName">' + i + '</div><div class="ttxMenuEdit">edit</div></div>';
+            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '"><span class="ttxMenuName">' + i + '</span><div class="ttxMenuEdit">edit</div></div>';
             	}
             	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'<div class="ttxMenuItem add" style="text-align:center;">New Laptop</div>';
             	if ( $('#ttx_laptopMenu').length === 0){
