@@ -486,7 +486,9 @@ window.TTX = null;
 					$('#ttxLaptopTextSettings').hide();
 				}
 				
-	
+				$('#ttxLaptopSettings input[@name="ttxLaptopAnimation"]').change(function(e){
+					console.log(e);
+				});
 				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
 					newLaptopAnimation.selected += 1;
 					if (newLaptopAnimation.selected > newLaptopAnimation.frames.length){
