@@ -401,6 +401,7 @@ window.TTX = null;
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
 	    $('#right-panel').css({top:'70px',width:'auto',right: '10px',left:'1300px'});
+	    $('#chat-input').css({width:'auto',right:'5px'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
