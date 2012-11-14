@@ -486,9 +486,23 @@ window.TTX = null;
 					$('#ttxLaptopTextSettings').hide();
 				}
 				
-				$('input[@name="ttxLaptopAnimation"]',$element).change(function(e){
-					console.log(e);
-					console.log($(this));
+				$('input[name="ttxLaptopAnimation"]',$('#ttxLaptopSettings')).change(function(e){
+					var new_type = $(this).val();
+					newLaptopAnimation.type = new_type;
+					if (new_type === 'text'){
+						$('#picker').hide();
+						$('#remainingCount').hide();
+						$('#ttxLaptopScrollLeft').hide();
+						$('#ttxLaptopScrollRight').hide();
+						frameCounter.hide();
+					}
+					else{
+						$('#picker').show();
+						$('#remainingCount').show();
+						$('#ttxLaptopScrollLeft').show();
+						$('#ttxLaptopScrollRight').show();
+						frameCounter.show();
+					}
 				});
 				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
 					newLaptopAnimation.selected += 1;
