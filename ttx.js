@@ -169,9 +169,9 @@ window.TTX = null;
 		laptop: {
 			type: 'default',
 			stickers: {
-				selected: 0,
-				animations: [ // array of sticker animations
-					{
+				selected: 'Blinking X',
+				animations: { //  sticker animations
+					'Blinking X': {
 						name: 'Blinking X',
 						speed: 0,
 						type: 'text',
@@ -179,18 +179,23 @@ window.TTX = null;
 							display: ' x ',
 							colors: 'pb',
 							colorEachLetter: true,
-							tick: '3'
-						}
+							tick: 3
+						},
+						frames: [[]]
 					},
-					{
+					'Custom sample' : {
 						name: 'Custom sample',
 						speed: 500,
 						type: 'custom',
-						frames: [
-							
-						]
+						text: {
+							display: '',
+							colors: '',
+							colorEachLetter: true,
+							tick: 1
+						},
+						frames: [[]]
 					}
-				]
+				}
 			}
 		}
 	};
@@ -456,42 +461,52 @@ window.TTX = null;
 	    	$('.header .logo').after('<div id="ttx_logo" style="left:178px; top: 12.5px; width: 38px; height: 36px; position:absolute; background-size: 38px 36px; background-image:url(http://turntablex.com/images/turntableX.png);"/>');
             }
             if ($('#ttx_laptopMenu').length === 0){
-            	var laptops = settings.laptop.stickers.animations;
-            	var selected = settings.laptop.stickers.selected;
-            	var laptopDivs = '';
-            	for (var i=0; i<laptops.length; i++){
-            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '">' + laptops[i].name + '<div class="ttxMenuEdit">edit</div></div>';
-            	}
-            	laptopDivs += '<div class="ttxMenuItem add" style="font-style:italic;text-align:center">New Laptop</div>';
-            	$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px"><div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'</div>');
-            	$('#ttx_laptopMenu').mouseover(function(){
+		updateLaptops();
+            	$('#ttx_laptopMenu').on('mouseover',function(){
 	    		$(this).children().addClass('hover');
 	    	});
-	    	$('#ttx_laptopMenu').mouseout(function(){
+	    	$('#ttx_laptopMenu').on('mouseout',function(){
 	    		$(this).children().removeClass('hover');	
 	    	});
-            	$('#ttx_laptopMenu .ttxMenuItem').mouseover(function(){
+            	$('#ttx_laptopMenu .ttxMenuItem').on('mouseover',function(){
             		$(this).children().addClass('hover');
             	});
-            	$('#ttx_laptopMenu .ttxMenuItem').mouseout(function(){
+            	$('#ttx_laptopMenu .ttxMenuItem').on('mouseout',function(){
             		$(this).children().removeClass('hover');
             	});
-            	$('#ttx_laptopMenu .ttxMenuItem').click(function(){
+            	$('#ttx_laptopMenu .ttxMenuItem').on('click',function(){
             		if ($(this).hasClass('add')){ // popup laptop dialog
             			_modalHijack.type = 'laptop';
             			_modalHijack.action = 'new';
             			$('.menuItem:contains("Laptop")').click();
             			return;
             		}
+            		if ($(this).hasClass('first')){
+            			return; // don't do anything
+            		}
             		$(this).parent().children().removeClass('selected');
             		$(this).addClass('selected');
             	});
             }
-	   
-	    
-	
+            else{
+            	updateLaptops();
+            }
         }
-        
+        function updateLaptops(){
+        	var laptops = settings.laptop.stickers.animations;
+            	var selected = settings.laptop.stickers.selected;
+            	var laptopDivs = '';
+            	for (var i in laptops){
+            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '">' + i + '<div class="ttxMenuEdit">edit</div></div>';
+            	}
+            	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs';
+            	if ($('#ttx_laptopMenu').length===0){
+            		$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px">'+content+'</div>');
+            	}
+            	else{
+            		$('#ttx_laptopMenu').html(content);
+            	}
+        }
 	function changeClass(classname,properties){
 		var ss = document.styleSheets;
         	for (var i=0; i<ss.length; i++) {
@@ -578,6 +593,10 @@ window.TTX = null;
 						previewStickers();
 					}
 				});
+				$('#ttxLaptopSave').click(function(){
+					settings.laptop.stickers.
+					$element.find('.close-x').click(); // close the modal
+				});
 				if (newLaptopAnimation.type === 'text'){ // hide the custom-only items
 					$('#picker').hide();
 					$('#remainingCount').hide();
@@ -653,13 +672,18 @@ window.TTX = null;
 	}
 	function saveStickers(laptop,animation,selected){
 		animation.frames[selected] = [];
+		var count = 0;
 		laptop.children().each(function(){ // loop over each sticker and save to the array
+			if (count === 20){ // only save the first 20 stickers
+				return;
+			}
 			var stickerDiv = $(this);
 			var sticker_id = $(this).data('sticker_id');
 			var angle = $(this).data('angle');
 			var left = parseInt($(this).css('left').replace(/px/,''));
 			var top = parseInt($(this).css('top').replace(/px/,''));
 			animation.frames[selected].push({sticker_id:sticker_id,angle:angle,left:left,top:top});
+			count += 1;
 		});
 	}
 	function renderStickers(laptop,animation,selected){
