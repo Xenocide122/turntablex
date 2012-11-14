@@ -57,7 +57,7 @@ window.TTX = null;
 			height: 49,
 			width: 165,
 			name: 'pinterest'
-		}
+		},
 		"4f86fea8e77989117e000009": {
 			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/turntable.png",
 			height: 89,
