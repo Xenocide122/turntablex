@@ -30,8 +30,8 @@ window.TTX = null;
 		},
 		"4f86fd3ee77989117e000002": {
 			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/facebook.png",
-			height: ,
-			width: ,
+			height: 65,
+			width: 67,
 			name: 'facebook'
 		},
 		"4f86fe5de77989117e000007": {
