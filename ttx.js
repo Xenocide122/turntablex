@@ -651,12 +651,14 @@ window.TTX = null;
 			var stickerID = sticker.sticker_id;
 			var stickerData = STICKER_MAP[stickerID];
 			var stickerDiv = '<div id="ttxSticker'+i+'" class="sticker" style="background-image:url('+stickerData.url+'); height: '+stickerData.height+'px; width: '+stickerData.width+'px; top: '+sticker.top+'px; left: '+sticker.left+'px; -webkit-transform: rotate('+sticker.angle+'deg); background-position: initial initial; background-repeat: initial initial;"></div>';
-			// add jquery data
-			$('#ttxSticker'+i).data('angle',sticker.angle);
-			$('#ttxSticker'+i).data('sticker_id',stickerID);
+			
+			
 			// add the sticker to the laptop view
 			console.log(stickerDiv);
 			laptop.append(stickerDiv);
+			// add jquery data
+			$('#ttxSticker'+i).data('angle',sticker.angle);
+			$('#ttxSticker'+i).data('sticker_id',stickerID);
 		}
 	}
 	function onResize(){
