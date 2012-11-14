@@ -397,7 +397,9 @@ window.TTX = null;
 	// perform graphical manipulation
         function initializeUI(){
 	    // make it fullscreen
+	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
+	    $('#header').css({width:'100%',right:'auto'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
