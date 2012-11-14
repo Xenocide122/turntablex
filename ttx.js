@@ -618,9 +618,11 @@ window.TTX = null;
 						newLaptopAnimation.frames.push([]);
 					}
 					renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1); // remove old stickers and render new stickers
-					laptop.find('.boundingBox').hide();
+					
 					frameCounter.text('Frame '+ newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length); // update frame counter
 					$('#ttxLaptopScrollLeft').removeClass('inactive'); // enable left scroller since we just moved up a frame
+					laptop.find('.boundingBox').hide();
+				
 				});
 				$('#ttxLaptopScrollLeft').click(function(e){
 					if ($(this).hasClass('inactive')){
@@ -629,11 +631,13 @@ window.TTX = null;
 					saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
 					newLaptopAnimation.selected -= 1;
 					renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
-					laptop.find('.boundingBox').hide();
+					
 					if (newLaptopAnimation.selected === 1){
 						$(this).addClass('inactive'); // disable left scroller, this is the first frame
 					}
 					frameCounter.text('Frame ' + newLaptopAnimation.selected+' of '+newLaptopAnimation.frames.length); // update frame counter
+					laptop.find('.boundingBox').hide();
+				
 				});
 				// update the text for the frame counter
 			        frameCounter.text('Frame ' + newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
@@ -681,7 +685,6 @@ window.TTX = null;
 			$('#ttxSticker'+i).data('angle',sticker.angle);
 			$('#ttxSticker'+i).data('sticker_id',stickerID);
 		}
-		$('.boundingBox').hide(); // hide bounding box
 	}
 	function onResize(){
 		// TODO
