@@ -668,7 +668,7 @@ window.TTX = null;
 			}
 			
 		}); // remove all current stickers
-		$('.boundingBox').hide(); // hide bounding box
+		
 		for (var i=0; i<animation.frames[selected].length; i++){
 			// create a div of the sticker
 			var sticker = animation.frames[selected][i];
@@ -681,6 +681,7 @@ window.TTX = null;
 			$('#ttxSticker'+i).data('angle',sticker.angle);
 			$('#ttxSticker'+i).data('sticker_id',stickerID);
 		}
+		$('.boundingBox').hide(); // hide bounding box
 	}
 	function onResize(){
 		// TODO
