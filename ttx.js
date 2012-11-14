@@ -349,11 +349,11 @@ window.TTX = null;
             _id = null;
             _location = window.location.pathname; 
             for (var o in _turntable){
-                if (_turntable[o] !== null && _turntable[o].creatorId){
+                if (_turntable[o] !== null && typeof(_turntable[o]) === 'Room'){
                     _room = _turntable[o];
                     log('Entering room: ' + _location);
 		    log(_room);
- 		    _id = _room.selfId;
+ 		    _id = _turntable.user.id;
 		    log('Room id: ' + _room.roomId);
 		    log('User id: ' + _id);
 		    break;
@@ -361,7 +361,7 @@ window.TTX = null;
             }
             if (_room){ // found turntable room
                 for (var o in _room){
-                    if(_room[o] !== null && _room[o].myuserid){
+                    if(_room[o] !== null && typeof(_room[o]) === 'RoomView'){
                         _manager = _room[o];
 			break;
                     }
