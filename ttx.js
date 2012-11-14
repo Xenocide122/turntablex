@@ -204,7 +204,7 @@ window.TTX = null;
 	loadSettings();
         resetRoom(function(){
 	    checkPremium(); // check premium status
-	    initializeUI(); // initialize UI elements
+	    //initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
 	    resetDJs(); // new DJs
 	    resetUsers(); // new users
