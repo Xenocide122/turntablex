@@ -360,7 +360,12 @@ window.TTX = null;
                 }
             }
             if (_room){ // found turntable room
-                _manager = _room;
+                for (var o in _room){
+			if (_room[o] !== null && _room[o].roomData){
+				_manager = _room[o];
+				break;
+			}
+		}
                 if (_manager){
 		    
 		    TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
