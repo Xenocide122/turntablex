@@ -349,7 +349,7 @@ window.TTX = null;
             _id = null;
             _location = window.location.pathname; 
             for (var o in _turntable){
-                if (_turntable[o] !== null && typeof(_turntable[o]) === 'Room'){
+                if (_turntable[o] !== null && _turntable[o].roomId){
                     _room = _turntable[o];
                     log('Entering room: ' + _location);
 		    log(_room);
@@ -361,7 +361,7 @@ window.TTX = null;
             }
             if (_room){ // found turntable room
                 for (var o in _room){
-                    if(_room[o] !== null && typeof(_room[o]) === 'RoomView'){
+                    if(_room[o] !== null && _room[o].userLastVote){
                         _manager = _room[o];
 			break;
                     }
