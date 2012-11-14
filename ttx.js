@@ -604,12 +604,12 @@ window.TTX = null;
 					}
 				});
 				$('#ttxLaptopScrollRight').click(function(e){ // add a new frame / move to the right
-					saveStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]); // save the stickers to the current frame
+					saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1); // save the stickers to the current frame
 					newLaptopAnimation.selected += 1; // update the current frame counter
 					if (newLaptopAnimation.selected > newLaptopAnimation.frames.length){ // add new frame if necessary
 						newLaptopAnimation.frames.push([]);
 					}
-					renderStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]); // remove old stickers and render new stickers
+					renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1); // remove old stickers and render new stickers
 					frameCounter.text('Frame '+ newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length); // update frame counter
 					$('#ttxLaptopScrollLeft').removeClass('inactive'); // enable left scroller since we just moved up a frame
 				});
@@ -617,9 +617,9 @@ window.TTX = null;
 					if ($(this).hasClass('inactive')){
 						return;
 					}
-					saveStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]);
+					saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
 					newLaptopAnimation.selected -= 1;
-					renderStickers(laptopView,newLaptopAnimation.frames[newLaptopAnimation.selected-1]);
+					renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
 					if (newLaptopAnimation.selected === 1){
 						$(this).addClass('inactive'); // disable left scroller, this is the first frame
 					}
@@ -630,24 +630,24 @@ window.TTX = null;
 			}
 		}
 	}
-	function saveStickers(laptop,stickers){
-		stickers = []; // empty the stickers
+	function saveStickers(laptop,animation,selected){
+		animation.frames[selected] = [];
 		laptop.children().each(function(){ // loop over each sticker and save to the array
 			var stickerDiv = $(this);
 			var sticker_id = $(this).data('sticker_id');
 			var angle = $(this).data('angle');
 			var left = parseInt($(this).css('left').replace(/px/,''));
 			var top = parseInt($(this).css('top').replace(/px/,''));
-			stickers.push({sticker_id:sticker_id,angle:angle,left:left,top:top});
+			animation.frames[selected].push({sticker_id:sticker_id,angle:angle,left:left,top:top});
 		});
 		console.log(stickers);
 		
 	}
-	function renderStickers(laptop,stickers){
+	function renderStickers(laptop,animation,selected){
 		laptop.children().each(function(){ $(this).remove(); }); // remove all current stickers
-		for (var i=0; i<stickers.length; i++){
+		for (var i=0; i<animation.frames[selected].length; i++){
 			// create a div of the sticker
-			var sticker = stickers[i];
+			var sticker = animation.frames[selected][i];
 			var stickerID = sticker.sticker_id;
 			var stickerData = STICKER_MAP[stickerID];
 			var stickerDiv = '<div id="ttxSticker'+i+'" class="sticker" style="background-image:url('+stickerData.url+'); height: '+stickerData.height+'px; width: '+stickerData.width+'; top: '+sticker.top+'; left: '+sticker.left+'; -webkit-transform: rotate('+sticker.angle+'deg); background-position: initial initial; background-repeat: initial initial;"></div>';
