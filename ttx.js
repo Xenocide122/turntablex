@@ -725,6 +725,7 @@ window.TTX = null;
 		else{
 			$('#outer').width('100%');
 		}
+		$('#header').css({width:'auto',left:'5px',right:'15px'});
 	}
 	function isMod(id){
 		return typeof _mods[id] !== 'undefined';
