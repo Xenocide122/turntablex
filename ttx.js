@@ -400,7 +400,7 @@ window.TTX = null;
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
-	    $('#scene').css({top:'100px'});
+	    $('#right-panel').css({top:'70px'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
