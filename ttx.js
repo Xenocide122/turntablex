@@ -654,6 +654,7 @@ window.TTX = null;
 			// add jquery data
 			$('#ttxSticker'+i).data('angle',sticker.angle);
 			$('#ttxSticker'+i).data('sticker_id',sticker.sticker_id);
+			$('#ttxSticker'+i).data('price',0);
 			// add the sticker to the laptop view
 			console.log(stickerDiv);
 			laptop.append(stickerDiv);
