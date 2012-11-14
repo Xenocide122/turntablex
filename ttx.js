@@ -478,7 +478,7 @@ window.TTX = null;
 				
 				$element.find('.buttons').hide(); // hide the default save button
 				
-				picker.before('<div id="ttxLaptopTextSettings" style="display:none; width:100%; padding-top:10px;">\
+				picker.before('<div id="ttxLaptopTextSettings" style="display:none; margin-bottom:10px; width:100%; padding-top:10px;">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Text:</div><input style="width: 300px; height:10px; position:relative; top: 9px; margin-right:10px" id="ttxLaptopText" type="text" value="'+newLaptopAnimation.text.display+'"/>tick number: <input type="text" id="ttxLaptopTicks" style="width:30px;height:10px;position:relative;top:9px;" value="'+ newLaptopAnimation.text.tick +'"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Colors:</div><input style="width: 300px; height:10px; position:relative; top: 9px; margin-right:10px" id="ttxLaptopColors" type="text" value="'+newLaptopAnimation.text.colors+'"/>each letter: <input type="checkbox" id="ttxLaptopColorEach" '+ (newLaptopAnimation.text.colorEachLetter ? 'checked="checked"':'') + '</div>\
 						</div>');
