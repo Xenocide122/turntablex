@@ -644,7 +644,7 @@ window.TTX = null;
 		if (newLaptopAnimation.selected === newLaptopAnimation.frames.length){ // stop
 			return;
 		}
-		setTimeout(function(){ previewStickers(); },newLaptopAnimation.speed);
+		setTimeout(function(){ $('#ttxLaptopScrollRight').click(); previewStickers(); },newLaptopAnimation.speed);
 		
 	}
 	function saveStickers(laptop,animation,selected){
