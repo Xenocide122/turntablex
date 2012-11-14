@@ -400,6 +400,7 @@ window.TTX = null;
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'98%',left:'5px',right:'auto !important'});
+	    $('#scene').css({top:'100px'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
@@ -725,7 +726,7 @@ window.TTX = null;
 		else{
 			$('#outer').width('100%');
 		}
-		
+		$('#scene').css({top:'100px'});
 	}
 	function isMod(id){
 		return typeof _mods[id] !== 'undefined';
