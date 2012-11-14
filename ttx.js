@@ -594,7 +594,7 @@ window.TTX = null;
 					}
 				});
 				$('#ttxLaptopSave').click(function(){
-					settings.laptop.stickers.animations[newLaptopAnimation.name] = newLaptopAnimation;
+					settings.laptop.stickers.animations[$('#ttxLaptopName').val()] = newLaptopAnimation;
 					updateLaptops();
 					$element.find('.close-x').click(); // close the modal
 					
