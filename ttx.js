@@ -469,7 +469,7 @@ window.TTX = null;
 				laptop.before('<div id="ttxLaptopSettings" style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttxLaptopName" type="text" value="'+newLaptopAnimation.name+'"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Speed:</div><div style="display: inline-block; width:320px; height: 10px;" id="ttxLaptopSpeed"/></div>\
-						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input id="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>custom</div>\
+						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input name="ttxLaptopAnimation" style="margin-right:5px" type="radio" value="text" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>text<input name="ttxLaptopAnimation" type="radio" style="margin-left:12px; margin-right:5px" value="custom" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>custom</div>\
 						</div>');
 				
 				$('<div id="ttxLaptopScrollLeft" class="inactive"></div>').appendTo(laptop);
@@ -488,6 +488,7 @@ window.TTX = null;
 				
 				$('#ttxLaptopSettings input[@name="ttxLaptopAnimation"]').change(function(e){
 					console.log(e);
+					console.log($(this));
 				});
 				$('#ttxLaptopScrollRight').click(function(e){ // update frame counter
 					newLaptopAnimation.selected += 1;
