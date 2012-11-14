@@ -316,11 +316,11 @@ window.TTX = null;
 			_mods[_room.moderators[i]] = 1;
 		}
 	}
-	function newSong(data){
-		var votelog = data.room.metadata.votelog;
-		var currentSong = data.room.metadata.current_song;
-		var downvotes = data.room.metadata.downvotes;
-		var upvotes = data.room.metadata.upvotes;
+	function newSong(){
+		var votelog = _manager.roomData.metadata.votelog;
+		var currentSong = _manager.roomData.metadata.current_song;
+		var downvotes = _manager.roomData.metadata.downvotes;
+		var upvotes = _manager.roomData.metadata.upvotes;
 		_currentSong = {};
 		_currentSong.hearts = 0;
 		_currentSong.downvotes = downvotes;
@@ -371,7 +371,10 @@ window.TTX = null;
 		    log(_manager);
 		    log('Room id: ' + _room.roomId);
 		    log('User id: ' + _id);
-		    TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
+		 
+		    newSong();
+		    callback();
+		    /*TTX.prototype.send({api:'room.info',roomid:_room.roomId, extended:false},function(data){ // get room info and use it for current song information
 			if (data.success === false){ // couldn't get info, just do a reset
 				log('Failed to query room info');
 				resetSong();
@@ -381,7 +384,7 @@ window.TTX = null;
 				newSong(data);
 				callback();
 			}
-		    });
+		    });*/
                 }
                 else{
                     // try again
