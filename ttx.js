@@ -487,7 +487,7 @@ window.TTX = null;
 	    $('#right-panel').css({top:'70px',width:'270px',right: '5px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
-	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
+	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    
 	    if ($('#ttxCenter').length===0){
 	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;left:5px;right:800px;top:50px;height:750px"></div>');
@@ -508,14 +508,14 @@ window.TTX = null;
 	    }
 	   
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
-	    $('#playlist-container').find('.right-panel-tab').css({width:'100%'});
+	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    
 	    if ($("#center-panel").length===0){
 	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:10;overflow:hidden;top:70px;bottom:15px;width:260px;right: 280px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
 	    }
 	   
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
-	    $('#room-info-container').find('.right-panel-tab').css({width:'100%'});
+	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
