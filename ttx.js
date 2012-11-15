@@ -387,7 +387,7 @@ window.TTX = null;
         }
 	// initialize event handlers
         function initializeListeners(){
-            //_turntable.addEventListener('message',onMessage,true);
+            _turntable.addEventListener('message',onMessage,true);
             log('Event monitor added');
 	    $(document).bind('DOMNodeInserted',onDOM);
 	    log('DOM monitor added');
