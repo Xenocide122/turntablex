@@ -426,7 +426,7 @@ window.TTX = null;
 	    if ($('#ttxCenter').length===0){
 	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;left:530px;right:280px;top:50px;height:680px"></div>');
 	    }
-	    $('#scene').appendTo($('#ttxCenter'));
+	    $('#scene').css({right:'auto',left:'50%',bottom:'40px'}).appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
 	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left:5px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
 	    }
