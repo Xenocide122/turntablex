@@ -480,13 +480,13 @@ window.TTX = null;
 	    // positions for the scene container
 	    var sceneLeft = (settings.positions.scene * (265) + 5);
 	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatLeft, guestLeft, queueLeft;
+	    var chatRight, guestLeft, queueLeft;
 	  
 	    if (settings.positions.scene > settings.positions.chat){
-	    	chatLeft = (settings.positions.chat) * 265 + 5;
+	    	chatRight = (settings.positions.chat) * 265 + 5;
 	    }
 	    else{
-		chatLeft = (settings.positions.chat-settings.positions.scene-0.5) * 265 + sceneRight + 5;
+		chatRight = (settings.positions.chat-settings.positions.scene) * 265 - sceneRight - 5;
 	    }
 	    $('#right-panel').css({top:'70px',width:'260px',left: chatLeft + 'px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
@@ -494,7 +494,7 @@ window.TTX = null;
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    
 	    if ($('#ttxCenter').length===0){
-	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;left:'+sceneLeft+'px;right:'+sceneRight+'px;top:50px;height:750px"></div>');
+	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:"auto";top:50px;height:750px"></div>');
 	    }
 	    var advancedSetting = $('#ttxAdvancedSettings');
 	    if (advancedSetting.length === 0){
