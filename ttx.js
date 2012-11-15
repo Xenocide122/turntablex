@@ -470,6 +470,7 @@ window.TTX = null;
 	    	$('#settings-dropdown li:contains("Logout")').before('<li class="option" id="ttxAdvancedSettings">Advanced</li>')
 	    	$('#ttxAdvancedSettings').click(function(){
 	    		_modalHijack.type = 'settings';
+	    		$('#settings-dropdown li:contains("Profile")').click();
 	    	});
 	    
 	    }
@@ -629,8 +630,11 @@ window.TTX = null;
 			}
 		}
 		// hook to display custom modals
-		if ($element.hasClass('modalContainer') ){
-			if (_modalHijack.type === 'laptop'){
+		else if ($element.hasClass('modalContainer') ){
+			if (_modalHijack.type === 'settings'){
+				$element.find('.title').text('Advanced Settings');
+			}
+			else if (_modalHijack.type === 'laptop'){
 				if (_modalHijack.action === 'new'){
 					newLaptopAnimation = {
 						name: '',
