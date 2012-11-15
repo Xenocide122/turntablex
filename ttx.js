@@ -759,8 +759,8 @@ window.TTX = null;
 	}
 	function onResize(){
 		// TODO
-		if ($(window).width() < 1300){
-			$('#outer').width('1300px');
+		if ($(window).width() < 1400){
+			$('#outer').width('1400px');
 		}
 		else{
 			$('#outer').width('100%');
