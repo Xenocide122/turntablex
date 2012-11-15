@@ -478,14 +478,10 @@ window.TTX = null;
 	    $('#header').css({width:'99%',left:'5px'});
 
 	    // positions for the scene container
-	    var sceneLeft = (settings.position.scene * (265) + 5);
-	    var sceneRight = ((3-settings.position.scene) * (265) + 5);
+	    var sceneLeft = (settings.positions.scene * (265) + 5);
+	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
 	    
-	    if (settings.positions.chat > settings.positions.scene){ // ... scene ... | ... chat ... 
-	    	$('#right-panel')
-            }
-	    else{ // ... chat ... | scene
-	    }
+	  
 
 	    $('#right-panel').css({top:'70px',width:'260px',right: '5px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
