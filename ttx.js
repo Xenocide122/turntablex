@@ -414,6 +414,7 @@ window.TTX = null;
         	});
             });*/
 	    // make it fullscreen
+	    $('#maindiv').css({minWidth:'1300px'});
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
@@ -759,12 +760,12 @@ window.TTX = null;
 	}
 	function onResize(){
 		// TODO
-		if ($(window).width() < 1400){
+		/*if ($(window).width() < 1400){
 			$('#outer').width('1400px');
 		}
 		else{
 			$('#outer').width('100%');
-		}
+		}*/
 		//$('#scene').css({top:'100px'});
 
 	}
