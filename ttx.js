@@ -394,13 +394,14 @@ window.TTX = null;
 	    $(window).bind('resize',onResize);
 	    log('Window resize monitor added');
 	    $(window).unload(function(){
-		_turntable.removeEventListener('message',onMessage);
+		//_turntable.removeEventListener('message',onMessage);
 	    });
         }
 	// perform graphical manipulation
         function initializeUI(){
             $(document).on('click','roomRow',function(){
-            	_turntable.removeEventListener('message',onMessage);
+		log('jumping rooms');
+            	/*_turntable.removeEventListener('message',onMessage);
             	resetRoom(function(){
 		    checkPremium(); // check premium status
 		    initializeUI(); // initialize UI elements
@@ -410,7 +411,7 @@ window.TTX = null;
 		    updateGuests(); // update guest list 
 		    updateHeader(); // update header
 		    initializeListeners(); // create DOM and Turntable event handlers
-        	});
+        	});*/
             });
 	    // make it fullscreen
 	    var rightPanelLeft = $('#bigboard').offset().left + $('#bigboard').width() + 50;
