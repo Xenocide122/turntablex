@@ -236,6 +236,7 @@ window.TTX = null;
 		} else {
 			// merge config with defaults to ensure no missing params
 			settings = $.extend(true, {}, defaultSettings, settings);
+			settings.positions = {};
 			settings.positions.scene = 0;
 			settings.positions.queue = 1;
 			settings.positions.room = 2;
@@ -509,7 +510,7 @@ window.TTX = null;
         function panelByIndex(i){
         	for (var o in settings.positions){
         		if (settings.positions[o] === i){
-        			return i;
+        			return o;
         		}
         	}
         	return '';
