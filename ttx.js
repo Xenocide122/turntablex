@@ -523,21 +523,21 @@ window.TTX = null;
 	    $('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'}).appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
 	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
-	    	 $('#left-panel').css(queueX,queuePosition+'px').find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxLeftPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxLeftPanelControls" style="margin-right: 8px">◀</h2>');
+	    	 $('#left-panel').css(queueX,queuePosition+'px');
 	    }
 	   
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
-	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
+	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxLeftPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxLeftPanelControls" style="margin-right: 8px">◀</h2>');;
 	    
 	    if ($("#center-panel").length===0){
 	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
 	         $('#center-panel').css(roomX,roomPosition +'px');
-	         $('#center-panel').find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
+
 	    
 	    }
 	   
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
-	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
+	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');;
 	    
 	    
 	    var advancedSetting = $('#ttxAdvancedSettings');
