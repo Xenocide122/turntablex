@@ -611,6 +611,13 @@ window.TTX = null;
 	function onDOM(e){
 		var $element = $(e.target);
 		
+		if ($element.hasClass('message')){
+			var messages = $element).parent();
+			var height = messages.prop('scrollHeight');
+			if (messages.scrollTop() - height < 15){
+				messages.scrollTop(height);
+			}
+		}
 		// hook to display custom modals
 		if ($element.hasClass('modalContainer') ){
 			if (_modalHijack.type === 'laptop'){
