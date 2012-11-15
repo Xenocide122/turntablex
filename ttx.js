@@ -480,7 +480,7 @@ window.TTX = null;
 	    // positions for the scene container
 	    var sceneLeft = (settings.positions.scene * (265) + 5);
 	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatPosition, guestPosition, queuePosition, chatX, guestX, queueX;
+	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX;
 
 	    if (settings.positions.scene > settings.positions.chat){
 	    	chatPosition = (settings.positions.chat) * 265 + 5;
@@ -490,6 +490,23 @@ window.TTX = null;
 		chatPosition = (settings.positions.chat-settings.positions.scene) * 265 - sceneRight + 20;
 	    	chatX = 'right';
 	    }
+	    if (settings.positions.scene > settings.positions.queue){
+	    	queuePosition = (settings.positions.queue) * 265 + 5;
+		queueX = 'left';
+	    }
+	    else{
+		queuePosition = (settings.positions.queue-settings.positions.scene) * 265 - sceneRight + 20;
+	    	queueX = 'right';
+	    }
+	    if (settings.positions.scene > settings.positions.room){
+	    	roomPosition = (settings.positions.queue) * 265 + 5;
+		roomX = 'left';
+	    }
+	    else{
+		roomPosition = (settings.positions.queue-settings.positions.scene) * 265 - sceneRight + 20;
+	    	roomX = 'right';
+	    }
+	    
 	    $('#right-panel').css({top:'70px',width:'260px'}).css(chatX,chatPosition + 'px');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
@@ -498,6 +515,27 @@ window.TTX = null;
 	    if ($('#ttxCenter').length===0){
 	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:'+sceneLeft+'px;top:50px;height:750px"></div>');
 	    }
+	    
+	    
+	    $('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'}).appendTo($('#ttxCenter'));
+	    if ($("#left-panel").length===0){
+	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
+	    	 $('#left-panel').css(queueX:queuePosition+'px');
+	    }
+	   
+	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
+	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
+	    
+	    if ($("#center-panel").length===0){
+	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
+	         $('#center-panel').css(roomX:roomPosition +'px');
+	    
+	    }
+	   
+	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
+	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
+	    
+	    
 	    var advancedSetting = $('#ttxAdvancedSettings');
 	    if (advancedSetting.length === 0){
 	    	$('#settings-dropdown li:contains("Logout")').before('<li class="option" id="ttxAdvancedSettings">Advanced</li>')
@@ -507,21 +545,6 @@ window.TTX = null;
 	    	});
 	    
 	    }
-	    
-	    $('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'}).appendTo($('#ttxCenter'));
-	    if ($("#left-panel").length===0){
-	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
-	    }
-	   
-	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
-	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
-	    
-	    if ($("#center-panel").length===0){
-	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right: 280px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
-	    }
-	   
-	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
-	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
