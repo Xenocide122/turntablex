@@ -408,6 +408,8 @@ window.TTX = null;
 	    $('#room-info-container').hide();
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
 	    
+	    $('#right-panel').before('<div id="left-panel" style="top:70px;width:260px;left:5px;height:600px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
+	    $('#playlist-container').addClass('selected').appendTo('#left-panel-tabs');
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
