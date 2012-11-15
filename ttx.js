@@ -236,11 +236,14 @@ window.TTX = null;
 		} else {
 			// merge config with defaults to ensure no missing params
 			settings = $.extend(true, {}, defaultSettings, settings);
-			settings.positions = {};
-			settings.positions.scene = 2;
-			settings.positions.queue = 0;
-			settings.positions.room = 1;
-			settings.positions.chat = 3;
+			if (settings.positions[0] || settings.positions[1] || settings.positions[2] || settings.positions[3]){
+				settings.positions = {};
+				settings.positions.scene = 2;
+				settings.positions.queue = 0;
+				settings.positions.room = 1;
+				settings.positions.chat = 3;
+			}
+			
 			lstore.set('settings', settings);
 		}
 
