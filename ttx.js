@@ -276,7 +276,7 @@ window.TTX = null;
 		}
 	}
 	var autoVoteTimer = null;
-	function autoVote(e) {
+	function autoVote(evt) {
 
 			if (autoVoteTimer) {
 				clearTimeout(autoVoteTimer);
@@ -287,7 +287,7 @@ window.TTX = null;
 			autoVoteTimer = setTimeout(function() {
 
 				// retrieve room and song data
-				var song_id = e.room.metadata.current_song._id;
+				var song_id = evt.room.metadata.current_song._id;
 
 				// need some safety measures
 				var f = $.sha1(_room.roomId + 'up' + song_id);
