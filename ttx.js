@@ -514,8 +514,7 @@ window.TTX = null;
 	    $('#right-panel').css({top:'70px',width:'260px'}).css(chatX,chatPosition + 'px');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
-	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
-	    
+	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('right-panel-tab-content').append('<h2 class="ttxPanelMoveRight" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft" style="margin-right: 8px">◀</h2>');
 	    if ($('#ttxCenter').length===0){
 	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:'+sceneLeft+'px;top:50px;height:750px"></div>');
 	    }
