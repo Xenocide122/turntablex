@@ -391,7 +391,7 @@ window.TTX = null;
             log('Event monitor added');
 	    $(document).bind('DOMNodeInserted',onDOM);
 	    log('DOM monitor added');
-	    $(window).bind('resize',onResize);
+	    $(window).unbind('resize').bind('resize',onResize);
 	    log('Window resize monitor added');
 	    $(window).unload(function(){
 		//_turntable.removeEventListener('message',onMessage);
@@ -418,11 +418,15 @@ window.TTX = null;
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
 	    
-	    $('#right-panel').css({top:'70px',width:'250px',right: '10px'});
+	    $('#right-panel').css({top:'70px',width:'260px',right: '10px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
 	    
+	    if ($('#ttxCenter').length===0){
+	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;left:530px;right:280px;top:50px;height:680px"></div>');
+	    }
+	    $('#scene').appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
 	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left:5px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
 	    }
