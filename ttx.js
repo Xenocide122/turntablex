@@ -202,7 +202,7 @@ window.TTX = null;
 	log('Turntable X loaded');
 	// main
 	loadSettings();
-	saveSettings();
+	
         resetRoom(function(){
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
@@ -216,6 +216,9 @@ window.TTX = null;
         // get settings from local storage and merge with defaults
 	function loadSettings(){
 		settings = defaultSettings;
+	}
+	function saveSettings(){
+		
 	}
         // reset the state of premium access
         function checkPremium(){
