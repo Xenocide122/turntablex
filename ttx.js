@@ -967,6 +967,14 @@ window.TTX = null;
 			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
 			
 			guests.filter('.isIdle').appendTo(guest_container); 
+
+			if ($('#ttxGuestsModSeparator').length===0){
+				$('<div class="separator" id="ttxGuestsModSeparator">Mods</div>').prependTo(guest_container);
+			}
+			else{
+				$('#ttxGuestsModSeparator').prependTo(guest_container);
+			}
+			
 			guests.filter('.isMod').prependTo(guest_container); 
 			guests.filter('.isSuper').prependTo(guest_container);
 			
