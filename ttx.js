@@ -639,7 +639,7 @@ window.TTX = null;
 				$element.find('.title').text('Advanced Settings');
 				var fields = $element.find('.field.settings');
 				$('button.submit').unbind('click').bind('click',function(){
-					if($('#ttxSettingsAutoBop').is('checked')){
+					if($('#ttxSettingsAutoBop').is(':checked')){
 						settings.autoAwesome = true;
 					}
 					else{
@@ -648,7 +648,7 @@ window.TTX = null;
 					saveSettings();
 					$element.find('.close-x').click();
 				});
-				fields.html('<div style="display:inline-block;font-size:14px;margin-right:10px">Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome ? 'checked="checked"' : '') + '/>');
+				fields.html('<div style="display:inline-block;font-size:14px;margin-right:10px">Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome === true ? 'checked="checked"' : '') + '/>');
 				_modalHijack.type = '';
 			}
 			else if (_modalHijack.type === 'laptop'){
