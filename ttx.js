@@ -399,9 +399,9 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
-            $(document).on('click','roomRow',function(){
+            $(document).on('click','.roomRow',function(){
 		log('jumping rooms');
-            	/*_turntable.removeEventListener('message',onMessage);
+            	_turntable.removeEventListener('message',onMessage);
             	resetRoom(function(){
 		    checkPremium(); // check premium status
 		    initializeUI(); // initialize UI elements
@@ -411,7 +411,7 @@ window.TTX = null;
 		    updateGuests(); // update guest list 
 		    updateHeader(); // update header
 		    initializeListeners(); // create DOM and Turntable event handlers
-        	});*/
+        	});
             });
 	    // make it fullscreen
 	    var rightPanelLeft = $('#bigboard').offset().left + $('#bigboard').width() + 50;
