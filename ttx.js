@@ -282,7 +282,7 @@ window.TTX = null;
 				clearTimeout(autoVoteTimer);
 				autoVoteTimer = null;
 			}
-
+			
 			// cast vote at a random delay
 			autoVoteTimer = setTimeout(function() {
 
@@ -293,9 +293,11 @@ window.TTX = null;
 				var f = $.sha1(_room.roomId + 'up' + song_id);
 				var d = $.sha1(Math.random() + "");
 				var e = $.sha1(Math.random() + "");
+				
+				log('Voting');
 
 				// trigger upvote
-				this.send({
+				TTX.prototype.send({
 					api: 'room.vote',
 					roomid: _room.roomId,
 					val: 'up',
