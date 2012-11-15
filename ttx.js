@@ -399,7 +399,7 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
-            $(document).on('click','.roomRow',function(){
+            $(document).on('click','.roomRow',function(event){
 		log('jumping rooms');
             	_turntable.removeEventListener('message',onMessage);
             	resetRoom(function(){
