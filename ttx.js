@@ -476,7 +476,7 @@ window.TTX = null;
         function updatePanels(){
             var sceneLeft = (settings.positions.scene * (265) + 5);
 	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX, chatN, roomN, queueN;
+	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX, queueN, roomN, queueN;
 
 	    if (settings.positions.scene > settings.positions.chat){
 	    	chatPosition = (settings.positions.chat) * 265 + 5;
@@ -509,8 +509,8 @@ window.TTX = null;
 	    	roomN = 'left';
 	    }
 	    $('#right-panel').css(chatX,chatPosition + 'px').css(chatN,'auto');
-	    $('#left-panel').css(queueX,queuePosition + 'px').css(chatN,'auto');
-	    $('#center-panel').css(roomX,roomPosition + 'px').css(chatN,'auto');
+	    $('#left-panel').css(queueX,queuePosition + 'px').css(queueN,'auto');
+	    $('#center-panel').css(roomX,roomPosition + 'px').css(roomN,'auto');
 	    $('#ttxCenter').css({left:sceneLeft+'px',right:sceneRight+'px'});
         }
         function panelByIndex(i){
