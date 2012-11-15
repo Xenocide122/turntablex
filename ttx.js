@@ -482,11 +482,11 @@ window.TTX = null;
 	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
 	    var chatLeft, guestLeft, queueLeft;
 	  
-	    if (settings.positions.scene > settings.position.chat){
-	    	chatLeft = (settings.position.chat) * 265 + 5;
+	    if (settings.positions.scene > settings.positions.chat){
+	    	chatLeft = (settings.positions.chat) * 265 + 5;
 	    }
 	    else{
-		chatLeft = (settings.position.chat-1) * 265 + (sceneRight + 5);
+		chatLeft = (settings.positions.chat-1) * 265 + (sceneRight + 5);
 	    }
 	    $('#right-panel').css({top:'70px',width:'260px',left: chatLeft + 'px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
