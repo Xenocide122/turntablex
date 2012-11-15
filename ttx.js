@@ -387,7 +387,7 @@ window.TTX = null;
         }
 	// initialize event handlers
         function initializeListeners(){
-            _turntable.addEventListener('message',onMessage,true);
+            //_turntable.addEventListener('message',onMessage,true);
             log('Event monitor added');
 	    $(document).bind('DOMNodeInserted',onDOM);
 	    log('DOM monitor added');
@@ -399,9 +399,9 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
-            $(document).on('click','.roomRow',function(event){
-		log('jumping rooms');
-            	_turntable.removeEventListener('message',onMessage);
+            $(document).on('click','div.roomRow',function(event){
+		log('changing rooms');
+            	//_turntable.removeEventListener('message',onMessage);
             	resetRoom(function(){
 		    checkPremium(); // check premium status
 		    initializeUI(); // initialize UI elements
