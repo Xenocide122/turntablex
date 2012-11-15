@@ -457,7 +457,7 @@ window.TTX = null;
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
 	    
-	    $('#right-panel').css({top:'70px',width:'260px',right: '10px'});
+	    $('#right-panel').css({top:'70px',width:'270px',right: '10px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
