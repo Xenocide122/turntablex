@@ -430,7 +430,7 @@ window.TTX = null;
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
 	    $('#playlist-container').find('.right-panel-tab').css({width:'100%'});
 	    
-	    if ($("#right-panel").length===0){
+	    if ($("#center-panel").length===0){
 	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left: 270px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
 	    }
 	   
