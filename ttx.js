@@ -486,7 +486,7 @@ window.TTX = null;
 	    	chatLeft = (settings.positions.chat) * 265 + 5;
 	    }
 	    else{
-		chatLeft = (settings.positions.chat-1) * 265 + (sceneRight + 5);
+		chatLeft = (settings.positions.chat) * 265 + (sceneRight + 5);
 	    }
 	    $('#right-panel').css({top:'70px',width:'260px',left: chatLeft + 'px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
