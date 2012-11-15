@@ -397,10 +397,12 @@ window.TTX = null;
 	// perform graphical manipulation
         function initializeUI(){
 	    // make it fullscreen
+	    var rightPanelLeft = $('#bigboard').offset().left + $('#bigboard').width() + 50;
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
-	    $('#right-panel').css({top:'70px',width:'auto',right: '10px',left:($('#scene').offset().left+900)+'px'});
+	    
+	    $('#right-panel').css({top:'70px',width:'auto',right: '10px',left:rightPanelLeft+'px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('#playlist-container').hide();
 	    $('#room-info-container').hide();
@@ -732,7 +734,8 @@ window.TTX = null;
 			$('#outer').width('100%');
 		}
 		//$('#scene').css({top:'100px'});
-		$('#right-panel').css({left:($('#scene').offset().left+900)+'px'});
+		var rightPanelLeft = $('#bigboard').offset().left + $('#bigboard').width() + 50;
+		$('#right-panel').css({left:rightPanelLeft+'px'});
 	}
 	function isMod(id){
 		return typeof _mods[id] !== 'undefined';
