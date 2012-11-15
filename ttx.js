@@ -229,7 +229,7 @@ window.TTX = null;
 			lstore.set('settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
-			settings = $.extend({}, defaultSettings, settings);
+			settings = $.extend(true, {}, defaultSettings, settings);
 			lstore.set('settings', settings);
 		}
 
@@ -659,6 +659,7 @@ window.TTX = null;
 		// hook to display custom modals
 		else if ($element.hasClass('modalContainer') ){
 			if (_modalHijack.type === 'settings'){
+				_modalHijack.type = '';
 				$element.find('.title').text('Advanced Settings');
 				var fields = $element.find('.field.settings');
 				$('button.submit').unbind('click').bind('click',function(){
@@ -672,7 +673,7 @@ window.TTX = null;
 					$element.find('.close-x').click();
 				});
 				fields.html('<div style="display:inline-block;font-size:14px;margin-right:10px">Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome === true ? 'checked="checked"' : '') + '/>');
-				_modalHijack.type = '';
+				
 			}
 			else if (_modalHijack.type === 'laptop'){
 				if (_modalHijack.action === 'new'){
