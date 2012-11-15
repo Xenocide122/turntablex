@@ -635,7 +635,7 @@ window.TTX = null;
 			if (_modalHijack.type === 'settings'){
 				$element.find('.title').text('Advanced Settings');
 				var fields = $element.find('.field.settings');
-				$('button.submit').unbind('click').bind('click',{
+				$('button.submit').unbind('click').bind('click',function(){
 					if($('#ttxSettingsAutoBop').is('checked')){
 						settings.autoAwesome = true;
 					}
