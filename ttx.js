@@ -171,6 +171,12 @@ window.TTX = null;
 			}
 			
 		},
+		positions:{
+			scene: 0,
+			queue: 1,
+			room: 2,
+			chat: 3
+		},
 		autoDJ: false,
 		autoAwesome: false,
 		laptop: {
@@ -464,33 +470,30 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
-            /*$(document).on('click','.roomRow',function(event){
-		log('changing rooms');
-            	//_turntable.removeEventListener('message',onMessage);
-            	resetRoom(function(){
-		    checkPremium(); // check premium status
-		    initializeUI(); // initialize UI elements
-		    resetMods(); // new mods
-		    resetDJs(); // new DJs
-		    resetUsers(); // new users
-		    updateGuests(); // update guest list 
-		    updateHeader(); // update header
-		    initializeListeners(); // create DOM and Turntable event handlers
-        	});
-            });*/
-	    // make it fullscreen
+
+	    // make everything widescreen
 	    $('#maindiv').css({minWidth:'1200px'});
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
+
+	    // positions for the scene container
+	    var sceneLeft = (settings.position.scene * (265) + 5);
+	    var sceneRight = ((3-settings.position.scene) * (265) + 5);
 	    
-	    $('#right-panel').css({top:'70px',width:'270px',right: '5px'});
+	    if (settings.positions.chat > settings.positions.scene){ // ... scene ... | ... chat ... 
+	    	$('#right-panel')
+            }
+	    else{ // ... chat ... | scene
+	    }
+
+	    $('#right-panel').css({top:'70px',width:'260px',right: '5px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    
 	    if ($('#ttxCenter').length===0){
-	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;left:5px;right:800px;top:50px;height:750px"></div>');
+	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;left:'+sceneLeft+'px;right:'+sceneRight+'px;top:50px;height:750px"></div>');
 	    }
 	    var advancedSetting = $('#ttxAdvancedSettings');
 	    if (advancedSetting.length === 0){
