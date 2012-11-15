@@ -122,7 +122,7 @@ window.TTX = null;
 	var _djs = null; // user ids of djs
 
 	// user settings
-	var settings = {};
+	var settings;
 	var defaultSettings = {
 		notifications: {
 			DJup: {
@@ -222,7 +222,7 @@ window.TTX = null;
         });
         // get settings from local storage and merge with defaults
 	function loadSettings(){
-		var settings = lstore.get('settings');
+		settings = lstore.get('settings');
                              
 		if (!settings) {
 			settings = defaultSettings;
