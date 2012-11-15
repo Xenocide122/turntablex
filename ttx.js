@@ -470,7 +470,7 @@ window.TTX = null;
 	    	$('#settings-dropdown li:contains("Logout")').before('<li class="option" id="ttxAdvancedSettings">Advanced</li>')
 	    	$('#ttxAdvancedSettings').click(function(){
 	    		_modalHijack.type = 'settings';
-	    		$('#settings-dropdown li:contains("Profile")').click();
+	    		$('#settings-dropdown li:contains("Edit my profile")').click();
 	    	});
 	    
 	    }
@@ -633,6 +633,7 @@ window.TTX = null;
 		else if ($element.hasClass('modalContainer') ){
 			if (_modalHijack.type === 'settings'){
 				$element.find('.title').text('Advanced Settings');
+				_modalHijack.type = '';
 			}
 			else if (_modalHijack.type === 'laptop'){
 				if (_modalHijack.action === 'new'){
