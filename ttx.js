@@ -202,6 +202,7 @@ window.TTX = null;
 	log('Turntable X loaded');
 	// main
 	loadSettings();
+	saveSettings();
         resetRoom(function(){
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
@@ -633,6 +634,18 @@ window.TTX = null;
 		else if ($element.hasClass('modalContainer') ){
 			if (_modalHijack.type === 'settings'){
 				$element.find('.title').text('Advanced Settings');
+				var fields = $element.find('.field.settings');
+				$('button.submit').unbind('click').bind('click',{
+					if($('#ttxSettingsAutoBop').is('checked')){
+						settings.autoAwesome = true;
+					}
+					else{
+						settings.autoAwesome = false;
+					}
+					saveSettings();
+					$element.find('close-x').click();
+				});
+				fields.html('<div>Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome ? 'checked="checked"' : '') + '/>');
 				_modalHijack.type = '';
 			}
 			else if (_modalHijack.type === 'laptop'){
