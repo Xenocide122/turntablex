@@ -969,7 +969,7 @@ window.TTX = null;
 			guests.filter('.isIdle').appendTo(guest_container); 
 
 			if ($('#ttxGuestsModSeparator').length===0){
-				$('<div class="separator" id="ttxGuestsModSeparator">Mods</div>').prependTo(guest_container);
+				$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
 			}
 			else{
 				$('#ttxGuestsModSeparator').prependTo(guest_container);
