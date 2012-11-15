@@ -402,6 +402,8 @@ window.TTX = null;
 	    $('#header').css({width:'99%',left:'5px'});
 	    $('#right-panel').css({top:'70px',width:'auto',right: '10px',left:'1300px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
+	    $('#playlist-container').hide();
+	    $('#room-info-container').hide();
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
