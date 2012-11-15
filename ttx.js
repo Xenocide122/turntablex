@@ -400,7 +400,7 @@ window.TTX = null;
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
-	    $('#right-panel').css({top:'70px',width:'auto',right: '10px',left:($('#scene').offset().left+800)+'px'});
+	    $('#right-panel').css({top:'70px',width:'auto',right: '10px',left:($('#scene').offset().left+900)+'px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('#playlist-container').hide();
 	    $('#room-info-container').hide();
@@ -732,7 +732,7 @@ window.TTX = null;
 			$('#outer').width('100%');
 		}
 		//$('#scene').css({top:'100px'});
-		$('#right-panel').css({left:($('#scene').offset().left+800)+'px'});
+		$('#right-panel').css({left:($('#scene').offset().left+900)+'px'});
 	}
 	function isMod(id){
 		return typeof _mods[id] !== 'undefined';
