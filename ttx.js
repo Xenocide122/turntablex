@@ -399,7 +399,7 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
-            $(document).on('click','div.roomRow',function(event){
+            $(document).on('mousedown','.roomRow',function(event){
 		log('changing rooms');
             	//_turntable.removeEventListener('message',onMessage);
             	resetRoom(function(){
