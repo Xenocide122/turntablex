@@ -612,7 +612,7 @@ window.TTX = null;
 		var $element = $(e.target);
 		
 		if ($element.hasClass('message')){
-			var messages = $element).parent();
+			var messages = $element.parent();
 			var scrollHeight = messages.prop('scrollHeight');
 			var height = messages.height();
 			if (scrollHeight - messages.scrollTop() - height < 50){
