@@ -938,6 +938,7 @@ window.TTX = null;
     		return;
 	    }
 	    log('Command: ' + e.command);
+	    log(e);
 	    if (e.command == 'rem_dj') {
 		onRemoveDJ(e); // reset djs
 	    } else if (e.command == 'add_dj') {
