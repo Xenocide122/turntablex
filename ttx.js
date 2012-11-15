@@ -476,36 +476,41 @@ window.TTX = null;
         function updatePanels(){
             var sceneLeft = (settings.positions.scene * (265) + 5);
 	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX;
+	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX, chatN, roomN, queueN;
 
 	    if (settings.positions.scene > settings.positions.chat){
 	    	chatPosition = (settings.positions.chat) * 265 + 5;
 		chatX = 'left';
+		chatN = 'right';
 	    }
 	    else{
 		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265;
 	    	chatX = 'right';
+	    	chatN = 'left';
 	    }
 	    if (settings.positions.scene > settings.positions.queue){
 	    	queuePosition = (settings.positions.queue) * 265 + 5;
 		queueX = 'left';
+		queueN = 'right';
 	    }
 	    else{
 		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265;
 	    	queueX = 'right';
+	    	queueN = 'left';
 	    }
 	    if (settings.positions.scene > settings.positions.room){
 	    	roomPosition = (settings.positions.room) * 265 + 5;
 		roomX = 'left';
+		roomN = 'right';
 	    }
 	    else{
 		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265;
 	    	roomX = 'right';
+	    	roomN = 'left';
 	    }
-	    $('#right-panel').css(chatX,chatPosition + 'px');
-	    $('#left-panel').css(queueX,queuePosition + 'px');
-	    $('#center-panel').css(roomX,roomPosition + 'px');
-	    log('room panel: ' + roomX + ' pos '+roomPosition);
+	    $('#right-panel').css(chatX,chatPosition + 'px').css(chatN,'auto');
+	    $('#left-panel').css(queueX,queuePosition + 'px').css(chatN,'auto');
+	    $('#center-panel').css(roomX,roomPosition + 'px').css(chatN,'auto');
 	    $('#ttxCenter').css({left:sceneLeft+'px',right:sceneRight+'px'});
         }
         function panelByIndex(i){
@@ -629,7 +634,7 @@ window.TTX = null;
 	    		return;
 	    	}
 	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
-		log('next panel is ' + nextPanel + ' ' + nextIndex + ' current is ' + currentIndex);
+	
 	    	// switch nextPanel with panel
 	    	settings.positions[nextPanel] = currentIndex;
 	    	settings.positions[panel] = nextIndex;
