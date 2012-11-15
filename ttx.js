@@ -467,7 +467,7 @@ window.TTX = null;
 	    }
 	    $('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'}).appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
-	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;right:555px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
 	    }
 	   
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
