@@ -281,7 +281,13 @@ window.TTX = null;
 	}
 	var autoVoteTimer = null;
 	function autoVote(evt) {
-
+			if (settings.autoAwesome === false){
+				if (autoVoteTimer){
+					clearTimeout(autoVoteTimer);
+					autoVoteTimer = null;
+				}
+				return;
+			}
 			if (autoVoteTimer) {
 				clearTimeout(autoVoteTimer);
 				autoVoteTimer = null;
