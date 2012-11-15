@@ -613,9 +613,10 @@ window.TTX = null;
 		
 		if ($element.hasClass('message')){
 			var messages = $element).parent();
-			var height = messages.prop('scrollHeight');
-			if (height - messages.scrollTop() < 600){
-				messages.scrollTop(height);
+			var scrollHeight = messages.prop('scrollHeight');
+			var height = messages.height();
+			if (scrollHeight - messages.scrollTop() - height < 50){
+				messages.scrollTop(scrollHeight);
 			}
 		}
 		// hook to display custom modals
