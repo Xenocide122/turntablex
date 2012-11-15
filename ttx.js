@@ -474,7 +474,7 @@ window.TTX = null;
 	    $('#playlist-container').find('.right-panel-tab').css({width:'100%'});
 	    
 	    if ($("#center-panel").length===0){
-	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;right: 280px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:10;overflow:hidden;top:70px;bottom:15px;width:260px;right: 280px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
 	    }
 	   
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
