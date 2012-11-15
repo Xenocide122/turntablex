@@ -393,6 +393,9 @@ window.TTX = null;
 	    log('DOM monitor added');
 	    $(window).bind('resize',onResize);
 	    log('Window resize monitor added');
+	    $(window).unload(function(){
+		_turntable.removeEventListener('message',onMessage);
+	    });
         }
 	// perform graphical manipulation
         function initializeUI(){
