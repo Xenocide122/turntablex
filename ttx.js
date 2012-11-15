@@ -839,15 +839,15 @@ window.TTX = null;
 			//guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
 			//guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
 			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
-			guests.filter(function(x){
-				return $(this).hasClass('separator') && $(this).find('.text')[0].innerHTML === 'Audience';
+			$('.guest-list-container .separator').filter(function(x){
+				return $(this).find('.text')[0].innerHTML === 'Audience';
 			}).prependTo(guest_container);
 			guests.filter('.isIdle').appendTo(guest_container); 
 			guests.filter('.isMod').prependTo(guest_container); 
 			guests.filter('.isSuper').prependTo(guest_container);
 			
-			guests.filter(function(x){
-				return $(this).hasClass('separator') && $(this).find('.text')[0].innerHTML === 'DJs';
+			$('.guest-list-container .separator').filter(function(x){
+				return $(this).find('.text')[0].innerHTML === 'DJs';
 			}).prependTo(guest_container);
 		        guests.filter('.isDJ').prependTo(guest_container); 
 			
