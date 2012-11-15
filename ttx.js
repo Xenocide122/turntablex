@@ -531,7 +531,8 @@ window.TTX = null;
 	    
 	    if ($("#center-panel").length===0){
 	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
-	         $('#center-panel').css(roomX,roomPosition +'px').find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
+	         $('#center-panel').css(roomX,roomPosition +'px');
+	         $('#center-panel').find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
 	    
 	    }
 	   
