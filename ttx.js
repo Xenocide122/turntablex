@@ -399,7 +399,7 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
-            $(document).on('click','.roomRow',function(event){
+            /*$(document).on('click','.roomRow',function(event){
 		log('changing rooms');
             	//_turntable.removeEventListener('message',onMessage);
             	resetRoom(function(){
@@ -412,14 +412,13 @@ window.TTX = null;
 		    updateHeader(); // update header
 		    initializeListeners(); // create DOM and Turntable event handlers
         	});
-            });
+            });*/
 	    // make it fullscreen
-	    var rightPanelLeft = $('#bigboard').offset().left + $('#bigboard').width() + 50;
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
 	    
-	    $('#right-panel').css({top:'70px',width:'auto',right: '10px',left:rightPanelLeft+'px'});
+	    $('#right-panel').css({top:'70px',width:'250px',right: '10px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
@@ -763,8 +762,7 @@ window.TTX = null;
 			$('#outer').width('100%');
 		}
 		//$('#scene').css({top:'100px'});
-		var rightPanelLeft = $('#bigboard').offset().left + $('#bigboard').width() + 50;
-		$('#right-panel').css({left:rightPanelLeft+'px'});
+
 	}
 	function isMod(id){
 		return typeof _mods[id] !== 'undefined';
