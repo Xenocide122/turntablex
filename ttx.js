@@ -614,7 +614,7 @@ window.TTX = null;
 		if ($element.hasClass('message')){
 			var messages = $element).parent();
 			var height = messages.prop('scrollHeight');
-			if (messages.scrollTop() - height < 15){
+			if (height - messages.scrollTop() < 600){
 				messages.scrollTop(height);
 			}
 		}
