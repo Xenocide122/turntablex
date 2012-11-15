@@ -578,6 +578,9 @@ window.TTX = null;
 
 	    
 	    }
+	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
+	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
+	    
 	    $('.ttxPanelMoveLeft').click(function(){
 	    	var panel;
 	    	if ($(this).hasClass('ttxCenterPanelControls')){ // room panel
@@ -616,13 +619,13 @@ window.TTX = null;
 	    	// switch nextPanel with panel
 	    	settings.positions[nextPanel] = currentIndex;
 	    	settings.positions[panel] = nextIndex;
+	    	
 	    	// save and update
 	    	saveSettings();
 	    	updatePanels();
 	    }).mouseover(function(){ $(this).css('color','#000'); }).mouseout( function (){ $(this).css('color','#AB7F20'); });
 	    
-	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
-	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
+	    
 	    
 	    
 	    var advancedSetting = $('#ttxAdvancedSettings');
