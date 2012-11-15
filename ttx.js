@@ -472,6 +472,47 @@ window.TTX = null;
 		//_turntable.removeEventListener('message',onMessage);
 	    });
         }
+        function updatePanels(){
+            var sceneLeft = (settings.positions.scene * (265) + 5);
+	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
+	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX;
+
+	    if (settings.positions.scene > settings.positions.chat){
+	    	chatPosition = (settings.positions.chat) * 265 + 5;
+		chatX = 'left';
+	    }
+	    else{
+		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265;
+	    	chatX = 'right';
+	    }
+	    if (settings.positions.scene > settings.positions.queue){
+	    	queuePosition = (settings.positions.queue) * 265 + 5;
+		queueX = 'left';
+	    }
+	    else{
+		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265;
+	    	queueX = 'right';
+	    }
+	    if (settings.positions.scene > settings.positions.room){
+	    	roomPosition = (settings.positions.room) * 265 + 5;
+		roomX = 'left';
+	    }
+	    else{
+		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265;
+	    	roomX = 'right';
+	    }
+	    $('#right-panel').css(chatX,chatPosition + 'px');
+	    $('#left-panel').css(queueX,queuePosition + 'px');
+	    $('#center-panel').css(roomX,roomPosition + 'px');
+        }
+        function panelByIndex(i){
+        	for (var o in settings.positions){
+        		if (settings.positions[o] === i){
+        			return i;
+        		}
+        	}
+        	return '';
+        }
 	// perform graphical manipulation
         function initializeUI(){
 
@@ -527,7 +568,7 @@ window.TTX = null;
 	    }
 	   
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
-	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxLeftPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxLeftPanelControls" style="margin-right: 8px">◀</h2>');;
+	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxLeftPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxLeftPanelControls" style="margin-right: 8px">◀</h2>');
 	    
 	    if ($("#center-panel").length===0){
 	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
@@ -535,9 +576,51 @@ window.TTX = null;
 
 	    
 	    }
-	   
+	    $('.ttxPanelMoveLeft').click(function(){
+	    	var panel;
+	    	if ($(this).hasClass('ttxCenterPanelControls')){ // room panel
+	    		panel = 'room';
+	    	}
+	    	else if ($(this).hasClass('ttxLeftPanelControls')){ // queue panel
+	    		panel = 'queue';
+	    	}
+	    	else{ // chat panel
+	    		panel = 'chat';
+	    	}
+	    	var currentIndex = settings.positions[panel]; // where is this panel now 
+	    	var nextIndex = (currentIndex - 1) % 4; // next index
+	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
+	    	// switch nextPanel with panel
+	    	settings.positions[nextPanel] = currentIndex;
+	    	settings.positions[panel] = nextIndex;
+	    	// save and update
+	    	saveSettings();
+	    	updatePanels();
+	    }).mouseover(function(){ $(this).css('color':'#000'); }).mouseout( function (){ $(this).css('color':'#AB7F20'); });
+	    $('.ttxPanelMoveRight').click(function(){
+	    	var panel;
+	    	if ($(this).hasClass('ttxCenterPanelControls')){ // room panel
+	    		panel = 'room';
+	    	}
+	    	else if ($(this).hasClass('ttxLeftPanelControls')){ // queue panel
+	    		panel = 'queue';
+	    	}
+	    	else{ // chat panel
+	    		panel = 'chat';
+	    	}
+	    	var currentIndex = settings.positions[panel]; // where is this panel now 
+	    	var nextIndex = (currentIndex + 1) % 4; // next index
+	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
+	    	// switch nextPanel with panel
+	    	settings.positions[nextPanel] = currentIndex;
+	    	settings.positions[panel] = nextIndex;
+	    	// save and update
+	    	saveSettings();
+	    	updatePanels();
+	    }).mouseover(function(){ $(this).css('color':'#000'); }).mouseout( function (){ $(this).css('color':'#AB7F20'); });;
+	    
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
-	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');;
+	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
 	    
 	    
 	    var advancedSetting = $('#ttxAdvancedSettings');
