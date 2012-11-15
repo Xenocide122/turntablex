@@ -505,7 +505,7 @@ window.TTX = null;
 	    $('#right-panel').css(chatX,chatPosition + 'px');
 	    $('#left-panel').css(queueX,queuePosition + 'px');
 	    $('#center-panel').css(roomX,roomPosition + 'px');
-	    log('right panel: ' + chatX + ' pos '+chatPosition);
+	    log('room panel: ' + roomX + ' pos '+roomPosition);
 	    $('#ttxCenter').css({left:sceneLeft+'px',right:sceneRight+'px'});
         }
         function panelByIndex(i){
