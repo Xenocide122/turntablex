@@ -520,7 +520,7 @@ window.TTX = null;
 	    $('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'}).appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
 	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
-	    	 $('#left-panel').css(queueX:queuePosition+'px');
+	    	 $('#left-panel').css(queueX,queuePosition+'px');
 	    }
 	   
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
@@ -528,7 +528,7 @@ window.TTX = null;
 	    
 	    if ($("#center-panel").length===0){
 	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
-	         $('#center-panel').css(roomX:roomPosition +'px');
+	         $('#center-panel').css(roomX,roomPosition +'px');
 	    
 	    }
 	   
