@@ -628,6 +628,7 @@ window.TTX = null;
 	    		return;
 	    	}
 	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
+		log('next panel is ' + nextPanel);
 	    	// switch nextPanel with panel
 	    	settings.positions[nextPanel] = currentIndex;
 	    	settings.positions[panel] = nextIndex;
