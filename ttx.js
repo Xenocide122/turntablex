@@ -504,7 +504,7 @@ window.TTX = null;
 	    	queueX = 'right';
 	    }
 	    if (settings.positions.scene > settings.positions.room){
-	    	roomPosition = (settings.positions.queue) * 265 + 5;
+	    	roomPosition = (settings.positions.room) * 265 + 5;
 		roomX = 'left';
 	    }
 	    else{
