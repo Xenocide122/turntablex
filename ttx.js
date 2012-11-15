@@ -487,7 +487,7 @@ window.TTX = null;
 		chatX = 'left';
 	    }
 	    else{
-		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265 + 15;
+		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265;
 	    	chatX = 'right';
 	    }
 	    if (settings.positions.scene > settings.positions.queue){
@@ -495,7 +495,7 @@ window.TTX = null;
 		queueX = 'left';
 	    }
 	    else{
-		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265 + 15;
+		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265;
 	    	queueX = 'right';
 	    }
 	    if (settings.positions.scene > settings.positions.room){
@@ -503,7 +503,7 @@ window.TTX = null;
 		roomX = 'left';
 	    }
 	    else{
-		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265 + 15;
+		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265;
 	    	roomX = 'right';
 	    }
 	    
