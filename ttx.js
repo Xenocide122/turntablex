@@ -488,13 +488,13 @@ window.TTX = null;
 	    else{
 		chatRight = (settings.positions.chat-settings.positions.scene) * 265 - sceneRight - 5;
 	    }
-	    $('#right-panel').css({top:'70px',width:'260px',left: chatLeft + 'px'});
+	    $('#right-panel').css({top:'70px',width:'260px',right: chatRight + 'px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    
 	    if ($('#ttxCenter').length===0){
-	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:"auto";top:50px;height:750px"></div>');
+	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:'+sceneLeft+'px;top:50px;height:750px"></div>');
 	    }
 	    var advancedSetting = $('#ttxAdvancedSettings');
 	    if (advancedSetting.length === 0){
