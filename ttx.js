@@ -404,7 +404,7 @@ window.TTX = null;
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('#playlist-container').hide();
 	    $('#room-info-container').hide();
-	    $('.chat-container').addClass('selected').css({width:'100%'});
+	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
 	    
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
