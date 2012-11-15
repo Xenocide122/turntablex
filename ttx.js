@@ -646,7 +646,7 @@ window.TTX = null;
 						settings.autoAwesome = false;
 					}
 					saveSettings();
-					$element.find('close-x').click();
+					$element.find('.close-x').click();
 				});
 				fields.html('<div style="display:inline-block;font-size:14px;margin-right:10px">Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome ? 'checked="checked"' : '') + '/>');
 				_modalHijack.type = '';
