@@ -304,7 +304,12 @@ window.TTX = null;
 					ph: e
 				});
 
-			}, randomDelay(5, 30));
+			}, randomDelay(5, 10));
+	}
+	function randomDelay(min, max) {
+			min = min || 2;
+			max = max || 70;
+			return (Math.random() * max + min) * 1000;
 	}
 	function userCount(){
 		return Object.keys(_users).length;
