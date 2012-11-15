@@ -225,7 +225,7 @@ window.TTX = null;
 		var settings = lstore.get('settings');
                              
 		if (!settings) {
-			config = defaultSettings;
+			settings = defaultSettings;
 			lstore.set('settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
