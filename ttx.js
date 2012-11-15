@@ -593,7 +593,10 @@ window.TTX = null;
 	    		panel = 'chat';
 	    	}
 	    	var currentIndex = settings.positions[panel]; // where is this panel now 
-	    	var nextIndex = (currentIndex - 1) % 4; // next index
+	    	var nextIndex = currentIndex - 1; // next index
+	    	if (nextIndex < 0){
+	    		return;
+	    	}
 	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
 	    	// switch nextPanel with panel
 	    	settings.positions[nextPanel] = currentIndex;
@@ -614,7 +617,10 @@ window.TTX = null;
 	    		panel = 'chat';
 	    	}
 	    	var currentIndex = settings.positions[panel]; // where is this panel now 
-	    	var nextIndex = (currentIndex + 1) % 4; // next index
+	    	var nextIndex = currentIndex + 1; // next index
+	    	if (nextIndex > 3){
+	    		return;
+	    	}
 	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
 	    	// switch nextPanel with panel
 	    	settings.positions[nextPanel] = currentIndex;
