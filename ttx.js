@@ -968,16 +968,17 @@ window.TTX = null;
 			
 			guests.filter('.isIdle').appendTo(guest_container); 
 
+			
+			
+			guests.filter('.isMod').prependTo(guest_container); 
+			guests.filter('.isSuper').prependTo(guest_container);
 			if ($('#ttxGuestsModSeparator').length===0){
 				$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
 			}
 			else{
 				$('#ttxGuestsModSeparator').prependTo(guest_container);
 			}
-			
-			guests.filter('.isMod').prependTo(guest_container); 
-			guests.filter('.isSuper').prependTo(guest_container);
-			
+
 			$('.guest-list-container .separator').filter(function(x){
 				return $(this).find('.text')[0].innerHTML === 'Audience';
 			}).prependTo(guest_container);
