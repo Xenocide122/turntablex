@@ -399,6 +399,19 @@ window.TTX = null;
         }
 	// perform graphical manipulation
         function initializeUI(){
+            $(document).on('click','roomRow',function(){
+            	_turntable.removeEventListener('message',onMessage);
+            	resetRoom(function(){
+		    checkPremium(); // check premium status
+		    initializeUI(); // initialize UI elements
+		    resetMods(); // new mods
+		    resetDJs(); // new DJs
+		    resetUsers(); // new users
+		    updateGuests(); // update guest list 
+		    updateHeader(); // update header
+		    initializeListeners(); // create DOM and Turntable event handlers
+        	});
+            });
 	    // make it fullscreen
 	    var rightPanelLeft = $('#bigboard').offset().left + $('#bigboard').width() + 50;
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
@@ -410,11 +423,17 @@ window.TTX = null;
 	    
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
 	    
-	    $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left:5px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
+	    if ($("#left-panel").length===0){
+	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left:5px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
+	    }
+	   
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
 	    $('#playlist-container').find('.right-panel-tab').css({width:'100%'});
 	    
-	    $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left: 270px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
+	    if ($("#right-panel").length===0){
+	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left: 270px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
+	    }
+	   
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
 	    $('#room-info-container').find('.right-panel-tab').css({width:'100%'});
 	    // reposition the stage, playlist, chat, and guestlist
