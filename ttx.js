@@ -463,18 +463,18 @@ window.TTX = null;
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
 	    
 	    if ($('#ttxCenter').length===0){
-	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;left:530px;right:280px;top:50px;height:680px"></div>');
+	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;left:5px;width:600px;top:50px;height:680px"></div>');
 	    }
 	    $('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'}).appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
-	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left:5px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;right:530px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
 	    }
 	   
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
 	    $('#playlist-container').find('.right-panel-tab').css({width:'100%'});
 	    
 	    if ($("#center-panel").length===0){
-	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left: 270px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;right: 270px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
 	    }
 	   
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
