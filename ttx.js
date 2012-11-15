@@ -967,8 +967,10 @@ window.TTX = null;
 			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
 			
 			guests.filter('.isIdle').appendTo(guest_container); 
-
 			
+			$('.guest-list-container .separator').filter(function(x){
+				return $(this).find('.text')[0].innerHTML === 'Audience';
+			}).prependTo(guest_container);
 			
 			guests.filter('.isMod').prependTo(guest_container); 
 			guests.filter('.isSuper').prependTo(guest_container);
@@ -979,9 +981,7 @@ window.TTX = null;
 				$('#ttxGuestsModSeparator').prependTo(guest_container);
 			}
 
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'Audience';
-			}).prependTo(guest_container);
+			
 			
 		        guests.filter('.isDJ').prependTo(guest_container); 
 			$('.guest-list-container .separator').filter(function(x){
