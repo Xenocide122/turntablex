@@ -414,7 +414,7 @@ window.TTX = null;
         	});
             });*/
 	    // make it fullscreen
-	    $('#maindiv').css({minWidth:'1300px'});
+	    $('#maindiv').css({minWidth:'1200px'});
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
