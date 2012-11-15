@@ -237,10 +237,6 @@ window.TTX = null;
 			// merge config with defaults to ensure no missing params
 			settings = $.extend(true, {}, defaultSettings, settings);
 			
-			settings.positions.scene = 3;
-			settings.positions.queue = 0;
-			settings.positions.chat = 1;		
-			settings.positions.room = 2;
 			lstore.set('settings', settings);
 		}
 
