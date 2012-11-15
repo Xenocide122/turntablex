@@ -648,7 +648,7 @@ window.TTX = null;
 					saveSettings();
 					$element.find('close-x').click();
 				});
-				fields.html('<div>Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome ? 'checked="checked"' : '') + '/>');
+				fields.html('<div style="display:inline-block;font-size:14px;margin-right:10px">Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome ? 'checked="checked"' : '') + '/>');
 				_modalHijack.type = '';
 			}
 			else if (_modalHijack.type === 'laptop'){
