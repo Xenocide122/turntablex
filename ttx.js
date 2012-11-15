@@ -480,15 +480,17 @@ window.TTX = null;
 	    // positions for the scene container
 	    var sceneLeft = (settings.positions.scene * (265) + 5);
 	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatRight, guestLeft, queueLeft;
-	  
+	    var chatPosition, guestPosition, queuePosition, chatX, guestX, queueX;
+
 	    if (settings.positions.scene > settings.positions.chat){
-	    	chatRight = (settings.positions.chat) * 265 + 5;
+	    	chatPosition = (settings.positions.chat) * 265 + 5;
+		chatX = 'left';
 	    }
 	    else{
-		chatRight = (settings.positions.chat-settings.positions.scene) * 265 - sceneRight + 20;
+		chatPosition = (settings.positions.chat-settings.positions.scene) * 265 - sceneRight + 20;
+	    	chatX = 'right';
 	    }
-	    $('#right-panel').css({top:'70px',width:'260px',right: chatRight + 'px'});
+	    $('#right-panel').css({top:'70px',width:'260px'}).css(chatX,chatPosition + 'px');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
