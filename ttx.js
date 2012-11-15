@@ -275,6 +275,37 @@ window.TTX = null;
 			
 		}
 	}
+	var autoVoteTimer = null;
+	function autoVote(e) {
+
+			if (autoVoteTimer) {
+				clearTimeout(autoVoteTimer);
+				autoVoteTimer = null;
+			}
+
+			// cast vote at a random delay
+			autoVoteTimer = setTimeout(function() {
+
+				// retrieve room and song data
+				var song_id = e.room.metadata.current_song._id;
+
+				// need some safety measures
+				var f = $.sha1(_room.roomId + 'up' + song_id);
+				var d = $.sha1(Math.random() + "");
+				var e = $.sha1(Math.random() + "");
+
+				// trigger upvote
+				this.send({
+					api: 'room.vote',
+					roomid: _room.roomId,
+					val: 'up',
+					vh: f,
+					th: d,
+					ph: e
+				});
+
+			}, randomDelay(5, 30));
+	}
 	function userCount(){
 		return Object.keys(_users).length;
 	}
@@ -979,6 +1010,7 @@ window.TTX = null;
 	}
 	function onNewSong(e){
 		resetSong();
+		autoVote(e);
 	}
         function onMessage(e){
             if (e.hasOwnProperty('msgid')) {
