@@ -503,7 +503,7 @@ window.TTX = null;
 		roomX = 'left';
 	    }
 	    else{
-		roomPosition = (settings.positions.queue-settings.positions.scene) * 265 - sceneRight + 20;
+		roomPosition = (settings.positions.room-settings.positions.scene) * 265 - sceneRight + 20;
 	    	roomX = 'right';
 	    }
 	    
