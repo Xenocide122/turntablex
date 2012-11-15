@@ -407,8 +407,9 @@ window.TTX = null;
 	    $('#room-info-container').hide();
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({width:'100%'});
 	    
-	    $('#right-panel').before('<div id="left-panel" style="z-index:9999;overflow:hidden;top:70px;height:700px;width:260px;left:5px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
+	    $('#right-panel').before('<div id="left-panel" style="z-index:9999;overflow:hidden;top:70px;bottom:15px;width:260px;left:5px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').show().appendTo('#left-panel-tabs');
+	    $('#playlist-container').find('.right-panel-tab').css({width:'100%'});
 	    // reposition the stage, playlist, chat, and guestlist
 	    /*var main_container = $('#outer .roomView');
 	    var right_panel = $('#right-panel');
