@@ -1087,7 +1087,7 @@ window.TTX = null;
 						extrasContent = extrasContent + SYMBOLS.down + ' ';
 					}
 					if (isBuddy(user_id)){
-						extrasClass = extraClass + ' isBuddy'; // mutual fans
+						extrasClass = extrasClass + ' isBuddy'; // mutual fans
 					}
 					if (isFanOf(user_id)){
 						extrasClass = extrasClass + ' isFanOf'; // you are a fan of
