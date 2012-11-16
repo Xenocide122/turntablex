@@ -1129,7 +1129,7 @@ window.TTX = null;
 			
 			guests.filter('.isFanOf').prependTo(guest_container);
 			if ($('#ttxGuestsFanOfSeparator').length===0){
-				$('<div class="separator" id="ttxGuestsFanOfSeparator"><div class="text">Favorites</div></div>').prependTo(guest_container);
+				$('<div class="separator" id="ttxGuestsFanOfSeparator"><div class="text">Idols</div></div>').prependTo(guest_container);
 			}
 			else{
 				$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
