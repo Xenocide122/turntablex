@@ -1034,6 +1034,9 @@ window.TTX = null;
 	function isBuddy(id){
 		return (_turntable.user.buddies.indexOf(id) > -1);
 	}
+	function isFanOf(id){
+		return (_turntable.user.fanOf.indexOf(id) > -1);
+	}
 	// update guest list (UI)
 	var guestsTimer = null;
 	function updateGuests(){
@@ -1084,7 +1087,10 @@ window.TTX = null;
 						extrasContent = extrasContent + SYMBOLS.down + ' ';
 					}
 					if (isBuddy(user_id)){
-						extrasClass = extraClass + ' isBuddy';
+						extrasClass = extraClass + ' isBuddy'; // mutual fans
+					}
+					if (isFanOf(user_id)){
+						extrasClass = extrasClass + ' isFanOf'; // you are a fan of
 					}
 					if (now - _idleTimers[user_id] > IDLE_MAX){
 						$this.find('.guestAvatar').css('-webkit-filter','grayscale(100%)');
@@ -1121,6 +1127,14 @@ window.TTX = null;
 				return $(this).find('.text')[0].innerHTML === 'Audience';
 			}).prependTo(guest_container);
 			
+			guests.filter('.isFanOf').prependTo(guest_container);
+			if ($('#ttxGuestsFanOfSeparator').length===0){
+				$('<div class="separator" id="ttxGuestsFanOfSeparator"><div class="text">Favorites</div></div>').prependTo(guest_container);
+			}
+			else{
+				$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
+			}
+			
 			guests.filter('.isBuddy').prependTo(guest_container);
 			if ($('#ttxGuestsBuddiesSeparator').length===0){
 				$('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
@@ -1128,6 +1142,8 @@ window.TTX = null;
 			else{
 				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
 			}
+			
+			
 			guests.filter('.isMod').prependTo(guest_container); 
 			guests.filter('.isSuper').prependTo(guest_container);
 			if ($('#ttxGuestsModSeparator').length===0){
