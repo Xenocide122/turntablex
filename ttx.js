@@ -1126,7 +1126,7 @@ window.TTX = null;
 				$('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
 			}
 			else{
-				$('#ttxGuestsBuddiesModSeparator').prependTo(guest_container);
+				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
 			}
 			guests.filter('.isMod').prependTo(guest_container); 
 			guests.filter('.isSuper').prependTo(guest_container);
