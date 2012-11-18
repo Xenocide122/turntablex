@@ -218,7 +218,7 @@ window.TTX = null;
 	loadSettings();
 	
         resetRoom(function(){
-	    $(window).unbind('resize').bind('resize',onResize);
+	    // .bind('resize',onResize);
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
@@ -445,6 +445,7 @@ window.TTX = null;
 			}
 		}
                 if (_manager && $._data(window).events.resize){
+		    $(window).unbind('resize');
 		    log('Entering room: ' + _location);
 		    log(_room);
 		    log('Found manager');
