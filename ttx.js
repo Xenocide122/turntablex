@@ -444,7 +444,7 @@ window.TTX = null;
 				break;
 			}
 		}
-                if (_manager && $('#scene').length > 0){
+                if (_manager && $._data(window).events.resize){
 		    log('Entering room: ' + _location);
 		    log(_room);
 		    log('Found manager');
