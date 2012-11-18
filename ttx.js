@@ -443,7 +443,7 @@ window.TTX = null;
 				break;
 			}
 		}
-                if (_manager){
+                if (_manager && $('#scene').length > 0){
 		    log('Entering room: ' + _location);
 		    log(_room);
 		    log('Found manager');
