@@ -218,7 +218,7 @@ window.TTX = null;
 	loadSettings();
 	
         resetRoom(function(){
-	    $(window).unbind('resize');
+	    $(window).unbind('resize').bind('resize',onResize);
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
@@ -1000,13 +1000,7 @@ window.TTX = null;
 		}
 	}
 	function onResize(){
-		// TODO
-		/*if ($(window).width() < 1400){
-			$('#outer').width('1400px');
-		}
-		else{
-			$('#outer').width('100%');
-		}*/
+		
 		$('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'});
 
 	}
