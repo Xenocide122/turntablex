@@ -219,6 +219,7 @@ window.TTX = null;
 	
         resetRoom(function(){
 	    checkPremium(); // check premium status
+	    $(window).unbind('resize').bind('resize',onResize);
 	    initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
 	    resetDJs(); // new DJs
@@ -471,8 +472,8 @@ window.TTX = null;
             log('Event monitor added');
 	    $(document).bind('DOMNodeInserted',onDOM);
 	    log('DOM monitor added');
-	    $(window).unbind('resize').bind('resize',onResize);
-	    log('Window resize monitor added');
+	    //$(window).unbind('resize').bind('resize',onResize);
+	    //log('Window resize monitor added');
 	    $(window).unload(function(){
 		//_turntable.removeEventListener('message',onMessage);
 	    });
