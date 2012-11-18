@@ -214,7 +214,7 @@ window.TTX = null;
 	};
 	log('Turntable X loaded');
 	// main
-        $(window).unbind('resize');
+    
 	loadSettings();
 	
         resetRoom(function(){
@@ -1011,7 +1011,7 @@ window.TTX = null;
 		else{
 			$('#outer').width('100%');
 		}*/
-		//$('#scene').css({top:'100px'});
+		$('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'});
 
 	}
 	function isMod(id){
