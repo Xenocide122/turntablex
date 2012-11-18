@@ -214,6 +214,7 @@ window.TTX = null;
 	};
 	log('Turntable X loaded');
 	// main
+        $(window).unbind('resize');
 	loadSettings();
 	
         resetRoom(function(){
