@@ -444,7 +444,7 @@ window.TTX = null;
 				break;
 			}
 		}
-                if (_manager && $('#scene').find('#audience').length > 0){
+                if (_manager && $('#scene').find('#audience .crowd').length > 0){
 		    $(window).unbind('resize');
 		    log('Entering room: ' + _location);
 		    log(_room);
