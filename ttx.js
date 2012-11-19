@@ -1235,7 +1235,7 @@ window.TTX = null;
 		afterSpeaker = afterSpeaker || '';
 		content = content || '';
 		var chatContainer = $('.messages');
-		$('<div class="message"><div class="avatar" style="background-image: url('+image+');"></div><div class="speaker">'+speaker+'</div><div class="afterSpeaker" style="display:inline-block; margin-left:5px">'+afterSpeaker+'</div><div class="textContainer">' + content + '</div></div>').appendTo(chatContainer);
+		$('<div class="message"><div class="avatar" style="background-image: url('+image+');"></div><div class="speaker" style="display:inline-block">'+speaker+'</div><div class="afterSpeaker" style="display:inline-block; margin-left:5px">'+afterSpeaker+'</div><div class="textContainer">' + content + '</div></div>').appendTo(chatContainer);
 	}
 	function onHeart(e){
 		var now = new Date().getTime();
