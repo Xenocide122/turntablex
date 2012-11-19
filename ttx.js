@@ -578,11 +578,11 @@ window.TTX = null;
 		rightPanelTab.find('.right-panel-tab-content').append('<h2 id="ttxRightPanelMoveRight" class="ttxPanelMoveRight ttxRightPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 id="ttxRightPanelMoveLeft" class="ttxPanelMoveLeft ttxRightPanelControls" style="margin-right: 8px">◀</h2>');
 	    }
 	    if ($('#ttxCenter').length===0){
-	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:'+sceneLeft+'px;top:50px;height:750px"></div>');
+	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:'+sceneLeft+'px;top:70px;height:750px"></div>');
 	    }
 	    
 	    
-	    $('#scene').css({width:'1468px',left:'auto',right:'50%',bottom:'20px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttxCenter'));
+	    $('#scene').css({width:'1468px',left:'auto',right:'50%',top:'95px',bottom:'0px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
 	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
 	    	 $('#left-panel').css(queueX,queuePosition+'px');
