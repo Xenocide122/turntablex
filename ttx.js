@@ -444,7 +444,7 @@ window.TTX = null;
 				break;
 			}
 		}
-                if (_manager && typeof($._data(window).events.resize) !== 'undefined'){
+                if (_manager && $('#scene').length && $('#scene').height() > 0){
 		    $(window).unbind('resize');
 		    log('Entering room: ' + _location);
 		    log(_room);
