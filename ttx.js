@@ -1245,7 +1245,7 @@ window.TTX = null;
 		}
 		_idleTimers[e.userid] = now;
 		var name = _users[e.userid];
-		addChat(SYMBOLS.heart,name,'saved this song');
+		addChat('http://turntablex.com/images/heart.png',name,'saved this song');
 	}
 	function onChat(e){
 		var now = new Date().getTime();
