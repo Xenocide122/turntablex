@@ -1228,16 +1228,14 @@ window.TTX = null;
 			}
 		}
 
-		//var action = vote === 'up' ? 'awesomed' : 'lamed';
-		//addChat(name,' ' + action + ' this song ' + SYMBOLS[vote]);
-		
 	
 	}
 	
-	function addChat(name,content,className){
-		className = className || '';
+	function addChat(image,speaker,afterSpeaker,content){
+		afterSpeaker = afterSpeaker || '';
+		content = content || '';
 		var chatContainer = $('.messages');
-		$('<div class="message ' + className + '"><span class="speaker">' + name + '</span><span class="text">' + content + '</span></div>').appendTo(chatContainer);
+		$('<div class="message"><div class="avatar" style="background-image: url('+image+');"></div><div class="speaker">'+speaker+'</div><div class="afterSpeaker" style="display:inline-block; margin-left:5px">'+afterSpeaker+'</div><div class="textContainer">' + content + '</div></div>').appendTo(chatContainer);
 	}
 	function onHeart(e){
 		var now = new Date().getTime();
@@ -1247,7 +1245,7 @@ window.TTX = null;
 		}
 		_idleTimers[e.userid] = now;
 		var name = _users[e.userid];
-		addChat(name,' saved this song ' + SYMBOLS.heart);
+		addChat(SYMBOLS.heart,name,'saved this song');
 	}
 	function onChat(e){
 		var now = new Date().getTime();
