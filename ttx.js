@@ -398,7 +398,7 @@ window.TTX = null;
 	}
 	function isSceneReady(){
 		var scene = $('#scene');
-		if (scene.css('right').chatAt(0) === '-' || scene.css('margin-left').chatAt(0) === '-'){
+		if (scene.css('right').charAt(0) === '-' || scene.css('margin-left').charAt(0) === '-'){
 			return true;
 		}
 		else{
