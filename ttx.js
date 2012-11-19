@@ -396,6 +396,15 @@ window.TTX = null;
 			_mods[_room.roomData.metadata.moderator_id[i]] = 1;
 		}
 	}
+	function isSceneReady(){
+		var scene = $('#scene');
+		if (scene.css('right').chatAt(0) === '-' || scene.css('margin-left').chatAt(0) === '-'){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	function newSong(){
 		var votelog = _room.roomData.metadata.votelog;
 		var currentSong = _room.roomData.metadata.current_song;
@@ -444,7 +453,7 @@ window.TTX = null;
 				break;
 			}
 		}
-                if (_manager && $('#scene').find('#audience .crowd').length > 0){
+                if (_manager && isSceneReady()){
 		    $(window).unbind('resize');
 		    log('Entering room: ' + _location);
 		    log(_room);
@@ -573,7 +582,7 @@ window.TTX = null;
 	    }
 	    
 	    
-	    $('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'}).appendTo($('#ttxCenter'));
+	    $('#scene').css({width:'1468px',left:'auto',right:'50%',bottom:'20px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttxCenter'));
 	    if ($("#left-panel").length===0){
 	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
 	    	 $('#left-panel').css(queueX,queuePosition+'px');
