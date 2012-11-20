@@ -1041,14 +1041,14 @@ window.TTX = null;
 			edgeAdjust[edgeType] = edgeOffset;
 			
 			$panel.css(edgeType,edgeOffset);
-			$panel.css(width,PANEL_WIDTH); 
+			$panel.css(width,PANEL_WIDTH+'px'); 
 		}
 		else{ // placing the wide panel 
 			edgeAdjust.left = edgeOffset; // set the left and right
 			edgeAdjust.right = PANEL_PADDING + (PANEL_PADDING+PANEL_WIDTH)*(dockLength-i-1);
 			
-			$panel.css('width','auto); // auto width
-			$panel.css({left:edgeAdjust.left,right: edgeAdjust.right}); // use left and right
+			$panel.css('width','auto'); // auto width
+			$panel.css({ left: edgeAdjust.left+'px', right: edgeAdjust.right+'px'}); // use left and right
 
 			// switch the edge type
 			edgeType = 'right';
