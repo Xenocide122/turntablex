@@ -959,7 +959,7 @@ window.TTX = null;
 
 	    // add a panel around the scene
 	    if ($('#ttx-panels-scene').length===0){
-	    	rightPanel.before('<div id="ttx-panels-scene" style="z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"></div>');
+	    	rightPanel.before('<div id="ttx-panels-scene" class="ttx-panel no-header" style="z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"></div>');
 	    }
 
 	    $('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
