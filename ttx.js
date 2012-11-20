@@ -1063,7 +1063,7 @@ window.TTX = null;
 					// update extra classes and idle time
 					var extrasClass = '';
 					var extrasContent = ' ';
-					if ($name.hasClass('mod')){
+					if (isMod(user_id)){
 						extrasClass = extrasClass + ' isMod';
 					}
 					if ($name.hasClass('superuser')){
