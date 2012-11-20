@@ -981,7 +981,7 @@ window.TTX = null;
   	    .find('.tab-icon').css('background-position','0px -30px');
 	    
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels"/>');
+		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 	    	$('.ttx-panel').each(function(){
