@@ -1031,7 +1031,7 @@ window.TTX = null;
 	    var edgeAdjust = { left: 0, right: 0 };
 	    var dockLength = _panels.dock.length;
 	    for (var i=0; i<dockLength; i++){
-	    	var $panel, dockedPanel = settings.panels[i];
+	    	var $panel, dockedPanel = settings.panels[_panels.dock[i]];
 		if (dockedPanel.name === 'chat'){
 			$panel = $('#right-panel');
 		}
