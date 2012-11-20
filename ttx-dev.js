@@ -948,7 +948,9 @@ window.TTX = null;
 	    // fix up chat
 	    $('#right-panel').css({top:'70px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
-	    var rightPanelTab = $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.tab-icon').css({'background','url(https://s3.amazonaws.com/static.turntable.fm/images/room/icon-sprite.png) 0px 0px no-repeat'});
+	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
+	    .find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
+	    .find('.tab-icon').css('background','url(https://s3.amazonaws.com/static.turntable.fm/images/room/icon-sprite.png) 0px 0px no-repeat !important');
 
 	    // add a panel around the scene
 	    if ($('#ttx-panels-scene').length===0){
