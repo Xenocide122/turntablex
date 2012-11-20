@@ -1018,15 +1018,15 @@ window.TTX = null;
 		if (dockedPanel.width === 'auto'){ // placing normal panels by either left/right + width
 			edgeAdjust[edgeType] = edgeOffset;
 			
-			$panel.css(edgeType,edgeOffset+'px');
-			$panel.css('width',PANEL_WIDTH+'px'); 
+			//$panel.css(edgeType,edgeOffset+'px');
+			//$panel.css('width',PANEL_WIDTH+'px'); 
 		}
 		else{ // placing the wide panel 
 			edgeAdjust.left = edgeOffset; // set the left and right
 			edgeAdjust.right = PANEL_PADDING + (PANEL_PADDING+PANEL_WIDTH)*(dockLength-i-1);
 			
-			$panel.css('width','auto'); // auto width
-			$panel.css({ left: edgeAdjust.left+'px', right: edgeAdjust.right+'px'}); // use left and right
+			//$panel.css('width','auto'); // auto width
+			//$panel.css({ left: edgeAdjust.left+'px', right: edgeAdjust.right+'px'}); // use left and right
 
 			// switch the edge type
 			edgeType = 'right';
