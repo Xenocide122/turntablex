@@ -11,9 +11,9 @@ window.TTX = null;
 	// global resources
 	var IDLE_MAX = 15*60*1000;
 	var SYMBOLS = {
-		heart: '<img width="13" src="http://turntablex.com/images/heart.png">',
-		up: '<img width="13" src="http://turntablex.com/images/up.png">',
-		down: '<img width="13" src="http://turntablex.com/images/down.png">',
+		heart: '<img width="14" src="http://turntablex.com/images/heart.png">',
+		up: '<img width="14" src="http://turntablex.com/images/up.png">',
+		down: '<img width="14" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
 	var ICONS = {
