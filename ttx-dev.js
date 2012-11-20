@@ -183,6 +183,12 @@ window.TTX = null;
 			}
 			
 		},
+		positions:{
+			scene: 0,
+			queue: 1,
+			room: 2,
+			chat: 3
+		},
 		panels: [
 			{
 				name: 'scene',
