@@ -959,9 +959,9 @@ window.TTX = null;
 
 	    // add a panel around the scene
 	    if ($('#ttx-panels-scene').length===0){
-	    	$('#right-panel').before('<div id="ttx-panels-scene" style="position:absolute;overflow:hidden;top:65px;height:750px"></div>');
+	    	$('#right-panel').before('<div id="ttx-panels-scene" style="position:absolute;overflow:hidden;top:70px;height:100%"></div>');
 	    }
-	    $('#scene').css({width:'1468px',height:'600px',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
+	    $('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
 	    
 	    // add a panel around the room
 	    if ($("#ttx-panels-room").length===0){
