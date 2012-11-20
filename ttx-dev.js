@@ -981,9 +981,9 @@ window.TTX = null;
   	    .find('.tab-icon').css('background-position','0px -30px');
 	    
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
+		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:5px"><div id="ttx-panels-container" style="position:relative;height:100%;width:100%;"/></div>');
 		rightPanel.before(panels);
-		panels = $('#ttx-panels');
+		panels = $('#ttx-panels-container');
 	    	$('.ttx-panel').each(function(){
 			$(this).appendTo(panels);
 		});
