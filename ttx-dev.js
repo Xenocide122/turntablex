@@ -1086,6 +1086,12 @@ window.TTX = null;
 					if (isCurrentDJ(user_id)){
 						extrasClass = extrasClass + ' isCurrentDJ';
 					}
+					if (isBuddy(user_id)){
+						extrasClass = extrasClass + ' isBuddy'; // mutual fans
+						if (extrasClass === ''){
+							hasBuddies = true;
+						}
+					}
 					if (isHearter(user_id)){
 						extrasClass = extrasClass + ' isHearter';
 						icons = icons + ICONS.heart;
@@ -1098,10 +1104,7 @@ window.TTX = null;
 						extrasClass = extrasClass + ' isDownvoter';
 						icons = icons + ICONS.down;
 					}
-					if (isBuddy(user_id)){
-						extrasClass = extrasClass + ' isBuddy'; // mutual fans
-						hasBuddies = true;
-					}
+					
 					if (isFanOf(user_id)){
 						extrasClass = extrasClass + ' isFanOf'; // you are a fan of
 						icons = icons + ICONS.fanned;
