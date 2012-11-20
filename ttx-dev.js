@@ -1062,6 +1062,7 @@ window.TTX = null;
 			// update the chat box
 			var guest_container = $('.guest-list-container .guests');
 			var guests = $('.guest-list-container .guest');
+			var hasBuddies = false;
 			guests.each(function() {
 				var $this = $(this);
 				var $name = $this.find('.guestName');
@@ -1099,6 +1100,7 @@ window.TTX = null;
 					}
 					if (isBuddy(user_id)){
 						extrasClass = extrasClass + ' isBuddy'; // mutual fans
+						hasBuddies = true;
 					}
 					if (isFanOf(user_id)){
 						extrasClass = extrasClass + ' isFanOf'; // you are a fan of
@@ -1150,7 +1152,12 @@ window.TTX = null;
 			else{
 				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
 			}
-			
+			if (!hasBuddies){
+				$('#ttxGuestsBuddiesSeparator').hide();
+			}
+			else{
+				$('#ttxGuestsBuddiesSeparator').show();
+			}
 			
 			guests.filter('.isMod').prependTo(guest_container); 
 			guests.filter('.isSuper').prependTo(guest_container);
