@@ -110,7 +110,11 @@ window.TTX = null;
 		action: '', // new | edit
 		index: 0 // laptop index
 	};
-	
+	// add this to jquery
+	$.fn.extend({
+		'curCss': function(x,y,z) { return $.css(x,y,z); }
+	});
+
         // global state
 	var self = this;
 	var _premiumIDs = null; // IDs to check against for premium access
@@ -945,8 +949,10 @@ window.TTX = null;
 	}
 	var _panels;
 	function addPanels(){
+
+
 	    // fix up chat
-	    $('#right-panel').css({top:'70px'});
+	    $('#right-panel').css({top:'70px'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
