@@ -18,9 +18,9 @@ window.TTX = null;
 	};
 	var ICONS = {
 		mod: '<div class="mod icon" title="Moderator"></div>',
-		up: '<div class="upvote icon" title="Awesomed" style="background-image:url(http://turntablex.com/images/up.png); background-size: 17px auto; width: 17px;"></div>',
-		down: '<div class="downvote icon" title="Lamed" style="background-image:url(http://turntablex.com/images/down.png); background-size: 17px auto; width: 17px;"></div>',
-		heart: '<div class="heart icon" title="Snagged" style="background-image:url(http://turntablex.com/images/heart.png); background-size: 17px auto; width: 17px;"></div>',
+		up: '<div class="upvote icon" title="Awesomed" style="background-image:url(http://turntablex.com/images/up.png); background-size: 15px auto; width: 15px;"></div>',
+		down: '<div class="downvote icon" title="Lamed" style="background-image:url(http://turntablex.com/images/down.png); background-size: 15px auto; width: 15px;"></div>',
+		heart: '<div class="heart icon" title="Snagged" style="background-image:url(http://turntablex.com/images/heart.png); background-size: 15px auto; width: 15px;"></div>',
 		superuser: '<div class="superuser icon" title="Superuser"></div>',
 		fanned: '<div class="fanned icon" title="Fanned"></div>'
 	};
