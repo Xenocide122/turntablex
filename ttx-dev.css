@@ -4,7 +4,7 @@
 	top: 50%;
 	left: 5px;
 	margin-top: -15px;
-	overflow-hidden;
+	overflow: hidden;
 	text-indent: -9999px;
 	width: 56px;
 	height: 30px;
