@@ -999,13 +999,13 @@ window.TTX = null;
 	    $('#scene').css({width:'1468px',left:'auto',right:'50%',top:'95px',bottom:'0px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
 	    
 	    // add a panel around the room
-	    if ($("#ttx-panel-room").length===0){
+	    if ($("#ttx-panels-room").length===0){
 	    	 $('#right-panel').before('<div id="ttx-panels-room" class="ttx-panel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;position:absolute"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs");
 
 	    // add a panel around the queue
-	    if ($("#ttx-panels.queue").length===0){
+	    if ($("#ttx-panels-queue").length===0){
 	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;position:absolute"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
@@ -1048,7 +1048,7 @@ window.TTX = null;
 			edgeAdjust.right = PANEL_PADDING + (PANEL_PADDING+PANEL_WIDTH)*(dockLength-i-1);
 			
 			$panel.css('width','auto); // auto width
-			$panel.css({left:edgeAdjust.left,right:edgeAdjust.right}); // use left and right
+			$panel.css({left:edgeAdjust.left,right: edgeAdjust.right}); // use left and right
 
 			// switch the edge type
 			edgeType = 'right';
