@@ -539,15 +539,14 @@ window.TTX = null;
         	}
         	return '';
         }
-	// perform graphical manipulation
-        function initializeUI(){
-
+	function addWidescreen(){
 	    // make everything widescreen
 	    $('#maindiv').css({minWidth:'1200px'});
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
-
+	}
+	function addPanels(){
 	    // positions for the scene container
 	    var sceneLeft = (settings.positions.scene * (265) + 5);
 	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
@@ -662,75 +661,21 @@ window.TTX = null;
 	    	updatePanels();
 	    }).mouseover(function(){ $(this).css('color','#000'); }).mouseout( function (){ $(this).css('color','#AB7F20'); });
 	    
-	    
-	    
-	    
-	    var advancedSetting = $('#ttxAdvancedSettings');
-	    if (advancedSetting.length === 0){
-	    	$('#settings-dropdown li:contains("Logout")').before('<li class="option" id="ttxAdvancedSettings">Advanced</li>')
-	    	$('#ttxAdvancedSettings').click(function(){
+	 
+	}
+	function addAdvancedSettings(){
+	    var advancedSettings = $('#ttx-advanced');
+	    if (advancedSettings.length === 0){
+	    	$('#settings-dropdown li:contains("Logout")').before('<li class="option" id="ttx-advanced">Advanced</li>')
+	    	$('#ttx-advanced').click(function(){
 	    		_modalHijack.type = 'settings';
 	    		$('#settings-dropdown li:contains("Edit my profile")').click();
 	    	});
-	    
+
 	    }
-	    // reposition the stage, playlist, chat, and guestlist
-	    /*var main_container = $('#outer .roomView');
-	    var right_panel = $('#right-panel');
-	    var stage = $('#floor-div').parent();
-	    var stage_height = stage.height();
-	    var stage_width = stage.width();
-            var guest_list = right_panel.find('.guest-list-container');
-	    var play_list = $('#playlist');
-	    var chat = right_panel.find('.chat-container');
-	    var room_info = $('#room-info-tab');
-
-	    right_panel.find('.chatHeader').unbind('mousedown').css('cursor', 'default');
-
-	    stage.css({left:235,top:105});
-
-	    guest_list.css({marginLeft:0,left:stage_width+240,width:220,top:105,height:stage_height}).appendTo(main_container);
-	    guest_list.find('.guests').css({height:stage_height-60});
-	    guest_list.find('.guestListButton').hide();
-	    guest_list.find('.guestListSize').css({left:0,width:'100%'});
-	    guest_list.find('.chatBar').css({width:'100%'});
-	    guest_list.find('.chatResizeIcon').hide();
-
-	    play_list.css({marginLeft:0,left:0,width:230,top:105,height:stage_height}).appendTo(main_container);
-
-	    chat.css({marginLeft:0,position:'absolute',width:'auto',left:stage_width+465,top:105,height:stage_height,right:5}).appendTo(main_container);
-	    chat.find('div.messages').css({height: stage_height-63});
-	    chat.find('form.input-box').css({width:'100%',left:0,backgroundImage:'none'});
-	    chat.find('form.input-box input').css({left:'5px',right:'5px',paddingRight:'0px',width:'auto',backgroundColor:"#fff",border:"1px solid #999"});
-	    chat.find('div.guestListButton').hide();
-	    chat.find('div.chatBar').css({width:'100%'});
-	    chat.find('.guestListIcon').hide();
-	    chat.find('.chatResizeIcon').hide();
-
-	    $('.room .name').css({position:'absolute',left:35,right:0,width:'auto'});
-	    $('.room').css({position:'absolute',right:425});
-
-	    room_info.find('.content').css({left:0,top:-1*(10+stage_height),height:(10+stage_height)});
-	    room_info.find('.songlog').css({height:500});
-	    room_info.find('.button').css({left:125}).unbind('click').bind('click',function(){ 
- 	    	var direction = 1;
-		if ($(this).hasClass('upbutton')){
-			direction = -1;
-			$(this).removeClass('upbutton');
-		}
-		else{
-			$(this).addClass('upbutton');
-		}
-		$(this).parent().find('.content, .button').animate({top:'+=' + (stage_height+10)*direction},350);
-	    });
-
-	    changeClass('.ui-slider .ui-slider-handle',{width:'.8em',height:'.8em'});
-            changeClass('.chat-container .messages .message',{width:'100%'});
-	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
-	    changeClass('#menuh',{left:'40px'});
-	    if ($('#ttx_logo').length === 0){
-	    	$('.header .logo').after('<div id="ttx_logo" style="left:178px; top: 12.5px; width: 38px; height: 36px; position:absolute; background-size: 38px 36px; background-image:url(http://turntablex.com/images/turntableX.png);"/>');
-            }
+	}
+	function addLaptopSettings(){
+		/*
             if ($('#ttx_laptopMenu').length === 0){
 		updateLaptops();
             	$('#ttx_laptopMenu').bind('mouseover',function(){
@@ -770,6 +715,15 @@ window.TTX = null;
             else{
             	updateLaptops();
             }*/
+	}
+	// perform graphical manipulation
+        function initializeUI(){
+
+	   addWidescreen(); // make it widescreen
+	   addPanels(); // create the room/info panels
+	   addAdvancedSettings(); // create the advanced settings menu entry
+	   addLaptopSettings(); // create the laptop settings button
+
         }
         function updateLaptops(){
         	var laptops = settings.laptop.stickers.animations;
