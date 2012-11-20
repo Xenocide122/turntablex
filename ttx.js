@@ -1128,13 +1128,13 @@ window.TTX = null;
 				return $(this).find('.text')[0].innerHTML === 'Audience';
 			}).prependTo(guest_container);
 			
-			guests.filter('.isFanOf').prependTo(guest_container);
-			if ($('#ttxGuestsFanOfSeparator').length===0){
-				$('<div class="separator" id="ttxGuestsFanOfSeparator"><div class="text">Idols</div></div>').prependTo(guest_container);
-			}
-			else{
-				$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
-			}
+			//guests.filter('.isFanOf').prependTo(guest_container);
+			//if ($('#ttxGuestsFanOfSeparator').length===0){
+			//	$('<div class="separator" id="ttxGuestsFanOfSeparator"><div class="text">Idols</div></div>').prependTo(guest_container);
+			//}
+			//else{
+			//	$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
+			//}
 			
 			guests.filter('.isBuddy').prependTo(guest_container);
 			if ($('#ttxGuestsBuddiesSeparator').length===0){
@@ -1145,14 +1145,14 @@ window.TTX = null;
 			}
 			
 			
-			guests.filter('.isMod').prependTo(guest_container); 
-			guests.filter('.isSuper').prependTo(guest_container);
-			if ($('#ttxGuestsModSeparator').length===0){
-				$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
-			}
-			else{
-				$('#ttxGuestsModSeparator').prependTo(guest_container);
-			}
+			//guests.filter('.isMod').prependTo(guest_container); 
+			//guests.filter('.isSuper').prependTo(guest_container);
+			//if ($('#ttxGuestsModSeparator').length===0){
+			//	$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
+			//}
+			//else{
+			//	$('#ttxGuestsModSeparator').prependTo(guest_container);
+			//}
 
 			
 			
