@@ -1070,7 +1070,7 @@ window.TTX = null;
 					var user_id = _usernames[username];
 					// update extra classes and idle time
 					var icons = '';
-					var extrasContent = ' ';
+					var extrasClass = ' ';
 					if (isMod(user_id)){
 						extrasClass = extrasClass + ' isMod';
 						icons = icons + ICONS.mod;
