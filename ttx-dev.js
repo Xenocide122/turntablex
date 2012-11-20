@@ -1043,7 +1043,7 @@ window.TTX = null;
 			edgeAdjust[edgeType] = edgeOffset;
 			
 			$panel.css(edgeType,edgeOffset+'px');
-			$panel.css(width,PANEL_WIDTH+'px'); 
+			$panel.css('width',PANEL_WIDTH+'px'); 
 		}
 		else{ // placing the wide panel 
 			edgeAdjust.left = edgeOffset; // set the left and right
