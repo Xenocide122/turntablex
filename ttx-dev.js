@@ -1156,7 +1156,7 @@ window.TTX = null;
 				$('#ttxGuestsBuddiesSeparator').hide();
 			}
 			else{
-				$('#ttxGuestsBuddiesSeparator').show();
+				$('#ttxGuestsBuddiesSeparator').hide();
 			}
 			
 			guests.filter('.isMod').prependTo(guest_container); 
