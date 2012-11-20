@@ -13,6 +13,8 @@ window.TTX = null;
     TTX = function(){
 
 // GLOBALS
+	var PANEL_PADDING = 5; // pad by 5 px
+	var PANEL_WIDTH = 265; // default width for a panel
 	var IDLE_MAX = 15*60*1000;
 	var SYMBOLS = {
 		heart: '<img width="14" src="http://turntablex.com/images/heart.png">',
@@ -195,13 +197,11 @@ window.TTX = null;
 				type: 'docked',
 				width: '100%',
 				height: '100%',
-				dockIndex: 0,
 				header: false
 			},
 			{
 				name: 'queue',
 				type: 'docked',
-				dockIndex: 1,
 				width: 'auto',
 				height: '100%',
 				header: true,
@@ -209,18 +209,15 @@ window.TTX = null;
 			{
 				name: 'room',
 				type: 'docked',
-				dockIndex: 3,
-				widht: 'auto',
+				width: 'auto',
 				height: '100%',
 				header: true
 			},
 			{
 				type: 'docked',
-				dockIndex: 2,
-				widht: 'auto',
+				width: 'auto',
 				height: '100%',
-				header: true
-				
+				header: true			
 			}
 		],
 		autoDJ: false,
@@ -988,122 +985,78 @@ window.TTX = null;
 	    $('#turntable').css({width:'100%',maxWidth:'100%'});
 	    $('#header').css({width:'99%',left:'5px'});
 	}
+	var _panels;
 	function addPanels(){
-	    // positions for the scene container
-	    var sceneLeft = (settings.positions.scene * (265) + 5);
-	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX;
-
-	    if (settings.positions.scene > settings.positions.chat){
-	    	chatPosition = (settings.positions.chat) * 265 + 5;
-		chatX = 'left';
-	    }
-	    else{
-		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265;
-	    	chatX = 'right';
-	    }
-	    if (settings.positions.scene > settings.positions.queue){
-	    	queuePosition = (settings.positions.queue) * 265 + 5;
-		queueX = 'left';
-	    }
-	    else{
-		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265;
-	    	queueX = 'right';
-	    }
-	    if (settings.positions.scene > settings.positions.room){
-	    	roomPosition = (settings.positions.room) * 265 + 5;
-		roomX = 'left';
-	    }
-	    else{
-		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265;
-	    	roomX = 'right';
-	    }
-	    
-	    $('#right-panel').css({top:'70px',width:'260px'}).css(chatX,chatPosition + 'px');
+	    // fix up chat
+	    $('#right-panel').css({top:'70px'});
 	    $('#chat-input').css({width:'auto',right:'5px'});
-	    
 	    var rightPanelTab = $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
-	    if( $('#ttxRightPanelMoveLeft').length === 0){
-		rightPanelTab.find('.right-panel-tab-content').append('<h2 id="ttxRightPanelMoveRight" class="ttxPanelMoveRight ttxRightPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 id="ttxRightPanelMoveLeft" class="ttxPanelMoveLeft ttxRightPanelControls" style="margin-right: 8px">◀</h2>');
-	    }
-	    if ($('#ttxCenter').length===0){
-	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:'+sceneLeft+'px;top:65px;height:750px"></div>');
-	    }
-	    
-	    
-	    $('#scene').css({width:'1468px',left:'auto',right:'50%',top:'95px',bottom:'0px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttxCenter'));
-	    if ($("#left-panel").length===0){
-	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
-	    	 $('#left-panel').css(queueX,queuePosition+'px');
-	    }
-	   
-	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
-	    if($('#ttxLeftPanelMoveLeft').length===0){
-		$('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxLeftPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 id="ttxLeftPanelMoveLeft" class="ttxPanelMoveLeft ttxLeftPanelControls" style="margin-right: 8px">◀</h2>');
-	    }
 
-	    
-	    if ($("#center-panel").length===0){
-	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
-	         $('#center-panel').css(roomX,roomPosition +'px');
+	    // add a panel around the scene
+	    if ($('#ttx-panels-scene').length===0){
+	    	$('#right-panel').before('<div id="ttx-panels-scene" style="position:absolute;overflow:hidden;top:65px;height:750px"></div>');
 	    }
-	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
-	    if ($('#ttxCenterPanelMoveLeft').length===0){
-		$('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 id="ttxCenterPanelMoveLeft" class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
-	    }
-	
-	    $('.ttxPanelMoveLeft').click(function(){
-	    	var panel;
-	    	if ($(this).hasClass('ttxCenterPanelControls')){ // room panel
-	    		panel = 'room';
-	    	}
-	    	else if ($(this).hasClass('ttxLeftPanelControls')){ // queue panel
-	    		panel = 'queue';
-	    	}
-	    	else{ // chat panel
-	    		panel = 'chat';
-	    	}
-	    	var currentIndex = settings.positions[panel]; // where is this panel now 
-	    	var nextIndex = currentIndex - 1; // next index
-	    	if (nextIndex < 0){
-	    		return;
-	    	}
-	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
-	    	// switch nextPanel with panel
-	    	settings.positions[nextPanel] = currentIndex;
-	    	settings.positions[panel] = nextIndex;
-	    	// save and update
-	    	saveSettings();
-	    	updatePanels();
-	    }).mouseover(function(){ $(this).css('color','#000'); }).mouseout( function (){ $(this).css('color','#AB7F20'); });
-	    $('.ttxPanelMoveRight').click(function(){
-	    	var panel;
-	    	if ($(this).hasClass('ttxCenterPanelControls')){ // room panel
-	    		panel = 'room';
-	    	}
-	    	else if ($(this).hasClass('ttxLeftPanelControls')){ // queue panel
-	    		panel = 'queue';
-	    	}
-	    	else{ // chat panel
-	    		panel = 'chat';
-	    	}
-	    	var currentIndex = settings.positions[panel]; // where is this panel now 
-	    	var nextIndex = currentIndex + 1; // next index
-	    	if (nextIndex > 3){
-	    		return;
-	    	}
-	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
-	
-	    	// switch nextPanel with panel
-	    	settings.positions[nextPanel] = currentIndex;
-	    	settings.positions[panel] = nextIndex;
-	    	
-	    	// save and update
-	    	saveSettings();
-	    	updatePanels();
-	    }).mouseover(function(){ $(this).css('color','#000'); }).mouseout( function (){ $(this).css('color','#AB7F20'); });
+	    $('#scene').css({width:'1468px',left:'auto',right:'50%',top:'95px',bottom:'0px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
 	    
-	 
+	    // add a panel around the room
+	    if ($("#ttx-panel-room").length===0){
+	    	 $('#right-panel').before('<div id="ttx-panels-room" class="ttx-panel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;position:absolute"><ul id="ttx-panels-room-tabs"></ul></div>');
+	    }
+	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs");
+
+	    // add a panel around the queue
+	    if ($("#ttx-panels.queue").length===0){
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;position:absolute"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    }
+	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
+
+	    if (typeof _panels === 'undefined'){ // build the panels object
+		_panels = { dock: [], float: [], hidden: [] };
+		for (var i=0;i<settings.panels.length;i++){
+			if (settings.panels[i].hidden === true){
+				_panels.hidden.push(i);
+			}
+			if (settings.panels[i].type === 'docked'){
+				_panels.dock.push(i); // push the index settings.panels
+			}
+			else{
+				_panels.float.push(i);
+			}
+		}
+	    }
+	    // render the docked panels
+	    var edgeType = 'left';
+	    var edgeOffset = PANEL_PADDING; // start off here
+	    var edgeAdjust = { left: 0, right: 0 };
+	    var dockLength = _panels.dock.length;
+	    for (var i=0; i<dockLength; i++){
+	    	var $panel, dockedPanel = settings.panels[i];
+		if (dockedPanel.name === 'chat'){
+			$panel = $('#right-panel');
+		}
+		else{
+			$panel = $('#ttx-panels-'+dockedPanel.name);
+		}
+		if (dockedPanel.width === 'auto'){ // placing normal panels by either left/right + width
+			edgeAdjust[edgeType] = edgeOffset;
+			
+			$panel.css(edgeType,edgeOffset);
+			$panel.css(width,PANEL_WIDTH); 
+		}
+		else{ // placing the wide panel 
+			edgeAdjust.left = edgeOffset; // set the left and right
+			edgeAdjust.right = PANEL_PADDING + (PANEL_PADDING+PANEL_WIDTH)*(dockLength-i-1);
+			
+			$panel.css('width','auto); // auto width
+			$panel.css({left:edgeAdjust.left,right:edgeAdjust.right}); // use left and right
+
+			// switch the edge type
+			edgeType = 'right';
+		}
+		var reverse = (edgeType === 'left' ? 1 : -1);
+		edgeOffset = edgeAdjust[edgeType] + reverse * (PANEL_PADDING+PANEL_WIDTH);
+            }
+
 	}
 	function addAdvancedSettings(){
 	    var advancedSettings = $('#ttx-advanced');
