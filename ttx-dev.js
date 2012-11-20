@@ -112,7 +112,7 @@ window.TTX = null;
 	};
 	// add this to jquery
 	$.fn.extend({
-		'curCss': function(x,y,z) { return $.css(x,y,z); }
+		'curCss': function(a,b,c,d,e) { return $.css(a,b,c,d,e); }
 	});
 
         // global state
