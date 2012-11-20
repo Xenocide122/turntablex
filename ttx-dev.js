@@ -1041,7 +1041,7 @@ window.TTX = null;
 		if (dockedPanel.width === 'auto'){ // placing normal panels by either left/right + width
 			edgeAdjust[edgeType] = edgeOffset;
 			
-			$panel.css(edgeType,edgeOffset);
+			$panel.css(edgeType,edgeOffset+'px');
 			$panel.css(width,PANEL_WIDTH+'px'); 
 		}
 		else{ // placing the wide panel 
