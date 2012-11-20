@@ -971,7 +971,7 @@ window.TTX = null;
 	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;position:absolute"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
-	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).
+	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
   	    .find('.tab-icon').css('background','url(https://s3.amazonaws.com/static.turntable.fm/images/room/icon-sprite.png) 0 -30px no-repeat !important');
 
 	    if (typeof _panels === 'undefined'){ // build the panels object
