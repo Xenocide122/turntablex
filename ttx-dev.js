@@ -961,6 +961,7 @@ window.TTX = null;
 	    if ($('#ttx-panels-scene').length===0){
 	    	$('#right-panel').before('<div id="ttx-panels-scene" style="position:absolute;overflow:hidden;top:70px;height:100%"></div>');
 	    }
+	    $('#turntable').css('height','100%');
 	    $('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
 	    
 	    // add a panel around the room
