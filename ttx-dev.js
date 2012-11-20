@@ -943,7 +943,7 @@ window.TTX = null;
 	    // make everything widescreen
 	    $('#maindiv').css({minWidth:'1200px'});
 	    $('#outer').css({width:'100%',maxWidth:'100%'});
-	    $('#turntable').css({width:'100%',maxWidth:'100%',top:'0px',bottom:'0px',position:'absolute'});
+	    $('#turntable').css({width:'100%',maxWidth:'100%',height:'auto',top:'0px',bottom:'0px',position:'absolute'});
 	    $('#header').css({width:'99%',left:'5px'});
 	}
 	var _panels;
