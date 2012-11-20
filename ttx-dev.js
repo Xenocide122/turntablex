@@ -1087,10 +1087,11 @@ window.TTX = null;
 						extrasClass = extrasClass + ' isCurrentDJ';
 					}
 					if (isBuddy(user_id)){
-						extrasClass = extrasClass + ' isBuddy'; // mutual fans
 						if (extrasClass === ' '){
 							hasBuddies = true;
 						}
+						extrasClass = extrasClass + ' isBuddy'; // mutual fans
+						
 					}
 					if (isHearter(user_id)){
 						extrasClass = extrasClass + ' isHearter';
