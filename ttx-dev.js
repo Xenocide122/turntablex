@@ -195,7 +195,7 @@ window.TTX = null;
 			{
 				name: 'scene',
 				type: 'docked',
-				width: '100%',
+				width: 'full',
 				height: '100%',
 				header: false
 			},
@@ -214,6 +214,7 @@ window.TTX = null;
 				header: true
 			},
 			{
+				name: 'chat',
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
