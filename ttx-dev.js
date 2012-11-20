@@ -1152,11 +1152,11 @@ window.TTX = null;
 			else{
 				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
 			}
-			if (!hasBuddies){
+			if (hasBuddies === false){
 				$('#ttxGuestsBuddiesSeparator').hide();
 			}
 			else{
-				$('#ttxGuestsBuddiesSeparator').hide();
+				$('#ttxGuestsBuddiesSeparator').show();
 			}
 			
 			guests.filter('.isMod').prependTo(guest_container); 
