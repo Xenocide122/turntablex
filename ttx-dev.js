@@ -16,6 +16,14 @@ window.TTX = null;
 		down: '<img width="13" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
+	var ICONS = {
+		mod: '<div class="mod icon" title="Moderator"></div>',
+		up: '<div class="upvote icon" title="Awesomed" style="background-image:url(http://turntablex.com/images/up.png); background-size: 17px auto; width: 17px;"></div>',
+		down: '<div class="downvote icon" title="Lamed" style="background-image:url(http://turntablex.com/images/down.png); background-size: 17px auto; width: 17px;"></div>',
+		heart: '<div class="heart icon" title="Snagged" style="background-image:url(http://turntablex.com/images/heart.png); background-size: 17px auto; width: 17px;"></div>',
+		superuser: '<div class="superuser icon" title="Superuser"></div>',
+		fanned: '<div class="fanned icon" title="Fanned"></div>'
+	};
 	var STICKER_MAP = {
 		'4f873b32af173a2903816e52': {
 			url: "https://s3.amazonaws.com/static.turntable.fm/roommanager_assets/stickers/reddit.png",
@@ -1061,52 +1069,51 @@ window.TTX = null;
 				if (typeof _usernames[username] != 'undefined') {
 					var user_id = _usernames[username];
 					// update extra classes and idle time
-					var extrasClass = '';
+					var icons = '';
 					var extrasContent = ' ';
 					if (isMod(user_id)){
 						extrasClass = extrasClass + ' isMod';
+						icons = icons + ICONS.mod;
 					}
 					if ($name.hasClass('superuser')){
 						extrasClass = extrasClass + ' isSuper';
+						icons = icons + ICONS.superuser;
 					}
 					if (isDJ(user_id)){
-						extrasClass = extrasClass + ' isDJ';
+						extrasClass = extrasClass + ' isDJ'; 
 					}
 					if (isCurrentDJ(user_id)){
 						extrasClass = extrasClass + ' isCurrentDJ';
 					}
 					if (isHearter(user_id)){
 						extrasClass = extrasClass + ' isHearter';
-						extrasContent = extrasContent + SYMBOLS.heart + ' ';
+						icons = icons + ICONS.heart;
 					}
 					if (isUpvoter(user_id)){
 						extrasClass = extrasClass + ' isUpvoter';
-						extrasContent = extrasContent + SYMBOLS.up + ' ';
+						icons = icons + ICONS.up;
 					}
 					if (isDownvoter(user_id)){
 						extrasClass = extrasClass + ' isDownvoter';
-						extrasContent = extrasContent + SYMBOLS.down + ' ';
+						icons = icons + ICONS.down;
 					}
 					if (isBuddy(user_id)){
 						extrasClass = extrasClass + ' isBuddy'; // mutual fans
 					}
 					if (isFanOf(user_id)){
 						extrasClass = extrasClass + ' isFanOf'; // you are a fan of
+						icons = icons + ICONS.fanned;
 					}
 					if (now - _idleTimers[user_id] > IDLE_MAX){
-						$this.find('.guestAvatar').css('-webkit-filter','grayscale(100%)');
+						$this.find('.guest-avatar').css('-webkit-filter','grayscale(100%)');
 						extrasClass = extrasClass + ' isIdle';
 					}
 					else{
-						$this.find('.guestAvatar').css('-webkit-filter','grayscale(0%)');
+						$this.find('.guest-avatar').css('-webkit-filter','grayscale(0%)');
 					}
-					var extras = $this.find('.guestExtras');
-					if (extras.length){
-						extras.html(extrasContent);
-					}
-					else{
-						$name.after($('<span class="guestExtras" style="font-weight:bold; font-size:14px;">'+extrasContent+'</span>'));
-					}
+					var iconDiv = $this.find('.icons');
+					iconDiv.html(icons);
+					
 					var idle = $this.find('.guestIdle');
 					var idleText = formatTimeDelta(_idleTimers[user_id]);
 					if (idle.length){
