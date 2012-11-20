@@ -111,7 +111,8 @@ window.TTX = null;
 		index: 0 // laptop index
 	};
 	// add curCss alias to jquery
-	$.prototype.curCss = function(a,b,c,d,e) { return $.css(a,b,c,d,e); }
+	$.extend($,{ 'curCss': function(a,b,c,d,e){ return $.css(a,b,c,d,e); } });	
+
 
         // global state
 	var self = this;
