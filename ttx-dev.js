@@ -933,53 +933,9 @@ window.TTX = null;
 		}
 	}
 	function updatePanels(){
-            var sceneLeft = (settings.positions.scene * (265) + 5);
-	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX, queueN, roomN, queueN;
+           
+        }
 
-	    if (settings.positions.scene > settings.positions.chat){
-	    	chatPosition = (settings.positions.chat) * 265 + 5;
-		chatX = 'left';
-		chatN = 'right';
-	    }
-	    else{
-		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265;
-	    	chatX = 'right';
-	    	chatN = 'left';
-	    }
-	    if (settings.positions.scene > settings.positions.queue){
-	    	queuePosition = (settings.positions.queue) * 265 + 5;
-		queueX = 'left';
-		queueN = 'right';
-	    }
-	    else{
-		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265;
-	    	queueX = 'right';
-	    	queueN = 'left';
-	    }
-	    if (settings.positions.scene > settings.positions.room){
-	    	roomPosition = (settings.positions.room) * 265 + 5;
-		roomX = 'left';
-		roomN = 'right';
-	    }
-	    else{
-		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265;
-	    	roomX = 'right';
-	    	roomN = 'left';
-	    }
-	    $('#right-panel').css(chatX,chatPosition + 'px').css(chatN,'auto');
-	    $('#left-panel').css(queueX,queuePosition + 'px').css(queueN,'auto');
-	    $('#center-panel').css(roomX,roomPosition + 'px').css(roomN,'auto');
-	    $('#ttxCenter').css({left:sceneLeft+'px',right:sceneRight+'px'});
-        }
-        function panelByIndex(i){
-        	for (var o in settings.positions){
-        		if (settings.positions[o] === i){
-        			return o;
-        		}
-        	}
-        	return '';
-        }
 	function addWidescreen(){
 	    // make everything widescreen
 	    $('#maindiv').css({minWidth:'1200px'});
@@ -1005,12 +961,14 @@ window.TTX = null;
 	    	 $('#right-panel').before('<div id="ttx-panels-room" class="ttx-panel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;position:absolute"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs");
+	    $('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
 	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;position:absolute"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
+	    $('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 
 	    if (typeof _panels === 'undefined'){ // build the panels object
 		_panels = { dock: [], float: [], hidden: [] };
