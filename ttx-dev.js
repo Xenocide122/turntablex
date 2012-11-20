@@ -951,7 +951,7 @@ window.TTX = null;
 
 	    
 	    // fix up chat
-	    var rightPanel = $('#right-panel').css({top:'65px',bottom:'5px',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({top:'65px',height:'100%',bottom:'5px',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
