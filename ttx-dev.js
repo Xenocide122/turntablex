@@ -1088,7 +1088,7 @@ window.TTX = null;
 					}
 					if (isBuddy(user_id)){
 						extrasClass = extrasClass + ' isBuddy'; // mutual fans
-						if (extrasClass === ''){
+						if (extrasClass === ' '){
 							hasBuddies = true;
 						}
 					}
