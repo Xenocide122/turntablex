@@ -989,14 +989,14 @@ window.TTX = null;
   	    .find('.tab-icon').css('background-position','0px -30px');
 	    
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
+		var panels = $('<ul id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
+		$('<li class="ttx-panel"><div class="right-panel-tab"/>abc</li>').appendTo(panels);
+	        $('<li class="ttx-panel"><div class="right-panel-tab"/>xyz</li>').appendTo(panels);
 	    	$('.ttx-panel').each(function(){
-			//$(this).css('height','300px');
-			//if ($(this).attr('id') !== 'ttx-panels-scene'){
-				$(this).appendTo(panels);		
-			//}
+				$(this).hide();
+				//$(this).appendTo(panels);		
 		});
 	    	$('#ttx-panels').sortable({placeholder:'placeholder',tolerance:'pointer',items:'> .ttx-panel',handle:'.right-panel-tab'});
 	    }
