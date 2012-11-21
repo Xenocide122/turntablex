@@ -1004,10 +1004,10 @@ window.TTX = null;
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.destroy().after($(this));
+				ui.draggable.draggable("destroy").after($(this));
 			}
 			else if(delta < 0){
-				ui.draggable.destroy().before($(this));
+				ui.draggable.draggable("destroy").before($(this));
 			}
 		},out:function(event,ui){
 
