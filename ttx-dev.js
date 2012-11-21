@@ -982,7 +982,7 @@ window.TTX = null;
 	    
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
-	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;width:260px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
 	    $('#playlist-container').find('.right-panel-tab').removeClass('left-divider').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
