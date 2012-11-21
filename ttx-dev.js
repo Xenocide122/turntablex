@@ -1003,10 +1003,12 @@ window.TTX = null;
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).after($(this)).draggable(dragOptions);
+				ui.draggable.data('draggable').offset.click.left -= 200;
+				//ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).after($(this)).draggable(dragOptions);
 			}
 			else if(delta < 0){
-				ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).before($(this)).draggable(dragOptions);
+				ui.draggable.data('draggable').offset.click.left += 200;
+				//ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).before($(this)).draggable(dragOptions);
 			}
 		},out:function(event,ui){
 
