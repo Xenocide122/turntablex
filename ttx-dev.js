@@ -993,13 +993,12 @@ window.TTX = null;
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 		$('.ttx-panel').each(function(){
-				//$(this).hide();
 				$(this).appendTo(panels);		
 		});
-		//$('<li class="ttx-panel"><div class="right-panel-tab">abc</div></li>').appendTo(panels);
-	        //$('<li class="ttx-panel"><div class="right-panel-tab">xyz</div></li>').appendTo(panels);
-	    	
-	    	$('#ttx-panels').sortable({placeholder:'placeholder',items:'> .ttx-panel',handle:'.right-panel-tab'});
+		
+	    	//$('#ttx-panels').sortable({placeholder:'placeholder',items:'> .ttx-panel',handle:'.right-panel-tab'});
+	    	$('.ttx-panel').draggable();
+		$('#ttx-panels').droppable({accept: '.ttx-panel'});
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
 		_panels = { dock: [], float: [], hidden: [] };
