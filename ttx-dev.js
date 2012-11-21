@@ -959,7 +959,7 @@ window.TTX = null;
 
 	    
 	    // fix up chat
-	    var rightPanel = $('#right-panel').css({right:'auto',top:'auto',bottom:'auto',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({right:'auto',top:'none',bottom:'auto',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
