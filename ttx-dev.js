@@ -329,7 +329,7 @@ window.TTX = null;
 			}
 		}
                 if (_manager && isSceneReady()){
-		    $(window).unbind('resize');
+		    $(window).unbind('resize').bind('resize',onResize);
 		    log('Entering room: ' + _location);
 		    log(_room);
 		    log('Found manager');
@@ -777,7 +777,15 @@ window.TTX = null;
 	    updateGuests(); // update guest list every time something happens
         }
 	function onResize(){
-		$('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'});
+		var width = 0;
+		$('#ttx-panels .ttx-panel').each(){
+			if (!$(this).hasClass('full')){
+				width += (PANEL_WIDTH+PANEL_PADDING);
+			}
+		}
+		var totalWidth = $('#ttx-panels').width();
+		
+		$('#ttx-panels-scene').css({width: (totalWidth-width-PANEL_PADDING*2)+'px'});
 	}
 
 // END LISTENERS
