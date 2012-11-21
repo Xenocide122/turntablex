@@ -778,11 +778,11 @@ window.TTX = null;
         }
 	function onResize(){
 		var width = 0;
-		$('#ttx-panels .ttx-panel').each(){
+		$('#ttx-panels .ttx-panel').each(function(){
 			if ($(this).hasClass('full') === false){
 				width += (PANEL_WIDTH+PANEL_PADDING);
 			}
-		}
+		});
 		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING*2;
 		
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
@@ -1010,38 +1010,7 @@ window.TTX = null;
 			}
 		}
 	    }
-	    // render the docked panels
-	    var edgeType = 'left';
-	    var edgeOffset = PANEL_PADDING; // start off here
-	    var edgeAdjust = { left: 0, right: 0 };
-	    var dockLength = _panels.dock.length;
-	    for (var i=0; i<dockLength; i++){
-	    	var $panel, dockedPanel = settings.panels[_panels.dock[i]];
-		if (dockedPanel.name === 'chat'){
-			$panel = $('#right-panel');
-		}
-		else{
-			$panel = $('#ttx-panels-'+dockedPanel.name);
-		}
-		if (dockedPanel.width === 'auto'){ // placing normal panels by either left/right + width
-			edgeAdjust[edgeType] = edgeOffset;
-			
-			//$panel.css(edgeType,edgeOffset+'px');
-			//$panel.css('width',PANEL_WIDTH+'px'); 
-		}
-		else{ // placing the wide panel 
-			edgeAdjust.left = edgeOffset; // set the left and right
-			edgeAdjust.right = PANEL_PADDING + (PANEL_PADDING+PANEL_WIDTH)*(dockLength-i-1);
-			
-			//$panel.css('width','auto'); // auto width
-			//$panel.css({ left: edgeAdjust.left+'px', right: edgeAdjust.right+'px'}); // use left and right
-
-			// switch the edge type
-			edgeType = 'right';
-		}
-		var reverse = (edgeType === 'left' ? 1 : -1);
-		edgeOffset = edgeAdjust[edgeType] + reverse * (PANEL_PADDING+PANEL_WIDTH);
-            }
+	 
 
 	}
 	function addAdvancedSettings(){
