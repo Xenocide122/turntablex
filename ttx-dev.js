@@ -1004,7 +1004,7 @@ window.TTX = null;
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.draggable('option','cursorAt',{left:5,top:5}).after($(this));
+				ui.draggable.draggable('option','cursorAt',{right:5,top:5}).after($(this));
 			}
 			else if(delta < 0){
 				ui.draggable.draggable('option','cursorAt',{right:5,top:5}).before($(this));
