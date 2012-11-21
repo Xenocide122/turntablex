@@ -989,13 +989,13 @@ window.TTX = null;
   	    .find('.tab-icon').css('background-position','0px -30px');
 	    
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
+		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 	    	$('.ttx-panel').each(function(){
 			$(this).appendTo(panels);
 		});
-	    	$('#ttx-panels').sortable({axis:'x',containment:'parent'});
+	    	$('#ttx-panels').sortable({axis:'x'});
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
 		_panels = { dock: [], float: [], hidden: [] };
