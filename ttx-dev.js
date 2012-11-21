@@ -999,7 +999,7 @@ window.TTX = null;
 	    
 	    	$('.ttx-panel').not('#ttx-panels-scene').draggable({stack:'.ttx-panel',distance:10,handle:'.right-panel-tab',revert:true,revertDuration:'100ms'});
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
-			if (ui.draggable !== $(this)){
+			if (ui.draggable.index() !== $(this).index()){
 				ui.draggable.draggable('option','cursorAt',{left:0,top:0}).after($(this));
 			}
 		},out:function(event,ui){
