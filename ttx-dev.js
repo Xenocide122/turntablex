@@ -999,7 +999,8 @@ window.TTX = null;
 	    
 	    	$('.ttx-panel').not('#ttx-panels-scene').draggable({handle:'.right-panel-tab',revert:true,revertDuration:'100ms'});
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
-			ui.draggable.after($(this));
+			ui.draggable.css({left:'0px',right:'0px'}).after($(this));
+			
 		$(this).css('background-color','#fff');
 		},out:function(event,ui){
 			$(this).css('background-color','inherit');
