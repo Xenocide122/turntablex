@@ -1004,10 +1004,10 @@ window.TTX = null;
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.draggable('option','cursorAt',{right:5,top:5}).after($(this));
+				ui.draggable.draggable('option','cursorAt',{left:0,top:0}).after($(this));
 			}
 			else if(delta < 0){
-				ui.draggable.draggable('option','cursorAt',{right:5,top:5}).before($(this));
+				ui.draggable.draggable('option','cursorAt',{left:20,top:5}).before($(this));
 			}
 		},out:function(event,ui){
 			
