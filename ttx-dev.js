@@ -996,7 +996,7 @@ window.TTX = null;
 			//$(this).css('height','300px');
 			$(this).appendTo(panels);		
 		});
-	    	$('#ttx-panels').sortable({placeholder:'placeholder',handle:'.right-panel-tab',appendTo:'parent'});
+	    	$('#ttx-panels').sortable({placeholder:'placeholder',handle:'.right-panel-tab'});
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
 		_panels = { dock: [], float: [], hidden: [] };
