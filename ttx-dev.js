@@ -997,7 +997,7 @@ window.TTX = null;
 		});
 		
 	    
-	    	$('.ttx-panel').draggable({axis:'x',handle:'.right-panel-tab'}).mousemove(function(e){
+	    	$('.ttx-panel').not('#ttx-scene-panel').draggable({axis:'x',handle:'.right-panel-tab'}).mousemove(function(e){
 			log(e.pageX + ' ' + e.pageY);
 		});
 		$('#ttx-panels').droppable({accept: '.ttx-panel',tolerance:'pointer',over:function(event,ui){
