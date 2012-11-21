@@ -995,6 +995,7 @@ window.TTX = null;
 	    	$('.ttx-panel').each(function(){
 			$(this).appendTo(panels);
 		});
+	    	$('#ttx-panels').sortable();
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
 		_panels = { dock: [], float: [], hidden: [] };
