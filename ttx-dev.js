@@ -998,7 +998,7 @@ window.TTX = null;
 				$(this).appendTo(panels);		
 			//}
 		});
-	    	$('#ttx-panels').sortable({placeholder:'placeholder',forcePlaceholderSize:true,items:'> .ttx-panel',handle:'.right-panel-tab'});
+	    	$('#ttx-panels').sortable({placeholder:'placeholder',tolerance:'pointer',items:'> .ttx-panel',handle:'.right-panel-tab'});
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
 		_panels = { dock: [], float: [], hidden: [] };
