@@ -994,7 +994,9 @@ window.TTX = null;
 		panels = $('#ttx-panels');
 	    	$('.ttx-panel').each(function(){
 			//$(this).css('height','300px');
-			$(this).appendTo(panels);		
+			if ($(this).attr('id') !== 'ttx-panels-scene'){
+				$(this).appendTo(panels);		
+			}
 		});
 	    	$('#ttx-panels').sortable({placeholder:'placeholder',handle:'.right-panel-tab'});
 	    }
