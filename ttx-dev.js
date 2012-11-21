@@ -1004,13 +1004,13 @@ window.TTX = null;
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.draggable('option','cursorAt',{left:0,top:0}).after($(this));
+				ui.draggable.destroy().after($(this));
 			}
 			else if(delta < 0){
-				ui.draggable.draggable('option','cursorAt',{left:20,top:5}).before($(this));
+				ui.draggable.destroy().before($(this));
 			}
 		},out:function(event,ui){
-			ui.draggable('option','cursorAt',false);
+
 		}});
 	
 	    }
