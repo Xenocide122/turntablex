@@ -999,11 +999,11 @@ window.TTX = null;
 	    
 	    	$('.ttx-panel').not('#ttx-panels-scene').draggable({stack:'.ttx-panel',distance:10,handle:'.right-panel-tab',revert:true,revertDuration:'100ms'});
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
-			ui.draggable.draggable('option','cursorAt',{left:0,top:0}).after($(this));
-			
-		$(this).css('background-color','#fff');
+			if (ui.draggable !== $(this)){
+				ui.draggable.draggable('option','cursorAt',{left:0,top:0}).after($(this));
+			}
 		},out:function(event,ui){
-			$(this).css('background-color','inherit');
+			
 		}});
 	
 	    }
