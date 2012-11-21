@@ -783,7 +783,7 @@ window.TTX = null;
 				width += (PANEL_WIDTH+PANEL_PADDING);
 			}
 		});
-		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING-50;
+		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING;
 		
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 	}
