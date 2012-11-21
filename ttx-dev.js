@@ -996,18 +996,17 @@ window.TTX = null;
 				$(this).appendTo(panels);		
 		});
 		
-	    
-	    	$('.ttx-panel').not('#ttx-panels-scene').draggable({stack:'.ttx-panel',distance:10,handle:'.right-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){
-			
-		}});
+	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.right-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
+		}};
+	    	$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.draggable("disable").css({left:'0px',right:'0px'}).after($(this)).draggable('enable');
+				ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).after($(this)).draggable(dragOptions);
 			}
 			else if(delta < 0){
-				ui.draggable.draggable("disable").css({left:'0px',right:'0px'}).before($(this)).draggable('enable');
+				ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).before($(this)).draggable(dragOptions);
 			}
 		},out:function(event,ui){
 
