@@ -998,7 +998,7 @@ window.TTX = null;
 		
 	    
 	    	$('.ttx-panel').not('#ttx-panels-scene').draggable({handle:'.right-panel-tab',revert:'invalid',revertDuration:'100ms'});
-		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel'});
+		$('.ttx-panel').droppable({tolerance:'intersect',accept:'.ttx-panel'});
 	
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
