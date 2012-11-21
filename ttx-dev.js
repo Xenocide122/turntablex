@@ -993,7 +993,7 @@ window.TTX = null;
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 	    	$('.ttx-panel').each(function(){
-			$(this).css('height','300px');
+			//$(this).css('height','300px');
 			$(this).appendTo(panels);		
 		});
 	    	$('#ttx-panels').sortable({placeholder:'placeholder',handle:'.right-panel-tab',appendTo:'parent'});
