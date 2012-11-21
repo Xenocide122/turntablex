@@ -999,8 +999,13 @@ window.TTX = null;
 	    
 	    	$('.ttx-panel').not('#ttx-panels-scene').draggable({stack:'.ttx-panel',distance:10,handle:'.right-panel-tab',revert:true,revertDuration:'100ms'});
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
-			if (ui.draggable.index() !== $(this).index()){
-				ui.draggable.draggable('option','cursorAt',{left:0,top:0}).after($(this));
+			var delta = ui.draggable.index() - $(this).index();
+			if (delta > 0){
+				// move left
+				ui.draggable.after($(this));
+			}
+			else if(delta < 0){
+				ui.draggable.before($(this));
 			}
 		},out:function(event,ui){
 			
