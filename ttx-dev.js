@@ -998,7 +998,7 @@ window.TTX = null;
 		
 	    
 	    	$('.ttx-panel').not('#ttx-panels-scene').draggable({stack:'.ttx-panel',distance:10,handle:'.right-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){
-			$(this).draggable('option','cursorAt',false);
+			
 		}});
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
 			var delta = ui.draggable.index() - $(this).index();
@@ -1010,7 +1010,7 @@ window.TTX = null;
 				ui.draggable.draggable('option','cursorAt',{left:20,top:5}).before($(this));
 			}
 		},out:function(event,ui){
-			
+			ui.draggable('option','cursorAt',false);
 		}});
 	
 	    }
