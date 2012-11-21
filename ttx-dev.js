@@ -993,8 +993,7 @@ window.TTX = null;
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 	    	$('.ttx-panel').each(function(){
-			$(this).appendTo(panels);
-			$(this).addClass('ui-state-default');		
+			$(this).appendTo(panels);		
 		});
 	    	$('#ttx-panels').sortable({placeholder:'placeholder',handle:'.right-panel-tab',appendTo:'parent'});
 	    }
