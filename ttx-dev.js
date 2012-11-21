@@ -992,12 +992,13 @@ window.TTX = null;
 		var panels = $('<ul id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
-		$('<li class="ttx-panel"><div class="right-panel-tab"/>abc</li>').appendTo(panels);
-	        $('<li class="ttx-panel"><div class="right-panel-tab"/>xyz</li>').appendTo(panels);
-	    	$('.ttx-panel').each(function(){
+		$('.ttx-panel').each(function(){
 				$(this).hide();
 				//$(this).appendTo(panels);		
 		});
+		$('<li class="ttx-panel"><div class="right-panel-tab"/>abc</li>').appendTo(panels);
+	        $('<li class="ttx-panel"><div class="right-panel-tab"/>xyz</li>').appendTo(panels);
+	    	
 	    	$('#ttx-panels').sortable({placeholder:'placeholder',tolerance:'pointer',items:'> .ttx-panel',handle:'.right-panel-tab'});
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
