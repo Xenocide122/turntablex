@@ -951,7 +951,7 @@ window.TTX = null;
 
 	    
 	    // fix up chat
-	    var rightPanel = $('#right-panel').css({top:'65px',height:'100%',bottom:'5px',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({height:'100%',bottom:'5px',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
@@ -959,14 +959,14 @@ window.TTX = null;
 
 	    // add a panel around the scene
 	    if ($('#ttx-panels-scene').length===0){
-	    	rightPanel.before('<div id="ttx-panels-scene" class="ttx-panel no-header" style="z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"></div>');
+	    	rightPanel.before('<div id="ttx-panels-scene" class="ttx-panel no-header" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"></div>');
 	    }
 
 	    $('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
 	    
 	    // add a panel around the room
 	    if ($("#ttx-panels-room").length===0){
-	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"><ul id="ttx-panels-room-tabs"></ul></div>');
+	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs");
 	    $('#room-info-container').find('.right-panel-tab').removeClass('left-divider').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
@@ -974,7 +974,7 @@ window.TTX = null;
 	    
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
-	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;display:inline-block;width:260px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
 	    $('#playlist-container').find('.right-panel-tab').removeClass('left-divider').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
