@@ -1004,10 +1004,10 @@ window.TTX = null;
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.draggable("destroy").after($(this));
+				ui.draggable.draggable("disable").css({left:'0px',right:'0px'}).after($(this)).draggable('enable');
 			}
 			else if(delta < 0){
-				ui.draggable.draggable("destroy").before($(this));
+				ui.draggable.draggable("disable").css({left:'0px',right:'0px'}).before($(this)).draggable('enable');
 			}
 		},out:function(event,ui){
 
