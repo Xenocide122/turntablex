@@ -994,6 +994,7 @@ window.TTX = null;
 		panels = $('#ttx-panels');
 	    	$('.ttx-panel').each(function(){
 			$(this).appendTo(panels);
+			$(this).addClass('ui-state-default');		
 		});
 	    	$('#ttx-panels').sortable({placeholder:'placeholder',handle:'.right-panel-tab',appendTo:'parent'});
 	    }
