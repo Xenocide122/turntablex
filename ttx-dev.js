@@ -821,7 +821,7 @@ window.TTX = null;
 						extrasClass = extrasClass + ' isMod';
 						icons = icons + ICONS.mod;
 					}
-					if ($name.hasClass('superuser')){
+					if ($name.find('.icons').hasClass('superuser')){
 						extrasClass = extrasClass + ' isSuper';
 						icons = icons + ICONS.superuser;
 					}
