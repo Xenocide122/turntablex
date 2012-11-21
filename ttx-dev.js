@@ -951,7 +951,7 @@ window.TTX = null;
 
 	    
 	    // fix up chat
-	    var rightPanel = $('#right-panel').css({height:'100%',bottom:'5px',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({height:'100%',bottom:'5px',width:'265px',float:'left',position:'relative',display:'inline-block'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
@@ -981,9 +981,9 @@ window.TTX = null;
   	    .find('.tab-icon').css('background-position','0px -30px');
 	    
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:5px"><div id="ttx-panels-container" style="position:relative;height:100%;width:100%;"/></div>');
+		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
-		panels = $('#ttx-panels-container');
+		panels = $('#ttx-panels');
 	    	$('.ttx-panel').each(function(){
 			$(this).appendTo(panels);
 		});
