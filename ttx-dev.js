@@ -996,9 +996,11 @@ window.TTX = null;
 				$(this).appendTo(panels);		
 		});
 		
-	    	//$('#ttx-panels').sortable({placeholder:'placeholder',items:'> .ttx-panel',handle:'.right-panel-tab'});
-	    	//$('.ttx-panel').draggable();
-		//$('#ttx-panels').droppable({accept: '.ttx-panel'});
+	    
+	    	$('.ttx-panel').draggable({axis:'x'});
+		$('#ttx-panels').droppable({accept: '.ttx-panel',tolerance:'pointer',over:function(event,ui){
+			log(ui.position.top + ' ' + ui.position.left);
+		}});
 	    }
 	    if (typeof _panels === 'undefined'){ // build the panels object
 		_panels = { dock: [], float: [], hidden: [] };
