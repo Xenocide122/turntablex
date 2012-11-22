@@ -977,7 +977,7 @@ window.TTX = null;
 		<div id="ttx-dock">\
 			<span class="ttx-dock-count">1</span>\
 		</div>\
-		<ul class="floating-menu down">\
+		<ul class="floating-menu down" style="width:100px;">\
 			<li class="option">Room</li>\
 			<li class="option">Queue</li>\
 		</ul>\
