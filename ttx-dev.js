@@ -997,7 +997,7 @@ window.TTX = null;
 	    if (_panels.hidden.length > 0){
 	
 	    	for (var i=0; i<_panels.hidden.length; i++){
-			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').click(function(){
+			$('<li id="ttx-dock-option-'+i+'" class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').click(function(){
 				var name = $(this).text();
 				if(name === 'chat'){
 					$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels'));
@@ -1006,6 +1006,7 @@ window.TTX = null;
 					$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
 				}
 				$(window).resize();
+				var x = $(this).attr('id').replace(/[-a-z]*/,'');
 				settings.panels[_panels.hidden[i]].hidden = false;
 				_panels.hidden = _panels.hidden.splice(i,1);
 				
