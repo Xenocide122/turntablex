@@ -1019,12 +1019,12 @@ window.TTX = null;
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
-				ui.draggable.data('draggable').offset.click.left -= ui.draggable.width();
+				ui.draggable.data('draggable').offset.click.left -= $(this).width();
 				ui.draggable.after($(this));
 				//ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).after($(this)).draggable(dragOptions);
 			}
 			else if(delta < 0){
-				ui.draggable.data('draggable').offset.click.left += ui.draggable.width();
+				ui.draggable.data('draggable').offset.click.left += $(this).width();
 				ui.draggable.before($(this));
 				//ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).before($(this)).draggable(dragOptions);
 			}
