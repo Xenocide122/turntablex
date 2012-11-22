@@ -1006,7 +1006,14 @@ window.TTX = null;
 					$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
 				}
 				$(window).resize();
+				settings.panels[_panels.hidden[i]].hidden = false;
+				_panels.hidden = _panels.hidden.splice(i,1);
 				$(this).remove();
+				if (_panels.hidden.length === 0){
+					$('.ttx-dock-count').css('color','#000');
+					$('#ttx-dock-menu').hide();
+				}
+				$('.ttx-dock-count').text(_panels.hidden.length);
 			}).appendTo('#ttx-dock-menu');
 		}
 	    }
