@@ -973,14 +973,16 @@ window.TTX = null;
 	    }
  	    // add dock area in header
 	    $('#header .info').css('left','160px');
-	    $('#header .logo').after('<div class="dropdown-container" id="ttx-dock-container">\
+	    $('#header .logo').after('<div id="ttx-dock-">
+	    <div class="dropdown-container" id="ttx-dock-container">\
 		<div id="ttx-dock">\
 			<span class="ttx-dock-count">1</span>\
 		</div>\
-		<ul class="floating-menu down" style="width:100px;">\
+		<ul class="floating-menu down" id="ttx-dock-menu">\
 			<li class="option">Room</li>\
 			<li class="option">Queue</li>\
 		</ul>\
+	    </div>
 	    </div>');
 	    
 		// fix up chat
