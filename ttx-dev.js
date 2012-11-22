@@ -1006,7 +1006,7 @@ window.TTX = null;
 					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
 					$(this).addClass('ttx-panel-focus');
 				}).mouseup(function(){
-					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+					//$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
 				});
 				$(this).appendTo(panels);		
 		});
