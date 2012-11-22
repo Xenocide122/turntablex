@@ -965,7 +965,7 @@ window.TTX = null;
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
 
-	    
+	    $('#left-panel').hide();
 
 	    // add a panel around the scene
 	    if ($('#ttx-panels-scene').length===0){
@@ -990,11 +990,11 @@ window.TTX = null;
   	    .find('.tab-icon').css('background-position','0px -30px');
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
-	    tabs.find('h2').css('color','#323232');
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
 	    'cursor': 'pointer',
-            'border-right': 'solid 1px #444'});
+            'border-right': 'solid 1px #444'})
+	    .find('h2').css('color','#323232');
 
 	    if ($('#ttx-panels').length === 0){
 		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
