@@ -997,7 +997,15 @@ window.TTX = null;
 	    if (_panels.hidden.length > 0){
 	
 	    	for (var i=0; i<_panels.hidden.length; i++){
-			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').appendTo('#ttx-dock-menu');
+			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').click(function(){
+				var name = $(this).text();
+				if(name === 'chat'){
+					$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels'));
+				}
+				else{
+					$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
+				}
+			}).appendTo('#ttx-dock-menu');
 		}
 	    }
 	    else{
