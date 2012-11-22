@@ -959,10 +959,11 @@ window.TTX = null;
 	var _panels;
 	function addPanels(){
 	    if (typeof _panels === 'undefined'){ // build the panels object
-		_panels = { dock: [], float: [], hidden: [] };
+		_panels = { dock: [], float: [], hidden: [], hiddens: {} };
 		for (var i=0;i<settings.panels.length;i++){
 			if (settings.panels[i].hidden === true){
 				_panels.hidden.push(i);
+				_panels.hiddens[settings.panels[i].name] = i;
 			}
 			else if (settings.panels[i].type === 'docked'){
 				_panels.dock.push(i); // push the index settings.panels
@@ -1003,12 +1004,13 @@ window.TTX = null;
 	    	$('#ttx-dock-menu').hide();
 	    }
 	    $('.ttx-dock-count').text(_panels.hidden.length);
+
 		// fix up chat
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
-
+	    
 	    $('#left-panel').hide();
 
 	    // add a panel around the scene
@@ -1041,18 +1043,31 @@ window.TTX = null;
 	    .find('h2').css('color','#323232');
 
 	
+	    if ('chat' in _panels.hiddens){
+	    	rightPanel.addClass('hidden');
+	    }
+	    if ('room' in _panels.hiddens){
+	    	$('#ttx-panels-room').addClass('hidden');
+		
+            }
+	    if ('queue' in _panels.hiddens){
+	 	$('#ttx-panels-queue').addClass('hidden');
+	    }
 	    if ($('#ttx-panels').length === 0){
 		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
+		
 		$('.ttx-panel').each(function(){
 				$(this).mousedown(function(){
 					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
 					$(this).addClass('ttx-panel-focus');
 				}).mouseup(function(){
-					//$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+				
 				});
-				$(this).appendTo(panels);		
+				if(!$(this).hasClass('hidden')){
+					$(this).appendTo(panels);	
+				}
 		});
 		
 	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
