@@ -979,7 +979,7 @@ window.TTX = null;
 	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;top:auto;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs")
-	    .find('.tab-icon').css('background-position','0px -15px');
+	    .find('.tab-icon').css('background-position','1px -15px');
 	    
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
