@@ -958,8 +958,9 @@ window.TTX = null;
 	}
 	var _panels;
 	function addPanels(){
-	    if (typeof _panels === 'undefined'){ // build the panels object
-		_panels = { dock: [], float: [], hidden: [], hiddens: {} };
+	     _panels = { dock: [], float: [], hidden: [], hiddens: {} };
+
+
 		for (var i=0;i<settings.panels.length;i++){
 			if (settings.panels[i].hidden === true){
 				_panels.hidden.push(i);
@@ -972,7 +973,6 @@ window.TTX = null;
 				_panels.float.push(i);
 			}
 		}
-	    }
  	    // add dock area in header
 	    $('#header .info').css('left','160px');
 	    $('#header .logo').after('<div id="ttx-dock-">\
@@ -1007,6 +1007,7 @@ window.TTX = null;
 				}
 				$(window).resize();
 				var x = $(this).attr('id').replace(/[-a-z]*/,'');
+				log(_panels.hidden);
 				settings.panels[_panels.hidden[x]].hidden = false;
 				_panels.hidden = _panels.hidden.splice(x,1);
 				
