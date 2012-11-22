@@ -982,7 +982,7 @@ window.TTX = null;
 			<li class="option">Room</li>\
 			<li class="option">Queue</li>\
 		</ul>\
-	    </div>
+	    </div>\
 	    </div>');
 	    
 		// fix up chat
