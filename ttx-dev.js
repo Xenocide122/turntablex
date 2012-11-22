@@ -1010,7 +1010,7 @@ window.TTX = null;
 				var x = $(this).attr('id').replace(/[-a-z]*/,'');
 				log(_panels.hidden);
 				settings.panels[_panels.hidden[x]].hidden = false;
-				_panels.hidden = _panels.hidden.splice(x,1);
+				_panels.hidden.splice(x,1);
 				log(_panels.hidden);
 				if (_panels.hidden.length === 0){
 					$('.ttx-dock-count').css('color','#000');
