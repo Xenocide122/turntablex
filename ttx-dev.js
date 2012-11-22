@@ -215,14 +215,14 @@ window.TTX = null;
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
-				header: true
+				header: true, hidden:true
 			},
 			{
 				name: 'chat',
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
-				header: true			
+				header: true, hidden:true			
 			}
 		],
 		autoDJ: false,
