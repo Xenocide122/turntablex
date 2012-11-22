@@ -985,9 +985,9 @@ window.TTX = null;
 	    </div>\
 	    </div>');
 	    $('#ttx-dock').mouseover(function(){
-			$(this).addClass('hover');
+			$(this).parent().find('#ttx-dock-menu').addClass('hover');
 		}).mouseout(function(){
-			$(this).removeClass('hover');
+			$(this).parent.find('#ttx-dock-menu').removeClass('hover');
 		}).css('cursor','pointer');;
 	    $('#ttx-dock-').mouseover(function(){
 			$(this).addClass('hover');
