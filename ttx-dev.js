@@ -973,7 +973,7 @@ window.TTX = null;
 	    }
  	    // add dock area in header
 	    $('#header .info').css('left','160px');
-	    $('#header .logo').after('<div id="ttx-dock-">
+	    $('#header .logo').after('<div id="ttx-dock-">\
 	    <div class="dropdown-container" id="ttx-dock-container">\
 		<div id="ttx-dock">\
 			<span class="ttx-dock-count">1</span>\
