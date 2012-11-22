@@ -1000,7 +1000,7 @@ window.TTX = null;
 	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
 		}};
 	    	$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
-		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
+		$('.ttx-panel').droppable({tolerance:'touch',accept:'.ttx-panel',over:function(event,ui){
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
