@@ -995,12 +995,13 @@ window.TTX = null;
 			$(this).removeClass('hover');
 		});
 	    if (_panels.hidden.length > 0){
-		$('.ttx-dock-count').css('color','#000');
+	
 	    	for (var i=0; i<_panels.hidden.length; i++){
 			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').appendTo('#ttx-dock-menu');
 		}
 	    }
 	    else{
+		$('.ttx-dock-count').css('color','#000');
 	    	$('#ttx-dock-menu').hide();
 	    }
 	    $('.ttx-dock-count').text(_panels.hidden.length);
