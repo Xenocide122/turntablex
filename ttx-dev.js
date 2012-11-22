@@ -963,8 +963,9 @@ window.TTX = null;
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
-	    .find('.floating-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
 	    .find('.tab-icon').css('background-position','0px 0px');
+
+	    
 
 	    // add a panel around the scene
 	    if ($('#ttx-panels-scene').length===0){
@@ -977,8 +978,7 @@ window.TTX = null;
 	    if ($("#ttx-panels-room").length===0){
 	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;top:auto;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
-	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs");
-	    $('#room-info-container').find('.floating-panel-tab').removeClass('left-divider').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
+	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs")
 	    .find('.tab-icon').css('background-position','0px -15px');
 	    
 	    // add a panel around the queue
@@ -986,9 +986,16 @@ window.TTX = null;
 	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
-	    $('#playlist-container').find('.floating-panel-tab').removeClass('left-divider').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'})
+	    $('#playlist-container')
   	    .find('.tab-icon').css('background-position','0px -30px');
 	    
+	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
+	    tabs.find('h2').css('color','#323232');
+	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
+	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
+	    'cursor': 'pointer'
+            'border-right': 'solid 1px #444'});
+
 	    if ($('#ttx-panels').length === 0){
 		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
