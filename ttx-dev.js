@@ -957,10 +957,25 @@ window.TTX = null;
 	}
 	var _panels;
 	function addPanels(){
-	    // add dock area in header
+	    if (typeof _panels === 'undefined'){ // build the panels object
+		_panels = { dock: [], float: [], hidden: [] };
+		for (var i=0;i<settings.panels.length;i++){
+			if (settings.panels[i].hidden === true){
+				_panels.hidden.push(i);
+			}
+			if (settings.panels[i].type === 'docked'){
+				_panels.dock.push(i); // push the index settings.panels
+			}
+			else{
+				_panels.float.push(i);
+			}
+		}
+	    }
+ 	    // add dock area in header
 	    $('#header .info').css('left','160px');
 	    $('#header .logo').after('<div id="ttx-dock"><span class="ttx-dock-count">1</span></div>');
-	    // fix up chat
+	    
+		// fix up chat
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
@@ -1034,20 +1049,7 @@ window.TTX = null;
 		}});
 	
 	    }
-	    if (typeof _panels === 'undefined'){ // build the panels object
-		_panels = { dock: [], float: [], hidden: [] };
-		for (var i=0;i<settings.panels.length;i++){
-			if (settings.panels[i].hidden === true){
-				_panels.hidden.push(i);
-			}
-			if (settings.panels[i].type === 'docked'){
-				_panels.dock.push(i); // push the index settings.panels
-			}
-			else{
-				_panels.float.push(i);
-			}
-		}
-	    }
+	    
 	 
 
 	}
