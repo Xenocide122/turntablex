@@ -208,6 +208,7 @@ window.TTX = null;
 				width: 'auto',
 				height: '100%',
 				header: true,
+				hidden: true
 			},
 			{
 				name: 'room',
@@ -993,7 +994,7 @@ window.TTX = null;
 			$(this).removeClass('hover');
 		});
 	    if (_panels.hidden.length > 0){
-		
+		$('.ttx-dock-count').css('color','#000');
 	    	for (var i=0; i<_panels.hidden.length; i++){
 			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').appendTo('#ttx-dock-menu');
 		}
@@ -1001,6 +1002,7 @@ window.TTX = null;
 	    else{
 	    	$('#ttx-dock-menu').hide();
 	    }
+	    $('.ttx-dock-count').text(_panels.hidden.length);
 		// fix up chat
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
