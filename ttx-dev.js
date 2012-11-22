@@ -993,7 +993,7 @@ window.TTX = null;
 	    tabs.find('h2').css('color','#323232');
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
-	    'cursor': 'pointer'
+	    'cursor': 'pointer',
             'border-right': 'solid 1px #444'});
 
 	    if ($('#ttx-panels').length === 0){
