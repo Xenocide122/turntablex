@@ -1016,7 +1016,7 @@ window.TTX = null;
 		}};
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
 		$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
-		$('.ttx-panel').droppable({tolerance:'intersect',accept:'.ttx-panel',over:function(event,ui){
+		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
 			var delta = ui.draggable.index() - $(this).index();
 			if (delta > 0){
 				// move left
