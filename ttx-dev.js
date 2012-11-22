@@ -984,7 +984,12 @@ window.TTX = null;
 		</ul>\
 	    </div>\
 	    </div>');
-	    
+	    $('#ttx-dock-').mouseover(function(){
+			$(this).addClass('hover');
+		}).mouseout(function(){
+			$(this).removeClass('hover');
+		});
+
 		// fix up chat
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
