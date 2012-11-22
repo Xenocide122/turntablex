@@ -1007,8 +1007,8 @@ window.TTX = null;
 				}
 				$(window).resize();
 				var x = $(this).attr('id').replace(/[-a-z]*/,'');
-				settings.panels[_panels.hidden[i]].hidden = false;
-				_panels.hidden = _panels.hidden.splice(i,1);
+				settings.panels[_panels.hidden[x]].hidden = false;
+				_panels.hidden = _panels.hidden.splice(x,1);
 				
 				if (_panels.hidden.length === 0){
 					$('.ttx-dock-count').css('color','#000');
