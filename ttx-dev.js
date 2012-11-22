@@ -1007,7 +1007,7 @@ window.TTX = null;
 					$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
 				}
 				$(window).resize();
-				var x = $(this).attr('id').replace(/[-a-z]*/,'');
+				var x = $(this).index();
 				log(_panels.hidden);
 				settings.panels[_panels.hidden[x]].hidden = false;
 				_panels.hidden.splice(x,1);
