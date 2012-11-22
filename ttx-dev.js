@@ -967,12 +967,13 @@ window.TTX = null;
 				_panels.hiddens[settings.panels[i].name] = i;
 			}
 			else if (settings.panels[i].type === 'docked'){
-				_panels.dock.push(i); // push the index settings.panels
+				_panels.dock.push(i); // push the index to settings.panels
 			}
 			else{
 				_panels.float.push(i);
 			}
 		}
+
  	    // add dock area in header
 	    $('#header .info').css('left','160px');
 	    $('#header .logo').after('<div id="ttx-dock-">\
@@ -1010,7 +1011,7 @@ window.TTX = null;
 				log(_panels.hidden);
 				settings.panels[_panels.hidden[x]].hidden = false;
 				_panels.hidden = _panels.hidden.splice(x,1);
-				
+				log(_panels.hidden);
 				if (_panels.hidden.length === 0){
 					$('.ttx-dock-count').css('color','#000');
 					$('#ttx-dock-menu').hide();
