@@ -1006,6 +1006,7 @@ window.TTX = null;
 					$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
 				}
 				$(window).resize();
+				$(this).remove();
 			}).appendTo('#ttx-dock-menu');
 		}
 	    }
