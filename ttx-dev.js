@@ -964,7 +964,7 @@ window.TTX = null;
 			if (settings.panels[i].hidden === true){
 				_panels.hidden.push(i);
 			}
-			if (settings.panels[i].type === 'docked'){
+			else if (settings.panels[i].type === 'docked'){
 				_panels.dock.push(i); // push the index settings.panels
 			}
 			else{
