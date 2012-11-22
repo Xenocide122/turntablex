@@ -973,7 +973,15 @@ window.TTX = null;
 	    }
  	    // add dock area in header
 	    $('#header .info').css('left','160px');
-	    $('#header .logo').after('<div id="ttx-dock"><span class="ttx-dock-count">1</span></div>');
+	    $('#header .logo').after('<div class="dropdown-container" id="ttx-dock-container">\
+		<div id="ttx-dock">\
+			<span class="ttx-dock-count">1</span>\
+		</div>\
+		<ul class="floating-menu down">\
+			<li class="option">Room</li>\
+			<li class="option">Queue</li>\
+		</ul>\
+	    </div>');
 	    
 		// fix up chat
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
