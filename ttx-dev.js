@@ -979,8 +979,6 @@ window.TTX = null;
 			<span class="ttx-dock-count">1</span>\
 		</div>\
 		<ul class="floating-menu down" id="ttx-dock-menu">\
-			<li class="option">Room</li>\
-			<li class="option">Queue</li>\
 		</ul>\
 	    </div>\
 	    </div>');
@@ -994,7 +992,15 @@ window.TTX = null;
 		}).mouseout(function(){
 			$(this).removeClass('hover');
 		});
-
+	    if (_panels.hidden.length > 0){
+		
+	    	for (var i=0; i<_panels.hidden.length; i++){
+			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').appendTo('#ttx-dock-menu');
+		}
+	    }
+	    else{
+	    	$('#ttx-dock-menu').hide();
+	    }
 		// fix up chat
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
