@@ -963,7 +963,7 @@ window.TTX = null;
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
-	    .find('.tab-icon').css('background-position','1px 0px');
+	    .find('.tab-icon').css('background-position','0px 0px');
 
 	    $('#left-panel').hide();
 
@@ -987,7 +987,7 @@ window.TTX = null;
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
 	    $('#playlist-container')
-  	    .find('.tab-icon').css('background-position','1px -31px');
+  	    .find('.tab-icon').css('background-position','0px -31px');
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
