@@ -996,11 +996,18 @@ window.TTX = null;
             'border-right': 'solid 1px #444'})
 	    .find('h2').css('color','#323232');
 
+	
 	    if ($('#ttx-panels').length === 0){
 		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 		$('.ttx-panel').each(function(){
+				$(this).mousedown(function(){
+					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+					$(this).addClass('ttx-panel-focus');
+				}).mouseup(function(){
+					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+				});
 				$(this).appendTo(panels);		
 		});
 		
