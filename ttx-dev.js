@@ -1051,6 +1051,7 @@ window.TTX = null;
 	    		$('#settings-dropdown li:contains("Edit my profile")').click();
 	    	});
 	    }
+	    $('#layout-option').remove();
 	}
 	// add a lptop settings item
 	function addLaptopSettings(){
