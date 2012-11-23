@@ -957,6 +957,26 @@ window.TTX = null;
 	    $('#header .name').css({right:'100px'});
 	}
 	var _panels;
+	function dockMaximize(){
+		var name = $(this).text();
+		if(name === 'chat'){
+			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels'));
+		}
+		else{
+			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
+		}
+		$(window).resize();
+		var x = $(this).index();
+		settings.panels[_panels.hidden[x]].hidden = false;
+		_panels.dock[_panels.dock.length-1] = _panels.hidden[x];
+		_panels.hidden.splice(x,1);
+		if (_panels.hidden.length === 0){
+			$('.ttx-dock-count').css('color','#000');
+			$('#ttx-dock-menu').hide();
+		}
+		$('.ttx-dock-count').text(_panels.hidden.length);
+		$(this).remove();
+	}
 	function addPanels(){
 	     _panels = { dock: [], float: [], hidden: [], hiddens: {} };
 
@@ -998,27 +1018,7 @@ window.TTX = null;
 	    if (_panels.hidden.length > 0){
 	
 	    	for (var i=0; i<_panels.hidden.length; i++){
-			$('<li id="ttx-dock-option-'+i+'" class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').click(function(){
-				var name = $(this).text();
-				if(name === 'chat'){
-					$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels'));
-				}
-				else{
-					$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
-				}
-				$(window).resize();
-				var x = $(this).index();
-				log(_panels.hidden);
-				settings.panels[_panels.hidden[x]].hidden = false;
-				_panels.hidden.splice(x,1);
-				log(_panels.hidden);
-				if (_panels.hidden.length === 0){
-					$('.ttx-dock-count').css('color','#000');
-					$('#ttx-dock-menu').hide();
-				}
-				$('.ttx-dock-count').text(_panels.hidden.length);
-				$(this).remove();
-			}).appendTo('#ttx-dock-menu');
+			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').click(dockMaximize).appendTo('#ttx-dock-menu');
 		}
 	    }
 	    else{
@@ -1061,10 +1061,39 @@ window.TTX = null;
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:20px"><h2 style="font-size:20px">−</h2></div>'));
-	    $('.ttx-minimize').click(function(e){
+	    $('.ttx-minimize').mousedown(function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			//$(this).parents('.ttx-panel');
+			var panel = $(this).parents('.ttx-panel');
+			var panelIndex = panel.index();
+			var panelSetting = settings.panels[_panels.dock[panelIndex]];
+			var panelName = panelSetting.name;
+
+			// add panel entry to the dock
+			$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
+			panelSetting.hidden = true;
+			
+		
+			if(panelName === 'chat'){
+				$('#ttx-panels').after($('#right-panel').addClass('hidden'));
+			}
+			else{
+				$('#ttx-panels').after($('#ttx-panels-'+name).addClass('hidden'));
+			}
+			$(window).resize();
+			_panels.hidden[_panels.hidden.length-1] = _panels.dock[panelIndex];
+			_panels.dock.splice(panelIndex,1);
+			
+			if (_panels.hidden.length === 0){
+				$('.ttx-dock-count').css('color','#000');
+				$('#ttx-dock-menu').hide();
+			}
+			else{
+				$('.ttx-dock-count').css('color','#F0D438');
+				$('#ttx-dock-menu').show();
+			}
+			$('.ttx-dock-count').text(_panels.hidden.length);
+
 		});
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
