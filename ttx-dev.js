@@ -1139,18 +1139,30 @@ window.TTX = null;
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
 			var dragIndex = ui.draggable.index();
 			var dropIndex = $(this).index();
+			var activePanels = $(this).parent().children().length
 			var delta = dragIndex - dropIndex;
 			var t; // temp
 			if (delta > 0){
 				// move left
 				ui.draggable.data('draggable').offset.click.left -= $(this).width();
 				$(this).before(ui.draggable.detach());
-				// 0 1 2 3, 3 dragged to 1, new order: 0 3 1 2   
+				t = _panels.dock[dragIndex];
+				for(var i=dragIndex;i>dropIndex;i--){
+					_panels.dock[i] = _panels.dock[i-1];
+				}
+				_panels.dock[dropIndex] = t;
+				// 0 1 2 3, 3 dragged to 1 drop, new order: 0 3 1 2   
+				
 			}
 			else if(delta < 0){
 				ui.draggable.data('draggable').offset.click.left += $(this).width();
 				$(this).after(ui.draggable.detach());
-				
+				t = _panels.dock[dragIndex];
+				for (var i=dragIndex;i<dropIndex;i++){
+					_panels.dock[i] = _panels.dock[i+1]
+				}
+				_panels.dock[dropIndex] = t;
+				// 0 1 2 3, 1 dragged to 3, new order 0 2 3 1
 			}
 		},out:function(event,ui){
 
