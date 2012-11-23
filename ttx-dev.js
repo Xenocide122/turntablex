@@ -1035,6 +1035,7 @@ window.TTX = null;
 	    	for (var i=0; i<_panels.hidden.length; i++){
 			$('<li class="option">'+_panels.hidden[i]+'</li>').click(dockMaximize).appendTo('#ttx-dock-menu');
 		}
+		$('#ttx-dock-menu').css('visibility','visible');
 	    }
 	    else{
 		$('.ttx-dock-count').css('color','#000');
@@ -1105,7 +1106,7 @@ window.TTX = null;
 			}
 			else{
 				$('.ttx-dock-count').css('color','#F0D438');
-				$('#ttx-dock-menu').css('visibility','visible');
+				$('#ttx-dock-menu').css('visibility','visible').hide();
 			}
 			$('.ttx-dock-count').text(_panels.hidden.length);
 
