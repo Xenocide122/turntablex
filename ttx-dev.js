@@ -968,7 +968,7 @@ window.TTX = null;
 		$(window).resize();
 		var x = $(this).index();
 		settings.panels[_panels.hidden[x]].hidden = false;
-		_panels.dock[_panels.dock.length-1] = _panels.hidden[x];
+		_panels.dock[_panels.dock.length] = _panels.hidden[x];
 		_panels.hidden.splice(x,1);
 		if (_panels.hidden.length === 0){
 			$('.ttx-dock-count').css('color','#000');
@@ -1081,7 +1081,7 @@ window.TTX = null;
 				$('#ttx-panels').after($('#ttx-panels-'+name).addClass('hidden'));
 			}
 			$(window).resize();
-			_panels.hidden[_panels.hidden.length-1] = _panels.dock[panelIndex];
+			_panels.hidden[_panels.hidden.length] = _panels.dock[panelIndex];
 			_panels.dock.splice(panelIndex,1);
 			
 			if (_panels.hidden.length === 0){
