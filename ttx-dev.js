@@ -215,14 +215,16 @@ window.TTX = null;
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
-				header: true, hidden:true
+				header: true,
+				hidden:false
 			},
 			{
 				name: 'chat',
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
-				header: true, hidden:true			
+				header: true,
+				hidden:true			
 			}
 		],
 		autoDJ: false,
@@ -293,9 +295,8 @@ window.TTX = null;
 			lstore.set('ttx-settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
-			//settings = $.extend(true, {}, defaultSettings, settings);
-			settings = defaultSettings;
-			lstore.set('ttx-settings', settings);
+			settings = $.extend(true, {}, defaultSettings, settings);
+			saveSettings();
 		}
 
 	}
