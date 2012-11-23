@@ -1075,10 +1075,10 @@ window.TTX = null;
 			
 		
 			if(panelName === 'chat'){
-				$('#ttx-panels').after($('#right-panel').addClass('hidden'));
+				$('#right-panel').addClass('hidden').appendTo('roomView');
 			}
 			else{
-				$('#ttx-panels').after($('#ttx-panels-'+name).addClass('hidden'));
+				$('#ttx-panels-'+name).addClass('hidden').appendTo('roomView');
 			}
 			$(window).resize();
 			_panels.hidden[_panels.hidden.length] = _panels.dock[panelIndex];
