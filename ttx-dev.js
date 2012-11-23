@@ -1063,7 +1063,7 @@ window.TTX = null;
 	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:20px"><h2 style="font-size:20px">−</h2></div>'));
 	    $('.ttx-minimize').click(function(e){
 			e.preventDefault();
-			e.stopPropogation();
+			e.stopPropagation();
 			//$(this).parents('.ttx-panel');
 		});
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
