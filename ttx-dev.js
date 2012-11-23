@@ -1078,7 +1078,7 @@ window.TTX = null;
 				$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
 			}
 			else{
-				$('#ttx-panels-'+name).addClass('hidden').detach().appendTo($(.'roomView'));
+				$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($(.'roomView'));
 			}
 			$(window).resize();
 			_panels.hidden[_panels.hidden.length] = _panels.dock[panelIndex];
