@@ -996,14 +996,14 @@ window.TTX = null;
 			}
 			else if (settings.panels[i].type === 'docked'){
 				
-				_panels.dock.push({index:settings.panels[i].index,name:i});
+				_panels.dock.push({index:settings.panels[i].index, name:i});
 			}
 			else{
 				_panels.float.push(i);
 			}
 		}
 		_panels.dock.sort(function(a,b){
-			return a['index'] > b['index'];
+			return a.index > b.index;
 		});
 		for (var i=0;i<_panels.dock.length;i++){
 			_panels.dock[i] = _panels.dock[i].name;
