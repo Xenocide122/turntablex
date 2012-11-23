@@ -1134,17 +1134,20 @@ window.TTX = null;
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
 		$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
-			var delta = ui.draggable.index() - $(this).index();
+			var dragIndex = ui.draggable.index();
+			var dropIndex = $(this).index();
+			var delta = dragIndex - dropIndex;
+			var t; // temp
 			if (delta > 0){
 				// move left
 				ui.draggable.data('draggable').offset.click.left -= $(this).width();
-				ui.draggable.after($(this));
-				//ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).after($(this)).draggable(dragOptions);
+				$(this).before(ui.draggable.detach());
+				// 0 1 2 3, 3 dragged to 1, new order: 0 3 1 2   
 			}
 			else if(delta < 0){
 				ui.draggable.data('draggable').offset.click.left += $(this).width();
-				ui.draggable.before($(this));
-				//ui.draggable.draggable("destroy").css({left:'0px',right:'0px'}).before($(this)).draggable(dragOptions);
+				$(this).after(ui.draggable.detach());
+				
 			}
 		},out:function(event,ui){
 
