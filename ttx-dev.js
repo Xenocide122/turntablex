@@ -1075,10 +1075,10 @@ window.TTX = null;
 			
 		
 			if(panelName === 'chat'){
-				$('#right-panel').addClass('hidden').appendTo('roomView');
+				$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
 			}
 			else{
-				$('#ttx-panels-'+name).addClass('hidden').appendTo('roomView');
+				$('#ttx-panels-'+name).addClass('hidden').detatch().appendTo($(.'roomView'));
 			}
 			$(window).resize();
 			_panels.hidden[_panels.hidden.length] = _panels.dock[panelIndex];
@@ -1090,7 +1090,7 @@ window.TTX = null;
 			}
 			else{
 				$('.ttx-dock-count').css('color','#F0D438');
-				$('#ttx-dock-menu').show();
+				
 			}
 			$('.ttx-dock-count').text(_panels.hidden.length);
 
