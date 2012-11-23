@@ -1089,11 +1089,11 @@ window.TTX = null;
 			
 			if (_panels.hidden.length === 0){
 				$('.ttx-dock-count').css('color','#000');
-				$('#ttx-dock-menu').hide();
+				$('#ttx-dock-menu').css('visibility','hidden');
 			}
 			else{
 				$('.ttx-dock-count').css('color','#F0D438');
-				
+				$('#ttx-dock-menu').css('visibility','visible');
 			}
 			$('.ttx-dock-count').text(_panels.hidden.length);
 
