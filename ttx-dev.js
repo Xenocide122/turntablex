@@ -194,39 +194,39 @@ window.TTX = null;
 			room: 2,
 			chat: 3
 		},
-		panels: [
-			{
-				name: 'scene',
+		panels:{
+			
+			'scene':{
 				type: 'docked',
+				index: 0,
 				width: 'full',
 				height: '100%',
 				header: false
 			},
-			{
-				name: 'queue',
+			'queue':{
+			
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
 				header: true,
 				hidden: true
 			},
-			{
-				name: 'room',
+			'room':{
+			
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
 				header: true,
 				hidden:false
 			},
-			{
-				name: 'chat',
+			'chat':{
 				type: 'docked',
 				width: 'auto',
 				height: '100%',
 				header: true,
 				hidden:true			
 			}
-		],
+		},
 		autoDJ: false,
 		autoAwesome: false,
 		laptop: {
@@ -981,21 +981,31 @@ window.TTX = null;
 		$('.ttx-dock-count').text(_panels.hidden.length);
 		$(this).remove();
 	}
+	
 	function addPanels(){
 	     _panels = { dock: [], float: [], hidden: [], hiddens: {} };
 
 
-		for (var i=0;i<settings.panels.length;i++){
+		for (var i in settings.panels){
+			if(!settings.panels.hasOwnProperty(i)){
+				continue;
+			}
 			if (settings.panels[i].hidden === true){
 				_panels.hidden.push(i);
-				_panels.hiddens[settings.panels[i].name] = i;
 			}
 			else if (settings.panels[i].type === 'docked'){
-				_panels.dock.push(i); // push the index to settings.panels
+				
+				_panels.dock.push({index:settings.panels[i].index,name:i});
 			}
 			else{
 				_panels.float.push(i);
 			}
+		}
+		_panels.dock.sort(function(a,b){
+			return a['index'] > b['index'];
+		});
+		for (var i=0;i<_panels.dock.length;i++){
+			_panels.dock[i] = _panels.dock[i].name;
 		}
 
  	    // add dock area in header
@@ -1022,7 +1032,7 @@ window.TTX = null;
 	    if (_panels.hidden.length > 0){
 	
 	    	for (var i=0; i<_panels.hidden.length; i++){
-			$('<li class="option">'+settings.panels[_panels.hidden[i]].name+'</li>').click(dockMaximize).appendTo('#ttx-dock-menu');
+			$('<li class="option">'+_panels.hidden[i]+'</li>').click(dockMaximize).appendTo('#ttx-dock-menu');
 		}
 	    }
 	    else{
@@ -1071,7 +1081,7 @@ window.TTX = null;
 			var panel = $(this).parents('.ttx-panel');
 			var panelIndex = panel.index();
 			var panelSetting = settings.panels[_panels.dock[panelIndex]];
-			var panelName = panelSetting.name;
+			var panelName = _panels.dock[panelIndex];
 
 			// add panel entry to the dock
 			$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
@@ -1106,14 +1116,14 @@ window.TTX = null;
 	    .find('h2').css('color','#323232');
 
 	
-	    if ('chat' in _panels.hiddens){
+	    if ('chat' in _panels.hidden){
 	    	rightPanel.addClass('hidden');
 	    }
-	    if ('room' in _panels.hiddens){
+	    if ('room' in _panels.hidden){
 	    	$('#ttx-panels-room').addClass('hidden');
 		
             }
-	    if ('queue' in _panels.hiddens){
+	    if ('queue' in _panels.hidden){
 	 	$('#ttx-panels-queue').addClass('hidden');
 	    }
 	    if ($('#ttx-panels').length === 0){
@@ -1147,6 +1157,7 @@ window.TTX = null;
 				// move left
 				ui.draggable.data('draggable').offset.click.left -= $(this).width();
 				$(this).before(ui.draggable.detach());
+				
 				t = _panels.dock[dragIndex];
 				for(var i=dragIndex;i>dropIndex;i--){
 					_panels.dock[i] = _panels.dock[i-1];
