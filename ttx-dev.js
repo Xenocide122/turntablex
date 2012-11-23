@@ -972,7 +972,10 @@ window.TTX = null;
 		_panels.hidden.splice(x,1);
 		if (_panels.hidden.length === 0){
 			$('.ttx-dock-count').css('color','#000');
-			$('#ttx-dock-menu').hide();
+			$('#ttx-dock-menu').css('visibility','hidden');
+		}
+		else{
+			$('#ttx-dock-menu').css('visibility','visible');
 		}
 		$('.ttx-dock-count').text(_panels.hidden.length);
 		$(this).remove();
@@ -1023,7 +1026,7 @@ window.TTX = null;
 	    }
 	    else{
 		$('.ttx-dock-count').css('color','#000');
-	    	$('#ttx-dock-menu').hide();
+	    	$('#ttx-dock-menu').css('visibility','hidden');
 	    }
 	    $('.ttx-dock-count').text(_panels.hidden.length);
 
