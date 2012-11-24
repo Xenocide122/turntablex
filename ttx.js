@@ -1042,7 +1042,7 @@ window.TTX = null;
 			$(this).addClass('hover');
 		}).mouseout(function(){
 			var self = $(this);
-			dockhover = setTimeout(function(){ self.removeClass('hover'); },1000);
+			dockhover = setTimeout(function(){ self.removeClass('hover'); },600);
 		});
 	    if (_panels.hidden.length > 0){
 	
