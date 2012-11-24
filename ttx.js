@@ -1041,7 +1041,8 @@ window.TTX = null;
 			}
 			$(this).addClass('hover');
 		}).mouseout(function(){
-			dockhover = setTimeout(function(){ $(this).removeClass('hover'); },1000);
+			var self = $(this);
+			dockhover = setTimeout(function(){ self.removeClass('hover'); },1000);
 		});
 	    if (_panels.hidden.length > 0){
 	
