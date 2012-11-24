@@ -984,9 +984,11 @@ window.TTX = null;
 			$('#ttx-dock-menu').css('visibility','visible');
 		}
 		$('.ttx-dock-count').text(_panels.hidden.length);
+		saveSettings();
+		$('#ttx-dock-').removeClass('hover');
 		$(this).remove();
 		
-		saveSettings();
+		
 	}
 	
 	function addPanels(){
