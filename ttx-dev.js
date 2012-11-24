@@ -295,8 +295,8 @@ window.TTX = null;
 			lstore.set('ttx-settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
-			//settings = $.extend(true, {}, defaultSettings, settings);
-			settings = defaultSettings;
+			settings = $.extend(true, {}, defaultSettings, settings);
+			//settings = defaultSettings;
 			saveSettings();
 		}
 
@@ -970,6 +970,7 @@ window.TTX = null;
 		$(window).resize();
 		var x = $(this).index();
 		settings.panels[_panels.hidden[x]].hidden = false;
+		settings.panels[_panels.hidden[x]].index = _panels.dock.length; // add to the end
 		_panels.dock[_panels.dock.length] = _panels.hidden[x];
 		_panels.hidden.splice(x,1);
 		if (_panels.hidden.length === 0){
@@ -981,6 +982,8 @@ window.TTX = null;
 		}
 		$('.ttx-dock-count').text(_panels.hidden.length);
 		$(this).remove();
+		
+		saveSettings();
 	}
 	
 	function addPanels(){
@@ -1082,12 +1085,12 @@ window.TTX = null;
 			e.stopPropagation();
 			var panel = $(this).parents('.ttx-panel');
 			var panelIndex = panel.index();
-			var panelSetting = settings.panels[_panels.dock[panelIndex]];
+			v
 			var panelName = _panels.dock[panelIndex];
 
 			// add panel entry to the dock
 			$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
-			panelSetting.hidden = true;
+			settings.panels[_panels.dock[panelIndex]].hidden = true;
 			
 		
 			if(panelName === 'chat'){
@@ -1109,7 +1112,7 @@ window.TTX = null;
 				$('#ttx-dock-menu').css('visibility','visible');
 			}
 			$('.ttx-dock-count').text(_panels.hidden.length);
-
+			saveSettings();
 		});
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
@@ -1152,7 +1155,7 @@ window.TTX = null;
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
 			var dragIndex = ui.draggable.index();
 			var dropIndex = $(this).index();
-			var activePanels = $(this).parent().children().length
+			var activePanels = $(this).parent().children().length;
 			var delta = dragIndex - dropIndex;
 			var t; // temp
 			if (delta > 0){
@@ -1178,6 +1181,10 @@ window.TTX = null;
 				_panels.dock[dropIndex] = t;
 				// 0 1 2 3, 1 dragged to 3, new order 0 2 3 1
 			}
+			for(var i=0;i<_panels.dock.length;i++){
+					settings.panels[_panels.dock[i]].index = i; 
+				}
+			saveSettings();
 		},out:function(event,ui){
 
 		}});
