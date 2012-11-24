@@ -1094,7 +1094,7 @@ window.TTX = null;
 			// add panel entry to the dock
 			$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
 			settings.panels[_panels.dock[panelIndex]].hidden = true;
-			
+			settings.panels[_panels.dock[panelIndex]].index = 4;
 		
 			if(panelName === 'chat'){
 				$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
