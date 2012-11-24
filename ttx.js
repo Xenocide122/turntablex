@@ -990,7 +990,7 @@ window.TTX = null;
 		
 		
 	}
-	
+	var dockhover;
 	function addPanels(){
 	     _panels = { dock: [], float: [], hidden: [], hiddens:  {} };
 
@@ -1033,7 +1033,7 @@ window.TTX = null;
 		}).mouseout(function(){
 			$(this).find('.ttx-dock-count').removeClass('hover');
 		}).css('cursor','pointer');
-var dockhover;
+
 	    $('#ttx-dock-').mouseover(function(){
 			if (dockhover){
 				clearTimeout(dockhover);
@@ -1041,7 +1041,7 @@ var dockhover;
 			}
 			$(this).addClass('hover');
 		}).mouseout(function(){
-			dockhover = setTimeout(function(){ $(this).removeClass('hover'); },500);
+			dockhover = setTimeout(function(){ $(this).removeClass('hover'); },1000);
 		});
 	    if (_panels.hidden.length > 0){
 	
