@@ -1085,7 +1085,7 @@ window.TTX = null;
 			e.stopPropagation();
 			var panel = $(this).parents('.ttx-panel');
 			var panelIndex = panel.index();
-			v
+
 			var panelName = _panels.dock[panelIndex];
 
 			// add panel entry to the dock
