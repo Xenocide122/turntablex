@@ -1,20 +1,34 @@
+// LIBRARIES
+
 /* Copyright (c) 2010-2011 Marcus Westin */
 var lstore=function(){var b={},e=window,g=e.document,c;b.disabled=false;b.set=function(){};b.get=function(){};b.remove=function(){};b.clear=function(){};b.transact=function(a,d){var f=b.get(a);if(typeof f=="undefined")f={};d(f);b.set(a,f)};b.serialize=function(a){return JSON.stringify(a)};b.deserialize=function(a){if(typeof a=="string")return JSON.parse(a)};var h;try{h="localStorage"in e&&e.localStorage}catch(k){h=false}if(h){c=e.localStorage;b.set=function(a,d){c.setItem(a,b.serialize(d))};b.get=
 function(a){return b.deserialize(c.getItem(a))};b.remove=function(a){c.removeItem(a)};b.clear=function(){c.clear()}}else{var i;try{i="globalStorage"in e&&e.globalStorage&&e.globalStorage[e.location.hostname]}catch(l){i=false}if(i){c=e.globalStorage[e.location.hostname];b.set=function(a,d){c[a]=b.serialize(d)};b.get=function(a){return b.deserialize(c[a]&&c[a].value)};b.remove=function(a){delete c[a]};b.clear=function(){for(var a in c)delete c[a]}}else if(g.documentElement.addBehavior){c=g.createElement("div");
 e=function(a){return function(){var d=Array.prototype.slice.call(arguments,0);d.unshift(c);g.body.appendChild(c);c.addBehavior("#default#userData");c.load("localStorage");d=a.apply(b,d);g.body.removeChild(c);return d}};b.set=e(function(a,d,f){a.setAttribute(d,b.serialize(f));a.save("localStorage")});b.get=e(function(a,d){return b.deserialize(a.getAttribute(d))});b.remove=e(function(a,d){a.removeAttribute(d);a.save("localStorage")});b.clear=e(function(a){var d=a.XMLDocument.documentElement.attributes;
 a.load("localStorage");for(var f=0,j;j=d[f];f++)a.removeAttribute(j.name);a.save("localStorage")})}}try{b.set("__storejs__","__storejs__");if(b.get("__storejs__")!="__storejs__")b.disabled=true;b.remove("__storejs__")}catch(m){b.disabled=true}return b}();
 
+// END LIBRARIES
 
 window.TTX = null;
 (function(){
     TTX = function(){
-	// global resources
+
+// GLOBALS
+	var PANEL_PADDING = 5; // pad by 5 px
+	var PANEL_WIDTH = 265; // default width for a panel
 	var IDLE_MAX = 15*60*1000;
 	var SYMBOLS = {
-		heart: '<img width="13" src="http://turntablex.com/images/heart.png">',
-		up: '<img width="13" src="http://turntablex.com/images/up.png">',
-		down: '<img width="13" src="http://turntablex.com/images/down.png">',
+		heart: '<img width="14" src="http://turntablex.com/images/heart.png">',
+		up: '<img width="14" src="http://turntablex.com/images/up.png">',
+		down: '<img width="14" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
+	};
+	var ICONS = {
+		mod: '<div class="mod icon" title="Moderator"></div>',
+		up: '<div class="upvote icon" title="Awesomed" style="background-image:url(http://turntablex.com/images/up.png); background-size: 15px auto; width: 15px;"></div>',
+		down: '<div class="downvote icon" title="Lamed" style="background-image:url(http://turntablex.com/images/down.png); background-size: 15px auto; width: 15px;"></div>',
+		heart: '<div class="heart icon" title="Snagged" style="background-image:url(http://turntablex.com/images/heart.png); background-size: 15px auto; width: 15px;"></div>',
+		superuser: '<div class="superuser icon" title="Superuser"></div>',
+		fanned: '<div class="fanned icon" title="Fanned"></div>'
 	};
 	var STICKER_MAP = {
 		'4f873b32af173a2903816e52': {
@@ -96,7 +110,10 @@ window.TTX = null;
 		action: '', // new | edit
 		index: 0 // laptop index
 	};
-	
+	// add curCss alias to jquery
+	$.extend($,{ 'curCSS': function(a,c,d,e){ return $.css(a,c,d,e); } });	
+
+
         // global state
 	var self = this;
 	var _premiumIDs = null; // IDs to check against for premium access
@@ -177,6 +194,42 @@ window.TTX = null;
 			room: 2,
 			chat: 3
 		},
+		panels:{
+			
+			'scene':{
+				type: 'docked',
+				index: 1,
+				width: 'full',
+				height: '100%',
+				header: false
+			},
+			'queue':{
+			
+				type: 'docked',
+				index: 2,
+				width: 'auto',
+				height: '100%',
+				header: true,
+				hidden: true
+			},
+			'room':{
+			
+				type: 'docked',
+				index: 0,
+				width: 'auto',
+				height: '100%',
+				header: true,
+				hidden:false
+			},
+			'chat':{
+				type: 'docked',
+				index: 3,
+				width: 'auto',
+				height: '100%',
+				header: true,
+				hidden:true			
+			}
+		},
 		autoDJ: false,
 		autoAwesome: false,
 		laptop: {
@@ -212,13 +265,16 @@ window.TTX = null;
 			}
 		}
 	};
+// END GLOBALS
+
 	log('Turntable X loaded');
-	// main
-    
+
+// MAIN
+	// load the settings
 	loadSettings();
 	
+	// reset the room
         resetRoom(function(){
-	    // .bind('resize',onResize);
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
@@ -228,54 +284,80 @@ window.TTX = null;
 	    updateHeader(); // update header
 	    initializeListeners(); // create DOM and Turntable event handlers
         });
+
+// END MAIN
+
+// SETTINGS
+
         // get settings from local storage and merge with defaults
 	function loadSettings(){
-		settings = lstore.get('settings');
+		settings = lstore.get('ttx-settings');
                              
 		if (!settings) {
 			settings = defaultSettings;
-			lstore.set('settings', settings);
+			lstore.set('ttx-settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
 			settings = $.extend(true, {}, defaultSettings, settings);
-			if (settings.positions[0] || settings.positions[1] || settings.positions[2] || settings.positions[3]){
-				settings.positions = {};
-				settings.positions.scene = 2;
-				settings.positions.queue = 0;
-				settings.positions.room = 1;
-				settings.positions.chat = 3;
-			}
-			
-			lstore.set('settings', settings);
+			//settings = defaultSettings;
+			saveSettings();
 		}
 
 	}
 	function saveSettings(){
-		lstore.set('settings',settings);
+		lstore.set('ttx-settings',settings);
 	}
-        // reset the state of premium access
-        function checkPremium(){
-            if (_premiumIDs === null || $.inArray(_id,_premiumIDs) >= 0){
-                _premium = true;
-                log('Premium features enabled');
+
+// END SETTINGS
+
+// STATE
+
+	// reset the state of the room
+        function resetRoom(callback){
+            _room = null;
+	    _manager = null;
+            _id = null;
+            _location = window.location.pathname; 
+            for (var o in _turntable){
+                if (_turntable[o] !== null && _turntable[o].roomId){
+                    _room = _turntable[o];
+                    
+ 		    _id = _turntable.user.id;
+		    
+		    break;
+                }
             }
-	    else{
-	    	_premium = false;
-	    }
+            if (_room){ // found turntable room
+                for (var o in _room){
+			if (_room[o] !== null && typeof(_room[o]) !== 'undefined' && _room[o].roomData){
+				_manager = _room[o];
+				break;
+			}
+		}
+                if (_manager && isSceneReady()){
+		    $(window).unbind('resize').bind('resize',onResize);
+		    log('Entering room: ' + _location);
+		    log(_room);
+		    log('Found manager');
+		    log(_manager);
+		    log('Room id: ' + _room.roomId);
+		    log('User id: ' + _id);
+		 
+		    newSong();
+		    callback();
+
+                }
+                else{
+                    // try again
+                    setTimeout(function(){ resetRoom(callback); }, 250);
+                }
+            }
+            else{
+                // try again
+                setTimeout(function(){ resetRoom(callback); },250);
+            }
         }
-	// update header (UI)
-	function updateHeader(){
-		var header = $('.room .name');
-		var song_bar = header.find('#ttx_songbar');
-		var text = '(' + _currentSong.upvotes + SYMBOLS.up + ','+ _currentSong.downvotes + SYMBOLS.down + ',' + _currentSong.hearts + SYMBOLS.heart + ') ' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
-		if (song_bar.length){
-			song_bar.html(text);
-		}
-		else{
-			header.text(header.text()+': ');
-			$('<span id="ttx_songbar" style="font-size:14px; font-weight:normal">' + text + '</span>').appendTo(header);
-		}
-	}
+
 	// called every time there is a song change
 	function resetSong(){
 		_currentSong = {};
@@ -298,79 +380,6 @@ window.TTX = null;
 		_djs = {};
 		for (var i=0;i<_room.roomData.metadata.djs.length;i++){
 			_djs[_room.roomData.metadata.djs[i]] = 1;
-		}
-	}
-	function onDeregistered(e){
-		for (var i in e.user){
-			var id = e.user[i].userid;
-			var name = e.user[i].name;
-			if (typeof _users[id] !== 'undefined'){
-				delete _users[id];
-				delete _usernames[name];
-				delete _idleTimers[id];
-			}
-			
-		}
-	}
-	var autoVoteTimer = null;
-	function autoVote(evt) {
-			if (settings.autoAwesome === false){
-				if (autoVoteTimer){
-					clearTimeout(autoVoteTimer);
-					autoVoteTimer = null;
-				}
-				return;
-			}
-			if (autoVoteTimer) {
-				clearTimeout(autoVoteTimer);
-				autoVoteTimer = null;
-			}
-			
-			// cast vote at a random delay
-			autoVoteTimer = setTimeout(function() {
-
-				// retrieve room and song data
-				var song_id = evt.room.metadata.current_song._id;
-
-				// need some safety measures
-				var f = $.sha1(_room.roomId + 'up' + song_id);
-				var d = $.sha1(Math.random() + "");
-				var e = $.sha1(Math.random() + "");
-				
-				log('Voting');
-
-				// trigger upvote
-				TTX.prototype.send({
-					api: 'room.vote',
-					roomid: _room.roomId,
-					val: 'up',
-					vh: f,
-					th: d,
-					ph: e
-				});
-
-			}, randomDelay(5, 10));
-	}
-	function randomDelay(min, max) {
-			min = min || 2;
-			max = max || 70;
-			return (Math.random() * max + min) * 1000;
-	}
-	function userCount(){
-		return Object.keys(_users).length;
-	}
-	// add new user
-	function onRegistered(e){
-		var now = new Date().getTime();
-		for (var i in e.user) {
-			var id = e.user[i].userid;
-			
-			var name = e.user[i].name;
-			if (typeof _usernames[name] === 'undefined'){
-				_usernames[name] = id;
-				_users[id] = name;
-				_idleTimers[id] = now;
-			}
 		}
 	}
 	// called when there is a room change
@@ -396,13 +405,81 @@ window.TTX = null;
 			_mods[_room.roomData.metadata.moderator_id[i]] = 1;
 		}
 	}
-	function isSceneReady(){
-		var scene = $('#scene');
-		if (scene.css('right').charAt(0) === '-' || scene.css('margin-left').charAt(0) === '-'){
-			return true;
+
+	
+
+	// reset the state of premium access
+        function checkPremium(){
+            if (_premiumIDs === null || $.inArray(_id,_premiumIDs) >= 0){
+                _premium = true;
+                log('Premium features enabled');
+            }
+	    else{
+	    	_premium = false;
+	    }
+        }
+	function isMod(id){
+		return typeof _mods[id] !== 'undefined';
+	}
+	function isDJ(id){
+		return typeof _djs[id] !== 'undefined';
+	}
+	function isCurrentDJ(id){
+		return id === _currentSong.dj;
+	}
+	function isUpvoter(id){
+		return typeof _upvoters[id] !== 'undefined';
+	}
+	function isDownvoter(id){
+		return typeof _downvoters[id] !== 'undefined';
+	}
+	function isHearter(id){
+		return typeof _hearts[id] !== 'undefined';
+	}
+	function isBuddy(id){
+		return (_turntable.user.buddies.indexOf(id) > -1);
+	}
+	function isFanOf(id){
+		return (_turntable.user.fanOf.indexOf(id) > -1);
+	}
+
+// END STATE
+
+
+// LISTENERS
+
+	// initialize event handlers; this should only be done once
+        function initializeListeners(){
+            _turntable.addEventListener('message',onMessage);
+	    $(document).bind('DOMNodeInserted',onDOM);
+        }
+
+	// new user is added
+	function onRegistered(e){
+		var now = new Date().getTime();
+		for (var i in e.user) {
+			var id = e.user[i].userid;
+			
+			var name = e.user[i].name;
+			if (typeof _usernames[name] === 'undefined'){
+				_usernames[name] = id;
+				_users[id] = name;
+				_idleTimers[id] = now;
+			}
 		}
-		else{
-			return false;
+	}
+
+	// new user leaves the room
+	function onDeregistered(e){
+		for (var i in e.user){
+			var id = e.user[i].userid;
+			var name = e.user[i].name;
+			if (typeof _users[id] !== 'undefined'){
+				delete _users[id];
+				delete _usernames[name];
+				delete _idleTimers[id];
+			}
+			
 		}
 	}
 	function newSong(){
@@ -431,370 +508,6 @@ window.TTX = null;
 			}
 		}
 	}
-	// reset the state of the room
-        function resetRoom(callback){
-            _room = null;
-	    _manager = null;
-            _id = null;
-            _location = window.location.pathname; 
-            for (var o in _turntable){
-                if (_turntable[o] !== null && _turntable[o].roomId){
-                    _room = _turntable[o];
-                    
- 		    _id = _turntable.user.id;
-		    
-		    break;
-                }
-            }
-            if (_room){ // found turntable room
-                for (var o in _room){
-			if (_room[o] !== null && typeof(_room[o]) !== 'undefined' && _room[o].roomData){
-				_manager = _room[o];
-				break;
-			}
-		}
-                if (_manager && isSceneReady()){
-		    $(window).unbind('resize');
-		    log('Entering room: ' + _location);
-		    log(_room);
-		    log('Found manager');
-		    log(_manager);
-		    log('Room id: ' + _room.roomId);
-		    log('User id: ' + _id);
-		 
-		    newSong();
-		    callback();
-
-                }
-                else{
-                    // try again
-                    setTimeout(function(){ resetRoom(callback); }, 250);
-                }
-            }
-            else{
-                // try again
-                setTimeout(function(){ resetRoom(callback); },250);
-            }
-        }
-	// initialize event handlers
-        function initializeListeners(){
-            _turntable.addEventListener('message',onMessage);
-            log('Event monitor added');
-	    $(document).bind('DOMNodeInserted',onDOM);
-	    log('DOM monitor added');
-        }
-        function updatePanels(){
-            var sceneLeft = (settings.positions.scene * (265) + 5);
-	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX, queueN, roomN, queueN;
-
-	    if (settings.positions.scene > settings.positions.chat){
-	    	chatPosition = (settings.positions.chat) * 265 + 5;
-		chatX = 'left';
-		chatN = 'right';
-	    }
-	    else{
-		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265;
-	    	chatX = 'right';
-	    	chatN = 'left';
-	    }
-	    if (settings.positions.scene > settings.positions.queue){
-	    	queuePosition = (settings.positions.queue) * 265 + 5;
-		queueX = 'left';
-		queueN = 'right';
-	    }
-	    else{
-		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265;
-	    	queueX = 'right';
-	    	queueN = 'left';
-	    }
-	    if (settings.positions.scene > settings.positions.room){
-	    	roomPosition = (settings.positions.room) * 265 + 5;
-		roomX = 'left';
-		roomN = 'right';
-	    }
-	    else{
-		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265;
-	    	roomX = 'right';
-	    	roomN = 'left';
-	    }
-	    $('#right-panel').css(chatX,chatPosition + 'px').css(chatN,'auto');
-	    $('#left-panel').css(queueX,queuePosition + 'px').css(queueN,'auto');
-	    $('#center-panel').css(roomX,roomPosition + 'px').css(roomN,'auto');
-	    $('#ttxCenter').css({left:sceneLeft+'px',right:sceneRight+'px'});
-        }
-        function panelByIndex(i){
-        	for (var o in settings.positions){
-        		if (settings.positions[o] === i){
-        			return o;
-        		}
-        	}
-        	return '';
-        }
-	// perform graphical manipulation
-        function initializeUI(){
-
-	    // make everything widescreen
-	    $('#maindiv').css({minWidth:'1200px'});
-	    $('#outer').css({width:'100%',maxWidth:'100%'});
-	    $('#turntable').css({width:'100%',maxWidth:'100%'});
-	    $('#header').css({width:'99%',left:'5px'});
-
-	    // positions for the scene container
-	    var sceneLeft = (settings.positions.scene * (265) + 5);
-	    var sceneRight = ((3-settings.positions.scene) * (265) + 5);
-	    var chatPosition, roomPosition, queuePosition, chatX, roomX, queueX;
-
-	    if (settings.positions.scene > settings.positions.chat){
-	    	chatPosition = (settings.positions.chat) * 265 + 5;
-		chatX = 'left';
-	    }
-	    else{
-		chatPosition = sceneRight - (settings.positions.chat-settings.positions.scene) * 265;
-	    	chatX = 'right';
-	    }
-	    if (settings.positions.scene > settings.positions.queue){
-	    	queuePosition = (settings.positions.queue) * 265 + 5;
-		queueX = 'left';
-	    }
-	    else{
-		queuePosition = sceneRight - (settings.positions.queue-settings.positions.scene) * 265;
-	    	queueX = 'right';
-	    }
-	    if (settings.positions.scene > settings.positions.room){
-	    	roomPosition = (settings.positions.room) * 265 + 5;
-		roomX = 'left';
-	    }
-	    else{
-		roomPosition = sceneRight - (settings.positions.room-settings.positions.scene) * 265;
-	    	roomX = 'right';
-	    }
-	    
-	    $('#right-panel').css({top:'70px',width:'260px'}).css(chatX,chatPosition + 'px');
-	    $('#chat-input').css({width:'auto',right:'5px'});
-	    
-	    var rightPanelTab = $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
-	    if( $('#ttxRightPanelMoveLeft').length === 0){
-		rightPanelTab.find('.right-panel-tab-content').append('<h2 id="ttxRightPanelMoveRight" class="ttxPanelMoveRight ttxRightPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 id="ttxRightPanelMoveLeft" class="ttxPanelMoveLeft ttxRightPanelControls" style="margin-right: 8px">◀</h2>');
-	    }
-	    if ($('#ttxCenter').length===0){
-	    	$('#right-panel').before('<div id="ttxCenter" style="position:absolute;overflow:hidden;right:'+sceneRight+'px;left:'+sceneLeft+'px;top:65px;height:750px"></div>');
-	    }
-	    
-	    
-	    $('#scene').css({width:'1468px',left:'auto',right:'50%',top:'95px',bottom:'0px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttxCenter'));
-	    if ($("#left-panel").length===0){
-	    	 $('#right-panel').before('<div id="left-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;right:545px;position:absolute"><ul id="left-panel-tabs"></ul></div>');
-	    	 $('#left-panel').css(queueX,queuePosition+'px');
-	    }
-	   
-	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#left-panel-tabs');
-	    if($('#ttxLeftPanelMoveLeft').length===0){
-		$('#playlist-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxLeftPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 id="ttxLeftPanelMoveLeft" class="ttxPanelMoveLeft ttxLeftPanelControls" style="margin-right: 8px">◀</h2>');
-	    }
-
-	    
-	    if ($("#center-panel").length===0){
-	    	 $('#right-panel').before('<div id="center-panel" class="ttxPanel" style="z-index:3;overflow:hidden;top:70px;bottom:15px;width:260px;position:absolute"><ul id="center-panel-tabs"></ul></div>');
-	         $('#center-panel').css(roomX,roomPosition +'px');
-	    }
-	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#center-panel-tabs");
-	    if ($('#ttxCenterPanelMoveLeft').length===0){
-		$('#room-info-container').find('.right-panel-tab').css({'border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'}).find('.right-panel-tab-content').append('<h2 class="ttxPanelMoveRight ttxCenterPanelControls" style="margin-left: 8px">▶</h2>').prepend('<h2 id="ttxCenterPanelMoveLeft" class="ttxPanelMoveLeft ttxCenterPanelControls" style="margin-right: 8px">◀</h2>');
-	    }
-	
-	    $('.ttxPanelMoveLeft').click(function(){
-	    	var panel;
-	    	if ($(this).hasClass('ttxCenterPanelControls')){ // room panel
-	    		panel = 'room';
-	    	}
-	    	else if ($(this).hasClass('ttxLeftPanelControls')){ // queue panel
-	    		panel = 'queue';
-	    	}
-	    	else{ // chat panel
-	    		panel = 'chat';
-	    	}
-	    	var currentIndex = settings.positions[panel]; // where is this panel now 
-	    	var nextIndex = currentIndex - 1; // next index
-	    	if (nextIndex < 0){
-	    		return;
-	    	}
-	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
-	    	// switch nextPanel with panel
-	    	settings.positions[nextPanel] = currentIndex;
-	    	settings.positions[panel] = nextIndex;
-	    	// save and update
-	    	saveSettings();
-	    	updatePanels();
-	    }).mouseover(function(){ $(this).css('color','#000'); }).mouseout( function (){ $(this).css('color','#AB7F20'); });
-	    $('.ttxPanelMoveRight').click(function(){
-	    	var panel;
-	    	if ($(this).hasClass('ttxCenterPanelControls')){ // room panel
-	    		panel = 'room';
-	    	}
-	    	else if ($(this).hasClass('ttxLeftPanelControls')){ // queue panel
-	    		panel = 'queue';
-	    	}
-	    	else{ // chat panel
-	    		panel = 'chat';
-	    	}
-	    	var currentIndex = settings.positions[panel]; // where is this panel now 
-	    	var nextIndex = currentIndex + 1; // next index
-	    	if (nextIndex > 3){
-	    		return;
-	    	}
-	    	var nextPanel = panelByIndex(nextIndex); // what panel is there now
-	
-	    	// switch nextPanel with panel
-	    	settings.positions[nextPanel] = currentIndex;
-	    	settings.positions[panel] = nextIndex;
-	    	
-	    	// save and update
-	    	saveSettings();
-	    	updatePanels();
-	    }).mouseover(function(){ $(this).css('color','#000'); }).mouseout( function (){ $(this).css('color','#AB7F20'); });
-	    
-	    
-	    
-	    
-	    var advancedSetting = $('#ttxAdvancedSettings');
-	    if (advancedSetting.length === 0){
-	    	$('#settings-dropdown li:contains("Logout")').before('<li class="option" id="ttxAdvancedSettings">Advanced</li>')
-	    	$('#ttxAdvancedSettings').click(function(){
-	    		_modalHijack.type = 'settings';
-	    		$('#settings-dropdown li:contains("Edit my profile")').click();
-	    	});
-	    
-	    }
-	    // reposition the stage, playlist, chat, and guestlist
-	    /*var main_container = $('#outer .roomView');
-	    var right_panel = $('#right-panel');
-	    var stage = $('#floor-div').parent();
-	    var stage_height = stage.height();
-	    var stage_width = stage.width();
-            var guest_list = right_panel.find('.guest-list-container');
-	    var play_list = $('#playlist');
-	    var chat = right_panel.find('.chat-container');
-	    var room_info = $('#room-info-tab');
-
-	    right_panel.find('.chatHeader').unbind('mousedown').css('cursor', 'default');
-
-	    stage.css({left:235,top:105});
-
-	    guest_list.css({marginLeft:0,left:stage_width+240,width:220,top:105,height:stage_height}).appendTo(main_container);
-	    guest_list.find('.guests').css({height:stage_height-60});
-	    guest_list.find('.guestListButton').hide();
-	    guest_list.find('.guestListSize').css({left:0,width:'100%'});
-	    guest_list.find('.chatBar').css({width:'100%'});
-	    guest_list.find('.chatResizeIcon').hide();
-
-	    play_list.css({marginLeft:0,left:0,width:230,top:105,height:stage_height}).appendTo(main_container);
-
-	    chat.css({marginLeft:0,position:'absolute',width:'auto',left:stage_width+465,top:105,height:stage_height,right:5}).appendTo(main_container);
-	    chat.find('div.messages').css({height: stage_height-63});
-	    chat.find('form.input-box').css({width:'100%',left:0,backgroundImage:'none'});
-	    chat.find('form.input-box input').css({left:'5px',right:'5px',paddingRight:'0px',width:'auto',backgroundColor:"#fff",border:"1px solid #999"});
-	    chat.find('div.guestListButton').hide();
-	    chat.find('div.chatBar').css({width:'100%'});
-	    chat.find('.guestListIcon').hide();
-	    chat.find('.chatResizeIcon').hide();
-
-	    $('.room .name').css({position:'absolute',left:35,right:0,width:'auto'});
-	    $('.room').css({position:'absolute',right:425});
-
-	    room_info.find('.content').css({left:0,top:-1*(10+stage_height),height:(10+stage_height)});
-	    room_info.find('.songlog').css({height:500});
-	    room_info.find('.button').css({left:125}).unbind('click').bind('click',function(){ 
- 	    	var direction = 1;
-		if ($(this).hasClass('upbutton')){
-			direction = -1;
-			$(this).removeClass('upbutton');
-		}
-		else{
-			$(this).addClass('upbutton');
-		}
-		$(this).parent().find('.content, .button').animate({top:'+=' + (stage_height+10)*direction},350);
-	    });
-
-	    changeClass('.ui-slider .ui-slider-handle',{width:'.8em',height:'.8em'});
-            changeClass('.chat-container .messages .message',{width:'100%'});
-	    changeClass('.guest-list-container .guests .guest',{width:205,'padding-right':'0px','padding-top':'1px','padding-bottom':'1px'});
-	    changeClass('#menuh',{left:'40px'});
-	    if ($('#ttx_logo').length === 0){
-	    	$('.header .logo').after('<div id="ttx_logo" style="left:178px; top: 12.5px; width: 38px; height: 36px; position:absolute; background-size: 38px 36px; background-image:url(http://turntablex.com/images/turntableX.png);"/>');
-            }
-            if ($('#ttx_laptopMenu').length === 0){
-		updateLaptops();
-            	$('#ttx_laptopMenu').bind('mouseover',function(){
-	    		$(this).children().addClass('hover');
-	    	});
-	    	$('#ttx_laptopMenu').bind('mouseout',function(){
-	    		$(this).children().removeClass('hover');	
-	    	});
-            	$(document).on('mouseover','#ttx_laptopMenu .ttxMenuItem',function(){
-            		$(this).children().addClass('hover');
-            	});
-            	$(document).on('mouseout','#ttx_laptopMenu .ttxMenuItem',function(){
-            		$(this).children().removeClass('hover');
-            	});
-            	$(document).on('click','#ttx_laptopMenu .ttxMenuItem .ttxMenuEdit',function(e){
-            		e.preventDefault();
-            		e.stopPropagation();
-            		_modalHijack.type = 'laptop';
-            		_modalHijack.action = 'edit';
-            		_modalHijack.index = $(this).parent().find('.ttxMenuName').text();
-            		_turntable.sticker.showEditor();
-            	});
-            	$(document).on('click','#ttx_laptopMenu .ttxMenuItem',function(){
-            		if ($(this).hasClass('add')){ // popup laptop dialog
-            			_modalHijack.type = 'laptop';
-            			_modalHijack.action = 'new';
-            			_turntable.sticker.showEditor();
-            			return;
-            		}
-            		if ($(this).hasClass('first')){
-            			return; // don't do anything
-            		}
-            		$(this).parent().children().removeClass('selected');
-            		$(this).addClass('selected');
-            	});
-            }
-            else{
-            	updateLaptops();
-            }*/
-        }
-        function updateLaptops(){
-        	var laptops = settings.laptop.stickers.animations;
-            	var selected = settings.laptop.stickers.selected;
-            	var laptopDivs = '';
-            	for (var i in laptops){
-            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '"><span class="ttxMenuName">' + i + '</span><div class="ttxMenuEdit">edit</div></div>';
-            	}
-            	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'<div class="ttxMenuItem add" style="text-align:center;">New Laptop</div>';
-            	if ( $('#ttx_laptopMenu').length === 0){
-            		$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px">'+content+'</div>');
-            	}
-            	else{
-            		$('#ttx_laptopMenu').html(content);
-            	}
-        }
-	function changeClass(classname,properties){
-		var ss = document.styleSheets;
-        	for (var i=0; i<ss.length; i++) {
-            		var rules = ss[i].cssRules || ss[i].rules;
-            		for (var j=0; j<rules.length; j++) {
-				if (!(rules[j].selectorText))
-					continue;
-                		if (rules[j].selectorText.indexOf(classname) > -1) {
-                    			for (prop in properties){
-						rules[j].style[prop] = properties[prop];
-					}
-					return;
-                		}
-            		}
-        	}
-	}
-	var newLaptopAnimation = {};
 	function onDOM(e){
 		var $element = $(e.target);
 		
@@ -961,239 +674,6 @@ window.TTX = null;
 			}
 		}
 	}
-	function previewStickers(){
-		if (newLaptopAnimation.selected === newLaptopAnimation.frames.length){ // stop
-			return;
-		}
-		setTimeout(function(){ $('#ttxLaptopScrollRight').click(); previewStickers(); },newLaptopAnimation.speed);
-		
-	}
-	function saveStickers(laptop,animation,selected){
-		animation.frames[selected] = [];
-		var count = 0;
-		laptop.children().each(function(){ // loop over each sticker and save to the array
-			if (count === 20){ // only save the first 20 stickers
-				return;
-			}
-			var stickerDiv = $(this);
-			var sticker_id = $(this).data('sticker_id');
-			var angle = $(this).data('angle');
-			var left = parseInt($(this).css('left').replace(/px/,''));
-			var top = parseInt($(this).css('top').replace(/px/,''));
-			animation.frames[selected].push({sticker_id:sticker_id,angle:angle,left:left,top:top});
-			count += 1;
-		});
-	}
-	
-	function renderStickers(laptop,animation,selected){
-		laptop.children().each(function(){ 
-			if (typeof $(this).attr('id') !== 'undefined'){ // has id => generated by TTX, remove the normal way
-				$(this).remove();
-			}
-			else{ // needs to removed with the bounding box
-				$(this).mouseover(); $('#boundingBoxX').mouseup();	
-			}
-			
-		}); // remove all current stickers
-		
-		for (var i=0; i<animation.frames[selected].length; i++){
-			// create a div of the sticker
-			var sticker = animation.frames[selected][i];
-			var stickerID = sticker.sticker_id;
-			var stickerData = STICKER_MAP[stickerID];
-			var stickerDiv = '<div id="ttxSticker'+i+'" class="sticker" style="background-image:url('+stickerData.url+'); height: '+stickerData.height+'px; width: '+stickerData.width+'px; top: '+sticker.top+'px; left: '+sticker.left+'px; -webkit-transform: rotate('+sticker.angle+'deg); background-position: initial initial; background-repeat: initial initial;"></div>';
-			// add the sticker to the laptop view
-			laptop.append(stickerDiv);
-			// add jquery data for bounding box
-			$('#ttxSticker'+i).data('angle',sticker.angle);
-			$('#ttxSticker'+i).data('sticker_id',stickerID);
-		}
-	}
-	function onResize(){
-		
-		$('#scene').css({width:'1468px',right:'auto',left:'50%',bottom:'40px',marginLeft:'-734px'});
-
-	}
-	function isMod(id){
-		return typeof _mods[id] !== 'undefined';
-	}
-	function isDJ(id){
-		return typeof _djs[id] !== 'undefined';
-	}
-	function isCurrentDJ(id){
-		return id === _currentSong.dj;
-	}
-	function isUpvoter(id){
-		return typeof _upvoters[id] !== 'undefined';
-	}
-	function isDownvoter(id){
-		return typeof _downvoters[id] !== 'undefined';
-	}
-	function isHearter(id){
-		return typeof _hearts[id] !== 'undefined';
-	}
-	function isBuddy(id){
-		return (_turntable.user.buddies.indexOf(id) > -1);
-	}
-	function isFanOf(id){
-		return (_turntable.user.fanOf.indexOf(id) > -1);
-	}
-	// update guest list (UI)
-	var guestsTimer = null;
-	function updateGuests(){
-		if (typeof guestsTimer == "number") {
-			clearTimeout(guestsTimer);
-			guestsTimer = null;
-		}
-
-		// attempt to repaint the DOM in 50 ms unless cancelled
-		guestsTimer = setTimeout(function() {
-			// get the current time
-			var now = new Date().getTime();
-
-			// update the chat box
-			var guest_container = $('.guest-list-container .guests');
-			var guests = $('.guest-list-container .guest');
-			guests.each(function() {
-				var $this = $(this);
-				var $name = $this.find('.guestName');
-				var username = $name.text();
-				if (typeof _usernames[username] != 'undefined') {
-					var user_id = _usernames[username];
-					// update extra classes and idle time
-					var extrasClass = '';
-					var extrasContent = ' ';
-					if (isMod(user_id)){
-						extrasClass = extrasClass + ' isMod';
-					}
-					if ($name.hasClass('superuser')){
-						extrasClass = extrasClass + ' isSuper';
-					}
-					if (isDJ(user_id)){
-						extrasClass = extrasClass + ' isDJ';
-					}
-					if (isCurrentDJ(user_id)){
-						extrasClass = extrasClass + ' isCurrentDJ';
-					}
-					if (isHearter(user_id)){
-						extrasClass = extrasClass + ' isHearter';
-						extrasContent = extrasContent + SYMBOLS.heart + ' ';
-					}
-					if (isUpvoter(user_id)){
-						extrasClass = extrasClass + ' isUpvoter';
-						extrasContent = extrasContent + SYMBOLS.up + ' ';
-					}
-					if (isDownvoter(user_id)){
-						extrasClass = extrasClass + ' isDownvoter';
-						extrasContent = extrasContent + SYMBOLS.down + ' ';
-					}
-					if (isBuddy(user_id)){
-						extrasClass = extrasClass + ' isBuddy'; // mutual fans
-					}
-					if (isFanOf(user_id)){
-						extrasClass = extrasClass + ' isFanOf'; // you are a fan of
-					}
-					if (now - _idleTimers[user_id] > IDLE_MAX){
-						$this.find('.guestAvatar').css('-webkit-filter','grayscale(100%)');
-						extrasClass = extrasClass + ' isIdle';
-					}
-					else{
-						$this.find('.guestAvatar').css('-webkit-filter','grayscale(0%)');
-					}
-					var extras = $this.find('.guestExtras');
-					if (extras.length){
-						extras.html(extrasContent);
-					}
-					else{
-						$name.after($('<span class="guestExtras" style="font-weight:bold; font-size:14px;">'+extrasContent+'</span>'));
-					}
-					var idle = $this.find('.guestIdle');
-					var idleText = formatTimeDelta(_idleTimers[user_id]);
-					if (idle.length){
-						idle.html(idleText);
-					}
-					else{
-						$name.after('<div class="guestIdle" style="position: absolute; bottom: 0px; right: 5px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
-					}
-					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
-				}
-			});
-			//guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
-			//guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
-			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
-			
-			guests.filter('.isIdle').appendTo(guest_container); 
-			
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'Audience';
-			}).prependTo(guest_container);
-			
-			//guests.filter('.isFanOf').prependTo(guest_container);
-			//if ($('#ttxGuestsFanOfSeparator').length===0){
-			//	$('<div class="separator" id="ttxGuestsFanOfSeparator"><div class="text">Idols</div></div>').prependTo(guest_container);
-			//}
-			//else{
-			//	$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
-			//}
-			
-			guests.filter('.isBuddy').prependTo(guest_container);
-			if ($('#ttxGuestsBuddiesSeparator').length===0){
-				$('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
-			}
-			else{
-				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
-			}
-			
-			
-			guests.filter('.isMod').prependTo(guest_container); 
-			guests.filter('.isSuper').prependTo(guest_container);
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'Moderators';
-			}).prependTo(guest_container);
-
-			//if ($('#ttxGuestsModSeparator').length===0){
-			//	$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
-			//}
-			//else{
-			//	$('#ttxGuestsModSeparator').prependTo(guest_container);
-			//}
-
-			
-			
-		        guests.filter('.isDJ').prependTo(guest_container); 
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'DJs';
-			}).prependTo(guest_container);
-		
-			}, 50);
-	}
-	function formatTimeDelta(date) {
-			var curdate = new Date().getTime();
-			curdate = Math.round(curdate / 1000);
-			if (!date.length) date = date.toString();
-			if (date.length == 10) date = parseInt(date);
-			else if (date.length == 13) date = parseInt(parseInt(date) / 1000);
-			else date = Math.round(Date.parse(date) / 1000);
-			var diff = Math.abs(date - curdate);
-			// get minutes
-			if ((diff / 60) >= 1) {
-				var min = Math.floor(diff / 60);
-				var sec = diff - (min * 60);
-			} else {
-				var min = '00';
-				var sec = diff;
-			}
-
-			min = min.toString();
-			sec = sec.toString();
-			if (min.length < 2) {
-				min = '0' + min;
-			}
-			if (sec.length < 2) {
-				sec = '0' + sec;
-			}
-			return min + ':' + sec;
-	}
 	function onVote(e){
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
@@ -1235,12 +715,6 @@ window.TTX = null;
 	
 	}
 	
-	function addChat(image,speaker,afterSpeaker,content){
-		afterSpeaker = afterSpeaker || '';
-		content = content || '';
-		var chatContainer = $('.messages');
-		$('<div class="message"><div class="avatar" style="background-image: url('+image+');"></div><div class="speaker" style="display:inline-block">'+speaker+'</div><div class="afterSpeaker" style="display:inline-block; margin-left:5px">'+afterSpeaker+'</div><div class="textContainer">' + content + '</div></div>').appendTo(chatContainer);
-	}
 	function onHeart(e){
 		var now = new Date().getTime();
 		if (typeof _hearts[e.userid] === 'undefined'){ // new heart
@@ -1249,7 +723,7 @@ window.TTX = null;
 		}
 		_idleTimers[e.userid] = now;
 		var name = _users[e.userid];
-		addChat('http://turntablex.com/images/heart.png',name,'saved this song');
+		addChatMessage('http://turntablex.com/images/heart.png',name,'saved this song');
 	}
 	function onChat(e){
 		var now = new Date().getTime();
@@ -1308,19 +782,688 @@ window.TTX = null;
 	    }
 	    updateGuests(); // update guest list every time something happens
         }
-        
+	function onResize(){
+		var width = 0;
+		$('#ttx-panels .ttx-panel').each(function(){
+			if ($(this).hasClass('full') === false){
+				width += (PANEL_WIDTH+PANEL_PADDING);
+			}
+		});
+		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING;
+		
+		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
+	}
+
+// END LISTENERS
+
+// INTERFACE
+		// update guest list (UI)
+	var guestsTimer = null;
+	function updateGuests(){
+		if (typeof guestsTimer == "number") {
+			clearTimeout(guestsTimer);
+			guestsTimer = null;
+		}
+
+		// attempt to repaint the DOM in 50 ms unless cancelled
+		guestsTimer = setTimeout(function() {
+			// get the current time
+			var now = new Date().getTime();
+
+			// update the chat box
+			var guest_container = $('.guest-list-container .guests');
+			var guests = $('.guest-list-container .guest');
+			var hasBuddies = false;
+			guests.each(function() {
+				var $this = $(this);
+				var $name = $this.find('.guestName');
+				var username = $name.text();
+				if (typeof _usernames[username] != 'undefined') {
+					var user_id = _usernames[username];
+					// update extra classes and idle time
+					var icons = '';
+					var extrasClass = ' ';
+					if (isMod(user_id)){
+						extrasClass = extrasClass + ' isMod';
+						icons = icons + ICONS.mod;
+					}
+					if ($this.find('.icon.superuser').length){
+						extrasClass = extrasClass + ' isSuper';
+						icons = icons + ICONS.superuser;
+					}
+					if (isDJ(user_id)){
+						extrasClass = extrasClass + ' isDJ'; 
+					}
+					if (isCurrentDJ(user_id)){
+						extrasClass = extrasClass + ' isCurrentDJ';
+					}
+					if (isBuddy(user_id)){
+						if (extrasClass === ' '){
+							hasBuddies = true;
+						}
+						extrasClass = extrasClass + ' isBuddy'; // mutual fans
+						
+					}
+					if (isHearter(user_id)){
+						extrasClass = extrasClass + ' isHearter';
+						icons = icons + ICONS.heart;
+					}
+					if (isUpvoter(user_id)){
+						extrasClass = extrasClass + ' isUpvoter';
+						icons = icons + ICONS.up;
+					}
+					if (isDownvoter(user_id)){
+						extrasClass = extrasClass + ' isDownvoter';
+						icons = icons + ICONS.down;
+					}
+					
+					if (isFanOf(user_id)){
+						extrasClass = extrasClass + ' isFanOf'; // you are a fan of
+						icons = icons + ICONS.fanned;
+					}
+					if (now - _idleTimers[user_id] > IDLE_MAX){
+						$this.find('.guest-avatar').css('-webkit-filter','grayscale(100%)');
+						extrasClass = extrasClass + ' isIdle';
+					}
+					else{
+						$this.find('.guest-avatar').css('-webkit-filter','grayscale(0%)');
+					}
+					var iconDiv = $this.find('.icons');
+					iconDiv.html(icons);
+					
+					var idle = $this.find('.guestIdle');
+					var idleText = formatTimeDelta(_idleTimers[user_id]);
+					if (idle.length){
+						idle.html(idleText);
+					}
+					else{
+						$name.after('<div class="guestIdle" style="position: absolute; bottom: 0px; right: 5px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
+					}
+					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
+				}
+			});
+			//guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
+			//guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
+			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
+			
+			guests.filter('.isIdle').appendTo(guest_container); 
+			
+			$('.guest-list-container .separator').filter(function(x){
+				return $(this).find('.text')[0].innerHTML === 'Audience';
+			}).prependTo(guest_container);
+			
+			//guests.filter('.isFanOf').prependTo(guest_container);
+			//if ($('#ttxGuestsFanOfSeparator').length===0){
+			//	$('<div class="separator" id="ttxGuestsFanOfSeparator"><div class="text">Idols</div></div>').prependTo(guest_container);
+			//}
+			//else{
+			//	$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
+			//}
+			
+			guests.filter('.isBuddy').prependTo(guest_container);
+			if ($('#ttxGuestsBuddiesSeparator').length===0){
+				$('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
+			}
+			else{
+				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
+			}
+			if (hasBuddies === false){
+				$('#ttxGuestsBuddiesSeparator').hide();
+			}
+			else{
+				$('#ttxGuestsBuddiesSeparator').show();
+			}
+			
+			guests.filter('.isMod').prependTo(guest_container); 
+			guests.filter('.isSuper').prependTo(guest_container);
+			$('.guest-list-container .separator').filter(function(x){
+				return $(this).find('.text')[0].innerHTML === 'Moderators';
+			}).prependTo(guest_container);
+
+			//if ($('#ttxGuestsModSeparator').length===0){
+			//	$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
+			//}
+			//else{
+			//	$('#ttxGuestsModSeparator').prependTo(guest_container);
+			//}
+
+			
+			
+		        guests.filter('.isDJ').prependTo(guest_container); 
+			$('.guest-list-container .separator').filter(function(x){
+				return $(this).find('.text')[0].innerHTML === 'DJs';
+			}).prependTo(guest_container);
+		
+			}, 50);
+	}
+	// update header (UI)
+	function updateHeader(){
+		var header = $('.room .name');
+		var song_bar = header.find('#ttx-songbar');
+		var text = '(' + _currentSong.upvotes + SYMBOLS.up + ','+ _currentSong.downvotes + SYMBOLS.down + ',' + _currentSong.hearts + SYMBOLS.heart + ') ' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
+		if (song_bar.length){
+			song_bar.html(text);
+		}
+		else{
+			header.text(header.text()+': ');
+			$('<span id="ttx-songbar" style="font-size:14px; font-weight:normal">' + text + '</span>').appendTo(header);
+		}
+	}
+	function updatePanels(){
+           
+        }
+
+	function addWidescreen(){
+	    // make everything widescreen
+	    $('#maindiv').css({minWidth:'1200px'});
+	    $('#outer').css({width:'100%',maxWidth:'100%',maxHeight:'100%'});
+	    $('#turntable').css({maxHeight:'100%',width:'100%',maxWidth:'100%',height:'auto',top:'0px',bottom:'0px',position:'absolute'});
+	    $('#header').css({width:'99%',left:'5px'});
+	    $('#header .name').css({right:'100px'});
+	}
+	var _panels;
+	function dockMaximize(){
+		var name = $(this).text();
+		if(name === 'chat'){
+			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels'));
+		}
+		else{
+			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
+		}
+		$(window).resize();
+		var x = $(this).index();
+		settings.panels[_panels.hidden[x]].hidden = false;
+		settings.panels[_panels.hidden[x]].index = _panels.dock.length; // add to the end
+		_panels.dock[_panels.dock.length] = _panels.hidden[x];
+		_panels.hidden.splice(x,1);
+		if (_panels.hidden.length === 0){
+			$('.ttx-dock-count').css('color','#000');
+			$('#ttx-dock-menu').css('visibility','hidden');
+		}
+		else{
+			$('#ttx-dock-menu').css('visibility','visible');
+		}
+		$('.ttx-dock-count').text(_panels.hidden.length);
+		saveSettings();
+		$('#ttx-dock-').removeClass('hover');
+		$(this).remove();
+		
+		
+	}
+	
+	function addPanels(){
+	     _panels = { dock: [], float: [], hidden: [], hiddens:  {} };
+
+
+		for (var i in settings.panels){
+			if(!settings.panels.hasOwnProperty(i)){
+				continue;
+			}
+			if (settings.panels[i].hidden === true){
+				_panels.hidden.push(i);
+			}
+			else if (settings.panels[i].type === 'docked'){
+				
+				_panels.dock.push({index:settings.panels[i].index, name:i});
+			}
+			else{
+				_panels.float.push(i);
+			}
+		}
+		_panels.dock.sort(function(a,b){
+			return a.index > b.index;
+		});
+		for (var i=0;i<_panels.dock.length;i++){
+			_panels.dock[i] = _panels.dock[i].name;
+		}
+
+ 	    // add dock area in header
+	    $('#header .info').css('left','160px');
+	    $('#header .logo').after('<div id="ttx-dock-">\
+	    <div class="dropdown-container" id="ttx-dock-container">\
+		<div id="ttx-dock">\
+			<span class="ttx-dock-count">1</span>\
+		</div>\
+		<ul class="floating-menu down" id="ttx-dock-menu">\
+		</ul>\
+	    </div>\
+	    </div>');
+	    $('#ttx-dock').mouseover(function(){
+			$(this).find('.ttx-dock-count').addClass('hover');
+		}).mouseout(function(){
+			$(this).find('.ttx-dock-count').removeClass('hover');
+		}).css('cursor','pointer');;
+	    $('#ttx-dock-').mouseover(function(){
+			$(this).addClass('hover');
+		}).mouseout(function(){
+			$(this).removeClass('hover');
+		});
+	    if (_panels.hidden.length > 0){
+	
+	    	for (var i=0; i<_panels.hidden.length; i++){
+			$('<li class="option">'+_panels.hidden[i]+'</li>').click(dockMaximize).appendTo('#ttx-dock-menu');
+		}
+		$('#ttx-dock-menu').css('visibility','visible');
+	    }
+	    else{
+		$('.ttx-dock-count').css('color','#000');
+	    	$('#ttx-dock-menu').css('visibility','hidden');
+	    }
+	    $('.ttx-dock-count').text(_panels.hidden.length);
+
+		// fix up chat
+	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
+	    $('#chat-input').css({width:'auto',right:'5px'});
+	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
+	    .find('.tab-icon').css('background-position','0px 0px');
+	    
+	    $('#left-panel').hide();
+
+	    // add a panel around the scene
+	    if ($('#ttx-panels-scene').length===0){
+	    	rightPanel.before('<div id="ttx-panels-scene" class="ttx-panel full no-header" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;width:'+PANEL_WIDTH+'px;"></div>');
+	    }
+
+	    $('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
+	    
+	    // add a panel around the room
+	    if ($("#ttx-panels-room").length===0){
+	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;top:auto;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
+	    }
+	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs")
+	    .find('.tab-icon').css('background-position','1px -15px');
+	    
+	    // add a panel around the queue
+	    if ($("#ttx-panels-queue").length===0){
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    }
+	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
+	    $('#playlist-container')
+  	    .find('.tab-icon').css('background-position','0px -31px');
+	    
+
+	    
+	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
+	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:20px"><h2 style="font-size:20px">−</h2></div>'));
+	    $('.ttx-minimize').mousedown(function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var panel = $(this).parents('.ttx-panel');
+			var panelIndex = panel.index();
+
+			var panelName = _panels.dock[panelIndex];
+
+			// add panel entry to the dock
+			$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
+			settings.panels[_panels.dock[panelIndex]].hidden = true;
+			settings.panels[_panels.dock[panelIndex]].index = 4;
+		
+			if(panelName === 'chat'){
+				$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
+			}
+			else{
+				$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($('.roomView'));
+			}
+			$(window).resize();
+			_panels.hidden.push(_panels.dock[panelIndex]);
+			_panels.dock.splice(panelIndex,1);
+			
+			if (_panels.hidden.length === 0){
+				$('.ttx-dock-count').css('color','#000');
+				$('#ttx-dock-menu').css('visibility','hidden');
+			}
+			else{
+				$('.ttx-dock-count').css('color','#F0D438');
+				$('#ttx-dock-menu').css('visibility','visible');
+			}
+			$('.ttx-dock-count').text(_panels.hidden.length);
+			saveSettings();
+		});
+	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
+	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
+	    'cursor': 'pointer',
+            'border-right': 'solid 1px #444'})
+	    .find('h2').css('color','#323232');
+
+	   
+	    if ( _panels.hidden.indexOf('chat') > -1){
+	    	rightPanel.addClass('hidden');
+	    }
+	    if ( _panels.hidden.indexOf('room') > -1){
+	    	$('#ttx-panels-room').addClass('hidden');
+		
+            }
+	    if ( _panels.hidden.indexOf('queue') > -1){
+	 	$('#ttx-panels-queue').addClass('hidden');
+	    }
+	    if ($('#ttx-panels').length === 0){
+		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
+		rightPanel.before(panels);
+		panels = $('#ttx-panels');
+		
+		$('.ttx-panel').each(function(){
+				$(this).mousedown(function(){
+					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+					$(this).addClass('ttx-panel-focus');
+				}).mouseup(function(){
+				
+				});
+				if(!$(this).hasClass('hidden')){
+					$(this).appendTo(panels);	
+				}
+		});
+		for (var i=0; i<_panels.dock.length; i++){
+			if(_panels.dock[i] == 'chat'){
+				$('#right-panel').appendTo(panels);
+			}
+			else{
+				$('#ttx-panels-'+_panels.dock[i]).appendTo(panels);
+			}
+		}
+	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
+		}};
+	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
+		$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
+		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
+			var dragIndex = ui.draggable.index();
+			var dropIndex = $(this).index();
+			var activePanels = $(this).parent().children().length;
+			var delta = dragIndex - dropIndex;
+			var t; // temp
+			if (delta > 0){
+				// move left
+				ui.draggable.data('draggable').offset.click.left -= $(this).width();
+				$(this).before(ui.draggable.detach());
+				
+				t = _panels.dock[dragIndex];
+				for(var i=dragIndex;i>dropIndex;i--){
+					_panels.dock[i] = _panels.dock[i-1];
+				}
+				_panels.dock[dropIndex] = t;
+				// 0 1 2 3, 3 dragged to 1 drop, new order: 0 3 1 2   
+				
+			}
+			else if(delta < 0){
+				ui.draggable.data('draggable').offset.click.left += $(this).width();
+				$(this).after(ui.draggable.detach());
+				t = _panels.dock[dragIndex];
+				for (var i=dragIndex;i<dropIndex;i++){
+					_panels.dock[i] = _panels.dock[i+1]
+				}
+				_panels.dock[dropIndex] = t;
+				// 0 1 2 3, 1 dragged to 3, new order 0 2 3 1
+			}
+			for(var i=0;i<_panels.dock.length;i++){
+					settings.panels[_panels.dock[i]].index = i; 
+				}
+			saveSettings();
+		},out:function(event,ui){
+
+		}});
+	
+	    }
+	    
+	 
+
+	}
+	function addAdvancedSettings(){
+	    var advancedSettings = $('#ttx-advanced');
+	    if (advancedSettings.length === 0){
+	    	$('#settings-dropdown li:contains("Logout")').before('<li class="option" id="ttx-advanced">Advanced</li>')
+	    	$('#ttx-advanced').click(function(){
+	    		_modalHijack.type = 'settings';
+	    		$('#settings-dropdown li:contains("Edit my profile")').click();
+	    	});
+	    }
+	    $('#layout-option').remove();
+	}
+	// add a lptop settings item
+	function addLaptopSettings(){
+		
+		/*
+            if ($('#ttx_laptopMenu').length === 0){
+		updateLaptops();
+            	$('#ttx_laptopMenu').bind('mouseover',function(){
+	    		$(this).children().addClass('hover');
+	    	});
+	    	$('#ttx_laptopMenu').bind('mouseout',function(){
+	    		$(this).children().removeClass('hover');	
+	    	});
+            	$(document).on('mouseover','#ttx_laptopMenu .ttxMenuItem',function(){
+            		$(this).children().addClass('hover');
+            	});
+            	$(document).on('mouseout','#ttx_laptopMenu .ttxMenuItem',function(){
+            		$(this).children().removeClass('hover');
+            	});
+            	$(document).on('click','#ttx_laptopMenu .ttxMenuItem .ttxMenuEdit',function(e){
+            		e.preventDefault();
+            		e.stopPropagation();
+            		_modalHijack.type = 'laptop';
+            		_modalHijack.action = 'edit';
+            		_modalHijack.index = $(this).parent().find('.ttxMenuName').text();
+            		_turntable.sticker.showEditor();
+            	});
+            	$(document).on('click','#ttx_laptopMenu .ttxMenuItem',function(){
+            		if ($(this).hasClass('add')){ // popup laptop dialog
+            			_modalHijack.type = 'laptop';
+            			_modalHijack.action = 'new';
+            			_turntable.sticker.showEditor();
+            			return;
+            		}
+            		if ($(this).hasClass('first')){
+            			return; // don't do anything
+            		}
+            		$(this).parent().children().removeClass('selected');
+            		$(this).addClass('selected');
+            	});
+            }
+            else{
+            	updateLaptops();
+            }*/
+	}
+	// add a message to the chat	
+	function addChatMessage(image,speaker,afterSpeaker,content){
+		afterSpeaker = afterSpeaker || '';
+		content = content || '';
+		var chatContainer = $('.messages');
+		$('<div class="message"><div class="avatar" style="background-image: url('+image+');"></div><div class="speaker" style="display:inline-block">'+speaker+'</div><div class="afterSpeaker" style="display:inline-block; margin-left:5px">'+afterSpeaker+'</div><div class="textContainer">' + content + '</div></div>').appendTo(chatContainer);
+	}
+
+	// perform graphical manipulation
+        function initializeUI(){
+
+	   addWidescreen(); // make it widescreen
+	   addPanels(); // create the room/info panels
+	   addAdvancedSettings(); // create the advanced settings menu entry
+	   addLaptopSettings(); // create the laptop settings button
+	   $(window).resize(); // trigger resize
+        }
+
+// UTILITY
+	var autoVoteTimer = null;
+	function autoVote(evt) {
+			if (settings.autoAwesome === false){
+				if (autoVoteTimer){
+					clearTimeout(autoVoteTimer);
+					autoVoteTimer = null;
+				}
+				return;
+			}
+			if (autoVoteTimer) {
+				clearTimeout(autoVoteTimer);
+				autoVoteTimer = null;
+			}
+			
+			// cast vote at a random delay
+			autoVoteTimer = setTimeout(function() {
+
+				// retrieve room and song data
+				var song_id = evt.room.metadata.current_song._id;
+
+				// need some safety measures
+				var f = $.sha1(_room.roomId + 'up' + song_id);
+				var d = $.sha1(Math.random() + "");
+				var e = $.sha1(Math.random() + "");
+				
+
+				// trigger upvote
+				send({
+					api: 'room.vote',
+					roomid: _room.roomId,
+					val: 'up',
+					vh: f,
+					th: d,
+					ph: e
+				});
+
+			}, randomDelay(5, 10));
+	}
+
+	function randomDelay(min, max) {
+			min = min || 2;
+			max = max || 70;
+			return (Math.random() * max + min) * 1000;
+	}
+	function userCount(){
+		return Object.keys(_users).length;
+	}
+	function isSceneReady(){
+		var scene = $('#scene');
+		if (scene.css('right').charAt(0) === '-' || scene.css('margin-left').charAt(0) === '-'){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	function changeClass(classname,properties){
+		var ss = document.styleSheets;
+        	for (var i=0; i<ss.length; i++) {
+            		var rules = ss[i].cssRules || ss[i].rules;
+            		for (var j=0; j<rules.length; j++) {
+				if (!(rules[j].selectorText))
+					continue;
+                		if (rules[j].selectorText.indexOf(classname) > -1) {
+                    			for (prop in properties){
+						rules[j].style[prop] = properties[prop];
+					}
+					return;
+                		}
+            		}
+        	}
+	}
+	function formatTimeDelta(date) {
+			var curdate = new Date().getTime();
+			curdate = Math.round(curdate / 1000);
+			if (!date.length) date = date.toString();
+			if (date.length == 10) date = parseInt(date);
+			else if (date.length == 13) date = parseInt(parseInt(date) / 1000);
+			else date = Math.round(Date.parse(date) / 1000);
+			var diff = Math.abs(date - curdate);
+			// get minutes
+			if ((diff / 60) >= 1) {
+				var min = Math.floor(diff / 60);
+				var sec = diff - (min * 60);
+			} else {
+				var min = '00';
+				var sec = diff;
+			}
+
+			min = min.toString();
+			sec = sec.toString();
+			if (min.length < 2) {
+				min = '0' + min;
+			}
+			if (sec.length < 2) {
+				sec = '0' + sec;
+			}
+			return min + ':' + sec;
+	}
+	
         function log(message){
             if (window.console){
                 window.console.log(message);
             }
         }
         function reset(){
-            // TODO
+
         }
 	// api send
 	function send(data,callback){
 		TTX.prototype.send(data,callback);
 	}
+
+// END UTILITY
+
+// LAPTOP
+        function updateLaptops(){
+        	var laptops = settings.laptop.stickers.animations;
+            	var selected = settings.laptop.stickers.selected;
+            	var laptopDivs = '';
+            	for (var i in laptops){
+            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '"><span class="ttxMenuName">' + i + '</span><div class="ttxMenuEdit">edit</div></div>';
+            	}
+            	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'<div class="ttxMenuItem add" style="text-align:center;">New Laptop</div>';
+            	if ( $('#ttx_laptopMenu').length === 0){
+            		$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px">'+content+'</div>');
+            	}
+            	else{
+            		$('#ttx_laptopMenu').html(content);
+            	}
+        }
+	
+	var newLaptopAnimation = {};
+	
+	function previewStickers(){
+		if (newLaptopAnimation.selected === newLaptopAnimation.frames.length){ // stop
+			return;
+		}
+		setTimeout(function(){ $('#ttxLaptopScrollRight').click(); previewStickers(); },newLaptopAnimation.speed);
+		
+	}
+	function saveStickers(laptop,animation,selected){
+		animation.frames[selected] = [];
+		var count = 0;
+		laptop.children().each(function(){ // loop over each sticker and save to the array
+			if (count === 20){ // only save the first 20 stickers
+				return;
+			}
+			var stickerDiv = $(this);
+			var sticker_id = $(this).data('sticker_id');
+			var angle = $(this).data('angle');
+			var left = parseInt($(this).css('left').replace(/px/,''));
+			var top = parseInt($(this).css('top').replace(/px/,''));
+			animation.frames[selected].push({sticker_id:sticker_id,angle:angle,left:left,top:top});
+			count += 1;
+		});
+	}
+	
+	function renderStickers(laptop,animation,selected){
+		laptop.children().each(function(){ 
+			if (typeof $(this).attr('id') !== 'undefined'){ // has id => generated by TTX, remove the normal way
+				$(this).remove();
+			}
+			else{ // needs to removed with the bounding box
+				$(this).mouseover(); $('#boundingBoxX').mouseup();	
+			}
+			
+		}); // remove all current stickers
+		
+		for (var i=0; i<animation.frames[selected].length; i++){
+			// create a div of the sticker
+			var sticker = animation.frames[selected][i];
+			var stickerID = sticker.sticker_id;
+			var stickerData = STICKER_MAP[stickerID];
+			var stickerDiv = '<div id="ttxSticker'+i+'" class="sticker" style="background-image:url('+stickerData.url+'); height: '+stickerData.height+'px; width: '+stickerData.width+'px; top: '+sticker.top+'px; left: '+sticker.left+'px; -webkit-transform: rotate('+sticker.angle+'deg); background-position: initial initial; background-repeat: initial initial;"></div>';
+			// add the sticker to the laptop view
+			laptop.append(stickerDiv);
+			// add jquery data for bounding box
+			$('#ttxSticker'+i).data('angle',sticker.angle);
+			$('#ttxSticker'+i).data('sticker_id',stickerID);
+		}
+	}
+
+// END LAPTOP
     }
     TTX.prototype.send = function(data,callback){
     		var msg,
