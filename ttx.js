@@ -965,10 +965,10 @@ window.TTX = null;
 	function dockMaximize(){
 		var name = $(this).text();
 		if(name === 'chat'){
-			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels'));
+			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
 		}
 		else{
-			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
+			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
 		}
 		$(window).resize();
 		var x = $(this).index();
@@ -986,6 +986,8 @@ window.TTX = null;
 		$('.ttx-dock-count').text(_panels.hidden.length);
 		saveSettings();
 		$('#ttx-dock-').removeClass('hover');
+		
+		
 		$(this).remove();
 		
 		
