@@ -1152,7 +1152,14 @@ window.TTX = null;
 					$(this).appendTo(panels);	
 				}
 		});
-		
+		for (var i=0; i<_panels.dock.length; i++){
+			if(_panels.dock[i] == 'chat'){
+				$('#right-panel').appendTo(panels);
+			}
+			else{
+				$('#ttx-panels-'+_panels.dock[i]).appendTo(panels);
+			}
+		}
 	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
 		}};
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
