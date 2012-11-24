@@ -198,7 +198,7 @@ window.TTX = null;
 			
 			'scene':{
 				type: 'docked',
-				index: 0,
+				index: 1,
 				width: 'full',
 				height: '100%',
 				header: false
@@ -206,6 +206,7 @@ window.TTX = null;
 			'queue':{
 			
 				type: 'docked',
+				index: 2,
 				width: 'auto',
 				height: '100%',
 				header: true,
@@ -214,6 +215,7 @@ window.TTX = null;
 			'room':{
 			
 				type: 'docked',
+				index: 0,
 				width: 'auto',
 				height: '100%',
 				header: true,
@@ -221,6 +223,7 @@ window.TTX = null;
 			},
 			'chat':{
 				type: 'docked',
+				index: 3,
 				width: 'auto',
 				height: '100%',
 				header: true,
@@ -295,8 +298,8 @@ window.TTX = null;
 			lstore.set('ttx-settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
-			settings = $.extend(true, {}, defaultSettings, settings);
-			//settings = defaultSettings;
+			//settings = $.extend(true, {}, defaultSettings, settings);
+			settings = defaultSettings;
 			saveSettings();
 		}
 
