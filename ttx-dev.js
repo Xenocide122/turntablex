@@ -1097,7 +1097,7 @@ window.TTX = null;
 				$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($('.roomView'));
 			}
 			$(window).resize();
-			_panels.hidden[_panels.hidden.length] = _panels.dock[panelIndex];
+			_panels.hidden.push(_panels.dock[panelIndex]);
 			_panels.dock.splice(panelIndex,1);
 			
 			if (_panels.hidden.length === 0){
@@ -1106,7 +1106,7 @@ window.TTX = null;
 			}
 			else{
 				$('.ttx-dock-count').css('color','#F0D438');
-				$('#ttx-dock-menu').css('visibility','visible').hide();
+				$('#ttx-dock-menu').css('visibility','visible');
 			}
 			$('.ttx-dock-count').text(_panels.hidden.length);
 
