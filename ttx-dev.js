@@ -984,7 +984,7 @@ window.TTX = null;
 	}
 	
 	function addPanels(){
-	     _panels = { dock: [], float: [], hidden: [], hiddens: {} };
+	     _panels = { dock: [], float: [], hidden: [], hiddens:  {} };
 
 
 		for (var i in settings.panels){
@@ -1117,15 +1117,15 @@ window.TTX = null;
             'border-right': 'solid 1px #444'})
 	    .find('h2').css('color','#323232');
 
-	
-	    if ('chat' in _panels.hidden){
+	   
+	    if ( _panels.hidden.indexOf('chat') > -1){
 	    	rightPanel.addClass('hidden');
 	    }
-	    if ('room' in _panels.hidden){
+	    if ( _panels.hidden.indexOf('room') > -1){
 	    	$('#ttx-panels-room').addClass('hidden');
 		
             }
-	    if ('queue' in _panels.hidden){
+	    if ( _panels.hidden.indexOf('queue') > -1){
 	 	$('#ttx-panels-queue').addClass('hidden');
 	    }
 	    if ($('#ttx-panels').length === 0){
