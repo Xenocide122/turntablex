@@ -1032,11 +1032,16 @@ window.TTX = null;
 			$(this).find('.ttx-dock-count').addClass('hover');
 		}).mouseout(function(){
 			$(this).find('.ttx-dock-count').removeClass('hover');
-		}).css('cursor','pointer');;
+		}).css('cursor','pointer');
+var dockhover;
 	    $('#ttx-dock-').mouseover(function(){
+			if (dockhover){
+				clearTimeout(dockhover);
+				dockhover = null;
+			}
 			$(this).addClass('hover');
 		}).mouseout(function(){
-			$(this).removeClass('hover');
+			dockhover = setTimeout(function(){ $(this).removeClass('hover'); },500);
 		});
 	    if (_panels.hidden.length > 0){
 	
