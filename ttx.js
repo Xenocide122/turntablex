@@ -510,7 +510,7 @@ window.TTX = null;
 	}
 	function scrollChat(){
 			
-		var messages= $('#chat.messages');
+		var messages= $('#chat .messages');
 		messages.scrollTop(messages.prop('scrollHeight'));
 	}
 	function onDOM(e){
