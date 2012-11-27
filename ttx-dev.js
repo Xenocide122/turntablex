@@ -791,7 +791,7 @@ window.TTX = null;
 		var width = 0;
 		$('#ttx-panels .ttx-panel').each(function(){
 			if ($(this).hasClass('full') === false){
-				width += (PANEL_WIDTH+PANEL_PADDING);
+				width += ($(this).width()+PANEL_PADDING);
 			}
 		});
 		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 25;
