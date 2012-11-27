@@ -1519,4 +1519,3 @@ window.TTX = null;
 })();
 
 turntableX = new TTX();
-alert('blh');
