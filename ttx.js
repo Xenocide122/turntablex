@@ -1061,7 +1061,7 @@ window.TTX = null;
 	    $('.ttx-dock-count').text(_panels.hidden.length);
 
 		// fix up chat
-	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'90%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative',marginRight:'0px'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
