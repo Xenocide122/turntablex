@@ -789,7 +789,7 @@ window.TTX = null;
 				width += (PANEL_WIDTH+PANEL_PADDING);
 			}
 		});
-		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 10;
+		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 15;
 		
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
