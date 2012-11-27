@@ -335,7 +335,7 @@ window.TTX = null;
 			}
 		}
                 if (_manager && isSceneReady()){
-		    $(window).unbind('resize').bind('resize',onResize);
+		    $(window).unbind('resize').bind('resize',onResize).resize();
 		    log('Entering room: ' + _location);
 		    log(_room);
 		    log('Found manager');
@@ -507,6 +507,11 @@ window.TTX = null;
 				_downvoters[vote[0]] = 1;
 			}
 		}
+	}
+	function scrollChat(){
+			
+		var messages= $('#chat .messages');
+		messages.scrollTop(messages.prop('scrollHeight'));
 	}
 	function onDOM(e){
 		var $element = $(e.target);
@@ -789,9 +794,10 @@ window.TTX = null;
 				width += (PANEL_WIDTH+PANEL_PADDING);
 			}
 		});
-		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING;
+		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 25;
 		
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
+		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
 
 // END LISTENERS
@@ -958,17 +964,18 @@ window.TTX = null;
 	    $('#maindiv').css({minWidth:'1200px'});
 	    $('#outer').css({width:'100%',maxWidth:'100%',maxHeight:'100%'});
 	    $('#turntable').css({maxHeight:'100%',width:'100%',maxWidth:'100%',height:'auto',top:'0px',bottom:'0px',position:'absolute'});
-	    $('#header').css({width:'99%',left:'5px'});
+	    $('#header').css({width:'98%',left:'5px'});
 	    $('#header .name').css({right:'100px'});
 	}
 	var _panels;
 	function dockMaximize(){
 		var name = $(this).text();
 		if(name === 'chat'){
-			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels'));
+			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
+			scrollChat();
 		}
 		else{
-			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels'));
+			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
 		}
 		$(window).resize();
 		var x = $(this).index();
@@ -986,11 +993,13 @@ window.TTX = null;
 		$('.ttx-dock-count').text(_panels.hidden.length);
 		saveSettings();
 		$('#ttx-dock-').removeClass('hover');
+		
+		
 		$(this).remove();
 		
 		
 	}
-	
+	var dockhover;
 	function addPanels(){
 	     _panels = { dock: [], float: [], hidden: [], hiddens:  {} };
 
@@ -1032,11 +1041,17 @@ window.TTX = null;
 			$(this).find('.ttx-dock-count').addClass('hover');
 		}).mouseout(function(){
 			$(this).find('.ttx-dock-count').removeClass('hover');
-		}).css('cursor','pointer');;
+		}).css('cursor','pointer');
+
 	    $('#ttx-dock-').mouseover(function(){
+			if (dockhover){
+				clearTimeout(dockhover);
+				dockhover = null;
+			}
 			$(this).addClass('hover');
 		}).mouseout(function(){
-			$(this).removeClass('hover');
+			var self = $(this);
+			dockhover = setTimeout(function(){ self.removeClass('hover'); },600);
 		});
 	    if (_panels.hidden.length > 0){
 	
@@ -1052,7 +1067,7 @@ window.TTX = null;
 	    $('.ttx-dock-count').text(_panels.hidden.length);
 
 		// fix up chat
-	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative',marginRight:'0px'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
@@ -1137,7 +1152,7 @@ window.TTX = null;
 	 	$('#ttx-panels-queue').addClass('hidden');
 	    }
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
+		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:35px;overflow:hidden;"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 		
@@ -1165,6 +1180,8 @@ window.TTX = null;
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
 		$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
+			var dragID = ui.draggable.attr('id');
+			var dropID = $(this).attr('id');
 			var dragIndex = ui.draggable.index();
 			var dropIndex = $(this).index();
 			var activePanels = $(this).parent().children().length;
@@ -1196,6 +1213,10 @@ window.TTX = null;
 			for(var i=0;i<_panels.dock.length;i++){
 					settings.panels[_panels.dock[i]].index = i; 
 				}
+			if (dragID === 'right-panel' || dropID === 'right-panel'){
+				scrollChat();
+			}
+			
 			saveSettings();
 		},out:function(event,ui){
 
@@ -1498,3 +1519,4 @@ window.TTX = null;
 })();
 
 turntableX = new TTX();
+alert('blh');
