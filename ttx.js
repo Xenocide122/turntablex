@@ -789,7 +789,7 @@ window.TTX = null;
 				width += (PANEL_WIDTH+PANEL_PADDING);
 			}
 		});
-		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 25;
+		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 5;
 		
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
@@ -1061,7 +1061,7 @@ window.TTX = null;
 	    $('.ttx-dock-count').text(_panels.hidden.length);
 
 		// fix up chat
-	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'90%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
