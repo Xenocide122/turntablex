@@ -789,7 +789,7 @@ window.TTX = null;
 				width += (PANEL_WIDTH+PANEL_PADDING);
 			}
 		});
-		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 10;
+		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 5;
 		
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
@@ -1146,7 +1146,7 @@ window.TTX = null;
 	 	$('#ttx-panels-queue').addClass('hidden');
 	    }
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels" style="float:left;position:absolute;left:0px;right:0px;top:65px;bottom:5px"/>');
+		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:25px;overflow:hidden;"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 		
