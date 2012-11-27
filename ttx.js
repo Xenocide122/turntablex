@@ -508,6 +508,11 @@ window.TTX = null;
 			}
 		}
 	}
+	function scrollChat(){
+			
+		var messages= $('#chat.messages');
+		messages.scrollTop(messages.prop('scrollHeight'));
+	}
 	function onDOM(e){
 		var $element = $(e.target);
 		
@@ -967,6 +972,7 @@ window.TTX = null;
 		var name = $(this).text();
 		if(name === 'chat'){
 			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
+			scrollChat();
 		}
 		else{
 			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
@@ -1205,6 +1211,7 @@ window.TTX = null;
 			for(var i=0;i<_panels.dock.length;i++){
 					settings.panels[_panels.dock[i]].index = i; 
 				}
+			scrollChat();
 			saveSettings();
 		},out:function(event,ui){
 
