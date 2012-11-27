@@ -1180,6 +1180,8 @@ window.TTX = null;
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
 		$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
 		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
+			var dragID = ui.draggable.attr('id');
+			var dropID = $(this).attr('id');
 			var dragIndex = ui.draggable.index();
 			var dropIndex = $(this).index();
 			var activePanels = $(this).parent().children().length;
@@ -1211,7 +1213,10 @@ window.TTX = null;
 			for(var i=0;i<_panels.dock.length;i++){
 					settings.panels[_panels.dock[i]].index = i; 
 				}
-			scrollChat();
+			if (dragID === 'right-panel' || dropID === 'right-panel'){
+				scrollChat();
+			}
+			
 			saveSettings();
 		},out:function(event,ui){
 
