@@ -959,7 +959,7 @@ window.TTX = null;
 	    $('#maindiv').css({minWidth:'1200px'});
 	    $('#outer').css({width:'100%',maxWidth:'100%',maxHeight:'100%'});
 	    $('#turntable').css({maxHeight:'100%',width:'100%',maxWidth:'100%',height:'auto',top:'0px',bottom:'0px',position:'absolute'});
-	    $('#header').css({width:'99%',left:'5px'});
+	    $('#header').css({width:'98%',left:'5px'});
 	    $('#header .name').css({right:'100px'});
 	}
 	var _panels;
