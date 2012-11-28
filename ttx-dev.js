@@ -792,6 +792,51 @@ window.TTX = null;
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
+	function onPanelMinimize(e){
+		e.preventDefault();
+		e.stopPropagation();
+
+		var panelName, panel = $(this).parents('.ttx-panel');
+		if(panel.attr('id') === 'right-panel'){
+			panelName = 'chat';
+		}
+		else{
+			panelName = panel.attr('id').replace('ttx-panels-','');
+		}
+
+
+		// add panel entry to the dock
+		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
+	
+		if(panelName === 'chat'){
+			$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
+		}
+		else{
+			$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($('.roomView'));
+		}
+		if (panelName in _panels.dock){ // dock panel
+			$(window).resize();
+			_panels.dock.splice(panel.index(),1);
+			settings.panels[_panels.dock[panelIndex]].hidden = true;
+		}
+		else{ // float panel
+			delete _panels.float[panelName];
+			settings.panels[_panels.float[panelName]].hidden = true;
+		}
+		_panels.hidden.push(panelName);
+		
+		
+		if (_panels.hidden.length === 0){
+			$('.ttx-dock-count').css('color','#000');
+			$('#ttx-dock-menu').css('visibility','hidden');
+		}
+		else{
+			$('.ttx-dock-count').css('color','#F0D438');
+			$('#ttx-dock-menu').css('visibility','visible');
+		}
+		$('.ttx-dock-count').text(_panels.hidden.length);
+		saveSettings();
+	}
 	function onPanelStop(event,ui){
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){
 			ui.item.css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable({handle:'.floating-panel-tab'}).resizable('destroy').resizable({handles:'n, e, w, s, ne, sw, se, nw'});
@@ -1013,18 +1058,32 @@ window.TTX = null;
 	var _panels;
 	function dockMaximize(){
 		var name = $(this).text();
+		var type = settings.panels[name].type;
+		var container;
+		if (type === 'docked'){
+			container = '#ttx-panels';
+		}
+		else{
+			container = '.roomView';
+		}
 		if(name === 'chat'){
-			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
+			
+			$('#right-panel').removeClass('hidden').appendTo($(container)).mousedown().mouseup();
 			scrollChat();
 		}
 		else{
-			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
+			$('#ttx-panels-'+name).removeClass('hidden').appendTo($(container)).mousedown().mouseup();
 		}
 		$(window).resize();
 		var x = $(this).index();
 		settings.panels[_panels.hidden[x]].hidden = false;
 		settings.panels[_panels.hidden[x]].index = _panels.dock.length; // add to the end
-		_panels.dock[_panels.dock.length] = _panels.hidden[x];
+		if (type === 'docked'){
+			_panels.dock[_panels.dock.length] = _panels.hidden[x];
+		}
+		else{
+			_panels.float[name] = 1;
+		}
 		_panels.hidden.splice(x,1);
 		if (_panels.hidden.length === 0){
 			$('.ttx-dock-count').css('color','#000');
@@ -1035,12 +1094,9 @@ window.TTX = null;
 		}
 		$('.ttx-dock-count').text(_panels.hidden.length);
 		saveSettings();
+		
 		$('#ttx-dock-').removeClass('hover');
-		
-		
 		$(this).remove();
-		
-		
 	}
 	var dockhover;
 	function addPanels(){
@@ -1059,7 +1115,7 @@ window.TTX = null;
 				_panels.dock.push({index:settings.panels[i].index, name:i});
 			}
 			else{
-				_panels.float.push(i);
+				_panels.float[i] = 1;
 			}
 		}
 		_panels.dock.sort(function(a,b){
@@ -1143,40 +1199,7 @@ window.TTX = null;
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:20px"><h2 style="font-size:20px">−</h2></div>'));
-	    $('.ttx-minimize').mousedown(function(e){
-			e.preventDefault();
-			e.stopPropagation();
-			var panel = $(this).parents('.ttx-panel');
-			var panelIndex = panel.index();
-
-			var panelName = _panels.dock[panelIndex];
-
-			// add panel entry to the dock
-			$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
-			settings.panels[_panels.dock[panelIndex]].hidden = true;
-			settings.panels[_panels.dock[panelIndex]].index = 4;
-		
-			if(panelName === 'chat'){
-				$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
-			}
-			else{
-				$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($('.roomView'));
-			}
-			$(window).resize();
-			_panels.hidden.push(_panels.dock[panelIndex]);
-			_panels.dock.splice(panelIndex,1);
-			
-			if (_panels.hidden.length === 0){
-				$('.ttx-dock-count').css('color','#000');
-				$('#ttx-dock-menu').css('visibility','hidden');
-			}
-			else{
-				$('.ttx-dock-count').css('color','#F0D438');
-				$('#ttx-dock-menu').css('visibility','visible');
-			}
-			$('.ttx-dock-count').text(_panels.hidden.length);
-			saveSettings();
-		});
+	    $('.ttx-minimize').mousedown(onPanelMinimize);
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
 	    'cursor': 'pointer',
@@ -1187,27 +1210,39 @@ window.TTX = null;
 	    if ( _panels.hidden.indexOf('chat') > -1){
 	    	rightPanel.addClass('hidden');
 	    }
+	    if ( _panels.float['chat'] ){
+	    	rightPanel.addClass('floating');
+	    }
 	    if ( _panels.hidden.indexOf('room') > -1){
 	    	$('#ttx-panels-room').addClass('hidden');
-		
+            }
+            if ( _panels.float['room']){
+            	$('#ttx-panels-room').addClass('floating');
             }
 	    if ( _panels.hidden.indexOf('queue') > -1){
 	 	$('#ttx-panels-queue').addClass('hidden');
+	    }
+	    if ( _panels.float['queue']){
+	    	$('#ttx-panels-queue').addClass('floating');	
 	    }
 	    if ($('#ttx-panels').length === 0){
 		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:35px;overflow:hidden;"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
-		
+		floating_panels = $('.roomView');
 		$('.ttx-panel').each(function(){
 				$(this).mousedown(function(){
 					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus').css('z-index','3');
 					$(this).addClass('ttx-panel-focus').css('z-index','999');
-				}).mouseup(function(){
-
 				});
+				
 				if(!$(this).hasClass('hidden')){
-					$(this).appendTo(panels);	
+					if($(this).hasClass('floating')){ // add to floating
+						$(this).appendTo(floating_panels);
+					}
+					else{
+						$(this).appendTo(panels);	
+					}
 				}
 		});
 		for (var i=0; i<_panels.dock.length; i++){
