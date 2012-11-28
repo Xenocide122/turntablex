@@ -838,8 +838,33 @@ window.TTX = null;
 		saveSettings();
 	}
 	function onPanelStop(event,ui){
-		if (ui.item.parent().attr('id') !== 'ttx-panels'){
+		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
 			ui.item.css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable({handle:'.floating-panel-tab'}).resizable('destroy').resizable({handles:'n, e, w, s, ne, sw, se, nw'});
+			var id = ui.item.attr('id');
+			var name;
+			if (id === 'right-panel'){
+				name = 'chat';
+			}
+			else{
+				name = id.replace('ttx-panels-','');
+			}
+			_panels.floating[name] = 1;
+			// reset dock
+			_panels.dock = [];
+			var docked = $('#ttx-panels > *');
+			for (var i=0;i<docked.length;i++){
+				var panel_name;
+				if (docked[i].id === 'right-panel'){
+					panel_name = 'chat';
+				}
+				else{
+					panel_name = docked[i].id.replace('ttx-panels-','');
+				}
+				_panels.dock.push(panel_name);
+			}	
+			
+			settings.panels[name].type = 'float';
+			saveSettings();
 		}
 		
 		$(window).resize();
@@ -858,6 +883,7 @@ window.TTX = null;
 				placeholder.css({left:ui.offset.left,top:ui.offset.top});
 			}
 			ui.helper.detach().appendTo('.roomView');
+	
 			$(this).sortable('refresh');
 			
 		}
