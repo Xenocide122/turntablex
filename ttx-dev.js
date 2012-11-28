@@ -1082,7 +1082,7 @@ window.TTX = null;
 	    $('#song-search-input').css({width:'auto',right:'10px'});
 	}
 	var _panels;
-	function dockMaximize(){
+	function onPanelMaximize(){
 		var name = $(this).text();
 		var type = settings.panels[name].type;
 		var container;
@@ -1103,9 +1103,10 @@ window.TTX = null;
 		$(window).resize();
 		var x = $(this).index();
 		settings.panels[_panels.hidden[x]].hidden = false;
-		settings.panels[_panels.hidden[x]].index = _panels.dock.length; // add to the end
+	
 		if (type === 'docked'){
 			_panels.dock[_panels.dock.length] = _panels.hidden[x];
+			settings.panels[_panels.hidden[x]].index = _panels.dock.length; // add to the end
 		}
 		else{
 			_panels.float[name] = 1;
