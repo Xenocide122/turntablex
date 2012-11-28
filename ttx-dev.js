@@ -959,6 +959,7 @@ window.TTX = null;
 	    $('#turntable').css({maxHeight:'100%',width:'100%',maxWidth:'100%',height:'auto',top:'0px',bottom:'0px',position:'absolute'});
 	    $('#header').css({width:'98%',left:'5px'});
 	    $('#header .name').css({right:'100px'});
+	    $('#song-search-input').css({width:'auto',right:'10px'});
 	}
 	var _panels;
 	function dockMaximize(){
