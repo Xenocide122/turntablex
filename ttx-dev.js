@@ -1172,7 +1172,8 @@ window.TTX = null;
 	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
 		}};
 		$('#ttx-panels').sortable({revert:100,placeholder:'placeholder',tolerance:'pointer',scroll:false,handle:'.floating-panel-tab'});
-		$('.ttx-panel').not('#ttx-panels-scene').resizable({handles:'e',minWidth:PANEL_WIDTH}); // make these resizable
+		$('.ttx-panel').not('#ttx-panels-scene').resizable({stop: function(event,ui){$(this).css('height','auto');}, handles:'e',minWidth:PANEL_WIDTH}); // make these resizable
+	    	
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
 		
 		/*$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
