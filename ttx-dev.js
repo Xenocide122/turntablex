@@ -792,6 +792,48 @@ window.TTX = null;
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
+	
+	function onPanelOrderChange(event,ui){
+		var drag = ui.item;
+		var drop = $(this).find('.placeholder');
+		if (drop.length === 0){
+			drop = ui.helper; // try the helper for positiion
+		}
+		var dragID = drag.attr('id');
+		var dropID = ui.helper.attr('id');
+		var dragIndex = drag.index();
+		var dropIndex = drop.index();
+		var activePanels = $(this).children().length;
+		var delta = dragIndex - dropIndex;
+		var t; // temp
+		if (delta > 0){	
+			t = _panels.dock[dragIndex];
+			for(var i=dragIndex;i>dropIndex;i--){
+				_panels.dock[i] = _panels.dock[i-1];
+			}
+			_panels.dock[dropIndex] = t;
+			// 0 1 2 3, 3 dragged to 1 drop, new order: 0 3 1 2   
+				
+		}
+		else if(delta < 0){
+			t = _panels.dock[dragIndex];
+			for (var i=dragIndex;i<dropIndex;i++){
+				_panels.dock[i] = _panels.dock[i+1]
+			}
+			_panels.dock[dropIndex] = t;
+			// 0 1 2 3, 1 dragged to 3, new order 0 2 3 1
+		}
+		// update settings
+		for(var i=0;i<_panels.dock.length;i++){
+			settings.panels[_panels.dock[i]].index = i; 
+		}
+		// scroll the chat down
+		if (dragID === 'right-panel' || dropID === 'right-panel'){
+			scrollChat();
+		}
+			
+		saveSettings();
+	}
 
 // END LISTENERS
 
@@ -1171,7 +1213,7 @@ window.TTX = null;
 		}
 	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
 		}};
-		$('#ttx-panels').sortable({revert:100,placeholder:'placeholder',tolerance:'pointer',scroll:false,handle:'.floating-panel-tab',start:function(event,ui){ var width = ui.helper.width(); $(this).find('.placeholder').width(width); }});
+		$('#ttx-panels').sortable({revert:100,placeholder:'placeholder',tolerance:'pointer',scroll:false,handle:'.floating-panel-tab',start:function(event,ui){ var width = ui.helper.width(); $(this).find('.placeholder').width(width); },change:onPanelOrderChange});
 		$('.ttx-panel').not('#ttx-panels-scene').resizable({stop: function(event,ui){$(this).css({'height':'100%','bottom':'0px','top':'0px'});}, handles:'e',minWidth:PANEL_WIDTH}); // make these resizable
 	    	
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
