@@ -795,6 +795,9 @@ window.TTX = null;
 	
 	function onPanelReorder(event,ui){
 		var new_dock = [];
+		if (ui.item.attr('id')==='right-panel'){
+			scrollChat();
+		}
 		$(this).children().each(function(){
 			var name;
 			if($(this).attr('id') === 'right-panel'){
