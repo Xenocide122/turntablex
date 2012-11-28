@@ -794,45 +794,19 @@ window.TTX = null;
 	}
 	
 	function onPanelReorder(event,ui){
-		var drag = ui.item;
-		var drop = $(this).find('.placeholder');
-		if (drop.length === 0){
-			drop = ui.helper; // try the helper for positiion
-		}
-		var dragID = drag.attr('id');
-		var dropID = ui.helper.attr('id');
-		var dragIndex = drag.index();
-		var dropIndex = drop.index();
-		log(dragIndex + ' ' + dropIndex);
-		var activePanels = $(this).children().length;
-		var delta = dragIndex - dropIndex;
-		var t; // temp
-		if (delta > 0){	
-			t = _panels.dock[dragIndex];
-			for(var i=dragIndex;i>dropIndex;i--){
-				_panels.dock[i] = _panels.dock[i-1];
+		var new_dock = [];
+		$(this).children.each(){
+			var name;
+			if($(this).attr('id') === 'right-panel'){
+				name = 'chat'
 			}
-			_panels.dock[dropIndex] = t;
-			// 0 1 2 3, 3 dragged to 1 drop, new order: 0 3 1 2   
-				
-		}
-		else if(delta < 0){
-			t = _panels.dock[dragIndex];
-			for (var i=dragIndex;i<dropIndex;i++){
-				_panels.dock[i] = _panels.dock[i+1]
+			else{
+				name = $(this).attr('id').replace('ttx-panels-','');
 			}
-			_panels.dock[dropIndex] = t;
-			// 0 1 2 3, 1 dragged to 3, new order 0 2 3 1
+			settings.panels[name].index = $(this).index(); // update the index
+			new_dock.push(name);
 		}
-		// update settings
-		for(var i=0;i<_panels.dock.length;i++){
-			settings.panels[_panels.dock[i]].index = i; 
-		}
-		// scroll the chat down
-		if (dragID === 'right-panel' || dropID === 'right-panel'){
-			scrollChat();
-		}
-			
+		_panels.dock = new_dock;
 		saveSettings();
 	}
 
