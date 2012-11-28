@@ -796,7 +796,7 @@ window.TTX = null;
 		if (!ui.item.parent().attr('id')==='ttx-panels'){
 			ui.item.css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute'});
 		}
-		
+		log(ui.item.parent().attr('id'));
 	}
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
