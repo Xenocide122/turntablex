@@ -812,7 +812,7 @@ window.TTX = null;
 			}
 			ui.helper.detach().appendTo('.roomView');
 			$(this).sortable('refresh');
-
+			$(window).resize();
 		}
 	}
 	function onPanelReorder(event,ui){
