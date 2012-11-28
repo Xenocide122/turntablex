@@ -798,7 +798,7 @@ window.TTX = null;
 			var placeholder = $(this).find('.placeholder');
 			if (placeholder.length){
 				placeholder.detach().appendTo('.roomView');
-				placholder.css({position:'absolute',left:ui.helper.offset().left,top:ui.helper.offset().top});
+				placeholder.css({position:'absolute',left:ui.helper.offset().left,top:ui.helper.offset().top});
 			}
 			else{
 				placeholder = $('.roomView .placeholder');
