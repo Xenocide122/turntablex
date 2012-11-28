@@ -795,8 +795,9 @@ window.TTX = null;
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
 			ui.helper.css('height','300px');
-			ui.helper.detach().appendTo('.roomView').addClass('sortable');
+			
 			$(this).find('.placeholder').remove();
+			ui.helper.detach().appendTo('.roomView').addClass('placeholder');
 			$(this).sortable('refresh');
 
 		}
