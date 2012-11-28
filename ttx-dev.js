@@ -792,7 +792,7 @@ window.TTX = null;
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
-	function onPanelSort(event,ui){
+	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.4 * $('#ttx-panels').height()){
 			ui.helper.css('height','200px');
 			$(this).sortable('destroy');
