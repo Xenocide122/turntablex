@@ -793,7 +793,10 @@ window.TTX = null;
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
 	function onPanelStop(event,ui){
-		log(ui);
+		if (!ui.item.parent().attr('id')==='ttx-panels'){
+			ui.item.css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute'});
+		}
+		
 	}
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
