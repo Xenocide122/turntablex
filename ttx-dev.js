@@ -805,11 +805,11 @@ window.TTX = null;
 			var placeholder = $(this).find('.placeholder');
 			if (placeholder.length){
 				placeholder.detach().appendTo('.roomView');
-				placeholder.css({position:'absolute',left:ui.helper.offset().left,top:ui.helper.offset().top});
+				placeholder.css({position:'absolute',left:ui.offset().left,top:ui.offset().top});
 			}
 			else{
 				placeholder = $('.roomView .placeholder');
-				placeholder.css({left:ui.helper.offset().left,top:ui.helper.offset().top});
+				placeholder.css({left:ui.offset().left,top:ui.offset().top});
 			}
 			ui.helper.detach().appendTo('.roomView');
 			$(this).sortable('refresh');
@@ -817,7 +817,7 @@ window.TTX = null;
 		}
 		else{
 			ui.helper.css('height','100%').detach().appendTo('#ttx-panels');
-			
+			ui.placeholder.css({left:'0px';top:'0px',position:'relative'});
 		}
 		$(window).resize();
 	}
