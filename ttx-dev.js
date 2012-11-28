@@ -1188,7 +1188,7 @@ window.TTX = null;
 		}
 	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
 		}};
-		$('#ttx-panels').sortable({appendTo:document.body,revert:100,placeholder:'placeholder',tolerance:'pointer',scroll:false,handle:'.floating-panel-tab',start:function(event,ui){ var width = ui.helper.width(); $(this).find('.placeholder').width(width); },stop:onPanelReorder});
+		$('#ttx-panels').sortable({appendTo:document.body,revert:100,placeholder:'placeholder',tolerance:'intersect',scroll:false,handle:'.floating-panel-tab',start:function(event,ui){ var width = ui.helper.width(); $(this).find('.placeholder').width(width); },stop:onPanelReorder});
 		$('.ttx-panel').not('#ttx-panels-scene').resizable({stop: function(event,ui){$(this).css({'height':'100%','bottom':'0px','top':'0px'});}, handles:'e',minWidth:PANEL_WIDTH}); // make these resizable
 	    	
 	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
