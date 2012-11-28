@@ -1201,10 +1201,10 @@ window.TTX = null;
 		
 		$('.ttx-panel').each(function(){
 				$(this).mousedown(function(){
-					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus');
-					$(this).addClass('ttx-panel-focus');
+					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus').css('z-index','3');
+					$(this).addClass('ttx-panel-focus').css('z-index','999');
 				}).mouseup(function(){
-				
+
 				});
 				if(!$(this).hasClass('hidden')){
 					$(this).appendTo(panels);	
