@@ -794,7 +794,7 @@ window.TTX = null;
 	}
 	function onPanelStop(event,ui){
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){
-			ui.item.css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable({handle:'.floating-panel-tab'});
+			ui.item.css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable({handle:'.floating-panel-tab'}).resizable('destroy').resizable({handles:'n, e, w, s, ne, sw, se, nw'});
 		}
 		
 		$(window).resize();
