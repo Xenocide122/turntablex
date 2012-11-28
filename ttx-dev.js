@@ -796,6 +796,7 @@ window.TTX = null;
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
 			ui.helper.css('height','300px');
 			ui.helper.detach().appendTo('.roomView');
+			$(this).sortable('cancel');
 		}
 	}
 	function onPanelReorder(event,ui){
