@@ -1201,7 +1201,7 @@ window.TTX = null;
 		
 		$('.ttx-panel').each(function(){
 				$(this).mousedown(function(){
-					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus');
 					$(this).addClass('ttx-panel-focus');
 				}).mouseup(function(){
 				
