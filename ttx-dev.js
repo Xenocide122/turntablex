@@ -817,7 +817,7 @@ window.TTX = null;
 		}
 		else{
 			ui.helper.css('height','100%').detach().appendTo('#ttx-panels');
-			ui.placeholder.css({left:'0px';top:'0px',position:'relative'});
+			ui.placeholder.css({left:'0px',top:'0px',position:'relative'});
 		}
 		$(window).resize();
 	}
