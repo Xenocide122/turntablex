@@ -795,8 +795,9 @@ window.TTX = null;
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
 			ui.helper.css('height','300px');
-			ui.helper.detach().appendTo('.roomView');
-			$(this).sortable('refresh');
+			ui.helper.detach().appendTo('.roomView').draggable();
+			$(this).sortable('destroy');
+
 		}
 	}
 	function onPanelReorder(event,ui){
