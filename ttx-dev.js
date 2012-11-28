@@ -798,7 +798,7 @@ window.TTX = null;
 		$(this).children.each(){
 			var name;
 			if($(this).attr('id') === 'right-panel'){
-				name = 'chat'
+				name = 'chat';
 			}
 			else{
 				name = $(this).attr('id').replace('ttx-panels-','');
