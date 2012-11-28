@@ -800,6 +800,7 @@ window.TTX = null;
 	}
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
+			ui.helper.data('originalHeight',ui.helper.height());
 			ui.helper.css('height','300px');
 			var placeholder = $(this).find('.placeholder');
 			if (placeholder.length){
@@ -813,6 +814,10 @@ window.TTX = null;
 			ui.helper.detach().appendTo('.roomView');
 			$(this).sortable('refresh');
 			$(window).resize();
+		}
+		else{
+			ui.helper.css('height',ui.helper.data('originalHeight'));
+			
 		}
 	}
 	function onPanelReorder(event,ui){
