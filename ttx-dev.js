@@ -793,8 +793,9 @@ window.TTX = null;
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
 	function onPanelStop(event,ui){
+		$(this).destroy();
 		if (ui.helper.css('height') !== '100%'){
-			$(this).sortable('destroy');
+			
 		}
 	}
 	function onPanelMove(event,ui){
