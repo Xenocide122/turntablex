@@ -796,7 +796,7 @@ window.TTX = null;
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){
 			ui.item.css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'});
 		}
-
+		$(window).resize();
 	}
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
@@ -813,12 +813,13 @@ window.TTX = null;
 			}
 			ui.helper.detach().appendTo('.roomView');
 			$(this).sortable('refresh');
-			$(window).resize();
-		}
-		else{
-			ui.helper.css('height',ui.helper.data('originalHeight'));
 			
 		}
+		else{
+			ui.helper.css('height','100%').detach().appendTo('#ttx-panels');
+			
+		}
+		$(window).resize();
 	}
 	function onPanelReorder(event,ui){
 		var new_dock = [];
