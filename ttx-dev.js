@@ -795,9 +795,16 @@ window.TTX = null;
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
 			ui.helper.css('height','300px');
-			
-			$(this).find('.placeholder').remove();
-			ui.helper.detach().appendTo('.roomView').addClass('placeholder');
+			var placeholder = $(this).find('.placeholder');
+			if (placeholder.length){
+				placeholder.detach().appendTo('.roomView');
+				placholder.css({position:'absolute',left:ui.helper.offset().left,top:ui.helper.offset().top});
+			}
+			else{
+				placeholder = $('.roomView .placeholder');
+				placeholder.css({left:ui.helper.offset().left,top:ui.helper.offset().top});
+			}
+			ui.helper.detach().appendTo('.roomView');
 			$(this).sortable('refresh');
 
 		}
