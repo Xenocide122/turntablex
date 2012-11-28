@@ -806,7 +806,7 @@ window.TTX = null;
 
 
 		// add panel entry to the dock
-		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
+		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(onPanelMaximize));
 	
 		if(panelName === 'chat'){
 			$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
@@ -1182,7 +1182,7 @@ window.TTX = null;
 	    if (_panels.hidden.length > 0){
 	
 	    	for (var i=0; i<_panels.hidden.length; i++){
-			$('<li class="option">'+_panels.hidden[i]+'</li>').click(dockMaximize).appendTo('#ttx-dock-menu');
+			$('<li class="option">'+_panels.hidden[i]+'</li>').click(onPanelMaximize).appendTo('#ttx-dock-menu');
 		}
 		$('#ttx-dock-menu').css('visibility','visible');
 	    }
