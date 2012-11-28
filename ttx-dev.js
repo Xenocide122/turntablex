@@ -803,6 +803,7 @@ window.TTX = null;
 		var dropID = ui.helper.attr('id');
 		var dragIndex = drag.index();
 		var dropIndex = drop.index();
+		log(dragIndex + ' ' + dropIndex);
 		var activePanels = $(this).children().length;
 		var delta = dragIndex - dropIndex;
 		var t; // temp
