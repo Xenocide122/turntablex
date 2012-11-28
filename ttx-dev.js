@@ -795,7 +795,7 @@ window.TTX = null;
 	
 	function onPanelReorder(event,ui){
 		var new_dock = [];
-		$(this).children.each(){
+		$(this).children.each(function(){
 			var name;
 			if($(this).attr('id') === 'right-panel'){
 				name = 'chat';
@@ -805,7 +805,7 @@ window.TTX = null;
 			}
 			settings.panels[name].index = $(this).index(); // update the index
 			new_dock.push(name);
-		}
+		});
 		_panels.dock = new_dock;
 		saveSettings();
 	}
