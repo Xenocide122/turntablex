@@ -110,8 +110,6 @@ window.TTX = null;
 		action: '', // new | edit
 		index: 0 // laptop index
 	};
-	// add curCss alias to jquery
-	$.extend($,{ 'curCSS': function(a,c,d,e){ return $.css(a,c,d,e); } });	
 
 
         // global state
