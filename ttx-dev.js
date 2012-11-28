@@ -794,7 +794,7 @@ window.TTX = null;
 	}
 	function onPanelStop(event,ui){
 		if (ui.helper.css('height') !== '100%'){
-			$(this).destroy();
+			$(this).sortable('destroy');
 		}
 	}
 	function onPanelMove(event,ui){
