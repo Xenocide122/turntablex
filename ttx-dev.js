@@ -807,9 +807,9 @@ window.TTX = null;
 
 		// add panel entry to the dock
 		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(onPanelMaximize));
-	
+		$(window).resize();
 		if (panelName in _panels.dock){ // dock panel
-			$(window).resize();
+		
 			_panels.dock.splice(panel.index(),1);
 		}
 		else{ // float panel
