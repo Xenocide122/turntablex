@@ -823,18 +823,18 @@ window.TTX = null;
 			delete _panels.float[panelName];
 			settings.panels[_panels.float[panelName]].hidden = true;
 		}
-		_panels.hidden.push(panelName);
-		
-		
-		if (_panels.hidden.length === 0){
-			$('.ttx-dock-count').css('color','#000');
-			$('#ttx-dock-menu').css('visibility','hidden');
+		_panels.hidden[panelName] = 1;
+		var hiddens = 0;
+		for (var i in _panels.hidden){
+			if (_panels.hidden.hasOwnProperty(i)){
+				hiddens += 1;
+			}
 		}
-		else{
-			$('.ttx-dock-count').css('color','#F0D438');
-			$('#ttx-dock-menu').css('visibility','visible');
-		}
-		$('.ttx-dock-count').text(_panels.hidden.length);
+		
+	
+		$('.ttx-dock-count').css('color','#F0D438');
+		$('#ttx-dock-menu').css('visibility','visible');
+		$('.ttx-dock-count').text(hiddens);
 		saveSettings();
 	}
 	function onPanelStop(event,ui){
@@ -1086,40 +1086,67 @@ window.TTX = null;
 		var name = $(this).text();
 		var type = settings.panels[name].type;
 		var container;
+		var panel;
+
+		if(name === 'chat'){
+			panel = $('#right-panel');	
+		}
+		else{
+			panel = $('#ttx-panels-'+name);
+		}
+
+		settings.panels[name]].hidden = false;
 		if (type === 'docked'){
 			container = '#ttx-panels';
-		}
-		else{
-			container = '.roomView';
-		}
-		if(name === 'chat'){
+			var index = settings.panels[name].index;
+			if (index >= _panels.dock.length){ // append to the end
+				settings.panels[name].index = _panels.dock.length;
+			}
+			else { // put it in place and increment the others
+				
+			}
+			panel.removeClass('hidden').appendTo($(container)).mousedown().mouseup();
 			
-			$('#right-panel').removeClass('hidden').appendTo($(container)).mousedown().mouseup();
+			// refresh the dock
+			_panels.dock = [];
+			$('#ttx-panels > *').each(function(){
+				var panel_name;
+				if ($(this).attr('id') === 'right-panel'){
+					panel_name = 'chat';
+				}
+				else{
+					panel_name = $(this).attr('id').replace('ttx-panels-','');
+				}
+				_panels.dock.push(panel_name);
+			});
+			
+			
+			$(window).resize();
+		}
+		else{ 
+			container = '.roomView';
+			_panels.float[name] = 1;
+			panel.removeClass('hidden').appendTo($(container)).mousedown().mouseup();
+		}
+		if (name === 'chat'){
 			scrollChat();
 		}
-		else{
-			$('#ttx-panels-'+name).removeClass('hidden').appendTo($(container)).mousedown().mouseup();
+		
+		delete _panels.hidden[name];
+		var hiddens = 0;
+		for (var i in _panels.hidden){
+			if (_panels.hidden.hasOwnProperty(i)){
+				hiddens += 1;
+			}
 		}
-		$(window).resize();
-		var x = $(this).index();
-		settings.panels[_panels.hidden[x]].hidden = false;
-	
-		if (type === 'docked'){
-			_panels.dock[_panels.dock.length] = _panels.hidden[x];
-			settings.panels[_panels.hidden[x]].index = _panels.dock.length; // add to the end
-		}
-		else{
-			_panels.float[name] = 1;
-		}
-		_panels.hidden.splice(x,1);
-		if (_panels.hidden.length === 0){
+		if (hiddens === 0){
 			$('.ttx-dock-count').css('color','#000');
 			$('#ttx-dock-menu').css('visibility','hidden');
 		}
 		else{
 			$('#ttx-dock-menu').css('visibility','visible');
 		}
-		$('.ttx-dock-count').text(_panels.hidden.length);
+		$('.ttx-dock-count').text(hiddens);
 		saveSettings();
 		
 		$('#ttx-dock-').removeClass('hover');
@@ -1128,14 +1155,14 @@ window.TTX = null;
 	var dockhover;
 	function addPanels(){
 	     _panels = { dock: [], float: [], hidden: [], hiddens:  {} };
-
-
+	     hiddens = 0;
 		for (var i in settings.panels){
 			if(!settings.panels.hasOwnProperty(i)){
 				continue;
 			}
 			if (settings.panels[i].hidden === true){
-				_panels.hidden.push(i);
+				_panels.hidden[i] = 1;
+				hiddens += 1;
 			}
 			else if (settings.panels[i].type === 'docked'){
 				
@@ -1179,10 +1206,12 @@ window.TTX = null;
 			var self = $(this);
 			dockhover = setTimeout(function(){ self.removeClass('hover'); },600);
 		});
-	    if (_panels.hidden.length > 0){
+	    if (hiddens > 0){
 	
-	    	for (var i=0; i<_panels.hidden.length; i++){
-			$('<li class="option">'+_panels.hidden[i]+'</li>').click(onPanelMaximize).appendTo('#ttx-dock-menu');
+	    	for (var i in _panels.hidden){
+	    		if(_panels.hidden.hasOwnProperty(i)){
+	    			$('<li class="option">'+i+'</li>').click(onPanelMaximize).appendTo('#ttx-dock-menu');
+	    		}
 		}
 		$('#ttx-dock-menu').css('visibility','visible');
 	    }
@@ -1190,7 +1219,7 @@ window.TTX = null;
 		$('.ttx-dock-count').css('color','#000');
 	    	$('#ttx-dock-menu').css('visibility','hidden');
 	    }
-	    $('.ttx-dock-count').text(_panels.hidden.length);
+	    $('.ttx-dock-count').text(hiddens);
 
 		// fix up chat
 	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative',marginRight:'0px'}).addClass('ttx-panel');
@@ -1234,19 +1263,19 @@ window.TTX = null;
 	    .find('h2').css('color','#323232');
 
 	   
-	    if ( _panels.hidden.indexOf('chat') > -1){
+	    if ( _panels.hidden['chat']){
 	    	rightPanel.addClass('hidden');
 	    }
 	    if ( _panels.float['chat'] ){
 	    	rightPanel.addClass('floating');
 	    }
-	    if ( _panels.hidden.indexOf('room') > -1){
+	    if ( _panels.hidden['room']){
 	    	$('#ttx-panels-room').addClass('hidden');
             }
             if ( _panels.float['room']){
             	$('#ttx-panels-room').addClass('floating');
             }
-	    if ( _panels.hidden.indexOf('queue') > -1){
+	    if ( _panels.hidden['queue']){
 	 	$('#ttx-panels-queue').addClass('hidden');
 	    }
 	    if ( _panels.float['queue']){
