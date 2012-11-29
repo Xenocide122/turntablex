@@ -859,6 +859,8 @@ window.TTX = null;
 	}
 	var floatingPanelDraggable = {handle:'.floating-panel-tab'};
 	var floatingPanelResizable = {minWidth:PANEL_WIDTH,minHeight:PANEL_WIDTH,handles:'n, e, w, s, ne, sw, se, nw'};
+	var dockedPanelResizable = {stop: function(event,ui){$(this).css({'height':'100%','bottom':'0px','top':'0px'});}, handles:'e',minWidth:PANEL_WIDTH};
+	
 	function onPanelStop(event,ui){
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
 			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable(floatingPanelDraggable).resizable('destroy').resizable(floatinPanelResizable);
@@ -1342,68 +1344,13 @@ window.TTX = null;
 						$(this).appendTo(floating_panels).resizable(floatingPanelResizable).draggable(floatingPanelDraggable);
 					}
 					else{
-						$(this).appendTo(panels);	
+						$(this).appendTo(panels).resizable(dockedPanelResizable);	
 					}
 				}
 		});
-		for (var i=0; i<_panels.dock.length; i++){
-			if(_panels.dock[i] == 'chat'){
-				$('#right-panel').appendTo(panels);
-			}
-			else{
-				$('#ttx-panels-'+_panels.dock[i]).appendTo(panels);
-			}
-		}
-	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
-		}};
 		$('#ttx-panels').sortable({ update:onPanelStop, sort:onPanelMove, appendTo:document.body,revert:100,placeholder:'placeholder',tolerance:'intersect',scroll:false,handle:'.floating-panel-tab',start:function(event,ui){ var width = ui.helper.width(); $(this).find('.placeholder').width(width); },stop:onPanelReorder});
-		$('.ttx-panel').not('#ttx-panels-scene').resizable({stop: function(event,ui){$(this).css({'height':'100%','bottom':'0px','top':'0px'});}, handles:'e',minWidth:PANEL_WIDTH}); // make these resizable
 	    	
-	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
-		
-		/*$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
-		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
-			var dragID = ui.draggable.attr('id');
-			var dropID = $(this).attr('id');
-			var dragIndex = ui.draggable.index();
-			var dropIndex = $(this).index();
-			var activePanels = $(this).parent().children().length;
-			var delta = dragIndex - dropIndex;
-			var t; // temp
-			if (delta > 0){
-				// move left
-				ui.draggable.data('draggable').offset.click.left -= $(this).width();
-				$(this).before(ui.draggable.detach());
-				
-				t = _panels.dock[dragIndex];
-				for(var i=dragIndex;i>dropIndex;i--){
-					_panels.dock[i] = _panels.dock[i-1];
-				}
-				_panels.dock[dropIndex] = t;
-				// 0 1 2 3, 3 dragged to 1 drop, new order: 0 3 1 2   
-				
-			}
-			else if(delta < 0){
-				ui.draggable.data('draggable').offset.click.left += $(this).width();
-				$(this).after(ui.draggable.detach());
-				t = _panels.dock[dragIndex];
-				for (var i=dragIndex;i<dropIndex;i++){
-					_panels.dock[i] = _panels.dock[i+1]
-				}
-				_panels.dock[dropIndex] = t;
-				// 0 1 2 3, 1 dragged to 3, new order 0 2 3 1
-			}
-			for(var i=0;i<_panels.dock.length;i++){
-					settings.panels[_panels.dock[i]].index = i; 
-				}
-			if (dragID === 'right-panel' || dropID === 'right-panel'){
-				scrollChat();
-			}
-			
-			saveSettings();
-		},out:function(event,ui){
 
-		}});*/
 	
 	    }
 	    
