@@ -1282,7 +1282,7 @@ window.TTX = null;
 	    	$('#ttx-panels-queue').addClass('float');	
 	    }
 	    if ($('#ttx-panels').length === 0){
-		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:35px;overflow:hidden;"/>');
+		var panels = $('<div id="ttx-panels" style="z-index:999;position:absolute;left:0px;right:0px;top:65px;bottom:35px;overflow:hidden;"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
 		floating_panels = $('.roomView');
