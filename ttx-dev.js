@@ -1154,7 +1154,7 @@ window.TTX = null;
 	}
 	var dockhover;
 	function addPanels(){
-	     _panels = { dock: [], float: [], hidden: [], hiddens:  {} };
+	     _panels = { dock: [], float: {}, hidden: {}};
 	     hiddens = 0;
 		for (var i in settings.panels){
 			if(!settings.panels.hasOwnProperty(i)){
