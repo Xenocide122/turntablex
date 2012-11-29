@@ -816,7 +816,8 @@ window.TTX = null;
 		settings.panels[panelName].height = '100%';
 		settings.panels[panelName].left = 0;
 		settings.panels[panelName].right = 0;
-		
+		settings.panels[panelName].top = 0;
+		settings.panels[panelName].bottom = 0;
 		// push it into the dock
 		var target;
 		$('#ttx-panels .ttx-panel').each(function(){
