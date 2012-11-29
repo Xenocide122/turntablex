@@ -1338,17 +1338,25 @@ window.TTX = null;
 					if ($(this).attr('id') !== 'ttx-panels-scene')
 						$(this).addClass('ttx-panel-focus');
 				});
-				var container = $(this).hasClass('float') ? floating_panels : panels;
+			
 				if($(this).hasClass('float')){ // add to floating
 					$(this).resizable(floatingPanelResizable).draggable(floatingPanelDraggable);
+					$(this).appendTo(floating_panels);
 				}
 				else{
 					$(this).resizable(dockedPanelResizable);	
 				}
-				if(!$(this).hasClass('hidden')){
-					$(this).appendTo(container);
-				}
 		});
+		for (var i=0;i<_panels.dock.length;i++){
+			var target, name = _panels.dock[i];
+			if (name === 'chat'){
+				target = $('#right-panel');
+			}
+			else{
+				target = $('#ttx-panels-'+name);
+			}
+			target.appendTo(panels);
+		}
 		$('#ttx-panels').sortable({ update:onPanelStop, sort:onPanelMove, appendTo:document.body,revert:100,placeholder:'placeholder',tolerance:'intersect',scroll:false,handle:'.floating-panel-tab',start:function(event,ui){ var width = ui.helper.width(); $(this).find('.placeholder').width(width); },stop:onPanelReorder});
 	    	
 
