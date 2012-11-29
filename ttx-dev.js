@@ -818,18 +818,19 @@ window.TTX = null;
 		settings.panels[panelName].right = 0;
 		
 		// push it into the dock
-		var stop = false;
+		var target;
 		$('#ttx-panels .ttx-panel').each(function(){
-			log('my offset is '+$(this).offset().left + ' other is ' + panel.offset().left);
-			if (stop === false && $(this).offset().left > panel.offset().left){
-				$(this).before(panel.detach());
-				stop = true;	
+			
+			if (typeof(target) === 'undefined' && $(this).offset().left > panel.offset().left){
+				target = $(this);	
 			} 	
 		});
-		if (stop === false){ // add it into the dock at the end
+		if (typeof(target) === 'undefined'){ // add it into the dock at the end
 			panel.appendTo($('#ttx-panels'));
 		}
-		
+		else{
+			target.before(panel.detach());
+		}
 		// remove from float manager
 		delete _panels.float[panelName];
 		// reset dock manager
