@@ -825,7 +825,9 @@ window.TTX = null;
 				stop = true;	
 			} 	
 		});
-		
+		if (!stop){ // add it into the dock at the end
+			panel.appendTo($('#ttx-panels'));
+		}
 		
 		// remove from float manager
 		delete _panels.float[panelName];
