@@ -192,6 +192,8 @@ window.TTX = null;
 				type: 'docked',
 				index: 1,
 				width: 'full',
+				left: 0,
+				top: 0,
 				height: '100%',
 				header: false,
 				header: false
@@ -201,6 +203,8 @@ window.TTX = null;
 				type: 'docked',
 				index: 2,
 				width: 'auto',
+				left: 0,
+				top: 0,
 				height: '100%',
 				header: true,
 				hidden: true
@@ -210,6 +214,8 @@ window.TTX = null;
 				type: 'docked',
 				index: 0,
 				width: 'auto',
+				left: 0,
+				top: 0,
 				height: '100%',
 				header: true,
 				hidden:false
@@ -217,6 +223,8 @@ window.TTX = null;
 			'chat':{
 				type: 'docked',
 				index: 3,
+				left: 0,
+				top: 0,
 				width: 'auto',
 				height: '100%',
 				header: true,
@@ -291,8 +299,8 @@ window.TTX = null;
 			lstore.set('ttx-settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
-			settings = $.extend(true, {}, defaultSettings, settings);
-			//settings = defaultSettings;
+			//settings = $.extend(true, {}, defaultSettings, settings);
+			settings = defaultSettings;
 			saveSettings();
 		}
 
@@ -874,7 +882,8 @@ window.TTX = null;
 				}
 				_panels.dock.push(panel_name);
 			}	
-			
+			settings.panels[name].left = parseInt(ui.item.css('left'));
+			settings.panels[name].top = parseInt(ui.item.css('top'));
 			settings.panels[name].type = 'float';
 			settings.panels[name].height = '300px';
 			settings.panels[name].width = ui.item.width();
@@ -1255,7 +1264,7 @@ window.TTX = null;
 	    $('.ttx-dock-count').text(hiddens);
 
 		// fix up chat
-	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:settings.panels.chat.height,marginLeft:'5px',width:(settings.panels.chat.width === 'auto' ? PANEL_WIDTH : settings.panels.chat.width)+'px',left:'auto',float:'left',position:'relative',marginRight:'0px'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({right:'auto',top:settings.panels.chat.top+'px',bottom:'0px',height:settings.panels.chat.height,marginLeft:'5px',width:(settings.panels.chat.width === 'auto' ? PANEL_WIDTH : settings.panels.chat.width)+'px',left:settings.panels.chat.left+'px',float:'left',position:(settings.panels.chat.type==='docked'? 'relative':'absolute'),marginRight:'0px'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
@@ -1271,14 +1280,14 @@ window.TTX = null;
 	    
 	    // add a panel around the room
 	    if ($("#ttx-panels-room").length===0){
-	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.room.height+';top:auto;width:'+(settings.panels.room.width === 'auto' ? PANEL_WIDTH : settings.panels.room.width)+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
+	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="left:'+settings.panels.room.left+'px;position:'+(settings.panels.room.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.room.height+';top:'+settings.panels.room.top+'px;width:'+(settings.panels.room.width === 'auto' ? PANEL_WIDTH : settings.panels.room.width)+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs")
 	    .find('.tab-icon').css('background-position','1px -15px');
 	    
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
-	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.queue.height+';width:'+(settings.panels.queue.width === 'auto' ? PANEL_WIDTH : settings.panels.queue.width)+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="left:'+settings.panels.queue.left+'px;position:'+(settings.panels.queue.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.queue.height+';top:'+settings.panels.queue.top+'px;width:'+(settings.panels.queue.width === 'auto' ? PANEL_WIDTH : settings.panels.queue.width)+'px;><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
 	    $('#playlist-container')
