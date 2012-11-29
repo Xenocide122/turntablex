@@ -291,8 +291,8 @@ window.TTX = null;
 			lstore.set('ttx-settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
-			//settings = $.extend(true, {}, defaultSettings, settings);
-			settings = defaultSettings;
+			settings = $.extend(true, {}, defaultSettings, settings);
+			//settings = defaultSettings;
 			saveSettings();
 		}
 
