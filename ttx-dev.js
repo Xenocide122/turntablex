@@ -865,6 +865,7 @@ window.TTX = null;
 		var name, id = $(this).attr('id');
 		if (id === 'right-panel'){
 			name = 'chat';
+			scrollChat();
 		}
 		else{
 			name = id.replace('ttx-panels-','');
@@ -877,6 +878,7 @@ window.TTX = null;
 		var name, id = $(this).attr('id');
 		if (id === 'right-panel'){
 			name = 'chat';
+			scrollChat();
 		}
 		else{
 			name = id.replace('ttx-panels-','');
