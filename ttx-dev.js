@@ -821,7 +821,7 @@ window.TTX = null;
 		var stop = false;
 		$('#ttx-panels .ttx-panel').each(function(){
 			if (stop === false && $(this).offset().left > panel.offset().left){
-				$(this).after(panel.detach());
+				$(this).before(panel.detach());
 				stop = true;	
 			} 	
 		});
