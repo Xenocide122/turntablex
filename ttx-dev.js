@@ -1101,6 +1101,7 @@ window.TTX = null;
 		if (type === 'docked'){
 			container = $('#ttx-panels');
 			var index = settings.panels[name].index;
+			log('index is ' + index + ' dock len is ' + _panels.dock.length);
 			if (index >= _panels.dock.length){ // append to the end
 				
 				$('#ttx-panels').children().last().after(panel.detach());
