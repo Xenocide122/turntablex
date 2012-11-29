@@ -809,7 +809,6 @@ window.TTX = null;
 		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(onPanelMaximize));
 		var fixDock = false;
 		if (panelName in _panels.float){ // float panel
-			
 			delete _panels.float[panelName];
 		}
 		else{
@@ -833,7 +832,7 @@ window.TTX = null;
 		}
 		if (fixDock){
 			_panels.dock = [];
-			$('#ttx-panels').each(function(){
+			$('#ttx-panels .ttx-panel').each(function(){
 				var name;
 				if ($(this).attr('id')==='right-panel'){
 					name = 'chat';
