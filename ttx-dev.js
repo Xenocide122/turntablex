@@ -1126,7 +1126,7 @@ window.TTX = null;
 				});
 			}
 			panel.removeClass('hidden').mousedown().mouseup();
-			log('unhidden');
+			log(panel);
 			// refresh the dock
 			_panels.dock = [];
 			$('#ttx-panels > *').each(function(){
