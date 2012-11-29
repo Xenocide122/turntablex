@@ -820,7 +820,7 @@ window.TTX = null;
 		// push it into the dock
 		var stop = false;
 		$('#ttx-panels .ttx-panel').each(function(){
-			if (!stop && $(this).offset().left < panel.offset().left){
+			if (!stop && $(this).offset().left > panel.offset().left){
 				$(this).before(panel.detach());
 				stop = true;	
 			} 	
@@ -843,6 +843,7 @@ window.TTX = null;
 			}
 			_panels.dock.push(name);
 		});
+		$(window).resize();
 		saveSettings();
 	}
 	function onPanelMinimize(e){
