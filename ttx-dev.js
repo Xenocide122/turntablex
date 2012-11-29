@@ -1339,7 +1339,7 @@ window.TTX = null;
 						$(this).addClass('ttx-panel-focus');
 				});
 			
-				if($(this).hasClass('float')){ // add to floating
+				if($(this).hasClass('float')){ // add to floating panels
 					$(this).resizable(floatingPanelResizable).draggable(floatingPanelDraggable);
 					$(this).appendTo(floating_panels);
 				}
