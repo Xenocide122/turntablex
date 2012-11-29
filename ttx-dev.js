@@ -857,9 +857,48 @@ window.TTX = null;
 		$('.ttx-dock-count').text(hiddens);
 		saveSettings();
 	}
-	var floatingPanelDraggable = {handle:'.floating-panel-tab'};
-	var floatingPanelResizable = {minWidth:PANEL_WIDTH,minHeight:PANEL_WIDTH,handles:'n, e, w, s, ne, sw, se, nw'};
-	var dockedPanelResizable = {stop: function(event,ui){$(this).css({'height':'100%','bottom':'0px','top':'0px'});}, handles:'e',minWidth:PANEL_WIDTH};
+	var floatingPanelDraggable = { handle:'.floating-panel-tab', stop: onFloatingPanelDrag };
+	var floatingPanelResizable = { minWidth:PANEL_WIDTH,minHeight:PANEL_WIDTH,handles:'n, e, w, s, ne, sw, se, nw',stop: onFloatingPanelResize };
+	var dockedPanelResizable = {stop: onDockedPanelResize, handles:'e',minWidth:PANEL_WIDTH};
+	
+	function onFloatingPanelDrag(event,ui){
+		var name, id = $(this).attr('id');
+		if (id === 'right-panel'){
+			name = 'chat';
+		}
+		else{
+			name = id.replace('ttx-panels-','');
+		}
+		settings.panels[name].top = ui.offset.top;
+		settings.panels[name].left = ui.offset.left;
+		saveSettings();
+	}
+	function onFloatingPanelResize(event,ui){ 
+		var name, id = $(this).attr('id');
+		if (id === 'right-panel'){
+			name = 'chat';
+		}
+		else{
+			name = id.replace('ttx-panels-','');
+		}
+		settings.panels[name].width = ui.size.width;
+		settings.panels[name].height = ui.size.height;
+		settings.panels[name].top = $(this).offset().top;
+		settings.panels[name].left = $(this).offset().left;
+		saveSettings();
+	}
+	function onDockedPanelResize(event,ui){
+		var name, id = $(this).attr('id');
+		if (id === 'right-panel'){
+			name = 'chat';
+		}
+		else{
+			name = id.replace('ttx-panels-','');
+		}
+		$(this).css({'height':'100%','bottom':'0px','top':'0px'});
+		settings.panels[name].width = ui.size.width;
+		saveSettings();
+	}
 	
 	function onPanelStop(event,ui){
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
