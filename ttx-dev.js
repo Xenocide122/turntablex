@@ -1331,7 +1331,7 @@ window.TTX = null;
 		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:35px;overflow:hidden;"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
-		floating_panels = $('.roomView');
+		var floating_panels = $('.roomView');
 		$('.ttx-panel').each(function(){
 				$(this).mousedown(function(){
 					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus');
