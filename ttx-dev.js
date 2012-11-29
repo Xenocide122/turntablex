@@ -812,10 +812,10 @@ window.TTX = null;
 		panel.removeClass('float').draggable('destroy').resizable('destroy').resizable(dockedPanelResizable).css({'height':'100%','position':'relative','top':'0px','bottom':'0px','left':'0px','right':'0px'});
 		
 		// fix settings
-		settings.panels[panelName].type = 'docked'
-		settings.panels[panelName].height = '100%'
-		settings.panels[panelName].left = 0
-		settings.panels[panelName].right = 0
+		settings.panels[panelName].type = 'docked';
+		settings.panels[panelName].height = '100%';
+		settings.panels[panelName].left = 0;
+		settings.panels[panelName].right = 0;
 		
 		// push it into the dock
 		var stop = false;
