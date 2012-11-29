@@ -807,7 +807,7 @@ window.TTX = null;
 
 		// add panel entry to the dock
 		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(onPanelMaximize));
-		$(window).resize();
+		
 		if (panelName in _panels.dock){ // dock panel
 		
 			_panels.dock.splice(panel.index(),1);
@@ -822,6 +822,7 @@ window.TTX = null;
 		else{
 			$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($('.roomView'));
 		}
+		$(window).resize();
 		
 		settings.panels[panelName].hidden = true;
 		_panels.hidden[panelName] = 1;
