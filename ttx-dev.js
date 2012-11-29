@@ -300,7 +300,7 @@ window.TTX = null;
 		} else {
 			// merge config with defaults to ensure no missing params
 			settings = $.extend(true, {}, defaultSettings, settings);
-			settings = defaultSettings;
+			//settings = defaultSettings;
 			saveSettings();
 		}
 
