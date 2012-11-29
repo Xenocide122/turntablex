@@ -1288,8 +1288,9 @@ window.TTX = null;
 		floating_panels = $('.roomView');
 		$('.ttx-panel').each(function(){
 				$(this).mousedown(function(){
-					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus').css('z-index','3');
-					$(this).addClass('ttx-panel-focus').css('z-index','999');
+					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+					if ($(this).attr('id') !== 'ttx-panels-scene')
+						$(this).addClass('ttx-panel-focus');
 				});
 				
 				if(!$(this).hasClass('hidden')){
