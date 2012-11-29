@@ -817,13 +817,12 @@ window.TTX = null;
 		if (panelName in _panels.dock){ // dock panel
 			$(window).resize();
 			_panels.dock.splice(panel.index(),1);
-			settings.panels[_panels.dock[panelIndex]].hidden = true;
 		}
 		else{ // float panel
 			
-			settings.panels[_panels.float[panelName]].hidden = true;
 			delete _panels.float[panelName];
 		}
+		settings.panels[panelName].hidden = true;
 		_panels.hidden[panelName] = 1;
 		var hiddens = 0;
 		for (var i in _panels.hidden){
