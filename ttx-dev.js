@@ -905,7 +905,7 @@ window.TTX = null;
 		$('.ttx-dock-count').text(hiddens);
 		saveSettings();
 	}
-	var floatingPanelDraggable = { handle:'.floating-panel-tab', stop: onFloatingPanelDrag };
+	var floatingPanelDraggable = { containment: '.ttx-panels', handle:'.floating-panel-tab', stop: onFloatingPanelDrag };
 	var floatingPanelResizable = { minWidth:PANEL_WIDTH,minHeight:PANEL_WIDTH,handles:'n, e, w, s, ne, sw, se, nw',stop: onFloatingPanelResize };
 	var dockedPanelResizable = {stop: onDockedPanelResize, handles:'e',minWidth:PANEL_WIDTH};
 	
