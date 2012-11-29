@@ -820,8 +820,8 @@ window.TTX = null;
 		// push it into the dock
 		var target;
 		$('#ttx-panels .ttx-panel').each(function(){
-			
 			if (typeof(target) === 'undefined' && $(this).offset().left > panel.offset().left){
+				log('found target ' + $(this).attr('id'));
 				target = $(this);	
 			} 	
 		});
