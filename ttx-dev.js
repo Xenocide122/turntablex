@@ -820,6 +820,7 @@ window.TTX = null;
 		// push it into the dock
 		var stop = false;
 		$('#ttx-panels .ttx-panel').each(function(){
+			log('my offset is '+$(this).offset().left);
 			if (stop === false && $(this).offset().left > panel.offset().left){
 				$(this).before(panel.detach());
 				stop = true;	
