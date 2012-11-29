@@ -1007,9 +1007,9 @@ window.TTX = null;
 			
 			guests.filter('.isIdle').appendTo(guest_container); 
 			
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'Audience';
-			}).prependTo(guest_container);
+			//$('.guest-list-container .separator').filter(function(x){
+			//	return $(this).find('.text')[0].innerHTML === 'Audience';
+			//}).prependTo(guest_container);
 			
 			//guests.filter('.isFanOf').prependTo(guest_container);
 			//if ($('#ttxGuestsFanOfSeparator').length===0){
