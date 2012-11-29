@@ -1101,12 +1101,13 @@ window.TTX = null;
 		if (type === 'docked'){
 			container = $('#ttx-panels');
 			var index = settings.panels[name].index;
-
+			log('index: ' + index);
 			if (index >= _panels.dock.length){ // append to the end
-				settings.panels[name].index = _panels.dock.length;
+				
 				var child = $('#ttx-panels').children().last();
 				child.after(panel.detach());
-				log('index: ' + index);
+				
+				settings.panels[name].index = _panels.dock.length;
 			}
 			else { // put it in place and increment the others
 				container.find('.ttx-panel').each(function(){
