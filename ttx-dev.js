@@ -1309,22 +1309,22 @@ window.TTX = null;
 	    .find('h2').css('color','#323232');
 
 	   
-	    if ( _panels.hidden['chat']){
+	    if ( settings.panels.chat.hidden ){
 	    	rightPanel.addClass('hidden');
 	    }
-	    if ( _panels.float['chat'] ){
+	    if ( settings.panels.chat.type === 'float' ){
 	    	rightPanel.addClass('float');
 	    }
-	    if ( _panels.hidden['room']){
+	    if ( settings.panels.room.hidden){
 	    	$('#ttx-panels-room').addClass('hidden');
             }
-            if ( _panels.float['room']){
+            if ( settings.panels.room.type === 'float'){
             	$('#ttx-panels-room').addClass('float');
             }
-	    if ( _panels.hidden['queue']){
+	    if (settings.panels.queue.hidden){
 	 	$('#ttx-panels-queue').addClass('hidden');
 	    }
-	    if ( _panels.float['queue']){
+	    if (settings.panels.queue.type === 'float'){
 	    	$('#ttx-panels-queue').addClass('float');	
 	    }
 	    if ($('#ttx-panels').length === 0){
