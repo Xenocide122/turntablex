@@ -1241,6 +1241,7 @@ window.TTX = null;
 	}
 	var dockhover;
 	function addPanels(){
+	     $('#ding-menu').css('z-index',999);
 	     _panels = { dock: [], float: {}, hidden: {}};
 	     hiddens = 0;
 		for (var i in settings.panels){
