@@ -1095,7 +1095,7 @@ window.TTX = null;
 			panel = $('#ttx-panels-'+name);
 		}
 
-		settings.panels[name]].hidden = false;
+		settings.panels[name].hidden = false;
 		if (type === 'docked'){
 			container = '#ttx-panels';
 			var index = settings.panels[name].index;
