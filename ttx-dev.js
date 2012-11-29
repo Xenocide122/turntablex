@@ -1019,25 +1019,25 @@ window.TTX = null;
 			//	$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
 			//}
 			
-			guests.filter('.isBuddy').prependTo(guest_container);
-			if ($('#ttxGuestsBuddiesSeparator').length===0){
-				$('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
-			}
-			else{
-				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
-			}
-			if (hasBuddies === false){
-				$('#ttxGuestsBuddiesSeparator').hide();
-			}
-			else{
-				$('#ttxGuestsBuddiesSeparator').show();
-			}
+			//guests.filter('.isBuddy').prependTo(guest_container);
+			//if ($('#ttxGuestsBuddiesSeparator').length===0){
+			//('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
+			//
+			//se{
+			//('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
+			//
+			// (hasBuddies === false){
+			//('#ttxGuestsBuddiesSeparator').hide();
+			//
+			//e{
+			//	$('#ttxGuestsBuddiesSeparator').show();
+			//}
 			
-			guests.filter('.isMod').prependTo(guest_container); 
-			guests.filter('.isSuper').prependTo(guest_container);
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'Moderators';
-			}).prependTo(guest_container);
+			//guests.filter('.isMod').prependTo(guest_container); 
+			//guests.filter('.isSuper').prependTo(guest_container);
+			//$('.guest-list-container .separator').filter(function(x){
+			//	return $(this).find('.text')[0].innerHTML === 'Moderators';
+			//}).prependTo(guest_container);
 
 			//if ($('#ttxGuestsModSeparator').length===0){
 			//	$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
@@ -1048,10 +1048,10 @@ window.TTX = null;
 
 			
 			
-		        guests.filter('.isDJ').prependTo(guest_container); 
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'DJs';
-			}).prependTo(guest_container);
+		        //guests.filter('.isDJ').prependTo(guest_container); 
+			//$('.guest-list-container .separator').filter(function(x){
+		//		return $(this).find('.text')[0].innerHTML === 'DJs';
+		//	}).prependTo(guest_container);
 		
 			}, 50);
 	}
