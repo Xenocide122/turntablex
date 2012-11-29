@@ -1101,6 +1101,7 @@ window.TTX = null;
 		if (type === 'docked'){
 			container = '#ttx-panels';
 			var index = settings.panels[name].index;
+			log(index);
 			if (index >= _panels.dock.length){ // append to the end
 				settings.panels[name].index = _panels.dock.length;
 			}
