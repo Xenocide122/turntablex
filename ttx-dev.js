@@ -848,7 +848,7 @@ window.TTX = null;
 			else{
 				name = id.replace('ttx-panels-','');
 			}
-			_panels.floating[name] = 1;
+			_panels.float[name] = 1;
 			// reset dock
 			_panels.dock = [];
 			var docked = $('#ttx-panels > *');
@@ -1267,19 +1267,19 @@ window.TTX = null;
 	    	rightPanel.addClass('hidden');
 	    }
 	    if ( _panels.float['chat'] ){
-	    	rightPanel.addClass('floating');
+	    	rightPanel.addClass('float');
 	    }
 	    if ( _panels.hidden['room']){
 	    	$('#ttx-panels-room').addClass('hidden');
             }
             if ( _panels.float['room']){
-            	$('#ttx-panels-room').addClass('floating');
+            	$('#ttx-panels-room').addClass('float');
             }
 	    if ( _panels.hidden['queue']){
 	 	$('#ttx-panels-queue').addClass('hidden');
 	    }
 	    if ( _panels.float['queue']){
-	    	$('#ttx-panels-queue').addClass('floating');	
+	    	$('#ttx-panels-queue').addClass('float');	
 	    }
 	    if ($('#ttx-panels').length === 0){
 		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:35px;overflow:hidden;"/>');
@@ -1293,7 +1293,7 @@ window.TTX = null;
 				});
 				
 				if(!$(this).hasClass('hidden')){
-					if($(this).hasClass('floating')){ // add to floating
+					if($(this).hasClass('float')){ // add to floating
 						$(this).appendTo(floating_panels);
 					}
 					else{
