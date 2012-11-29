@@ -1099,12 +1099,12 @@ window.TTX = null;
 
 		settings.panels[name].hidden = false;
 		if (type === 'docked'){
-			container = '#ttx-panels';
+			container = $('#ttx-panels');
 			var index = settings.panels[name].index;
 
 			if (index >= _panels.dock.length){ // append to the end
 				settings.panels[name].index = _panels.dock.length;
-				panel.appendTo($(container));
+				panel.appendTo(container);
 			}
 			else { // put it in place and increment the others
 				$(container).find('.ttx-panel').each(function(){
@@ -1143,9 +1143,9 @@ window.TTX = null;
 			$(window).resize();
 		}
 		else{ 
-			container = '.roomView';
+			container = $('.roomView');
 			_panels.float[name] = 1;
-			panel.removeClass('hidden').appendTo($(container)).mousedown().mouseup();
+			panel.removeClass('hidden').appendTo(container).mousedown().mouseup();
 		}
 		if (name === 'chat'){
 			scrollChat();
