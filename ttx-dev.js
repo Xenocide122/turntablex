@@ -1219,7 +1219,7 @@ window.TTX = null;
 			}
 		}
 		_panels.dock.sort(function(a,b){
-			return a.index > b.index;
+			return a.index >= b.index;
 		});
 		for (var i=0;i<_panels.dock.length;i++){
 			_panels.dock[i] = _panels.dock[i].name;
