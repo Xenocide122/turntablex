@@ -882,7 +882,7 @@ window.TTX = null;
 			name = id.replace('ttx-panels-','');
 		}
 		settings.panels[name].width = ui.size.width;
-		settings.panels[name].height = ui.size.height;
+		settings.panels[name].height = ui.size.height + 'px';
 		settings.panels[name].top = $(this).offset().top;
 		settings.panels[name].left = $(this).offset().left;
 		saveSettings();
@@ -1323,14 +1323,14 @@ window.TTX = null;
 	    
 	    // add a panel around the room
 	    if ($("#ttx-panels-room").length===0){
-	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="left:'+settings.panels.room.left+'px;position:'+(settings.panels.room.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.room.height+'px;top:'+settings.panels.room.top+'px;width:'+(settings.panels.room.width === 'auto' ? PANEL_WIDTH : settings.panels.room.width)+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
+	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="left:'+settings.panels.room.left+'px;position:'+(settings.panels.room.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.room.height+';top:'+settings.panels.room.top+'px;width:'+(settings.panels.room.width === 'auto' ? PANEL_WIDTH : settings.panels.room.width)+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs")
 	    .find('.tab-icon').css('background-position','1px -15px');
 	    
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
-	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="left:'+settings.panels.queue.left+'px;position:'+(settings.panels.queue.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.queue.height+'px;top:'+settings.panels.queue.top+'px;width:'+(settings.panels.queue.width === 'auto' ? PANEL_WIDTH : settings.panels.queue.width)+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="left:'+settings.panels.queue.left+'px;position:'+(settings.panels.queue.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.queue.height+';top:'+settings.panels.queue.top+'px;width:'+(settings.panels.queue.width === 'auto' ? PANEL_WIDTH : settings.panels.queue.width)+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
 	    $('#playlist-container')
