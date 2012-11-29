@@ -1342,7 +1342,7 @@ window.TTX = null;
 
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
-	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:20px"><h2 class="ttx-controls-dock" style="font-size:26px;">▴</h2><h2 class="ttx-controls-minimize" style="font-size:26px">-</h2></div>'));
+	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:20px"><h2 class="ttx-controls-dock" style="font-size:22px;">▴</h2><h2 class="ttx-controls-minimize" style="font-size:22px">–</h2></div>'));
 	    $('.ttx-controls-minimize').mousedown(onPanelMinimize);
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
