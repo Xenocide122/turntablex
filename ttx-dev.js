@@ -1104,8 +1104,7 @@ window.TTX = null;
 
 			if (index >= _panels.dock.length){ // append to the end
 				settings.panels[name].index = _panels.dock.length;
-				log(container);
-				container.children().last().after(panel.detach());
+				$('#ttx-panels').children().last().after(panel.detach());
 
 			}
 			else { // put it in place and increment the others
