@@ -110,8 +110,6 @@ window.TTX = null;
 		action: '', // new | edit
 		index: 0 // laptop index
 	};
-	// add curCss alias to jquery
-	$.extend($,{ 'curCSS': function(a,c,d,e){ return $.css(a,c,d,e); } });	
 
 
         // global state
@@ -188,19 +186,16 @@ window.TTX = null;
 			}
 			
 		},
-		positions:{
-			scene: 0,
-			queue: 1,
-			room: 2,
-			chat: 3
-		},
 		panels:{
 			
 			'scene':{
 				type: 'docked',
 				index: 1,
 				width: 'full',
+				left: 0,
+				top: 0,
 				height: '100%',
+				header: false,
 				header: false
 			},
 			'queue':{
@@ -208,6 +203,8 @@ window.TTX = null;
 				type: 'docked',
 				index: 2,
 				width: 'auto',
+				left: 0,
+				top: 0,
 				height: '100%',
 				header: true,
 				hidden: true
@@ -217,6 +214,8 @@ window.TTX = null;
 				type: 'docked',
 				index: 0,
 				width: 'auto',
+				left: 0,
+				top: 0,
 				height: '100%',
 				header: true,
 				hidden:false
@@ -224,6 +223,8 @@ window.TTX = null;
 			'chat':{
 				type: 'docked',
 				index: 3,
+				left: 0,
+				top: 0,
 				width: 'auto',
 				height: '100%',
 				header: true,
@@ -791,13 +792,243 @@ window.TTX = null;
 		var width = 0;
 		$('#ttx-panels .ttx-panel').each(function(){
 			if ($(this).hasClass('full') === false){
-				width += (PANEL_WIDTH+PANEL_PADDING);
+				width += ($(this).width()+PANEL_PADDING);
 			}
 		});
 		var sceneWidth = $('#ttx-panels').width() - width - PANEL_PADDING - 25;
 		
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
+	}
+	// docking a floating panel back into the dock
+	function onPanelDock(e){
+		var panelName, panel = $(this).parents('.ttx-panel');
+		if(panel.attr('id') === 'right-panel'){
+			panelName = 'chat';
+		}
+		else{
+			panelName = panel.attr('id').replace('ttx-panels-','');
+		}
+		panel.removeClass('float').draggable('destroy').resizable('destroy').resizable(dockedPanelResizable).css({'height':'100%','position':'relative','top':'0px','bottom':'0px','left':'0px','right':'0px'});
+		
+		// fix settings
+		settings.panels[panelName].type = 'docked';
+		settings.panels[panelName].height = '100%';
+		settings.panels[panelName].left = 0;
+		settings.panels[panelName].right = 0;
+		settings.panels[panelName].top = 0;
+		settings.panels[panelName].bottom = 0;
+		// push it into the dock
+		var target;
+		$('#ttx-panels .ttx-panel').each(function(){
+			if (typeof(target) === 'undefined' && $(this).offset().left > panel.offset().left){
+				log('found target ' + $(this).attr('id'));
+				target = $(this);	
+			} 	
+		});
+		if (typeof(target) === 'undefined'){ // add it into the dock at the end
+			panel.appendTo($('#ttx-panels'));
+		}
+		else{
+			target.before(panel.detach());
+		}
+		// remove from float manager
+		delete _panels.float[panelName];
+		// reset dock manager
+		_panels.dock = [];
+		$('#ttx-panels .ttx-panel').each(function(){
+			var name;
+			if ($(this).attr('id')==='right-panel'){
+				name = 'chat';
+			}
+			else{
+				name = $(this).attr('id').replace('ttx-panels-','');
+			}
+			_panels.dock.push(name);
+		});
+		$(window).resize();
+		saveSettings();
+	}
+	function onPanelMinimize(e){
+		e.preventDefault();
+		e.stopPropagation();
+
+		var panelName, panel = $(this).parents('.ttx-panel');
+		if(panel.attr('id') === 'right-panel'){
+			panelName = 'chat';
+		}
+		else{
+			panelName = panel.attr('id').replace('ttx-panels-','');
+		}
+
+
+		// add panel entry to the dock
+		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(onPanelMaximize));
+		var fixDock = false;
+		if (panelName in _panels.float){ // float panel
+			delete _panels.float[panelName];
+		}
+		else{
+			fixDock = true;
+		}
+		if(panelName === 'chat'){
+			$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
+		}
+		else{
+			$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($('.roomView'));
+		}
+		$(window).resize();
+		
+		settings.panels[panelName].hidden = true;
+		_panels.hidden[panelName] = 1;
+		var hiddens = 0;
+		for (var i in _panels.hidden){
+			if (_panels.hidden.hasOwnProperty(i)){
+				hiddens += 1;
+			}
+		}
+		if (fixDock){
+			_panels.dock = [];
+			$('#ttx-panels .ttx-panel').each(function(){
+				var name;
+				if ($(this).attr('id')==='right-panel'){
+					name = 'chat';
+				}
+				else{
+					name = $(this).attr('id').replace('ttx-panels-','');
+				}
+				_panels.dock.push(name);
+			});
+		}
+	
+		$('.ttx-dock-count').css('color','#F0D438');
+		$('#ttx-dock-menu').css('visibility','visible');
+		$('.ttx-dock-count').text(hiddens);
+		saveSettings();
+	}
+	var floatingPanelDraggable = { containment: '#ttx-panels', handle:'.floating-panel-tab', stop: onFloatingPanelDrag };
+	var floatingPanelResizable = { minWidth:PANEL_WIDTH,minHeight:PANEL_WIDTH,handles:'n, e, w, s, ne, sw, se, nw',stop: onFloatingPanelResize };
+	var dockedPanelResizable = {stop: onDockedPanelResize, handles:'e',minWidth:PANEL_WIDTH};
+	
+	function onFloatingPanelDrag(event,ui){
+		var name, id = $(this).attr('id');
+		if (id === 'right-panel'){
+			name = 'chat';
+			scrollChat();
+		}
+		else{
+			name = id.replace('ttx-panels-','');
+		}
+		settings.panels[name].top = ui.position.top;
+		settings.panels[name].left = ui.position.left;
+		saveSettings();
+	}
+	function onFloatingPanelResize(event,ui){ 
+		var name, id = $(this).attr('id');
+		if (id === 'right-panel'){
+			name = 'chat';
+			scrollChat();
+		}
+		else{
+			name = id.replace('ttx-panels-','');
+		}
+		settings.panels[name].width = ui.size.width;
+		settings.panels[name].height = ui.size.height + 'px';
+		settings.panels[name].top = $(this).offset().top;
+		settings.panels[name].left = $(this).offset().left;
+		saveSettings();
+	}
+	function onDockedPanelResize(event,ui){
+		var name, id = $(this).attr('id');
+		if (id === 'right-panel'){
+			name = 'chat';
+		}
+		else{
+			name = id.replace('ttx-panels-','');
+		}
+		$(this).css({'height':'100%','bottom':'0px','top':'0px'});
+		settings.panels[name].width = ui.size.width;
+		saveSettings();
+	}
+	
+	function onPanelStop(event,ui){
+		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
+			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable(floatingPanelDraggable).resizable('destroy').resizable(floatingPanelResizable);
+			var id = ui.item.attr('id');
+			var name;
+			if (id === 'right-panel'){
+				name = 'chat';
+			}
+			else{
+				name = id.replace('ttx-panels-','');
+			}
+			_panels.float[name] = 1;
+			// reset dock
+			_panels.dock = [];
+			var docked = $('#ttx-panels > *');
+			for (var i=0;i<docked.length;i++){
+				var panel_name;
+				if (docked[i].id === 'right-panel'){
+					panel_name = 'chat';
+				}
+				else{
+					panel_name = docked[i].id.replace('ttx-panels-','');
+				}
+				_panels.dock.push(panel_name);
+			}	
+			settings.panels[name].left = parseInt(ui.item.css('left'));
+			settings.panels[name].top = parseInt(ui.item.css('top'));
+			settings.panels[name].type = 'float';
+			settings.panels[name].height = '300px';
+			settings.panels[name].width = ui.item.width();
+			saveSettings();
+		}
+		
+		$(window).resize();
+	}
+	// during dock sort
+	function onPanelMove(event,ui){
+		if (ui.offset.top > 0.25 * $('#ttx-panels').height()){
+			ui.helper.data('originalHeight',ui.helper.height());
+			ui.helper.css('height','300px');
+			var placeholder = $(this).find('.placeholder');
+			if (placeholder.length){
+				placeholder.detach().appendTo('.roomView');
+				placeholder.css({position:'absolute',left:ui.offset.left,top:ui.offset.top});
+			}
+			else{
+				placeholder = $('.roomView .placeholder');
+				placeholder.css({left:ui.offset.left,top:ui.offset.top});
+			}
+			ui.helper.detach().appendTo('.roomView');
+	
+			$(this).sortable('refresh');
+			
+		}
+		else{
+			ui.helper.css('height','100%').detach().appendTo('#ttx-panels');
+			ui.placeholder.css({left:'0px',top:'0px',position:'relative'});
+		}
+		$(window).resize();
+	}
+	function onPanelReorder(event,ui){
+		var new_dock = [];
+		if (ui.item.attr('id')==='right-panel'){
+			scrollChat();
+		}
+		$(this).children().each(function(){
+			var name;
+			if($(this).attr('id') === 'right-panel'){
+				name = 'chat';
+			}
+			else{
+				name = $(this).attr('id').replace('ttx-panels-','');
+			}
+			settings.panels[name].index = $(this).index(); // update the index
+			new_dock.push(name);
+		});
+		_panels.dock = new_dock;
+		saveSettings();
 	}
 
 // END LISTENERS
@@ -894,9 +1125,9 @@ window.TTX = null;
 			
 			guests.filter('.isIdle').appendTo(guest_container); 
 			
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'Audience';
-			}).prependTo(guest_container);
+			//$('.guest-list-container .separator').filter(function(x){
+			//	return $(this).find('.text')[0].innerHTML === 'Audience';
+			//}).prependTo(guest_container);
 			
 			//guests.filter('.isFanOf').prependTo(guest_container);
 			//if ($('#ttxGuestsFanOfSeparator').length===0){
@@ -906,25 +1137,25 @@ window.TTX = null;
 			//	$('#ttxGuestsFanOfSeparator').prependTo(guest_container);
 			//}
 			
-			guests.filter('.isBuddy').prependTo(guest_container);
-			if ($('#ttxGuestsBuddiesSeparator').length===0){
-				$('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
-			}
-			else{
-				$('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
-			}
-			if (hasBuddies === false){
-				$('#ttxGuestsBuddiesSeparator').hide();
-			}
-			else{
-				$('#ttxGuestsBuddiesSeparator').show();
-			}
+			//guests.filter('.isBuddy').prependTo(guest_container);
+			//if ($('#ttxGuestsBuddiesSeparator').length===0){
+			//('<div class="separator" id="ttxGuestsBuddiesSeparator"><div class="text">Buddies</div></div>').prependTo(guest_container);
+			//
+			//se{
+			//('#ttxGuestsBuddiesSeparator').prependTo(guest_container);
+			//
+			// (hasBuddies === false){
+			//('#ttxGuestsBuddiesSeparator').hide();
+			//
+			//e{
+			//	$('#ttxGuestsBuddiesSeparator').show();
+			//}
 			
-			guests.filter('.isMod').prependTo(guest_container); 
-			guests.filter('.isSuper').prependTo(guest_container);
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'Moderators';
-			}).prependTo(guest_container);
+			//guests.filter('.isMod').prependTo(guest_container); 
+			//guests.filter('.isSuper').prependTo(guest_container);
+			//$('.guest-list-container .separator').filter(function(x){
+			//	return $(this).find('.text')[0].innerHTML === 'Moderators';
+			//}).prependTo(guest_container);
 
 			//if ($('#ttxGuestsModSeparator').length===0){
 			//	$('<div class="separator" id="ttxGuestsModSeparator"><div class="text">Mods</div></div>').prependTo(guest_container);
@@ -935,10 +1166,10 @@ window.TTX = null;
 
 			
 			
-		        guests.filter('.isDJ').prependTo(guest_container); 
-			$('.guest-list-container .separator').filter(function(x){
-				return $(this).find('.text')[0].innerHTML === 'DJs';
-			}).prependTo(guest_container);
+		        //guests.filter('.isDJ').prependTo(guest_container); 
+			//$('.guest-list-container .separator').filter(function(x){
+		//		return $(this).find('.text')[0].innerHTML === 'DJs';
+		//	}).prependTo(guest_container);
 		
 			}, 50);
 	}
@@ -966,61 +1197,121 @@ window.TTX = null;
 	    $('#turntable').css({maxHeight:'100%',width:'100%',maxWidth:'100%',height:'auto',top:'0px',bottom:'0px',position:'absolute'});
 	    $('#header').css({width:'98%',left:'5px'});
 	    $('#header .name').css({right:'100px'});
+	    $('#song-search-input').css({width:'auto',right:'10px'});
 	}
 	var _panels;
-	function dockMaximize(){
+	function onPanelMaximize(){
 		var name = $(this).text();
+		var type = settings.panels[name].type;
+		var container;
+		var panel;
+
 		if(name === 'chat'){
-			$('#right-panel').removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
-			scrollChat();
+			panel = $('#right-panel');	
 		}
 		else{
-			$('#ttx-panels-'+name).removeClass('hidden').appendTo($('#ttx-panels')).mousedown().mouseup();
+			panel = $('#ttx-panels-'+name);
 		}
-		$(window).resize();
-		var x = $(this).index();
-		settings.panels[_panels.hidden[x]].hidden = false;
-		settings.panels[_panels.hidden[x]].index = _panels.dock.length; // add to the end
-		_panels.dock[_panels.dock.length] = _panels.hidden[x];
-		_panels.hidden.splice(x,1);
-		if (_panels.hidden.length === 0){
+
+		settings.panels[name].hidden = false;
+		if (type === 'docked'){
+			container = $('#ttx-panels');
+			var index = settings.panels[name].index;
+			log('index is ' + index + ' dock len is ' + _panels.dock.length);
+			if (index >= _panels.dock.length){ // append to the end
+				
+				$('#ttx-panels').children().last().after(panel.detach());
+				log('detaching panel!');
+				settings.panels[name].index = _panels.dock.length;
+			}
+			else { // put it in place and increment the others
+				container.find('.ttx-panel').each(function(){
+					var panel_name;
+					if ($(this).attr('id')==='right-panel'){
+						panel_name = 'chat';
+					}
+					else{
+						panel_name = $(this).attr('id').replace('ttx-panels-','');
+					}
+					var my_index = $(this).index();
+					if (my_index === index){
+						$(this).before(panel.detach());
+						settings.panels[name].index = my_index;
+						my_index += 1; // incremenet by 1 
+					}
+					settings.panels[panel_name].index = my_index;
+				});
+			}
+			panel.removeClass('hidden').mousedown().mouseup();
+
+			// refresh the dock
+			_panels.dock = [];
+			$('#ttx-panels > *').each(function(){
+				var panel_name;
+				if ($(this).attr('id') === 'right-panel'){
+					panel_name = 'chat';
+				}
+				else{
+					panel_name = $(this).attr('id').replace('ttx-panels-','');
+				}
+				_panels.dock.push(panel_name);
+			});
+			
+			
+			$(window).resize();
+		}
+		else{ 
+			container = $('.roomView');
+			_panels.float[name] = 1;
+			panel.removeClass('hidden').appendTo(container).mousedown().mouseup();
+		}
+		if (name === 'chat'){
+			scrollChat();
+		}
+		
+		delete _panels.hidden[name];
+		var hiddens = 0;
+		for (var i in _panels.hidden){
+			if (_panels.hidden.hasOwnProperty(i)){
+				hiddens += 1;
+			}
+		}
+		if (hiddens === 0){
 			$('.ttx-dock-count').css('color','#000');
 			$('#ttx-dock-menu').css('visibility','hidden');
 		}
 		else{
 			$('#ttx-dock-menu').css('visibility','visible');
 		}
-		$('.ttx-dock-count').text(_panels.hidden.length);
+		$('.ttx-dock-count').text(hiddens);
 		saveSettings();
+		
 		$('#ttx-dock-').removeClass('hover');
-		
-		
 		$(this).remove();
-		
-		
 	}
 	var dockhover;
 	function addPanels(){
-	     _panels = { dock: [], float: [], hidden: [], hiddens:  {} };
-
-
+	     $('#ding-menu').css('z-index',999);
+	     _panels = { dock: [], float: {}, hidden: {}};
+	     hiddens = 0;
 		for (var i in settings.panels){
 			if(!settings.panels.hasOwnProperty(i)){
 				continue;
 			}
 			if (settings.panels[i].hidden === true){
-				_panels.hidden.push(i);
+				_panels.hidden[i] = 1;
+				hiddens += 1;
 			}
 			else if (settings.panels[i].type === 'docked'){
 				
 				_panels.dock.push({index:settings.panels[i].index, name:i});
 			}
 			else{
-				_panels.float.push(i);
+				_panels.float[i] = 1;
 			}
 		}
 		_panels.dock.sort(function(a,b){
-			return a.index > b.index;
+			return a.index >= b.index;
 		});
 		for (var i=0;i<_panels.dock.length;i++){
 			_panels.dock[i] = _panels.dock[i].name;
@@ -1053,10 +1344,12 @@ window.TTX = null;
 			var self = $(this);
 			dockhover = setTimeout(function(){ self.removeClass('hover'); },600);
 		});
-	    if (_panels.hidden.length > 0){
+	    if (hiddens > 0){
 	
-	    	for (var i=0; i<_panels.hidden.length; i++){
-			$('<li class="option">'+_panels.hidden[i]+'</li>').click(dockMaximize).appendTo('#ttx-dock-menu');
+	    	for (var i in _panels.hidden){
+	    		if(_panels.hidden.hasOwnProperty(i)){
+	    			$('<li class="option">'+i+'</li>').click(onPanelMaximize).appendTo('#ttx-dock-menu');
+	    		}
 		}
 		$('#ttx-dock-menu').css('visibility','visible');
 	    }
@@ -1064,10 +1357,10 @@ window.TTX = null;
 		$('.ttx-dock-count').css('color','#000');
 	    	$('#ttx-dock-menu').css('visibility','hidden');
 	    }
-	    $('.ttx-dock-count').text(_panels.hidden.length);
+	    $('.ttx-dock-count').text(hiddens);
 
 		// fix up chat
-	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative',marginRight:'0px'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({right:'auto',top:settings.panels.chat.top+'px',bottom:'0px',height:settings.panels.chat.height,marginLeft:'5px',width:(settings.panels.chat.width === 'auto' ? PANEL_WIDTH : settings.panels.chat.width)+'px',left:settings.panels.chat.left+'px',float:'left',position:(settings.panels.chat.type==='docked'? 'relative':'absolute'),marginRight:'0px'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
@@ -1076,21 +1369,21 @@ window.TTX = null;
 
 	    // add a panel around the scene
 	    if ($('#ttx-panels-scene').length===0){
-	    	rightPanel.before('<div id="ttx-panels-scene" class="ttx-panel full no-header" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;width:'+PANEL_WIDTH+'px;"></div>');
+	    	rightPanel.before('<div id="ttx-panels-scene" class="ttx-panel full no-header" style="position:relative;margin-left:5px;overflow:hidden;float:left;height:100%;width:100px;"></div>');
 	    }
 
 	    $('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'}).appendTo($('#ttx-panels-scene'));
 	    
 	    // add a panel around the room
 	    if ($("#ttx-panels-room").length===0){
-	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;top:auto;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
+	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="left:'+settings.panels.room.left+'px;position:'+(settings.panels.room.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.room.height+';top:'+settings.panels.room.top+'px;width:'+(settings.panels.room.width === 'auto' ? PANEL_WIDTH : settings.panels.room.width)+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs")
 	    .find('.tab-icon').css('background-position','1px -15px');
 	    
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
-	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;z-index:3;margin-left:5px;overflow:hidden;float:left;height:100%;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="left:'+settings.panels.queue.left+'px;position:'+(settings.panels.queue.type==='docked' ? 'relative':'absolute')+';margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.queue.height+';top:'+settings.panels.queue.top+'px;width:'+(settings.panels.queue.width === 'auto' ? PANEL_WIDTH : settings.panels.queue.width)+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
 	    $('#playlist-container')
@@ -1099,41 +1392,9 @@ window.TTX = null;
 
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
-	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:20px"><h2 style="font-size:20px">−</h2></div>'));
-	    $('.ttx-minimize').mousedown(function(e){
-			e.preventDefault();
-			e.stopPropagation();
-			var panel = $(this).parents('.ttx-panel');
-			var panelIndex = panel.index();
-
-			var panelName = _panels.dock[panelIndex];
-
-			// add panel entry to the dock
-			$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(dockMaximize));
-			settings.panels[_panels.dock[panelIndex]].hidden = true;
-			settings.panels[_panels.dock[panelIndex]].index = 4;
-		
-			if(panelName === 'chat'){
-				$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
-			}
-			else{
-				$('#ttx-panels-'+panelName).addClass('hidden').detach().appendTo($('.roomView'));
-			}
-			$(window).resize();
-			_panels.hidden.push(_panels.dock[panelIndex]);
-			_panels.dock.splice(panelIndex,1);
-			
-			if (_panels.hidden.length === 0){
-				$('.ttx-dock-count').css('color','#000');
-				$('#ttx-dock-menu').css('visibility','hidden');
-			}
-			else{
-				$('.ttx-dock-count').css('color','#F0D438');
-				$('#ttx-dock-menu').css('visibility','visible');
-			}
-			$('.ttx-dock-count').text(_panels.hidden.length);
-			saveSettings();
-		});
+	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:22px"><h2 class="ttx-controls-dock" style="margin-right:5px;font-size:22px;">▴</h2><h2 class="ttx-controls-minimize" style="font-size:22px">–</h2></div>'));
+	    $('.ttx-controls-minimize').click(onPanelMinimize);
+	    $('.ttx-controls-dock').click(onPanelDock);
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
 	    'cursor': 'pointer',
@@ -1141,91 +1402,56 @@ window.TTX = null;
 	    .find('h2').css('color','#323232');
 
 	   
-	    if ( _panels.hidden.indexOf('chat') > -1){
+	    if ( settings.panels.chat.hidden ){
 	    	rightPanel.addClass('hidden');
 	    }
-	    if ( _panels.hidden.indexOf('room') > -1){
+	    if ( settings.panels.chat.type === 'float' ){
+	    	rightPanel.addClass('float');
+	    }
+	    if ( settings.panels.room.hidden){
 	    	$('#ttx-panels-room').addClass('hidden');
-		
             }
-	    if ( _panels.hidden.indexOf('queue') > -1){
+            if ( settings.panels.room.type === 'float'){
+            	$('#ttx-panels-room').addClass('float');
+            }
+	    if (settings.panels.queue.hidden){
 	 	$('#ttx-panels-queue').addClass('hidden');
+	    }
+	    if (settings.panels.queue.type === 'float'){
+	    	$('#ttx-panels-queue').addClass('float');	
 	    }
 	    if ($('#ttx-panels').length === 0){
 		var panels = $('<div id="ttx-panels" style="position:absolute;left:0px;right:0px;top:65px;bottom:35px;overflow:hidden;"/>');
 		rightPanel.before(panels);
 		panels = $('#ttx-panels');
-		
+		var floating_panels = $('.roomView');
 		$('.ttx-panel').each(function(){
 				$(this).mousedown(function(){
-					$(this).parent().find('.ttx-panel').removeClass('ttx-panel-focus');
-					$(this).addClass('ttx-panel-focus');
-				}).mouseup(function(){
-				
+					$(this).parent().parent().find('.ttx-panel').removeClass('ttx-panel-focus');
+					if ($(this).attr('id') !== 'ttx-panels-scene')
+						$(this).addClass('ttx-panel-focus');
 				});
-				if(!$(this).hasClass('hidden')){
-					$(this).appendTo(panels);	
+			
+				if($(this).hasClass('float')){ // add to floating panels
+					$(this).resizable(floatingPanelResizable).draggable(floatingPanelDraggable);
+					$(this).appendTo(floating_panels);
+				}
+				else{
+					$(this).resizable(dockedPanelResizable);	
 				}
 		});
-		for (var i=0; i<_panels.dock.length; i++){
-			if(_panels.dock[i] == 'chat'){
-				$('#right-panel').appendTo(panels);
+		for (var i=0;i<_panels.dock.length;i++){
+			var target, name = _panels.dock[i];
+			if (name === 'chat'){
+				target = $('#right-panel');
 			}
 			else{
-				$('#ttx-panels-'+_panels.dock[i]).appendTo(panels);
+				target = $('#ttx-panels-'+name);
 			}
+			target.appendTo(panels);
 		}
-	    	var dragOptions = {stack:'.ttx-panel',distance:10,handle:'.floating-panel-tab',revert:true,revertDuration:'100ms',stop:function(event,ui){	
-		}};
-	    	//$('#ttx-panels').sortable({forceHelperSize:true,helper:'clone',tolerance:'pointer',zIndex:9999,handle:'.floating-panel-tab',placeholder:'placeholder'}).sortable("enable");
-		$('.ttx-panel').not('#ttx-panels-scene').draggable(dragOptions);
-		$('.ttx-panel').droppable({tolerance:'pointer',accept:'.ttx-panel',over:function(event,ui){
-			var dragID = ui.draggable.attr('id');
-			var dropID = $(this).attr('id');
-			var dragIndex = ui.draggable.index();
-			var dropIndex = $(this).index();
-			var activePanels = $(this).parent().children().length;
-			var delta = dragIndex - dropIndex;
-			var t; // temp
-			if (delta > 0){
-				// move left
-				ui.draggable.data('draggable').offset.click.left -= $(this).width();
-				$(this).before(ui.draggable.detach());
-				
-				t = _panels.dock[dragIndex];
-				for(var i=dragIndex;i>dropIndex;i--){
-					_panels.dock[i] = _panels.dock[i-1];
-				}
-				_panels.dock[dropIndex] = t;
-				// 0 1 2 3, 3 dragged to 1 drop, new order: 0 3 1 2   
-				
-			}
-			else if(delta < 0){
-				ui.draggable.data('draggable').offset.click.left += $(this).width();
-				$(this).after(ui.draggable.detach());
-				t = _panels.dock[dragIndex];
-				for (var i=dragIndex;i<dropIndex;i++){
-					_panels.dock[i] = _panels.dock[i+1]
-				}
-				_panels.dock[dropIndex] = t;
-				// 0 1 2 3, 1 dragged to 3, new order 0 2 3 1
-			}
-			for(var i=0;i<_panels.dock.length;i++){
-					settings.panels[_panels.dock[i]].index = i; 
-				}
-			if (dragID === 'right-panel' || dropID === 'right-panel'){
-				scrollChat();
-			}
-			
-			saveSettings();
-		},out:function(event,ui){
-
-		}});
-	
+		$('#ttx-panels').sortable({ update:onPanelStop, sort:onPanelMove, appendTo:document.body,revert:100,placeholder:'placeholder',tolerance:'intersect',scroll:false,handle:'.floating-panel-tab',start:function(event,ui){ var width = ui.helper.width(); $(this).find('.placeholder').width(width); },stop:onPanelReorder});
 	    }
-	    
-	 
-
 	}
 	function addAdvancedSettings(){
 	    var advancedSettings = $('#ttx-advanced');
@@ -1238,7 +1464,7 @@ window.TTX = null;
 	    }
 	    $('#layout-option').remove();
 	}
-	// add a lptop settings item
+	// add a laptop settings item
 	function addLaptopSettings(){
 		
 		/*
