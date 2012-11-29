@@ -807,14 +807,13 @@ window.TTX = null;
 
 		// add panel entry to the dock
 		$('#ttx-dock-menu').append($('<li class="option">'+panelName+'</li>').click(onPanelMaximize));
-		
-		if (panelName in _panels.dock){ // dock panel
-		
-			_panels.dock.splice(panel.index(),1);
-		}
-		else{ // float panel
+		var fixDock = false;
+		if (panelName in _panels.float){ // float panel
 			
 			delete _panels.float[panelName];
+		}
+		else{
+			fixDock = true;
 		}
 		if(panelName === 'chat'){
 			$('#right-panel').addClass('hidden').detach().appendTo($('.roomView'));
@@ -832,7 +831,19 @@ window.TTX = null;
 				hiddens += 1;
 			}
 		}
-		
+		if (fixDock){
+			_panels.dock = [];
+			$('#ttx-panels').each(function(){
+				var name;
+				if ($(this).attr('id')==='right-panel'){
+					name = 'chat';
+				}
+				else{
+					name = $(this).attr('id').replace('ttx-panels-','');
+				}
+				_panels.dock.push(name);
+			});
+		}
 	
 		$('.ttx-dock-count').css('color','#F0D438');
 		$('#ttx-dock-menu').css('visibility','visible');
