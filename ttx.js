@@ -962,7 +962,25 @@ window.TTX = null;
 	}
 	
 	function onPanelStop(event,ui){
-		if (ui.offset.top > 0.25 * $('#ttx-panels').height() && ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
+		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
+			if (ui.offset.top <= 0.25 * $('#ttx-panels').height()){
+				log('dock -> float bug');
+				ui.item.css({'height':'100%','position':'relative','top':'0px','left':'0px'}).prependTo($('#ttx-panels'));
+				_panels.dock = [];
+				$('#ttx-panels .ttx-panel').each(function(){
+					var name;
+					if ($(this).attr('id')==='right-panel'){
+						name = 'chat';
+					}
+					else{
+						name = $(this).attr('id').replace('ttx-panels-','');
+					}
+					_panels.dock.push(name);
+					settings.panels[name].index = $(this).index();
+				});
+				saveSettings();
+				return;
+			}
 			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable(floatingPanelDraggable).resizable('destroy').resizable(floatingPanelResizable);
 			var id = ui.item.attr('id');
 			var name;
