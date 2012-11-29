@@ -820,8 +820,9 @@ window.TTX = null;
 			settings.panels[_panels.dock[panelIndex]].hidden = true;
 		}
 		else{ // float panel
-			delete _panels.float[panelName];
+			
 			settings.panels[_panels.float[panelName]].hidden = true;
+			delete _panels.float[panelName];
 		}
 		_panels.hidden[panelName] = 1;
 		var hiddens = 0;
