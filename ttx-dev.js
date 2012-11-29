@@ -1106,8 +1106,7 @@ window.TTX = null;
 				settings.panels[name].index = _panels.dock.length;
 				var child = $('#ttx-panels').children().last();
 				child.after(panel.detach());
-				log(panel);
-				log(child);
+				log('index: ' + index);
 			}
 			else { // put it in place and increment the others
 				container.find('.ttx-panel').each(function(){
