@@ -299,8 +299,8 @@ window.TTX = null;
 			lstore.set('ttx-settings', settings);
 		} else {
 			// merge config with defaults to ensure no missing params
-			//settings = $.extend(true, {}, defaultSettings, settings);
-			settings = defaultSettings;
+			settings = $.extend(true, {}, defaultSettings, settings);
+			//settings = defaultSettings;
 			saveSettings();
 		}
 
@@ -897,7 +897,7 @@ window.TTX = null;
 		$(window).resize();
 	}
 	function onPanelMove(event,ui){
-		if (ui.offset.top > 0.3 * $('#ttx-panels').height()){
+		if (ui.offset.top > 0.25 * $('#ttx-panels').height()){
 			ui.helper.data('originalHeight',ui.helper.height());
 			ui.helper.css('height','300px');
 			var placeholder = $(this).find('.placeholder');
