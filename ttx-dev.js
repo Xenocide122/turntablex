@@ -1101,28 +1101,29 @@ window.TTX = null;
 		if (type === 'docked'){
 			container = '#ttx-panels';
 			var index = settings.panels[name].index;
-			log(index);
+
 			if (index >= _panels.dock.length){ // append to the end
 				settings.panels[name].index = _panels.dock.length;
+				panel.appendTo($(container));
 			}
 			else { // put it in place and increment the others
 				$(container).find('.ttx-panel').each(function(){
-					var name;
+					var panel_name;
 					if ($(this).attr('id')==='right-panel'){
-						name = 'chat';
+						panel_name = 'chat';
 					}
 					else{
-						name = $(this).attr('id').replace('ttx-panels-','');
+						panel_name = $(this).attr('id').replace('ttx-panels-','');
 					}
 					var my_index = $(this).index();
 					if (my_index === index){
 						$(this).before(panel.detach());
-						my_index += 1; // incremenet by 1
+						my_index += 1; // incremenet by 1 
 					}
 					settings.panels[name].index = my_index;
 				});
 			}
-			panel.removeClass('hidden').appendTo($(container)).mousedown().mouseup();
+			panel.removeClass('hidden').mousedown().mouseup();
 			
 			// refresh the dock
 			_panels.dock = [];
