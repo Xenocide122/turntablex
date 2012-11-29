@@ -876,7 +876,7 @@ window.TTX = null;
 			}	
 			
 			settings.panels[name].type = 'float';
-			settings.panels[name].height = '300';
+			settings.panels[name].height = '300px';
 			settings.panels[name].width = ui.item.width();
 			saveSettings();
 		}
@@ -1255,7 +1255,7 @@ window.TTX = null;
 	    $('.ttx-dock-count').text(hiddens);
 
 		// fix up chat
-	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:'100%',marginLeft:'5px',width:PANEL_WIDTH+'px',left:'auto',float:'left',position:'relative',marginRight:'0px'}).addClass('ttx-panel');
+	    var rightPanel = $('#right-panel').css({right:'auto',top:'0px',bottom:'0px',height:settings.panels.chat.height,marginLeft:'5px',width:(settings.panels.chat.width === 'auto' ? PANEL_WIDTH : settings.panels.chat.width)+'px',left:'auto',float:'left',position:'relative',marginRight:'0px'}).addClass('ttx-panel');
 	    $('#chat-input').css({width:'auto',right:'5px'});
 	    $('.chat-container').addClass('selected').css({width:'100%'}).unbind('click')
 	    .find('.tab-icon').css('background-position','0px 0px');
@@ -1271,14 +1271,14 @@ window.TTX = null;
 	    
 	    // add a panel around the room
 	    if ($("#ttx-panels-room").length===0){
-	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;margin-left:5px;overflow:hidden;float:left;height:100%;top:auto;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
+	    	 rightPanel.before('<div id="ttx-panels-room" class="ttx-panel" style="position:relative;margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.room.height+';top:auto;width:'+(settings.panels.room.width === 'auto' ? PANEL_WIDTH : settings.panels.room.width)+'px;"><ul id="ttx-panels-room-tabs"></ul></div>');
 	    }
 	    $('#room-info-container').css({width:'100%'}).addClass('selected').appendTo("#ttx-panels-room-tabs")
 	    .find('.tab-icon').css('background-position','1px -15px');
 	    
 	    // add a panel around the queue
 	    if ($("#ttx-panels-queue").length===0){
-	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;margin-left:5px;overflow:hidden;float:left;height:100%;width:'+PANEL_WIDTH+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
+	    	 $('#right-panel').before('<div id="ttx-panels-queue" class="ttx-panel" style="position:relative;margin-left:5px;overflow:hidden;float:left;height:'+settings.panels.queue.height+';width:'+(settings.panels.queue.width === 'auto' ? PANEL_WIDTH : settings.panels.queue.width)+'px;"><ul id="ttx-panels-queue-tabs"></ul></div>');
 	    }
 	    $('#playlist-container').css({width:'100%'}).addClass('selected').appendTo('#ttx-panels-queue-tabs');
 	    $('#playlist-container')
