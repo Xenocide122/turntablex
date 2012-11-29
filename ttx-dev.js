@@ -1101,12 +1101,10 @@ window.TTX = null;
 		if (type === 'docked'){
 			container = $('#ttx-panels');
 			var index = settings.panels[name].index;
-			log('index: ' + index);
 			if (index >= _panels.dock.length){ // append to the end
 				
-				var child = $('#ttx-panels').children().last();
-				child.after(panel.detach());
-				
+				$('#ttx-panels').children().last().after(panel.detach());
+				log('detaching panel!');
 				settings.panels[name].index = _panels.dock.length;
 			}
 			else { // put it in place and increment the others
@@ -1128,7 +1126,7 @@ window.TTX = null;
 				});
 			}
 			panel.removeClass('hidden').mousedown().mouseup();
-			log(panel);
+
 			// refresh the dock
 			_panels.dock = [];
 			$('#ttx-panels > *').each(function(){
