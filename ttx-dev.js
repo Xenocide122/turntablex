@@ -863,7 +863,7 @@ window.TTX = null;
 	
 	function onPanelStop(event,ui){
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
-			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable(floatingPanelDraggable).resizable('destroy').resizable(floatinPanelResizable);
+			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable(floatingPanelDraggable).resizable('destroy').resizable(floatingPanelResizable);
 			var id = ui.item.attr('id');
 			var name;
 			if (id === 'right-panel'){
