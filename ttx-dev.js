@@ -918,8 +918,8 @@ window.TTX = null;
 		else{
 			name = id.replace('ttx-panels-','');
 		}
-		settings.panels[name].top = ui.offset.top;
-		settings.panels[name].left = ui.offset.left;
+		settings.panels[name].top = ui.position.top;
+		settings.panels[name].left = ui.position.left;
 		saveSettings();
 	}
 	function onFloatingPanelResize(event,ui){ 
@@ -985,6 +985,7 @@ window.TTX = null;
 		
 		$(window).resize();
 	}
+	// during dock sort
 	function onPanelMove(event,ui){
 		if (ui.offset.top > 0.25 * $('#ttx-panels').height()){
 			ui.helper.data('originalHeight',ui.helper.height());
