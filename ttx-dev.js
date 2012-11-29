@@ -1104,11 +1104,11 @@ window.TTX = null;
 
 			if (index >= _panels.dock.length){ // append to the end
 				settings.panels[name].index = _panels.dock.length;
-				panel.appendTo($('#ttx-panels'));
-				log('max');
+				panel.appendTo(container);
+
 			}
 			else { // put it in place and increment the others
-				$(container).find('.ttx-panel').each(function(){
+				container.find('.ttx-panel').each(function(){
 					var panel_name;
 					if ($(this).attr('id')==='right-panel'){
 						panel_name = 'chat';
