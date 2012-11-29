@@ -1120,7 +1120,7 @@ window.TTX = null;
 						$(this).before(panel.detach());
 						my_index += 1; // incremenet by 1 
 					}
-					settings.panels[name].index = my_index;
+					settings.panels[panel_name].index = my_index;
 				});
 			}
 			panel.removeClass('hidden').mousedown().mouseup();
