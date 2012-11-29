@@ -1115,7 +1115,7 @@ window.TTX = null;
 					}
 					var my_index = $(this).index();
 					if (my_index === index){
-						panel.before($(this).detach());
+						$(this).before(panel.detach());
 						my_index += 1; // incremenet by 1
 					}
 					settings.panels[name].index = my_index;
