@@ -800,6 +800,9 @@ window.TTX = null;
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
+	function onPanelDock(e){
+		
+	}
 	function onPanelMinimize(e){
 		e.preventDefault();
 		e.stopPropagation();
@@ -1343,7 +1346,8 @@ window.TTX = null;
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
 	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:22px"><h2 class="ttx-controls-dock" style="margin-right:5px;font-size:22px;">▴</h2><h2 class="ttx-controls-minimize" style="font-size:22px">–</h2></div>'));
-	    $('.ttx-controls-minimize').mousedown(onPanelMinimize);
+	    $('.ttx-controls-minimize').click(onPanelMinimize);
+	    $('.ttx-controls-dock').click(onPanelDock);
 	    tabs.css({'box-shadow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.25),inset 0 -1px 0 0 #222',
 	    'background': '-moz-linear-gradient(top,#999 0,#777 100%)',
 	    'cursor': 'pointer',
