@@ -857,9 +857,11 @@ window.TTX = null;
 		$('.ttx-dock-count').text(hiddens);
 		saveSettings();
 	}
+	var floatingPanelDraggable = {handle:'.floating-panel-tab'};
+	var floatingPanelResizable = {minWidth:PANEL_WIDTH,minHeight:PANEL_WIDTH,handles:'n, e, w, s, ne, sw, se, nw'};
 	function onPanelStop(event,ui){
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
-			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable({handle:'.floating-panel-tab'}).resizable('destroy').resizable({minWidth:PANEL_WIDTH,minHeight:PANEL_WIDTH,handles:'n, e, w, s, ne, sw, se, nw'});
+			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable(floatingPanelDraggable).resizable('destroy').resizable(floatinPanelResizable);
 			var id = ui.item.attr('id');
 			var name;
 			if (id === 'right-panel'){
@@ -1337,7 +1339,7 @@ window.TTX = null;
 				
 				if(!$(this).hasClass('hidden')){
 					if($(this).hasClass('float')){ // add to floating
-						$(this).appendTo(floating_panels);
+						$(this).appendTo(floating_panels).resizable(floatingPanelResizable).draggable(floatingPanelDraggable);
 					}
 					else{
 						$(this).appendTo(panels);	
