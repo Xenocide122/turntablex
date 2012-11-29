@@ -800,8 +800,48 @@ window.TTX = null;
 		$('#ttx-panels-scene').css({width: sceneWidth+'px'});
 		$('#scene').css({width:'1468px',height:'100%',left:'auto',right:'50%',top:'50%',marginTop:'-300px',marginLeft:'0px',marginRight:'-734px'})
 	}
+	// docking a floating panel back into the dock
 	function onPanelDock(e){
+		var panelName, panel = $(this).parents('.ttx-panel');
+		if(panel.attr('id') === 'right-panel'){
+			panelName = 'chat';
+		}
+		else{
+			panelName = panel.attr('id').replace('ttx-panels-','');
+		}
+		panel.removeClass('float').css({'height':'100%','position':'relative','top':'0px','bottom':'0px','left':'0px','right':'0px'});
 		
+		// fix settings
+		settings.panels[panelName].type = 'docked'
+		settings.panels[panelName].height = '100%'
+		settings.panels[panelName].left = 0
+		settings.panels[panelName].right = 0
+		
+		// push it into the dock
+		var stop = false;
+		$('#ttx-panels .ttx-panel').each(function(){
+			if (!stop && $(this).offset().left < panel.offset().left){
+				$(this).before(panel.detach());
+				stop = true;	
+			} 	
+		});
+		
+		
+		// remove from float manager
+		delete _panels.float[panelName];
+		// reset dock manager
+		_panels.dock = [];
+		$('#ttx-panels .ttx-panel').each(function(){
+			var name;
+			if ($(this).attr('id')==='right-panel'){
+				name = 'chat';
+			}
+			else{
+				name = $(this).attr('id').replace('ttx-panels-','');
+			}
+			_panels.dock.push(name);
+		});
+		saveSettings();
 	}
 	function onPanelMinimize(e){
 		e.preventDefault();
