@@ -1104,7 +1104,8 @@ window.TTX = null;
 
 			if (index >= _panels.dock.length){ // append to the end
 				settings.panels[name].index = _panels.dock.length;
-				panel.appendTo(container);
+				panel.appendTo($('#ttx-panels'));
+				log('max');
 			}
 			else { // put it in place and increment the others
 				$(container).find('.ttx-panel').each(function(){
