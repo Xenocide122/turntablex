@@ -1105,7 +1105,21 @@ window.TTX = null;
 				settings.panels[name].index = _panels.dock.length;
 			}
 			else { // put it in place and increment the others
-				
+				container.find('.ttx-panel').each(function(){
+					var name;
+					if ($(this).attr('id')==='right-panel'){
+						name = 'chat';
+					}
+					else{
+						name = $(this).attr('id').replace('ttx-panels-','');
+					}
+					var my_index = $(this).index();
+					if (my_index === index){
+						panel.before($(this).detach());
+						my_index += 1; // incremenet by 1
+					}
+					settings.panels[name].index = my_index;
+				});
 			}
 			panel.removeClass('hidden').appendTo($(container)).mousedown().mouseup();
 			
