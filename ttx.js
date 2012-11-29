@@ -919,7 +919,13 @@ window.TTX = null;
 		else{
 			name = id.replace('ttx-panels-','');
 		}
-		settings.panels[name].top = ui.position.top;
+		if (ui.position.top < 70){
+			settings.panels[name].top = ui.position.top;
+		}
+		else{
+			settings.panels[name].top = 70;
+			$(this).css('top','70px');
+		}
 		settings.panels[name].left = ui.position.left;
 		saveSettings();
 	}
@@ -935,6 +941,10 @@ window.TTX = null;
 		settings.panels[name].width = ui.size.width;
 		settings.panels[name].height = ui.size.height + 'px';
 		settings.panels[name].top = $(this).offset().top;
+		if (settings.panels[name].top < 70){
+			settings.panels[name].top = 70;
+			$(this).css('top','70px');
+		}
 		settings.panels[name].left = $(this).offset().left;
 		saveSettings();
 	}
