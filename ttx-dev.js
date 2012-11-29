@@ -1105,7 +1105,7 @@ window.TTX = null;
 				settings.panels[name].index = _panels.dock.length;
 			}
 			else { // put it in place and increment the others
-				container.find('.ttx-panel').each(function(){
+				$(container).find('.ttx-panel').each(function(){
 					var name;
 					if ($(this).attr('id')==='right-panel'){
 						name = 'chat';
