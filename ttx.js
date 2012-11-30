@@ -536,7 +536,9 @@ window.TTX = null;
 		if ($element.hasClass('message')){
 			// add a timer
 			var now = new Date();
-			$('<div class="ttx-chat-timer" style="position: absolute; top: 5px; right: 5px; height:12px; z-index:5; color: #aaa; font-size: 12px">'+format_time(now)+'</div>').appendTo($element);
+			if ($(this).find('.avatar').length){
+				$('<div class="ttx-chat-timer" style="position: absolute; top: 5px; right: 5px; height:12px; z-index:5; color: #aaa; font-size: 12px">'+format_time(now)+'</div>').appendTo($element);
+			}
 			var messages = $element.parent();
 			var scrollHeight = messages.prop('scrollHeight');
 			var height = messages.height();
