@@ -1574,11 +1574,10 @@ window.TTX = null;
         function initializeUI(){
 	   if (updateTimer){
 	   	clearTimeout(updateTimer);
-	   	updateTimer = null;
 	   }
-	   else{
-	   	updateTimer = setInterval(function(){updateGuests();},1000);
-	   }
+
+	   updateTimer = setInterval(function(){updateGuests();},1000);
+
 	   addWidescreen(); // make it widescreen
 	   addPanels(); // create the room/info panels
 	   addAdvancedSettings(); // create the advanced settings menu entry
