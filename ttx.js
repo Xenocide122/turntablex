@@ -360,7 +360,8 @@ window.TTX = null;
         }
 
 	// called every time there is a song change
-	function resetSong(){
+	function resetSong(e){
+		log(e);
 		_currentSong = {};
 		_currentSong.title = _room.currentSong.metadata.song;
 		_currentSong.artist = _room.currentSong.metadata.artist;
@@ -742,7 +743,7 @@ window.TTX = null;
 		resetDJs();
 	}
 	function onNewSong(e){
-		resetSong();
+		resetSong(e);
 		autoVote(e);
 	}
         function onMessage(e){
