@@ -526,6 +526,9 @@ window.TTX = null;
 				messages.scrollTop(scrollHeight);
 			}
 		}
+		else if ($element.hasClass('guestOptionsContainer')){
+			log('option');
+		}
 		// hook to display custom modals
 		else if ($element.hasClass('modalContainer') ){
 			if (_modalHijack.type === 'settings'){
