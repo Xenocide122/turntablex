@@ -527,7 +527,9 @@ window.TTX = null;
 			}
 		}
 		else if ($element.hasClass('guestOptionsContainer')){
-			$('<a class="guestOption option" href="#">View Stats</a>').appendTo($element);
+			var statsOption = $('<a class="guestOption option" href="#">View Stats</a>').appendTo($element);
+			
+			$element.css('height',$element.height()+statsOption.height());
 		}
 		// hook to display custom modals
 		else if ($element.hasClass('modalContainer') ){
