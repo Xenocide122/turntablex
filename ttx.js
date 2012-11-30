@@ -515,10 +515,27 @@ window.TTX = null;
 		var messages= $('#chat .messages');
 		messages.scrollTop(messages.prop('scrollHeight'));
 	}
+	function format_time(t){
+		var hh = t.getHours();
+		var mm = t.getMinutes();
+		var ss = t.getSeconds();
+		var pm = 'AM';
+		// This line gives you 12-hour (not 24) time
+		if (hh > 12) { pm = 'PM'; hh = hh - 12;}
+		// These lines ensure you have two-digits
+		if (hh < 10) {hh = "0"+hh;}
+		if (mm < 10) {mm = "0"+mm;}
+		if (ss < 10) {ss = "0"+ss;}
+		// This formats your string to HH:MM:SS
+		return hh+":"+mm+":"+ss+' '+pm;
+	}
 	function onDOM(e){
 		var $element = $(e.target);
 		
 		if ($element.hasClass('message')){
+			// add a timer
+			var now = new Date();
+			$('<div class="ttx-chat-timer" style="position: absolute; top: 0px; right: 5px; line-height:12; color: #aaa; font-size: 12px">'+format_time(now)+'</div>').appendTo($(this));
 			var messages = $element.parent();
 			var scrollHeight = messages.prop('scrollHeight');
 			var height = messages.height();
