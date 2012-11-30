@@ -810,7 +810,7 @@ window.TTX = null;
 		else{
 			panelName = panel.attr('id').replace('ttx-panels-','');
 		}
-		panel.removeClass('float').draggable('destroy').resizable('destroy').resizable(dockedPanelResizable).css({'height':'100%','position':'relative','top':'0px','bottom':'0px','left':'0px','right':'0px'});
+		panel.removeClass('float').draggable('destroy').resizable('destroy').resizable(dockedPanelResizable).css({'height':'100%','position':'relative','top':'0px','bottom':'0px','left':'0px','right':'0px','z-index','3'});
 		
 		// fix settings
 		settings.panels[panelName].type = 'docked';
