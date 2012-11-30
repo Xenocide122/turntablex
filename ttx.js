@@ -527,9 +527,9 @@ window.TTX = null;
 			}
 		}
 		else if ($element.hasClass('guestOptionsContainer')){
-			
+			log($element.parent());
 			$('<a class="guestOption option" href="#">View Stats</a>').click(function(){
-				log($(this).closest('.guest'));	
+				
 			}).appendTo($element.find('.options'));
 			
 		}
