@@ -522,6 +522,7 @@ window.TTX = null;
 		var pm = 'AM';
 		// This line gives you 12-hour (not 24) time
 		if (hh > 12) { pm = 'PM'; hh = hh - 12;}
+		if (hh === 0) { hh = 12; }
 		// These lines ensure you have two-digits
 		if (hh < 10) {hh = "0"+hh;}
 		if (mm < 10) {mm = "0"+mm;}
@@ -535,7 +536,7 @@ window.TTX = null;
 		if ($element.hasClass('message')){
 			// add a timer
 			var now = new Date();
-			$('<div class="ttx-chat-timer" style="position: absolute; top: 0px; right: 5px; line-height:12; color: #aaa; font-size: 12px">'+format_time(now)+'</div>').appendTo($element);
+			$('<div class="ttx-chat-timer" style="position: absolute; top: 0px; right: 5px; height:12px; line-height:12; color: #aaa; font-size: 12px">'+format_time(now)+'</div>').appendTo($element);
 			var messages = $element.parent();
 			var scrollHeight = messages.prop('scrollHeight');
 			var height = messages.height();
