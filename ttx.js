@@ -1544,10 +1544,16 @@ window.TTX = null;
 		var chatContainer = $('.messages');
 		$('<div class="message"><div class="avatar" style="background-image: url('+image+');"></div><div class="speaker" style="display:inline-block">'+speaker+'</div><div class="afterSpeaker" style="display:inline-block; margin-left:5px">'+afterSpeaker+'</div><div class="textContainer">' + content + '</div></div>').appendTo(chatContainer);
 	}
-
+	var updateTimer = null;
 	// perform graphical manipulation
         function initializeUI(){
-
+	   if (updateTimer){
+	   	clearTimeout(updateTimer);
+	   	updateTimer = null;
+	   }
+	   else{
+	   	updateTimer = setInterval(function(){updateGuests();},1000);
+	   }
 	   addWidescreen(); // make it widescreen
 	   addPanels(); // create the room/info panels
 	   addAdvancedSettings(); // create the advanced settings menu entry
