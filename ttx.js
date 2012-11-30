@@ -528,7 +528,9 @@ window.TTX = null;
 		}
 		else if ($element.hasClass('guestOptionsContainer')){
 			
-			var statsOption = $('<a class="guestOption option" href="#">View Stats</a>').appendTo($element.find('.options'));
+			$('<a class="guestOption option" href="#">View Stats</a>').click(function(){
+				log($(this).closest('.guest'));	
+			}).appendTo($element.find('.options'));
 			
 		}
 		// hook to display custom modals
