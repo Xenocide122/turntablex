@@ -363,18 +363,18 @@ window.TTX = null;
 	function resetSong(e){
 		log(e);
 		_currentSong = {};
-		_currentSong.title = _room.currentSong.metadata.song;
-		_currentSong.artist = _room.currentSong.metadata.artist;
+		_currentSong.title = e.room.current_song.metadata.song;
+		_currentSong.artist = e.room.current_song.metadata.artist;
 		_upvoters = {};
-		for (var i = 0; i < _room.upvoters.length; i++){
-			_upvoters[_room.upvoters[i]] = 1;
+		for (var i = 0; i < e.room.votelog.length; i++){
+			_upvoters[e.room.votelog[i]] = 1;
 		}
 		_downvoters = {};
 		_hearts = {};
-		_currentSong.upvotes = _room.upvoters.length;
+		_currentSong.upvotes = e.room.votelog.length;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
-		_currentSong.dj = _room.currentSong.djid;
+		_currentSong.dj = e.room.current_song.djid;
 
 	}
 	// called every time there is a DJ change
