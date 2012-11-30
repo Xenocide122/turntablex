@@ -527,6 +527,7 @@ window.TTX = null;
 			}
 		}
 		else if ($element.hasClass('guestOptionsContainer')){
+			log($element);
 			var statsOption = $('<a class="guestOption option" href="#">View Stats</a>').appendTo($element);
 			
 			$element.css('height',$element.height()+statsOption.height());
