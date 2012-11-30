@@ -527,7 +527,7 @@ window.TTX = null;
 			}
 		}
 		else if ($element.hasClass('guestOptionsContainer')){
-			log('option');
+			log($element);
 		}
 		// hook to display custom modals
 		else if ($element.hasClass('modalContainer') ){
