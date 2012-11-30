@@ -527,16 +527,10 @@ window.TTX = null;
 			}
 		}
 		else if ($element.hasClass('guestOptionsContainer')){
-			setTimeout(function(){log($element.parent().html());},200);
-			$('<a class="guestOption option" href="#">View Stats</a>').click(function(){
-				log($(this).closest('.guestOptions').data('id'));
-				log($(this).closest('.guestOptionsContainer').data('id'));
-				$(this).parent().find('.guestOption').each(function(){
-					log($(this).data('userid'));
-					log($(this).data('id'));
-					log($(this).data('user'));
-				});
-			}).appendTo($element.find('.options'));
+			
+			//$('<a class="guestOption option" href="#">View Stats</a>').click(function(){
+			//	
+			//}).appendTo($element.find('.options'));
 			
 		}
 		// hook to display custom modals
