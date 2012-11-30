@@ -527,10 +527,10 @@ window.TTX = null;
 			}
 		}
 		else if ($element.hasClass('guestOptionsContainer')){
-			log($element.parent().html());
-			$('<a class="guestOption option" href="#">View Stats</a>').click(function(){
+			setTimeout(function(){log($element.parent().html());},200);
+			/*$('<a class="guestOption option" href="#">View Stats</a>').click(function(){
 				
-			}).appendTo($element.find('.options'));
+			}).appendTo($element.find('.options'));*/
 			
 		}
 		// hook to display custom modals
