@@ -1713,8 +1713,14 @@ window.TTX = null;
             		laptopDivs += '<li class="option ttx-menu-item' + (i === selected ? ' selected' : '') + '"><span class="ttx-menu-name">' + i + '</span><div class="ttx-menu-edit">edit</div></li>';
             	}
             	var content = laptopDivs+'<li class="ttx-menu-item option special add" style="text-align:center;">New Laptop</li>';
-            	if ( $('#ttx-laptop-menu').length === 0){
-            		$('#volume-control').before('<ul class="floating-menu down" id="ttx-laptop-menu" style="left:170px">'+content+'</ul>');
+            	if ( $('#ttx-laptop-menu-container').length === 0){
+            		$('#volume-control').before('<ul class="header-well-buttons" id="ttx-laptop-menu-container">\
+            						<li class="dropdown-container">\
+            							<div class="header-well-button" id="ttx-laptop-menu-button"/>\
+            							<ul class="floating-menu down" id="ttx-laptop-menu" style="left:170px">'+content+'</ul>\
+            						</li>\
+            					     </ul>');
+            						
             	}
             	else{
             		$('#ttx-laptop-menu').html(content);
