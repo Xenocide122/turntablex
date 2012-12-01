@@ -1523,18 +1523,31 @@ window.TTX = null;
 	    }
 	    $('#layout-option').remove();
 	}
+	var laptopMenuHover = null;
 	// add a laptop settings item
 	function addLaptopSettings(){
 		
 		
-            if ($('#ttx-laptop-menu').length === 0){
+            if ($('#ttx-laptop-menu-container').length === 0){
 		updateLaptops();
-            	$('#ttx-laptop-menu').bind('mouseover',function(){
-	    		$(this).children().addClass('hover');
-	    	});
-	    	$('#ttx-laptop-menu').bind('mouseout',function(){
-	    		$(this).children().removeClass('hover');	
-	    	});
+	    	
+	    	$('#ttx-laptop-menu-container').mouseover(function(){
+			if (laptopMenuHover){
+				clearTimeout(laptopMenuHover);
+				laptopMenuHover = null;
+			}
+			$(this).addClass('hover');
+		}).mouseout(function(){
+			var self = $(this);
+			laptopMenuHover = setTimeout(function(){ self.removeClass('hover'); },600);
+		});
+		
+		$('.header-well-buttons').not('#ttx-laptop-menu-container').mouseover(function(){
+			if (laptopMenuHover){
+				clearTimeout(laptopMenuHover);
+			}	
+			$('#ttx-laptop-menu-container').removeClass('hover');
+		});
             	$(document).on('mouseover','#ttx-laptop-menu .ttx-menu-item',function(){
             		$(this).children().addClass('hover');
             	});
