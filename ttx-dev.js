@@ -1717,7 +1717,7 @@ window.TTX = null;
             		$('#volume-control').before('<ul class="header-well-buttons" id="ttx-laptop-menu-container">\
             						<li class="dropdown-container">\
             							<div class="header-well-button" id="ttx-laptop-menu-button"/>\
-            							<ul class="floating-menu down" id="ttx-laptop-menu" style="left:170px">'+content+'</ul>\
+            							<ul class="floating-menu down" id="ttx-laptop-menu">'+content+'</ul>\
             						</li>\
             					     </ul>');
             						
