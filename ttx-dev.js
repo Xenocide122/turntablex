@@ -628,12 +628,14 @@ window.TTX = null;
 								   </div>');
 			
 				$('#ttx-laptop-preview').click(function(){
-					if (newLaptopAnimation.type === 'custom'){
-						saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
-						newLaptopAnimation.selected = 1;
-						renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
-						frameCounter.text('Frame ' + newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
-						previewStickers();
+					if (previewTimer === null){
+						if (newLaptopAnimation.type === 'custom'){
+							saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
+							newLaptopAnimation.selected = 1;
+							renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
+							frameCounter.text('Frame ' + newLaptopAnimation.selected +' of '+newLaptopAnimation.frames.length);
+							previewStickers();
+						}
 					}
 				});
 				$('#ttx-laptop-save').click(function(){
@@ -1722,12 +1724,13 @@ window.TTX = null;
         }
 	
 	var newLaptopAnimation = {};
-	
+	var previewTimer = null;
 	function previewStickers(){
 		if (newLaptopAnimation.selected === newLaptopAnimation.frames.length){ // stop
+			previewTimer = null;
 			return;
 		}
-		setTimeout(function(){ $('#ttx-laptop-scroll-right').click(); previewStickers(); },newLaptopAnimation.speed);
+		previewTimer = setTimeout(function(){ $('#ttx-laptop-scroll-right').click(); previewStickers(); },newLaptopAnimation.speed);
 		
 	}
 	function saveStickers(laptop,animation,selected){
