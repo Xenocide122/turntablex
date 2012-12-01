@@ -1537,6 +1537,7 @@ window.TTX = null;
 				laptopMenuHover = null;
 			}
 			$(this).addClass('hover');
+			$('.header-well-buttons').not('#ttx-laptop-menu-container').find('.dropdown-container').removeClass('hover').find('.header-well-dropdown').hide();
 		}).mouseout(function(){
 			var self = $(this);
 			laptopMenuHover = setTimeout(function(){ self.removeClass('hover'); },600);
