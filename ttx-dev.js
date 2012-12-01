@@ -360,20 +360,21 @@ window.TTX = null;
         }
 
 	// called every time there is a song change
-	function resetSong(){
+	function resetSong(e){
+		log(e);
 		_currentSong = {};
-		_currentSong.title = _room.currentSong.metadata.song;
-		_currentSong.artist = _room.currentSong.metadata.artist;
+		_currentSong.title = e.room.metadata.current_song.metadata.song;
+		_currentSong.artist = e.room.metadata.current_song.metadata.artist;
 		_upvoters = {};
-		for (var i = 0; i < _room.upvoters.length; i++){
-			_upvoters[_room.upvoters[i]] = 1;
+		for (var i = 0; i < e.room.metadata.votelog.length; i++){
+			_upvoters[e.room.metadata.votelog[i]] = 1;
 		}
 		_downvoters = {};
 		_hearts = {};
-		_currentSong.upvotes = _room.upvoters.length;
+		_currentSong.upvotes = e.room.metadata.votelog.length;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
-		_currentSong.dj = _room.currentSong.djid;
+		_currentSong.dj = e.room.metadata.current_song.djid;
 
 	}
 	// called every time there is a DJ change
@@ -514,16 +515,43 @@ window.TTX = null;
 		var messages= $('#chat .messages');
 		messages.scrollTop(messages.prop('scrollHeight'));
 	}
+	function format_time(t){
+		var hh = t.getHours();
+		var mm = t.getMinutes();
+		var ss = t.getSeconds();
+		var pm = 'AM';
+		// This line gives you 12-hour (not 24) time
+		if (hh > 12) { pm = 'PM'; hh = hh - 12;}
+		if (hh === 0) { hh = 12; }
+		// These lines ensure you have two-digits
+		if (hh < 10) {hh = "0"+hh;}
+		if (mm < 10) {mm = "0"+mm;}
+		if (ss < 10) {ss = "0"+ss;}
+		// This formats your string to HH:MM:SS
+		return hh+":"+mm+":"+ss+' '+pm;
+	}
 	function onDOM(e){
 		var $element = $(e.target);
 		
 		if ($element.hasClass('message')){
+			// add a timer
+			var now = new Date();
+			if ($element.find('.avatar').length > 0){
+				$('<div class="ttx-chat-timer" style="position: absolute; top: 5px; right: 5px; height:12px; z-index:5; color: #aaa; font-size: 12px">'+format_time(now)+'</div>').appendTo($element);
+			}
 			var messages = $element.parent();
 			var scrollHeight = messages.prop('scrollHeight');
 			var height = messages.height();
 			if (scrollHeight - messages.scrollTop() - height < 100){
 				messages.scrollTop(scrollHeight);
 			}
+		}
+		else if ($element.hasClass('guestOptionsContainer')){
+			
+			//$('<a class="guestOption option" href="#">View Stats</a>').click(function(){
+			//	
+			//}).appendTo($element.find('.options'));
+			
 		}
 		// hook to display custom modals
 		else if ($element.hasClass('modalContainer') ){
@@ -742,7 +770,7 @@ window.TTX = null;
 		resetDJs();
 	}
 	function onNewSong(e){
-		resetSong();
+		resetSong(e);
 		autoVote(e);
 	}
         function onMessage(e){
@@ -809,7 +837,7 @@ window.TTX = null;
 		else{
 			panelName = panel.attr('id').replace('ttx-panels-','');
 		}
-		panel.removeClass('float').draggable('destroy').resizable('destroy').resizable(dockedPanelResizable).css({'height':'100%','position':'relative','top':'0px','bottom':'0px','left':'0px','right':'0px'});
+		panel.removeClass('float').draggable('destroy').resizable('destroy').resizable(dockedPanelResizable).css({'height':'100%','position':'relative','top':'0px','bottom':'0px','left':'0px','right':'0px','z-index':'3'});
 		
 		// fix settings
 		settings.panels[panelName].type = 'docked';
@@ -919,7 +947,13 @@ window.TTX = null;
 		else{
 			name = id.replace('ttx-panels-','');
 		}
-		settings.panels[name].top = ui.position.top;
+		if (ui.position.top >= 65){
+			settings.panels[name].top = ui.position.top;
+		}
+		else{
+			settings.panels[name].top = 65;
+			$(this).css('top','65px');
+		}
 		settings.panels[name].left = ui.position.left;
 		saveSettings();
 	}
@@ -935,6 +969,10 @@ window.TTX = null;
 		settings.panels[name].width = ui.size.width;
 		settings.panels[name].height = ui.size.height + 'px';
 		settings.panels[name].top = $(this).offset().top;
+		if (settings.panels[name].top < 65){
+			settings.panels[name].top = 65;
+			$(this).css('top','65px');
+		}
 		settings.panels[name].left = $(this).offset().left;
 		saveSettings();
 	}
@@ -953,6 +991,24 @@ window.TTX = null;
 	
 	function onPanelStop(event,ui){
 		if (ui.item.parent().attr('id') !== 'ttx-panels'){ // dock -> floating
+			if (ui.offset.top <= 0.25 * $('#ttx-panels').height()){
+				log('dock -> float bug');
+				ui.item.css({'height':'100%','position':'relative','top':'0px','left':'0px'}).prependTo($('#ttx-panels'));
+				_panels.dock = [];
+				$('#ttx-panels .ttx-panel').each(function(){
+					var name;
+					if ($(this).attr('id')==='right-panel'){
+						name = 'chat';
+					}
+					else{
+						name = $(this).attr('id').replace('ttx-panels-','');
+					}
+					_panels.dock.push(name);
+					settings.panels[name].index = $(this).index();
+				});
+				saveSettings();
+				return;
+			}
 			ui.item.addClass('float').css({top:ui.placeholder.css('top'),left:ui.placeholder.css('left'),position:'absolute',width:ui.placeholder.width()+'px',height:'300px'}).draggable(floatingPanelDraggable).resizable('destroy').resizable(floatingPanelResizable);
 			var id = ui.item.attr('id');
 			var name;
@@ -1114,7 +1170,7 @@ window.TTX = null;
 						idle.html(idleText);
 					}
 					else{
-						$name.after('<div class="guestIdle" style="position: absolute; bottom: 0px; right: 5px; width: 50px; height: 24px; line-height: 24px; color: #bbb; overflow: hidden; text-align: right">' + idleText + '</div>');
+						$name.after('<div class="guestIdle" style="position: absolute; bottom: 0px; right: 25px; width: 50px; height: 24px; line-height: 24px; color: #aaa; overflow: hidden; text-align: right">' + idleText + '</div>');
 					}
 					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
@@ -1392,6 +1448,7 @@ window.TTX = null;
 
 	    
 	    var tabs = $('.floating-panel-tab').removeClass('left-divider').css({'background': '-webkit-linear-gradient(top,#999 0,#777 100%)','border-top-left-radius':'5px','border-top-right-radius':'5px',width:'100%'});
+	    
 	    tabs.append($('<div class="ttx-minimize" style="position:absolute;line-height:30px;right:10px;top:0px;height:22px"><h2 class="ttx-controls-dock" style="margin-right:5px;font-size:22px;">▴</h2><h2 class="ttx-controls-minimize" style="font-size:22px">–</h2></div>'));
 	    $('.ttx-controls-minimize').click(onPanelMinimize);
 	    $('.ttx-controls-dock').click(onPanelDock);
@@ -1515,9 +1572,14 @@ window.TTX = null;
 		var chatContainer = $('.messages');
 		$('<div class="message"><div class="avatar" style="background-image: url('+image+');"></div><div class="speaker" style="display:inline-block">'+speaker+'</div><div class="afterSpeaker" style="display:inline-block; margin-left:5px">'+afterSpeaker+'</div><div class="textContainer">' + content + '</div></div>').appendTo(chatContainer);
 	}
-
+	var updateTimer = null;
 	// perform graphical manipulation
         function initializeUI(){
+	   if (updateTimer){
+	   	clearTimeout(updateTimer);
+	   }
+
+	   updateTimer = setInterval(function(){updateGuests();},1000);
 
 	   addWidescreen(); // make it widescreen
 	   addPanels(); // create the room/info panels
