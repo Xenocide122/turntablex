@@ -1524,7 +1524,7 @@ window.TTX = null;
 	// add a laptop settings item
 	function addLaptopSettings(){
 		
-		/*
+		
             if ($('#ttx_laptopMenu').length === 0){
 		updateLaptops();
             	$('#ttx_laptopMenu').bind('mouseover',function(){
@@ -1563,7 +1563,7 @@ window.TTX = null;
             }
             else{
             	updateLaptops();
-            }*/
+            }
 	}
 	// add a message to the chat	
 	function addChatMessage(image,speaker,afterSpeaker,content){
@@ -1714,7 +1714,7 @@ window.TTX = null;
             	}
             	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'<div class="ttxMenuItem add" style="text-align:center;">New Laptop</div>';
             	if ( $('#ttx_laptopMenu').length === 0){
-            		$('#menuh').after('<div id="ttx_laptopMenu" style="left:170px">'+content+'</div>');
+            		$('#volume-control').before('<div id="ttx_laptopMenu" style="left:170px">'+content+'</div>');
             	}
             	else{
             		$('#ttx_laptopMenu').html(content);
