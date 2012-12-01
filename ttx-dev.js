@@ -1710,11 +1710,11 @@ window.TTX = null;
             	var selected = settings.laptop.stickers.selected;
             	var laptopDivs = '';
             	for (var i in laptops){
-            		laptopDivs += '<div class="ttxMenuItem' + (i === selected ? ' selected' : '') + '"><span class="ttxMenuName">' + i + '</span><div class="ttxMenuEdit">edit</div></div>';
+            		laptopDivs += '<li class="option ttxMenuItem' + (i === selected ? ' selected' : '') + '"><span class="ttxMenuName">' + i + '</span><div class="ttxMenuEdit">edit</div></li>';
             	}
-            	var content = '<div class="ttxMenuItem first"><div class="ttxMenuImage"/><div class="ttxMenuText">Animated Laptop</div><div class="ttxMenuArrow"></div></div>'+laptopDivs+'<div class="ttxMenuItem add" style="text-align:center;">New Laptop</div>';
+            	var content = laptopDivs+'<li class="ttxMenuItem option add" style="text-align:center;">New Laptop</li>';
             	if ( $('#ttx_laptopMenu').length === 0){
-            		$('#volume-control').before('<div id="ttx_laptopMenu" style="left:170px">'+content+'</div>');
+            		$('#volume-control').before('<ul class="floating-menu down" id="ttx_laptopMenu" style="left:170px">'+content+'</ul>');
             	}
             	else{
             		$('#ttx_laptopMenu').html(content);
