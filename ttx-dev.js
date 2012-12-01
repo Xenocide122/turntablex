@@ -1556,9 +1556,7 @@ window.TTX = null;
             			_turntable.sticker.showEditor();
             			return;
             		}
-            		if ($(this).hasClass('first')){
-            			return; // don't do anything
-            		}
+
             		$(this).parent().children().removeClass('selected');
             		$(this).addClass('selected');
             	});
