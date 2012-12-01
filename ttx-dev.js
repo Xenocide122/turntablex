@@ -603,7 +603,7 @@ window.TTX = null;
 				var boundingBox = laptop.find('.boundingBox');
 				// add general laptop settings
 				laptop.before('<div id="ttx-laptop-settings" style="width:100%; padding-bottom:10px">\
-						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttx-laptop-mame" type="text" value="'+newLaptopAnimation.name+'"/></div>\
+						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttx-laptop-name" type="text" value="'+newLaptopAnimation.name+'"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Speed:</div><div style="display: inline-block; width:320px; height: 10px;" id="ttx-laptop-speed"/></div>\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Animation:</div><input name="ttx-laptop-animation" style="margin-right:5px" type="radio" value="text" '+(newLaptopAnimation.type === 'text' ? 'checked':'')+'/>text<input name="ttx-laptop-animation" type="radio" style="margin-left:12px; margin-right:5px" value="custom" '+(newLaptopAnimation.type === 'custom' ? 'checked':'')+'/>custom</div>\
 						</div>');
