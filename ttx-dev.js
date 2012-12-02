@@ -1625,8 +1625,8 @@ window.TTX = null;
             		_modalHijack.type = 'laptop';
             		_modalHijack.action = 'edit';
             		_modalHijack.index = $(this).parent().find('.ttx-menu-name').text();
-            		if (settings.laptop.animations[_modalHijack.index]){
-            			settings.laptop.animations[_modalHijack.index].name = _modalHijack.index;
+            		if (settings.laptop.stickers.animations[_modalHijack.index]){
+            			settings.laptop.stickers.animations[_modalHijack.index].name = _modalHijack.index;
             			_turntable.sticker.showEditor();
             		}
             		else{
