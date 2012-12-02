@@ -1160,6 +1160,7 @@ window.TTX = null;
 					if (now - _idleTimers[user_id] > IDLE_MAX){
 						$this.find('.guest-avatar').css('-webkit-filter','grayscale(100%)');
 						extrasClass = extrasClass + ' isIdle';
+						idles += 1;
 					}
 					else{
 						$this.find('.guest-avatar').css('-webkit-filter','grayscale(0%)');
