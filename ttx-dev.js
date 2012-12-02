@@ -1185,7 +1185,7 @@ window.TTX = null;
 					
 					var guestList = $('#guest-list');
 					guestList.find('.title').css({'text-align':'right','margin-right':'10px'});
-					$('<span id="ttx-afk-users"> (' + idles + ' AFK)</span>').after('#totalUsers');
+					$('<span id="ttx-afk-users"> (' + idles + ' AFK)</span>').after($('#totalUsers'));
 				}
 				else{
 					$('#ttx-afk-users').text(' (' + idles + ' AFK)');
