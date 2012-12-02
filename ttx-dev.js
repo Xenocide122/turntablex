@@ -813,9 +813,11 @@ window.TTX = null;
 	}
 	function onRemoveDJ(e){
 		resetDJs();
+		log(e):
 	}
 	function onAddDJ(e){
 		resetDJs();
+		log(e);
 	}
 	function onNewSong(e){
 		resetSong(e);
@@ -1813,7 +1815,7 @@ window.TTX = null;
 
 // LAPTOP
 	var animateLaptopFrame = 0; // index of current frame
-	var animateLaptopSpeed = 500; // how fast to change frames
+	var animateLaptopSpeed = 600; // how fast to change frames
 	var animateLaptopTimer = null;
 	
 	// called every time we should reset animation
@@ -1826,7 +1828,7 @@ window.TTX = null;
 			clearTimeout(animateLaptopTimer);
 			animateLaptopTimer = null;
 		}
-		if (animation && animation.type === 'custom'){
+		if (animation && animation.type === 'custom' && isDJ(_id)){
 			// create a timer to update the laptop
 			animateLaptopTimer = setInterval(function(){
 				updateLaptopStickers(animation.frames[animateLaptopFrame]);
