@@ -783,6 +783,7 @@ window.TTX = null;
     		return;
 	    }
 	    log('Command: ' + e.command);
+	    
 	    if (e.command == 'rem_dj') {
 		onRemoveDJ(e); // reset djs
 	    } else if (e.command == 'add_dj') {
@@ -796,6 +797,7 @@ window.TTX = null;
 		onVote(e);
 		updateHeader(); // reflect vote change in header
 	    } else if (e.command == 'update_user') {
+	    	log(e);
 	    }
 	    else if (e.command == 'registered') {
 		if( _location !== window.location.pathname ){ // room change
