@@ -1272,7 +1272,7 @@ window.TTX = null;
 		$('#ttx-stats-downvotes').text(_currentSong.downvotes);
 		$('#ttx-stats-fans').text(_currentSong.fans);
 		$('#ttx-stats-title').text(_currentSong.title);
-		$('#ttx-stats-artist').text('by: '_currentSong.artist);
+		$('#ttx-stats-artist').text('by: ' +_currentSong.artist);
 	
 	}
 	function updatePanels(){
