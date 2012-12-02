@@ -714,9 +714,9 @@ window.TTX = null;
 		}
 	}
 	function onFan(e){
-		if (e.userid === _currentSong.djid){
+		if (e.userid === _currentSong.dj){
 			_currentSong.fans += e.fans;
-			updateHeader();
+			
 		}
 	}
 	function onVote(e){
@@ -804,6 +804,7 @@ window.TTX = null;
 		updateHeader(); // reflect vote change in header
 	    } else if (e.command == 'update_user') {
 	    	onFan(e);
+	    	updateHeader();
 	    }
 	    else if (e.command == 'registered') {
 		if( _location !== window.location.pathname ){ // room change
