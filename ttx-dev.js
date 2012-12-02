@@ -598,6 +598,9 @@ window.TTX = null;
 					$element.find('.title').text('Edit Your Laptop');
 				}
 				newLaptopAnimation.selected = 1;
+				if (original){ // render the old stickers
+					renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
+				}
 				_modalHijack.type = '';
 				
 				// save important elements
