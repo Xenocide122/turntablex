@@ -622,7 +622,14 @@ window.TTX = null;
 					$element.find('.buttons').hide(); // hide the default save button
 				}
 				else{
-					
+					// make it a delete button
+					$element.find('.buttons .submit').unbind('click').text('Delete').bind('click',function(){
+						var answer = confirm('Are you sure you want to delete laptop ' + original.name +'?');
+						if (answer){
+							delete settings.laptop.animations[original.name];
+							saveSettings();
+						}
+					});
 				}
 				// add laptop text settings
 				picker.before('<div id="ttx-laptop-text-settings" style="display:none; margin-bottom:10px; width:100%; padding-top:10px;">\
