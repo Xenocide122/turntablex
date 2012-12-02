@@ -629,7 +629,9 @@ window.TTX = null;
 									<button id="ttx-laptop-preview" style="position:relative; top:0px;right:0px;" class="ttx-submit">Preview</button>\
 									<button id="ttx-laptop-save" style="position:relative; top:0px;right:0px;" class="submit">Save</button>\
 								   </div>');
-			
+				if (newLaptopAnimation.type==='text'){
+					$('#ttx-laptop-text-settings').show();
+				}
 				$('#ttx-laptop-preview').click(function(){
 					if (previewTimer === null){
 						if (newLaptopAnimation.type === 'custom'){
