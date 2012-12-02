@@ -627,6 +627,8 @@ window.TTX = null;
 						var answer = confirm('Are you sure you want to delete laptop ' + original.name +'?');
 						if (answer){
 							delete settings.laptop.animations[original.name];
+							$element.find('.close-x').click();
+							updateLaptops();
 							saveSettings();
 						}
 					});
