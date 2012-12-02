@@ -1354,7 +1354,7 @@ window.TTX = null;
 			$('#ttx-dock-menu').css('visibility','hidden');
 		}
 		else{
-			$('#ttx-dock').addClass('empty');
+			$('#ttx-dock').removeClass('empty');
 			$('#ttx-dock-menu').css('visibility','visible');
 		}
 		$('.ttx-dock-count').text(hiddens);
