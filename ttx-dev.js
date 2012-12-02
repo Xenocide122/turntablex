@@ -847,17 +847,25 @@ window.TTX = null;
 		_idleTimers[e.userid] = now;
 	}
 	function onRemoveDJ(e){
-		resetDJs();
+		
+		
 		if (e.user[0].userid === _id){
-			animateLaptop();
+			if (animateLaptopTimer){
+				clearTimeout(animateLaptopTimer);
+				animateLaptopTimer = null;
+			}
 		}
-		// try to grab the spot
-		autoDJ();
+		else{
+			autoDJ(); // try to DJ
+		}
+		resetDJs();
+
+		
 	}
 	function onAddDJ(e){
 		resetDJs();
 		if (e.user[0].userid === _id){
-			animateLaptop();
+			animateLaptop(); // start animating 
 		}
 	}
 	function onNewSong(e){
@@ -1763,7 +1771,6 @@ window.TTX = null;
 			autoVoteTimer = setTimeout(function() {
 
 				// retrieve room and song data
-				var song_id = _currentSong.id;
 
 				// need some safety measures
 				var f = $.sha1(_room.roomId + 'up' + song_id);
