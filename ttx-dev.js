@@ -1095,7 +1095,7 @@ window.TTX = null;
 		// update guest list (UI)
 	var guestsTimer = null;
 	function updateGuests(){
-		if (typeof guestsTimer == "number") {
+		if (guestsTimer !== null) {
 			clearTimeout(guestsTimer);
 			guestsTimer = null;
 		}
@@ -1109,6 +1109,7 @@ window.TTX = null;
 			var guest_container = $('.guest-list-container .guests');
 			var guests = $('.guest-list-container .guest');
 			var hasBuddies = false;
+			var idles = 0;
 			guests.each(function() {
 				var $this = $(this);
 				var $name = $this.find('.guestName');
@@ -1177,11 +1178,24 @@ window.TTX = null;
 					$this.removeClass('isDJ isMod isSuper isUpvoter isDownvoter isHearter isIdle isCurrentDJ').addClass(extrasClass);
 				}
 			});
+			
+			if (idles >= 0){
+				
+				if ($('#ttx-afk-users').length === 0){
+					
+					var guestList = $('#guest-list');
+					guestList.find('.title').css({'text-align':'right','margin-right':'10px'});
+					$('<span id="ttx-afk-users"> (' + idles + ' AFK)</span>').after('#totalUsers');
+				}
+				else{
+					$('#ttx-afk-users').text(' (' + idles + ' AFK)');
+				}
+			}
 			//guests.filter('.isDownvoter').prependTo(guest_container); // then downvoters
 			//guests.filter('.isUpvoter').prependTo(guest_container); // then upvoters
 			//guests.filter('.isHearter').prependTo(guest_container); // then hearters
 			
-			guests.filter('.isIdle').appendTo(guest_container); 
+			//guests.filter('.isIdle').appendTo(guest_container); 
 			
 			//$('.guest-list-container .separator').filter(function(x){
 			//	return $(this).find('.text')[0].innerHTML === 'Audience';
