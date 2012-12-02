@@ -17,10 +17,10 @@ window.TTX = null;
 	var PANEL_WIDTH = 265; // default width for a panel
 	var IDLE_MAX = 15*60*1000;
 	var SYMBOLS = {
-		heart: '<img width="14" src="http://turntablex.com/images/heart.png" alt="Queued">',
-		up: '<img width="14" src="http://turntablex.com/images/up.png" alt="Awesomed">',
-		fan: '<img width="14" src="http://static.turntable.fm.s3.amazonaws.com/images/room/fan_icon.png" alt="Fanned">',
-		down: '<img width="14" src="http://turntablex.com/images/down.png" alt="Lamed">',
+		heart: '<img width="14" src="http://turntablex.com/images/heart.png" title="Queued" alt="Queued">',
+		up: '<img width="14" src="http://turntablex.com/images/up.png" title="Awesomed" alt="Awesomed">',
+		fan: '<img width="14" src="http://static.turntable.fm.s3.amazonaws.com/images/room/fan_icon.png" title="Fanned" alt="Fanned">',
+		down: '<img width="14" src="http://turntablex.com/images/down.png" title="Lamed" alt="Lamed">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
 	var ICONS = {
