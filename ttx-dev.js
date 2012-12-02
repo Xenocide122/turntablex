@@ -115,7 +115,7 @@ window.TTX = null;
 
         // global state
 	var self = this;
-	var _premiumIDs = { 4ffc367deb35c125c6000299 : 1 }; // IDs to check against for premium access
+	var _premiumIDs = { '4ffc367deb35c125c6000299' : 1 }; // IDs to check against for premium access
         var _premium = null; // enable premium access
         var _turntable = window.turntable; // handle to the turntable object
         
