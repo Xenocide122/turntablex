@@ -623,7 +623,7 @@ window.TTX = null;
 				}
 				else{
 					// make it a delete button
-					$element.find('.buttons .submit').unbind('click').text('Delete').bind('click',function(){
+					$element.find('.buttons .submit').unbind('click').val('Delete').text('Delete').bind('click',function(){
 						var answer = confirm('Are you sure you want to delete laptop ' + original.name +'?');
 						if (answer){
 							delete settings.laptop.animations[original.name];
