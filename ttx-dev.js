@@ -1625,7 +1625,15 @@ window.TTX = null;
             		_modalHijack.type = 'laptop';
             		_modalHijack.action = 'edit';
             		_modalHijack.index = $(this).parent().find('.ttx-menu-name').text();
-            		_turntable.sticker.showEditor();
+            		if (settings.laptop.animations[_modalHijack.index]){
+            			settings.laptop.animations[_modalHijack.index].name = _modalHijack.index;
+            			_turntable.sticker.showEditor();
+            		}
+            		else{
+            			_modalHijack.type = ''; // clear
+            		}
+            		
+            		
             	});
             	$(document).on('click','#ttx-laptop-menu .ttx-menu-item',function(){
             		if ($(this).hasClass('add')){ // popup laptop dialog
