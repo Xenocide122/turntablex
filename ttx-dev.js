@@ -587,14 +587,14 @@ window.TTX = null;
 					$element.find('.close-x').click();
 				});
 				var content = '<div>\
-						<span style="width: 60px; font-size:14px;">\
+						<span style="display:inline-block; width: 70px; font-size:14px;">\
 							Auto Awesome:\
 					     	</span>\
 					     	<input type="checkbox" id="ttx-settings-autobop" '+ (settings.autoAwesome === true ? 'checked="checked"' : '') + '/>\
 					     </div>';
 				if (_premium){
 					content += '<div>\
-							<span style="width: 60px; font-size: 14px;">\
+							<span style="display: inline-block; width: 60px; font-size: 14px;">\
 								Auto DJ:\
 							</span>\
 						   	<input type="checkbox" id="ttx-settings-autodj" ' + (settings.autoDJ === true ? 'checked="checked"' : '') + '/>\
