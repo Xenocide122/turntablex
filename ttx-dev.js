@@ -19,6 +19,7 @@ window.TTX = null;
 	var SYMBOLS = {
 		heart: '<img width="14" src="http://turntablex.com/images/heart.png">',
 		up: '<img width="14" src="http://turntablex.com/images/up.png">',
+		fan: '<img width="14" src="http://turntablex.com/images/fan.png">',
 		down: '<img width="14" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
@@ -374,6 +375,7 @@ window.TTX = null;
 		_currentSong.upvotes = e.room.metadata.votelog.length;
 		_currentSong.downvotes = 0; // unknown
 		_currentSong.hearts = 0; // unknown
+		_currentSong.fans = 0;
 		_currentSong.dj = e.room.metadata.current_song.djid;
 
 	}
@@ -496,6 +498,7 @@ window.TTX = null;
 		_currentSong.artist = currentSong.metadata.artist;
 		_currentSong.title = currentSong.metadata.song;
 		_currentSong.dj = currentSong.djid;
+		_currentSong.fans = 0;
 		
 		_upvoters = {};
 		_downvoters = {};
@@ -1249,15 +1252,26 @@ window.TTX = null;
 	// update header (UI)
 	function updateHeader(){
 		var header = $('.room .name');
-		var song_bar = header.find('#ttx-songbar');
-		var text = '(' + _currentSong.upvotes + SYMBOLS.up + ','+ _currentSong.downvotes + SYMBOLS.down + ',' + _currentSong.hearts + SYMBOLS.heart + ') ' + _currentSong.title+' by <b>'+_currentSong.artist+'</b>';
-		if (song_bar.length){
-			song_bar.html(text);
+		var stats_bar = header.find('#ttx-stats-bar');
+		if (stats_bar.length === 0){
+			header.html(header.text() + '<div id="ttx-stats-bar">\
+						     	<span class="ttx-stats-count" id="ttx-stats-hearts"></span>'+SYMBOLS.heart+'\
+						     	<span class="ttx-stats-count" id="ttx-stats-upvotes"></span>'+SYMBOLS.up+'\
+						     	<span id="ttx-stats-title"></span>\
+						     	<div id="ttx-stats-bar-sub">\
+						     		<span class="ttx-stats-count" id="ttx-stats-fans"></span>'+SYMBOLS.fan+'\
+						     		<span class="ttx-stats-count" id="ttx-stats-downvotes"></span>'+SYMBOLS.down+'\
+						     		<span id="ttx-stats-artist"></span>\
+						     	</div>\
+						     </div>');
 		}
-		else{
-			header.text(header.text()+': ');
-			$('<span id="ttx-songbar" style="font-size:14px; font-weight:normal">' + text + '</span>').appendTo(header);
-		}
+		$('#ttx-stats-hearts').text(_currentSong.hearts);
+		$('#ttx-stats-upvotes').text(_currentSong.upvotes);
+		$('#ttx-stats-downvotes').text(_currentSong.downvotes);
+		$('#ttx-stats-fans').text(_currentSong.fans);
+		$('#ttx-stats-title').text(_currentSong.title);
+		$('#ttx-stats-artist').text(_currentSong.artist);
+	
 	}
 	function updatePanels(){
            
