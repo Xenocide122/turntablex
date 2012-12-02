@@ -675,10 +675,12 @@ window.TTX = null;
 						alert('Please pick a name for your new laptop!');
 						return;
 					}
-					settings.laptop.stickers.animations[$('#ttx-laptop-name').val()] = newLaptopAnimation;
-					updateLaptops();
-					$element.find('.close-x').click(); // close the modal
+					newLaptopAnimation.name = name;
+					settings.laptop.stickers.animations[name] = newLaptopAnimation;
 					
+					$element.find('.close-x').click(); // close the modal
+					updateLaptops(); // update menu 
+					saveSettings(); // save
 				});
 				if (newLaptopAnimation.type === 'text'){ // hide the custom-only items
 					$('#picker').hide();
@@ -1800,9 +1802,17 @@ window.TTX = null;
 // END UTILITY
 
 // LAPTOP
+	var animateLaptopTimer = null;
+	var currentFrame = 0; // index of current frame
+	
+	// called every time we should change animation
+	function animateLaptop(){
+		
+	}
         function updateLaptops(){
         	var laptops = settings.laptop.stickers.animations;
             	var selected = settings.laptop.stickers.selected;
+            	
             	var laptopDivs = '';
             	for (var i in laptops){
             		laptopDivs += '<li class="option ttx-menu-item' + (i === selected ? ' selected' : '') + '"><span class="ttx-menu-name">' + i + '</span><div class="ttx-menu-edit">edit</div></li>';
