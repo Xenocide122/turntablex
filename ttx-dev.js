@@ -626,9 +626,9 @@ window.TTX = null;
 					var buttons = $element.find('.buttons').css({position:'absolute',top:'15px',right:'15px'});
 					buttons.find('.submit').attr('id','ttx-laptop-delete').removeClass('submit').addClass('ttx-submit');
 				
-					$('#ttx-laptop-delete').text('Delete').bind('click',function(){
+					$('#ttx-laptop-delete').text('Delete').unbind('click').bind('click',function(){
 						var answer = confirm('Are you sure you want to delete laptop ' + original.name +'?');
-						if (answer){
+						if (answer === true){
 							
 							$element.find('.close-x').click();
 							delete settings.laptop.stickers.animations[original.name];
