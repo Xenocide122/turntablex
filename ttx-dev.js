@@ -640,10 +640,10 @@ window.TTX = null;
 				newLaptopAnimation.selected = 1;
 				
 				if (original){ // render the old stickers
-					setTimeout(function(){renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1)},100);
+					setTimeout(function(){renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1)},250);
 				}
 				else{
-					setTimeout(function(){clearStickers(laptopView)},100);
+					setTimeout(function(){clearStickers(laptopView)},250);
 				}
 				_modalHijack.type = '';
 				
