@@ -623,9 +623,9 @@ window.TTX = null;
 				}
 				else{
 					// make it a delete button
-					var buttons = $element.find('.buttons');
+					var buttons = $element.find('.buttons').css({position:'absolute',top:'15px',right:'15px'});
 					buttons.find('.submit').attr('id','ttx-laptop-delete').removeClass('submit').addClass('ttx-submit');
-					//$('<button class="submit" id="ttx-laptop-delete" type="submit">Delete</button>').appendTo(buttons);
+				
 					$('#ttx-laptop-delete').text('Delete').bind('click',function(){
 						var answer = confirm('Are you sure you want to delete laptop ' + original.name +'?');
 						if (answer){
