@@ -576,6 +576,7 @@ window.TTX = null;
 				
 			}
 			else if (_modalHijack.type === 'laptop'){
+				var original = null;
 				if (_modalHijack.action === 'new'){
 					newLaptopAnimation = {
 						name: '',
@@ -592,7 +593,8 @@ window.TTX = null;
 					$element.find('.title').text('Create a New Laptop');
 				}
 				else{ // edit
-					newLaptopAnimation = $.extend(true,{},settings.laptop.stickers.animations[_modalHijack.index]);
+					original = settings.laptop.stickers.animations[_modalHijack.index];
+					newLaptopAnimation = $.extend(true,{},original);
 					$element.find('.title').text('Edit Your Laptop');
 				}
 				newLaptopAnimation.selected = 1;
@@ -616,8 +618,12 @@ window.TTX = null;
 				$('<div id="ttx-laptop-scroll-left" class="inactive"></div>').appendTo(laptop);
 				$('<div id="ttx-laptop-scroll-right"></div>').appendTo(laptop);
 				
-				$element.find('.buttons').hide(); // hide the default save button
-				
+				if (original === null){
+					$element.find('.buttons').hide(); // hide the default save button
+				}
+				else{
+					
+				}
 				// add laptop text settings
 				picker.before('<div id="ttx-laptop-text-settings" style="display:none; margin-bottom:10px; width:100%; padding-top:10px;">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Text:</div><input style="width: 300px; height:10px; position:relative; top: 9px; margin-right:10px" id="ttxLaptopText" type="text" value="'+newLaptopAnimation.text.display+'"/>tick number: <input type="text" id="ttxLaptopTicks" style="width:30px;height:10px;position:relative;top:9px;" value="'+ newLaptopAnimation.text.tick +'"/></div>\
@@ -644,6 +650,13 @@ window.TTX = null;
 					}
 				});
 				$('#ttx-laptop-save').click(function(){
+					var name = $('#ttx-laptop-name').val();
+					if (original && name != original.name){
+						var answer = confirm('You were editing laptop ' + original.name + ', do you really want to save a new laptop instead?');
+						if(!answer){
+							return;
+						}
+					}
 					settings.laptop.stickers.animations[$('#ttx-laptop-name').val()] = newLaptopAnimation;
 					updateLaptops();
 					$element.find('.close-x').click(); // close the modal
