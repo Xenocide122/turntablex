@@ -1812,6 +1812,7 @@ window.TTX = null;
 // LAPTOP
 	var animateLaptopFrame = 0; // index of current frame
 	var animateLaptopSpeed = 500; // how fast to change frames
+	var animateLaptopTimer = null;
 	
 	// called every time we should reset animation
 	function animateLaptop(){
