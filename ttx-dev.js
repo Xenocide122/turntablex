@@ -1963,7 +1963,7 @@ window.TTX = null;
 			}
 			
 		}); // remove all current stickers
-		$('#laptopScreen .boundingBox').hide();
+		setTimeout(function(){$('#laptopScreen .boundingBox').hide()},100);
 	}
 	function renderStickers(laptop,animation,selected){
 		clearStickers(laptop);
