@@ -1810,7 +1810,6 @@ window.TTX = null;
 // END UTILITY
 
 // LAPTOP
-	var animateLaptopTimer = null;
 	var animateLaptopFrame = 0; // index of current frame
 	var animateLaptopSpeed = 500; // how fast to change frames
 	
