@@ -19,7 +19,7 @@ window.TTX = null;
 	var SYMBOLS = {
 		heart: '<img width="14" src="http://turntablex.com/images/heart.png">',
 		up: '<img width="14" src="http://turntablex.com/images/up.png">',
-		fan: '<img width="14" src="http://turntablex.com/images/fan.png">',
+		fan: '<img width="14" src="http://static.turntable.fm.s3.amazonaws.com/images/room/fan_icon.png">',
 		down: '<img width="14" src="http://turntablex.com/images/down.png">',
 		computer: '<img width="15" src="http://turntablex.com/images/computer.png">'
 	};
