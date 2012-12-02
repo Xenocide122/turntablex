@@ -1653,9 +1653,17 @@ window.TTX = null;
             			_turntable.sticker.showEditor();
             			return;
             		}
-
+			var name = $(this).find('.ttx-menu-name').text();
+			
             		$(this).parent().children().removeClass('selected');
             		$(this).addClass('selected');
+            		
+            		if( settings.laptop.stickers.animations[name] ){ // if its a valid animation
+				settings.laptop.stickers.selected = name;
+				saveSettings();
+            			animateLaptop();
+			}
+            		
             	});
             }
             else{
@@ -1803,11 +1811,36 @@ window.TTX = null;
 
 // LAPTOP
 	var animateLaptopTimer = null;
-	var currentFrame = 0; // index of current frame
+	var animateLaptopFrame = 0; // index of current frame
+	var animateLaptopSpeed = 500; // how fast to change frames
 	
-	// called every time we should change animation
+	// called every time we should reset animation
 	function animateLaptop(){
+		var animationName = settings.laptop.stickers.selected;
+		var animation = settings.laptop.stickers.animations[animationName];
+		var animateLaptopFrame = 0;
 		
+		if (animateLaptopTimer){
+			clearTimeout(animateLaptopTimer);
+			animateLaptopTimer = null;
+		}
+		if (animation && animation.type === 'custom'){
+			// create a timer to update the laptop
+			animateLaptopTimer = setInterval(function(){
+				updateLaptopStickers(animation.frames[animateLaptopFrame]);
+				animateLaptopFrame = (animateLaptopFrame + 1) % animation.frames.length; // next frame
+			}, animateLaptopSpeed);
+		}
+	
+	}
+	// use the TT API to set a new laptop
+	function updateLaptopStickers(new_placements){
+		send({
+			api: 'sticker.place',
+			placements: new_placements,
+			is_dj: true,
+			roomid: _room.roomId
+		});
 	}
         function updateLaptops(){
         	var laptops = settings.laptop.stickers.animations;
