@@ -1769,11 +1769,8 @@ window.TTX = null;
 			
 			// cast vote at a random delay
 			autoVoteTimer = setTimeout(function() {
-
-				// retrieve room and song data
-
 				// need some safety measures
-				var f = $.sha1(_room.roomId + 'up' + song_id);
+				var f = $.sha1(_room.roomId + 'up' + _currentSong.id);
 				var d = $.sha1(Math.random() + "");
 				var e = $.sha1(Math.random() + "");
 				
