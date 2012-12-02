@@ -597,18 +597,22 @@ window.TTX = null;
 					newLaptopAnimation = $.extend(true,{},original);
 					$element.find('.title').text('Edit Your Laptop');
 				}
-				newLaptopAnimation.selected = 1;
-				if (original){ // render the old stickers
-					renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
-				}
-				_modalHijack.type = '';
-				
 				// save important elements
 				var laptop = $element.find('#laptop');
 				var frameCounter = $element.find('h3:contains("Your Stickers")');
 				var picker = $element.find('#picker');
 				var laptopView = $element.find('#laptopView');
 				var boundingBox = laptop.find('.boundingBox');
+				
+				// set selected to 1
+				newLaptopAnimation.selected = 1;
+				
+				if (original){ // render the old stickers
+					renderStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1);
+				}
+				_modalHijack.type = '';
+				
+				
 				// add general laptop settings
 				laptop.before('<div id="ttx-laptop-settings" style="width:100%; padding-bottom:10px">\
 						<div><div style="display:inline-block; margin: 8px; width:80px">Name:</div><input style="width: 300px; height:10px; position:relative; top: 9px;" id="ttx-laptop-name" type="text" value="'+newLaptopAnimation.name+'"/></div>\
