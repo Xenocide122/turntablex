@@ -675,6 +675,8 @@ window.TTX = null;
 						alert('Please pick a name for your new laptop!');
 						return;
 					}
+					saveStickers(laptopView,newLaptopAnimation,newLaptopAnimation.selected-1); // save current frame's stickers
+					
 					newLaptopAnimation.name = name;
 					settings.laptop.stickers.animations[name] = newLaptopAnimation;
 					
