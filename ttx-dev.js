@@ -588,7 +588,7 @@ window.TTX = null;
 						settings.autoDJ = false;
 					}
 					saveSettings();
-					$element.find('.close-x').click();
+					$('#overlay').html('').hide();
 				});
 				var content = '<div>\
 						<span style="display:inline-block; width: 100px; font-size:14px;">\
@@ -672,7 +672,8 @@ window.TTX = null;
 						var answer = confirm('Are you sure you want to delete laptop ' + original.name +'?');
 						if (answer === true){
 							
-							$element.find('.close-x').click();
+							//$element.find('.close-x').click();
+							$('#overlay').html('').hide();
 							delete settings.laptop.stickers.animations[original.name];
 							updateLaptops();
 							saveSettings();
@@ -722,7 +723,7 @@ window.TTX = null;
 					newLaptopAnimation.name = name;
 					settings.laptop.stickers.animations[name] = newLaptopAnimation;
 					
-					$element.find('.close-x').click(); // close the modal
+					$('#overlay').html('').hide();
 					updateLaptops(); // update menu 
 					saveSettings(); // save
 				});
