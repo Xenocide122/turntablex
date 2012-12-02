@@ -813,11 +813,15 @@ window.TTX = null;
 	}
 	function onRemoveDJ(e){
 		resetDJs();
-		log(e);
+		if (e.user[0].userid === _id){
+			animateLaptop();
+		}
 	}
 	function onAddDJ(e){
 		resetDJs();
-		log(e);
+		if (e.user[0].userid === _id){
+			animateLaptop();
+		}
 	}
 	function onNewSong(e){
 		resetSong(e);
