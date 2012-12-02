@@ -713,6 +713,12 @@ window.TTX = null;
 			}
 		}
 	}
+	function onFan(e){
+		if (e.userid === _currentSong.djid){
+			_currentSong.fans += e.fans;
+			updateHeader();
+		}
+	}
 	function onVote(e){
 		var data = e.room.metadata.votelog[0];
 		var id = data[0];
@@ -797,7 +803,7 @@ window.TTX = null;
 		onVote(e);
 		updateHeader(); // reflect vote change in header
 	    } else if (e.command == 'update_user') {
-	    	log(e);
+	    	onFan(e);
 	    }
 	    else if (e.command == 'registered') {
 		if( _location !== window.location.pathname ){ // room change
