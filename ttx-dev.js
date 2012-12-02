@@ -813,7 +813,7 @@ window.TTX = null;
 	}
 	function onRemoveDJ(e){
 		resetDJs();
-		log(e):
+		log(e);
 	}
 	function onAddDJ(e){
 		resetDJs();
