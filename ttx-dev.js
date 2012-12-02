@@ -1886,7 +1886,7 @@ window.TTX = null;
 			clearTimeout(animateLaptopTimer);
 			animateLaptopTimer = null;
 		}
-		if (animation && animation.type === 'custom' && isDJ(_id)){
+		if (animation && animation.type === 'custom'){
 			// create a timer to update the laptop
 			animateLaptopTimer = setInterval(function(){
 				updateLaptopStickers(animation.frames[animateLaptopFrame]);
