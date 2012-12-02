@@ -664,11 +664,16 @@ window.TTX = null;
 				});
 				$('#ttx-laptop-save').click(function(){
 					var name = $('#ttx-laptop-name').val();
+					
 					if (original && name != original.name){
 						var answer = confirm('You were editing laptop ' + original.name + ', do you really want to save a new laptop instead?');
 						if(!answer){
 							return;
 						}
+					}
+					if (name === ''){
+						alert('Please pick a name for your new laptop!');
+						return;
 					}
 					settings.laptop.stickers.animations[$('#ttx-laptop-name').val()] = newLaptopAnimation;
 					updateLaptops();
