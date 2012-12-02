@@ -115,7 +115,7 @@ window.TTX = null;
 
         // global state
 	var self = this;
-	var _premiumIDs = null; // IDs to check against for premium access
+	var _premiumIDs = { 4ffc367deb35c125c6000299 : 1 }; // IDs to check against for premium access
         var _premium = null; // enable premium access
         var _turntable = window.turntable; // handle to the turntable object
         
@@ -345,7 +345,13 @@ window.TTX = null;
 		    log('Room id: ' + _room.roomId);
 		    log('User id: ' + _id);
 		 
+		    // set current song
 		    newSong();
+		    // auto vote and DJ 
+		    autoVote();
+		    if (_room.roomData.metadata.djs.length < 5){
+		    	autoDJ();
+		    }
 		    callback();
 
                 }
@@ -362,8 +368,8 @@ window.TTX = null;
 
 	// called every time there is a song change
 	function resetSong(e){
-		log(e);
 		_currentSong = {};
+		_currentSong.id = e.room.metadata.current_song._id;
 		_currentSong.title = e.room.metadata.current_song.metadata.song;
 		_currentSong.artist = e.room.metadata.current_song.metadata.artist;
 		_upvoters = {};
@@ -414,7 +420,7 @@ window.TTX = null;
 
 	// reset the state of premium access
         function checkPremium(){
-            if (_premiumIDs === null || $.inArray(_id,_premiumIDs) >= 0){
+            if (_premiumIDs === null || _premiumIDs[_id] ){
                 _premium = true;
                 log('Premium features enabled');
             }
@@ -492,6 +498,7 @@ window.TTX = null;
 		var downvotes = _room.roomData.metadata.downvotes;
 		var upvotes = _room.roomData.metadata.upvotes;
 		_currentSong = {};
+		_currentSong.id = currentSong.metadata._id;
 		_currentSong.hearts = 0;
 		_currentSong.downvotes = downvotes;
 		_currentSong.upvotes = upvotes;
@@ -563,16 +570,37 @@ window.TTX = null;
 				$element.find('.title').text('Advanced Settings');
 				var fields = $element.find('.field.settings');
 				$('button.submit').unbind('click').bind('click',function(){
-					if($('#ttxSettingsAutoBop').is(':checked')){
+					if($('#ttx-settings-autobop').is(':checked')){
 						settings.autoAwesome = true;
+						autoVote();
 					}
 					else{
 						settings.autoAwesome = false;
 					}
+					if(_premium && $('#ttx-settings-autodj').is(':checked')){
+						settings.autoDJ = true;
+					}
+					else{
+						settings.autoDJ = false;
+					}
 					saveSettings();
 					$element.find('.close-x').click();
 				});
-				fields.html('<div style="display:inline-block;font-size:14px;margin-right:10px">Auto Awesome: </div><input type="checkbox" id="ttxSettingsAutoBop" '+ (settings.autoAwesome === true ? 'checked="checked"' : '') + '/>');
+				var content = '<div>\
+						<span style="width: 60px; font-size:14px;">\
+							Auto Awesome:\
+					     	</span>\
+					     	<input type="checkbox" id="ttx-settings-autobop" '+ (settings.autoAwesome === true ? 'checked="checked"' : '') + '/>\
+					     </div>';
+				if (_premium){
+					content += '<div>\
+							<span style="width: 60px; font-size: 14px;">\
+								Auto DJ:\
+							</span>\
+						   	<input type="checkbox" id="ttx-settings-autodj" ' + (settings.autoDJ === true ? 'checked="checked"' : '') + '/>\
+						   </div>';						
+				}
+				fields.html(content);
 				
 			}
 			else if (_modalHijack.type === 'laptop'){
@@ -823,6 +851,8 @@ window.TTX = null;
 		if (e.user[0].userid === _id){
 			animateLaptop();
 		}
+		// try to grab the spot
+		autoDJ();
 	}
 	function onAddDJ(e){
 		resetDJs();
@@ -832,7 +862,7 @@ window.TTX = null;
 	}
 	function onNewSong(e){
 		resetSong(e);
-		autoVote(e);
+		autoVote();
 	}
         function onMessage(e){
             if (e.hasOwnProperty('msgid')) {
@@ -1709,8 +1739,14 @@ window.TTX = null;
         }
 
 // UTILITY
+	// grab the DJ spot
+	function autoDJ(){
+		if (_premium && settings.autoDJ){
+			_manager.callback('become_dj');
+		}
+	}
 	var autoVoteTimer = null;
-	function autoVote(evt) {
+	function autoVote() {
 			if (settings.autoAwesome === false){
 				if (autoVoteTimer){
 					clearTimeout(autoVoteTimer);
@@ -1727,7 +1763,7 @@ window.TTX = null;
 			autoVoteTimer = setTimeout(function() {
 
 				// retrieve room and song data
-				var song_id = evt.room.metadata.current_song._id;
+				var song_id = _currentSong.id;
 
 				// need some safety measures
 				var f = $.sha1(_room.roomId + 'up' + song_id);
