@@ -138,6 +138,8 @@ window.TTX = null;
 	var _djs = null; // user ids of djs
 
 	// user settings
+	var version = 104;
+	var version_string = '1.0.4';
 	var settings;
 	var defaultSettings = {
 		notifications: {
@@ -187,6 +189,7 @@ window.TTX = null;
 			}
 			
 		},
+		version: version,
 		panels:{
 			
 			'scene':{
@@ -268,7 +271,6 @@ window.TTX = null;
 // END MAIN
 
 // SETTINGS
-
         // get settings from local storage and merge with defaults
 	function loadSettings(){
 		settings = lstore.get('ttx-settings');
@@ -276,13 +278,23 @@ window.TTX = null;
 		if (!settings) {
 			settings = defaultSettings;
 			lstore.set('ttx-settings', settings);
+			showFeatures();
 		} else {
 			// merge config with defaults to ensure no missing params
 			settings = $.extend(true, {}, defaultSettings, settings);
 			//settings = defaultSettings;
+			
+			if (settings.version < version){
+				showFeatures();
+				settings.version = version; // update settings
+			}
 			saveSettings();
 		}
 
+	}
+	function showFeatures(){
+		_modalHijack.type = 'features';
+		$('#settings-dropdown li:contains("Edit my profile")').click();
 	}
 	function saveSettings(){
 		lstore.set('ttx-settings',settings);
@@ -547,6 +559,12 @@ window.TTX = null;
 		}
 		// hook to display custom modals
 		else if ($element.hasClass('modalContainer') ){
+			if (_modalHijack.type === 'features'){
+				_modalHijack.type = '';
+				$element.find('.title').text('Turntable X v'+version_string);
+				var fields = $element.find('.field.settings');
+				fields.html('New Features:');
+			}
 			if (_modalHijack.type === 'settings'){
 				_modalHijack.type = '';
 				$element.find('.title').text('Advanced Settings');
