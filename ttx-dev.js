@@ -1849,7 +1849,7 @@ window.TTX = null;
 	}
 	
         function log(message){
-            if (window.console && settings.debug){
+            if (window.console && (!settings || settings.debug) ){
                 window.console.log(message);
             }
         }
