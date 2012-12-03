@@ -568,6 +568,7 @@ window.TTX = null;
 				$element.find('.title').text('Turntable X v'+version_string);
 				var fields = $element.find('.field.settings');
 				fields.html('New Features:');
+				$element.find('.buttons').hide();
 			}
 			if (_modalHijack.type === 'settings'){
 				_modalHijack.type = '';
