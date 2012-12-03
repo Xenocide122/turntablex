@@ -143,9 +143,9 @@ window.TTX = null;
 	var show_features = true;
 	var new_features = [
 		'<b>Chat timers</b>: timestamps on all messages',
-		'<b>Live idle timers</b>: idle timers are now live, and the number of idle users is displayed in the guest list'
+		'<b>Live idle timers</b>: idle timers are now live, and the number of idle users is displayed in the guest list',
 		'<b>New header</b>: re-designed, now includes current song fans',
-		'<b>Panels</b>: can be dragged left and right as well as down to "undock"',
+		'<b>Panels</b>: can be dragged sideways and also downwards to reposition and undock',
 		'<b>Fixes</b>: @ chat suggestions are now visible, visual ordering bugs'
 	];
 	var new_features_premium = [
