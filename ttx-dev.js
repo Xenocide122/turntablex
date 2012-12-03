@@ -237,32 +237,9 @@ window.TTX = null;
 		laptop: {
 			type: 'default',
 			stickers: {
-				selected: 'Blinking X',
+				selected: '',
 				animations: { //  sticker animations
-					'Blinking X': {
-						name: 'Blinking X',
-						speed: 0,
-						type: 'text',
-						text: {
-							display: ' x ',
-							colors: 'pb',
-							colorEachLetter: true,
-							tick: 3
-						},
-						frames: [[]]
-					},
-					'Custom sample' : {
-						name: 'Custom sample',
-						speed: 500,
-						type: 'custom',
-						text: {
-							display: '',
-							colors: '',
-							colorEachLetter: true,
-							tick: 1
-						},
-						frames: [[]]
-					}
+
 				}
 			}
 		}
