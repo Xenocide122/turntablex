@@ -137,10 +137,23 @@ window.TTX = null;
 	var _hearts = null; // ID of users who <3 the song
 	var _djs = null; // user ids of djs
 
-	// user settings
+	// version settings
 	var version = 105;
 	var version_string = '1.0.5';
 	var show_features = true;
+	var new_features = [
+		'<b>Chat timers</b>: timestamps on all messages',
+		'<b>Live idle timers</b>: idle timers are now live, and the number of idle users is displayed in the guest list'
+		'<b>New header</b>: re-designed, now includes current song fans',
+		'<b>Panels</b>: can be dragged left and right as well as down to "undock"',
+		'<b>Fixes</b>: @ chat suggestions are now visible, visual ordering bugs'
+	];
+	var new_features_premium = [
+		'<b>Laptop Stickers</b>: see the laptop icon in the header',
+		'<b>Auto DJ</b>: will attempt to grab a DJ spot any time one is available or upon entering a room with an empty spot'
+	];
+	
+	// user settings
 	var settings;
 	var defaultSettings = {
 		notifications: {
@@ -565,9 +578,20 @@ window.TTX = null;
 		else if ($element.hasClass('modalContainer') ){
 			if (_modalHijack.type === 'features'){
 				_modalHijack.type = '';
-				$element.find('.title').text('Turntable X v'+version_string);
+				$element.find('.title').text('Turntable X (version '+version_string+')');
 				var fields = $element.find('.field.settings');
-				fields.html('New Features:');
+				var features = '';
+				if (_premium){
+					features += '<p style="margin-top:10px;margin-bottom:10px">New Premium Features</p>';
+					for (var i=0;i<new_features_premium.length;i++){
+						features += '<p style="margin-left:15px">- '+new_features_premium[i]+'</p>';
+					}
+				}
+				for (var i=0;i<new_features.length;i++){
+					features += '<p style="margin-top:10px;margin-bottom:10px">New Features</p>'
+					features += '<p style="margin-left:15px">- '+new_features[i]+'</p>';
+				}
+				fields.html();
 				$element.find('.buttons').hide();
 			}
 			if (_modalHijack.type === 'settings'){
