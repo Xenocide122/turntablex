@@ -591,7 +591,7 @@ window.TTX = null;
 					features += '<p style="margin-top:10px;margin-bottom:10px">New Features</p>'
 					features += '<p style="margin-left:15px">- '+new_features[i]+'</p>';
 				}
-				fields.html();
+				fields.html(features);
 				$element.find('.buttons').hide();
 			}
 			if (_modalHijack.type === 'settings'){
