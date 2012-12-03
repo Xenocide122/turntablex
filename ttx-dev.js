@@ -587,8 +587,9 @@ window.TTX = null;
 						features += '<p style="margin-left:15px">- '+new_features_premium[i]+'</p>';
 					}
 				}
+				features += '<p style="margin-top:10px;margin-bottom:10px">New Features</p>';
 				for (var i=0;i<new_features.length;i++){
-					features += '<p style="margin-top:10px;margin-bottom:10px">New Features</p>'
+					
 					features += '<p style="margin-left:15px">- '+new_features[i]+'</p>';
 				}
 				fields.html(features);
