@@ -140,7 +140,7 @@ window.TTX = null;
 	// version settings
 	var version = 105;
 	var version_string = '1.0.5';
-	var show_features = true;
+	var show_features = false;
 	var new_features = [
 		'<b>Chat timers</b>: timestamps on all messages',
 		'<b>Live idle timers</b>: idle timers are now live, and the number of idle users is displayed in the guest list',
