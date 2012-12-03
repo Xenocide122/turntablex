@@ -138,8 +138,8 @@ window.TTX = null;
 	var _djs = null; // user ids of djs
 
 	// user settings
-	var version = 104;
-	var version_string = '1.0.4';
+	var version = 105;
+	var version_string = '1.0.5';
 	var settings;
 	var defaultSettings = {
 		notifications: {
