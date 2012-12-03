@@ -234,6 +234,7 @@ window.TTX = null;
 		},
 		autoDJ: false,
 		autoAwesome: false,
+		debug: false,
 		laptop: {
 			type: 'default',
 			stickers: {
@@ -558,6 +559,13 @@ window.TTX = null;
 					else{
 						settings.autoAwesome = false;
 					}
+					if($('#ttx-settings-debug').is(':checked')){
+						settings.debug = true;
+					}
+					else{
+						settings.debug = false;
+					}
+					
 					if(_premium && $('#ttx-settings-autodj').is(':checked')){
 						settings.autoDJ = true;
 					}
@@ -568,6 +576,12 @@ window.TTX = null;
 					$('#overlay').html('').hide();
 				});
 				var content = '<div>\
+						<span style="display:inline-block; width: 100px; font-size:14px;">\
+							Debug Mode:\
+					     	</span>\
+					     	<input type="checkbox" id="ttx-settings-debug" '+ (settings.debug === true ? 'checked="checked"' : '') + '/>\
+					     </div>\
+				             <div>\
 						<span style="display:inline-block; width: 100px; font-size:14px;">\
 							Auto Awesome:\
 					     	</span>\
@@ -1835,7 +1849,7 @@ window.TTX = null;
 	}
 	
         function log(message){
-            if (window.console){
+            if (window.console && settings.debug){
                 window.console.log(message);
             }
         }
