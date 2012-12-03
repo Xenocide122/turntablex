@@ -140,6 +140,7 @@ window.TTX = null;
 	// user settings
 	var version = 105;
 	var version_string = '1.0.5';
+	var show_features = true;
 	var settings;
 	var defaultSettings = {
 		notifications: {
@@ -258,6 +259,9 @@ window.TTX = null;
 	
 	// reset the room
         resetRoom(function(){
+            if (show_features){
+            	showFeatures();
+            }
 	    checkPremium(); // check premium status
 	    initializeUI(); // initialize UI elements
 	    resetMods(); // new mods
@@ -278,14 +282,14 @@ window.TTX = null;
 		if (!settings) {
 			settings = defaultSettings;
 			lstore.set('ttx-settings', settings);
-			showFeatures();
+			show_features = true;
 		} else {
 			// merge config with defaults to ensure no missing params
 			settings = $.extend(true, {}, defaultSettings, settings);
 			//settings = defaultSettings;
 			
 			if (settings.version < version){
-				showFeatures();
+				show_features = true;
 				settings.version = version; // update settings
 			}
 			saveSettings();
